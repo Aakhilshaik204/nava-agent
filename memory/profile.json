@@ -1,0 +1,36 @@
+[
+  {
+    "memory_id": "profile-ai-twin-persona",
+    "tier": "PROFILE",
+    "content": {
+      "name": "User",
+      "role": "Developer / Architect",
+      "preferred_communication_style": "concise, direct, highly technical",
+      "working_hours": "09:00 - 18:00",
+      "timezone": "UTC",
+      "authorized_tool_preferences": [
+        "file.read",
+        "file.write",
+        "code.search"
+      ],
+      "security_constraints": [
+        "No unapproved wire transfers",
+        "No credential exfiltration"
+      ]
+    },
+    "source": "user",
+    "confidence": 1.0,
+    "importance": 1.0,
+    "expiration": null,
+    "sensitivity": "medium",
+    "user_editable": true,
+    "created_at": "2026-08-21T17:41:10.755503",
+    "updated_at": "2026-08-21T17:41:10.755503",
+    "provenance": [
+      "initial_setup"
+    ],
+    "trust_level": "VERIFIED",
+    "approval_state": null,
+    "conflict_state": "NONE"
+  }
+]

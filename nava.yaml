@@ -1,0 +1,109 @@
+# ==============================================================================
+# NAVA Personal Agent OS Configuration & Root Security Ceilings (Blueprint Sec 26)
+# ==============================================================================
+
+root_agent:
+  ceiling_permissions:
+    # Filesystem & Storage
+    - filesystem.write
+    - filesystem.read
+    - data.analyze
+    
+    # DevOps & Execution (shell.execute restricted EXCLUSIVELY to TerminalAgent)
+    - test.run
+    - terminal.execute
+    - shell.execute
+    
+    # Model Context Protocol (MCP) & Integrations
+    - gmail.read
+    - gmail.search
+    - gmail.draft
+    
+    # Web & Browser Automation
+    - browser.navigate
+    - browser.read
+    - browser.click
+    - browser.type
+    - browser.scroll
+    - browser.save_to_scratch
+    
+    # OS Desktop GUI Automation (ComputerAgent)
+    - desktop.read
+    - desktop.click
+    - desktop.type
+    
+    # Skills, Knowledge & System
+    - system.read_skill
+    - system.flag_review
+    - mock.send_wire_transfer
+    - mock.notify_admin
+
+  ceiling_tools:
+    # 1. File & Executive Document Tools
+    - file.read
+    - file.write
+    - file.delete
+    - file.create_pdf
+    - file.create_docx
+    - file.create_pptx
+    
+    # 2. Code & AST Indexing Tools
+    - code.search
+    - code.read_directory_tree
+    - code.diff_review
+    - code.replace_content
+    - code.replace_content_batch
+    - code.find_references
+    
+    # 3. Terminal & DevOps Tools (Restricted strictly to TerminalAgent)
+    - shell.execute
+    - terminal.execute
+    - test.run
+    - git.status
+    - git.diff
+    
+    # 4. Web & Research Tools (BrowserAgent & ResearchAgent)
+    - browser.navigate
+    - browser.extract_dom
+    - browser.extract_text
+    - browser.click
+    - browser.type
+    - browser.scroll
+    - browser.go_back
+    - browser.get_url
+    - browser.save_to_scratch
+    - search.web
+    - memory.semantic_ingest
+    
+    # 5. OS Desktop GUI Tools (ComputerAgent)
+    - desktop.screenshot
+    - desktop.click
+    - desktop.type
+    - desktop.hotkey
+    - desktop.get_screen_size
+    
+    # 6. MCP Protocol & Integrations
+    - gmail.search
+    - gmail.read
+    
+    # 7. System & Governance
+    - system.read_skill
+    - system.flag_review
+    - mock.send_wire_transfer
+    - mock.notify_admin
+
+  ceiling_credentials:
+    - gmail.read
+
+# Global Execution & Resource Budgets (Blueprint Sec 14)
+budget:
+  max_agents: 50
+  max_depth: 10
+  max_steps: 1000
+  max_tokens: 1000000
+
+# User-Configurable Security Feature Switches (Section 13 & 26)
+security_switches:
+  enable_terminal_execution: true    # Set to false to disable all shell/terminal execution
+  enable_desktop_gui_control: true   # Set to false to make ComputerAgent read-only (screenshots only)
+  enable_external_integrations: true # Set to false to block external MCP/Gmail integrations

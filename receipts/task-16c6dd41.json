@@ -1,0 +1,68 @@
+[
+    {
+        "receipt_id": "78dbead7-da45-4b18-b9fe-bafd37b3ffe5",
+        "task_id": "task-16c6dd41",
+        "agent_id": "agt-99c868fe",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-823fe016",
+            "tool_request_id": "req-823fe016",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T12:51:22.864446"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 3672,
+            "_observation": {
+                "pre_snapshot_id": "dc2c71e8-ba87-4382-a719-f431afe9bb60",
+                "pre_resource": "quick_sort.py",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-21T07:21:22.866648"
+    },
+    {
+        "receipt_id": "1a5ad69e-897b-47d5-8266-b757bcd11e81",
+        "task_id": "task-16c6dd41",
+        "agent_id": "agt-99c868fe",
+        "parent_agent_id": "system-root",
+        "tool_name": "test.run",
+        "action_summary": "Executed test.run",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-acb279eb",
+            "tool_request_id": "req-acb279eb",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T12:51:42.734140"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "returncode": 1,
+            "stdout": "Quick Sort Algorithm Demonstration\n========================================\nOriginal Array: [64, 34, 25, 12, 22, 11, 90, 88, 45, 23]\n\nSorted Array (Recursive): [11, 12, 22, 23, 25, 34, 45, 64, 88, 90]\n\nOriginal (Empty): []\nSorted (Empty): []\nOriginal (Single): [42]\nSorted (Single): [42]\nOriginal (Equal): [5, 5, 5, 5]\nSorted (Equal): [5, 5, 5, 5]\nOriginal (Reverse): [99, 88, 77, 66, 55, 44, 33, 22, 11, 10]\nSorted (Reverse): [10, 11, 22, 33, 44, 55, 66, 77, 88, 99]\n\nTime Complexity:\n- Best Case: O(n log n)\n- Average Case: O(n log n)\n- Worst Case: O(n\u00b2)\n- Space Complexity: O(log n) for recursive stack\n\n",
+            "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\aakhi\\Desktop\\Nava\\quick_sort.py\", line 122, in <module>\n    main()\n  File \"C:\\Users\\aakhi\\Desktop\\Nava\\quick_sort.py\", line 119, in main\n    print(\"Quick Sort Algorithm Implementation Complete \\u2705\")\n  File \"C:\\Users\\aakhi\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\u2705' in position 45: character maps to <undefined>\n"
+        },
+        "executed_at": "2026-08-21T07:21:43.095767"
+    }
+]

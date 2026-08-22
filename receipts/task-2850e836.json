@@ -1,0 +1,31 @@
+[
+    {
+        "receipt_id": "3a3f635c-3abd-49c3-8aef-a1e02dcff0a4",
+        "task_id": "task-2850e836",
+        "agent_id": "agt-cfb9044d",
+        "parent_agent_id": "system-root",
+        "tool_name": "code.read_directory_tree",
+        "action_summary": "Executed code.read_directory_tree",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-b35c84e4",
+            "tool_request_id": "req-b35c84e4",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T12:02:37.932341"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "tree": "nava/\n    orchestrator.py\n    agents/\n        factory.py\n        planner.py\n        templates.py\n        runtime/\n            browser_agent.py\n            coding_agent.py\n            dynamic_agent.py\n            file_agent.py\n            file_agent_variants.py\n            nava_agent.py\n            reviewer_agent.py\n    core/\n        boot.py\n        ledger.py\n        llm.py\n        schemas.py\n    credentials/\n        broker.py\n        vault.py\n    gateway/\n        pipeline.py\n    governance/\n        budget_engine.py\n        compensation_engine.py\n        dom_sanitizer.py\n        hitl_manager.py\n        lock_manager.py\n        policy_engine.py\n        risk_engine.py\n        rollback_engine.py\n        state_observer.py\n    memory/\n        store.py\n    prompts/\n        browser_prompt.txt\n        coding_agent_prompt.txt\n        dynamic_agent_prompt.txt\n        file_agent_prompt.txt\n        nava_agent_prompt.txt\n        planner_prompt.txt\n        reviewer_agent_prompt.txt\n    skills/\n        manager.py\n    tools/\n        browser.py\n        executor.py\n        mcp_client.py\n        mcp_error.log\n        mcp_gmail_server.py\n        registry.py"
+        },
+        "executed_at": "2026-08-21T06:32:37.935564"
+    }
+]

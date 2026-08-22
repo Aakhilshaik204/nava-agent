@@ -1,0 +1,31 @@
+[
+    {
+        "receipt_id": "48aa7b90-2ab0-4ea4-8b5a-1c95f7fc3c03",
+        "task_id": "task-5aada799",
+        "agent_id": "agt-fbd4ea7c",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.read",
+        "action_summary": "Executed file.read",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-ba312480",
+            "tool_request_id": "req-ba312480",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T11:58:59.861324"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "[Errno 2] No such file or directory: 'src/nava/base.md'"
+        },
+        "executed_at": "2026-08-21T06:28:59.863322"
+    }
+]

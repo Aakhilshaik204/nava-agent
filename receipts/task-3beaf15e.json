@@ -1,0 +1,120 @@
+[
+    {
+        "receipt_id": "2750d8a1-c825-4e8b-b359-74bd7aacdd77",
+        "task_id": "task-3beaf15e",
+        "agent_id": "agt-14f9a5b8",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.read",
+        "action_summary": "Executed file.read",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-f7107aea",
+            "tool_request_id": "req-f7107aea",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T13:07:44.524150"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "filename is required"
+        },
+        "executed_at": "2026-08-21T07:37:44.526309"
+    },
+    {
+        "receipt_id": "99223710-a0f7-4694-ab97-5f4279d584cb",
+        "task_id": "task-3beaf15e",
+        "agent_id": "agt-704304d6",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.read",
+        "action_summary": "Executed file.read",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-0263f891",
+            "tool_request_id": "req-0263f891",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T13:08:38.880179"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "content": "# India News Report - August 20, 2026\n\n## Executive Summary\nThis report summarizes the major national, political, judicial, and social developments in India as reported by leading national news outlets (India Today, Hindustan Times, The Hindu, and Times of India) on August 20, 2026.\n\n---\n\n## 1. Political Developments & Federal Matters\n\n### The 31st Southern Zonal Council Conclave\n* **Chairperson & Attendance:** Union Home Minister Amit Shah chaired the conclave in Mahabalipuram, Tamil Nadu. Key attendees included southern Chief Ministers and representatives, notably Tamil Nadu CM, Karnataka Deputy CM DK Shivakumar, and Andhra Pradesh CM N. Chandrababu Naidu.\n* **Key Disputes & Proposals:**\n  * **Delimitation Opposition:** Southern representatives, particularly Karnataka Food and Civil Supplies Minister Rizwan Arshad and Deputy CM DK Shivakumar, strongly criticized the proposed delimitation exercise. They warned that Southern states risk becoming \"tax slaves\" (contributing 33% of India's GDP but receiving reduced tax devolution) and moved a resolution to freeze Lok Sabha seats at 543 based on the 1971 census.\n  * **Water & Infrastructure:** Discussions focused on resolving inter-state water conflicts (Cauvery and Mekedatu rivers) and interlinking the Godavari and Cauvery rivers. Proposals were tabled for a high-speed bullet train corridor connecting Amaravati, Bengaluru, and Chennai.\n  * **Tamil Nadu's Specific Demands:** Tamil Nadu's CM raised the demand for NEET exemption, proposing separate admissions for medical (MBBS, BDS, AYUSH) courses.\n\n### Vande Mataram Controversy\n* A heated political dispute escalated after the Congress Working Committee (CWC) decided to stick to singing only the first two stanzas of *Vande Mataram*. BJP leaders, including Home Minister Amit Shah and Nitin Nabin, strongly condemned the decision, with Nabin labeling Congress as the \"New Muslim League\" and Shah calling it \"anti-national.\"\n\n---\n\n## 2. Citizenship (CAA) & Defense Policy\n\n### Decentralization of CAA Citizenship Powers\n* In a significant administrative shift, the Central Government has empowered district collectors in eight states and Union Territories (including West Bengal, Jammu & Kashmir, and Ladakh) to process and grant citizenship under the Citizenship Amendment Act (CAA). The previous system of central panels will be phased out.\n\n### Maritime Defense Security Pact\n* India and Japan signed a critical maritime security agreement designed to deepen defense cooperation and enhance security in the Indo-Pacific region.\n\n---\n\n## 3. Judicial Landmark Rulings & Key Cases\n\n### Passing of Sajjan Kumar\n* Sajjan Kumar, former Congress MP and a high-profile convict in the 1984 anti-Sikh riots case, passed away at the age of 80 while serving a life sentence.\n\n### Supreme Court Rulings\n* **Definition of 'Industry':** The Supreme Court upheld the broad definition of 'industry' under the Industrial Relations Code, 2020, clarifying labor law applicability and reaffirming a landmark 1978 judgment.\n* **Right to Silence vs. Arrest:** The SC observed that while an accused maintains the right to silence, police officers retain their lawful right to execute arrests.\n* **Marital Disputes & Paternity:** The apex court ruled that paternity tests of children can be legally permitted within marital dispute cases under specific conditions.\n* **PCPNDT Act:** The court ruled that police do not have the authority to investigate sex determination offenses under the PCPNDT Act.\n\n---\n\n## 4. Education, Youth Outreach & Social Issues\n\n### Government's Gen Z & Gen Alpha Outreach\n* Prime Minister Narendra Modi directed Union Ministers to visit at least one university or government school daily as part of a major outreach initiative targeting Gen Z and Gen Alpha.\n* **Opposition Backlash:** The opposition, led by Rahul Gandhi, launched outreach campaigns (such as 'Chhatron Ki Goonj' in Pune) and criticized the government's centralization of power over student bodies. Additionally, leaders like Mayawati and Abhijeet Dipke demanded accountability and resignations over deteriorating school infrastructure.\n\n### Language Proficiency Mandate in Maharashtra\n* The RTO in Thane, Maharashtra, initiated Marathi proficiency checks for auto-rickshaw and taxi drivers. Drivers failing the verbal test are being issued official notices to acquire working knowledge of the language within one month, sparking debate among local transport unions.\n\n---\n\n## 5. Notable Incidents, Governance & Public Safety\n\n* **UGC-NET Controversy:** Amid allegations by experts that AI was used \"recklessly\" to draft questions for the UGC-NET, the government announced a retest for three subjects.\n* **Food Safety Concerns:** The Food and Safety Department in Uttar Pradesh issued a formal notice to Bikanervala after a dead rat was found inside a sealed namkeen packet in Kanpur Dehat.\n* **Medical Negligence:** Authorities ordered an investigation in Uttar Pradesh after surgical gloves and paper were left inside a woman's abdomen during a C-section procedure.\n* **Kolkata Hotel Fire:** A tragic fire at a hotel in Kolkata claimed nine lives, including several Bangladeshi nationals.\n\n---\n*Report compiled from India Today, Hindustan Times, The Hindu, and Times of India (Published: August 20, 2026).*"
+        },
+        "executed_at": "2026-08-21T07:38:38.892090"
+    },
+    {
+        "receipt_id": "078b19bf-d0a6-4e33-ac29-2581f639ca7a",
+        "task_id": "task-3beaf15e",
+        "agent_id": "agt-bbcee54b",
+        "parent_agent_id": "system-root",
+        "tool_name": "shell.execute",
+        "action_summary": "Executed shell.execute",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-b7f6cf8a",
+            "tool_request_id": "req-b7f6cf8a",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T13:17:33.622425"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "returncode": 0,
+            "stdout": " Volume in drive C is Windows\n Volume Serial Number is E44B-A095\n\n Directory of C:\\Users\\aakhi\\Desktop\\Nava\n\n21-08-2026  12:51    <DIR>          .\n20-08-2026  14:10    <DIR>          ..\n21-08-2026  12:57               327 .env\n19-08-2026  23:30    <DIR>          .nava\n18-08-2026  13:57    <DIR>          .pytest_cache\n19-08-2026  16:00                44 .vault_key\n18-08-2026  19:20             2,196 ai_orchestrator_story.pdf\n19-08-2026  15:05               572 calculator.py\n19-08-2026  19:05             1,351 cleanup_old_agents.py\n18-08-2026  19:29             1,334 Gemini_Report.pdf\n19-08-2026  20:57             8,490 generate_invoice.py\n20-08-2026  13:54             1,824 get_top_story.py\n18-08-2026  21:34             8,361 History_of_AI_Executive_Report.pdf\n18-08-2026  23:00             9,614 index.html\n19-08-2026  21:02             3,192 invoice.pdf\n19-08-2026  15:06             1,587 MANUAL.md\n18-08-2026  20:29             4,630 Mars_Rovers_History.pdf\n18-08-2026  20:29            30,326 mars_rovers_summary.pptx\n20-08-2026  13:42    <DIR>          memory\n20-08-2026  13:15            31,384 memory.md\n19-08-2026  14:45               865 merge_sort.py\n21-08-2026  12:19                66 Modelfile\n21-08-2026  12:00             1,089 nava.yaml\n21-08-2026  13:17           273,323 nava_audit.jsonl\n17-08-2026  19:04           148,652 NAVA_Personal_Agent_OS_Blueprint.pdf\n20-08-2026  15:21             1,817 nava_shell.py\n19-08-2026  19:34            18,233 portfolio.html\n19-08-2026  19:52            40,602 portfolio_code.docx\n18-08-2026  14:01                26 pytest.ini\n21-08-2026  12:51             3,798 quick_sort.py\n19-08-2026  18:36             4,718 real_mcp_test.py\n21-08-2026  13:07    <DIR>          receipts\n19-08-2026  20:49               175 requirements.txt\n21-08-2026  11:47    <DIR>          scratch\n18-08-2026  23:11             1,693 script.js\n18-08-2026  19:03    <DIR>          scripts\n18-08-2026  11:19    <DIR>          src\n18-08-2026  23:10             9,419 style.css\n19-08-2026  15:44    <DIR>          tests\n19-08-2026  15:05             1,222 test_calculator.py\n18-08-2026  19:32                66 test_run.bat\n19-08-2026  18:28             1,495 test_server_boot.py\n19-08-2026  23:35    <DIR>          typst-pdf-maker\n19-08-2026  21:41               307 wire_transfer.py\n19-08-2026  19:14    <DIR>          __pycache__\n              33 File(s)        612,798 bytes\n              12 Dir(s)  121,019,379,712 bytes free\n",
+            "stderr": ""
+        },
+        "executed_at": "2026-08-21T07:47:33.660949"
+    },
+    {
+        "receipt_id": "d6a88c45-5f85-49e8-999c-a0a9355a0208",
+        "task_id": "task-3beaf15e",
+        "agent_id": "agt-3907f987",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.read",
+        "action_summary": "Executed file.read",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-fc561c61",
+            "tool_request_id": "req-fc561c61",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T13:21:04.587608"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "content": "root_agent:\n  ceiling_permissions:\n    - filesystem.write\n    - filesystem.read\n    - data.analyze\n    - test.run\n    - gmail.read\n    - browser.navigate\n    - browser.read\n    - browser.click\n    - browser.type\n    - browser.scroll\n    - browser.save_to_scratch\n    - shell.execute\n    - system.read_skill\n    - mock.send_wire_transfer\n  ceiling_tools:\n    - file.write\n    - file.delete\n    - file.create_pdf\n    - file.create_docx\n    - file.create_pptx\n    - file.read\n    - code.search\n    - code.read_directory_tree\n    - code.diff_review\n    - code.replace_content\n    - code.replace_content_batch\n    - code.find_references\n    - shell.execute\n    - system.read_skill\n    - mock.send_wire_transfer\n    - test.run\n    - gmail.search\n    - gmail.read\n    - browser.navigate\n    - browser.extract_dom\n    - browser.extract_text\n    - browser.click\n    - browser.type\n    - browser.scroll\n    - browser.go_back\n    - browser.get_url\n    - browser.save_to_scratch\n  ceiling_credentials:\n    - gmail.read\nbudget:\n  max_agents: 50\n  max_depth: 10\n  max_steps: 1000\n  max_tokens: 1000000\n\n"
+        },
+        "executed_at": "2026-08-21T07:51:04.590368"
+    }
+]

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Glassmorphism</title>
+  <style>
+    :root {
+      --bg: #0d0d14;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text: #f0f0f5;
+      --muted: #6b6b80;
+      --accent: #00d4aa;
+      --accent-glow: rgba(0, 212, 170, 0.3);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Atmospheric background */
+    .bg-atmosphere {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 60% at 20% 20%, rgba(0, 212, 170, 0.12), transparent),
+        radial-gradient(ellipse 70% 50% at 80% 80%, rgba(0, 150, 200, 0.1), transparent),
+        linear-gradient(180deg, #0d0d14 0%, #0a0a12 100%);
+      z-index: -1;
+    }
+
+    /* Subtle grid pattern */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .glass-container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Frosted glass effect */
+    .glass {
+      background: var(--card-bg);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .glass:hover {
+      border-color: rgba(0, 212, 170, 0.4);
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px var(--accent-glow),
+        0 0 30px rgba(0, 212, 170, 0.1);
+      transform: translateY(-4px) scale(1.01);
+    }
+
+    .glass:active {
+      transform: translateY(2px) scale(0.99);
+      transition: transform 0.1s ease;
+    }
+
+    /* Gradient text utilities */
+    .gradient-accent {
+      background: linear-gradient(135deg, var(--accent) 0%, #0066ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gradient-subtle {
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Navigation */
+    .nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin-left: 1rem;
+    }
+
+    .nav-link:hover {
+      color: var(--accent);
+      background: rgba(0, 212, 170, 0.1);
+    }
+
+    .nav-link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Section headers */
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      margin-top: 0.8rem;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    /* Project cards */
+    .project-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(0, 212, 170, 0.2);
+    }
+
+    .project-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 20px;
+    }
+
+    .project-card h3 {
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .project-card .tech-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .tech-tag {
+      background: rgba(0, 212, 170, 0.15);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    /* Contact links */
+    .contact-link {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-link:hover {
+      color: var(--accent);
+    }
+
+    .contact-link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Button styles */
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent) 0%, #0066ff 100%);
+      color: #0d0d14;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 1.5rem;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 212, 170, 0.4);
+    }
+
+    .cta-btn:active {
+      transform: translateY(1px);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .glass,
+      .project-card,
+      .cta-btn {
+        transition: none;
+        transform: none;
+      }
+      .bg-grid {
+        animation: none;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      @keyframes float { display: none; }
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+      .glass {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 16px;
+      }
+
+      .project-card {
+        margin: 0.5rem;
+        border-radius: 12px;
+        padding: 1.5rem;
+      }
+
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Atmospheric background layers -->
+  <div class="bg-atmosphere"></div>
+  <div class="bg-grid"></div>
+
+  <main class="glass-container" style="max-width: 860px; margin: 0 auto; padding: 2rem;">
+
+    <!-- Header/Hero -->
+    <header class="glass" style="text-align: center; margin-bottom: 3rem; padding: 3rem 2rem;">
+      <h1 class="gradient-accent" style="font-size: 2.8rem; font-weight: 300; letter-spacing: -0.5rem;">Your Name</h1>
+      <p class="gradient-subtle" style="font-size: 1.1rem; opacity: 0.8;">React Developer | UI/UX Enthusiast</p>
+    </header>
+
+    <!-- About Section -->
+    <section class="glass" style="margin-bottom: 3rem;">
+      <h2 class="section-title">About Me</h2>
+      <p style="color: var(--muted); font-size: 1.05rem; line-height: 1.8;">
+        Hello! I'm a passionate React developer building responsive, accessible web interfaces.
+        I love turning concepts into pixel-perfect experiences with clean code and modern tools.
+      </p>
+      <a href="#contact" class="cta-btn">Let's Talk</a>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="glass" id="projects" style="margin-bottom: 3rem;">
+      <h2 class="section-title">Projects</h2>
+      <div style="display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+        <article class="project-card" tabindex="0" role="button" aria-label="View Project 1 details">
+          <h3>Project 1</h3>
+          <p>A React-based web app with real-time features.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">WebSockets</span>
+            <span class="tech-tag">Node.js</span>
+          </div>
+        </article>
+
+        <article class="project-card" tabindex="0" role="button" aria-label="View Project 2 details">
+          <h3>Project 2</h3>
+          <p>Portfolio site built with React and CDN imports.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">CDN</span>
+            <span class="tech-tag">HTML5</span>
+          </div>
+        </article>
+
+        <article class="project-card" tabindex="0" role="button" aria-label="View Project 3 details">
+          <h3>Project 3</h3>
+          <p>Dashboard interface with context API and theming.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Context API</span>
+            <span class="tech-tag">Theming</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="glass" id="contact" style="text-align: center;">
+      <h2 class="section-title">Contact</h2>
+      <div style="max-width: 480px; margin: 0 auto; text-align: left;">
+        <p style="color: var(--muted); font-size: 1rem; margin-bottom: 1rem;">
+          Email: <a href="mailto:you@example.com" class="contact-link" target="_blank" rel="noopener">you@example.com</a>
+        </p>
+        <p style="color: var(--muted); font-size: 1rem; margin-bottom: 1rem;">
+          GitHub: <a href="https://github.com/yourhandle" class="contact-link" target="_blank" rel="noopener">github.com/yourhandle</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem; padding: 2rem 0; text-align: center; color: var(--muted); font-size: 0.85rem;">
+      &copy; 2025 Your Name. All rights reserved.
+    </footer>
+  </main>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function Hero() { return React.createElement("header", { style: { textAlign: "center", marginBottom: "3rem", padding: "3rem 2rem" } },
+      React.createElement("h1", { style: { fontSize: "2.8rem", fontWeight: 300, letterSpacing: "-0.5rem", background: "linear-gradient(135deg, var(--accent) 0%, #0066ff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" } }, "Your Name"),
+      React.createElement("p", { style: { fontSize: "1.1rem", opacity: 0.8 } }, "React Developer | UI/UX Enthusiast")
+    ); }
+
+    function About() { return React.createElement("section", null,
+      React.createElement("h2", { style: { fontSize: "1.8rem", fontWeight: 400, letterSpacing: "-0.5", marginBottom: "2rem", color: "var(--text)" } }, "About Me"),
+      React.createElement("p", null, "Hello! I'm a passionate React developer building responsive, accessible web interfaces. I love turning concepts into pixel-perfect experiences with clean code and modern tools."),
+      React.createElement("a", { href: "#contact", style: { display: "inline-block", marginTop: "1.5rem", background: "linear-gradient(135deg, var(--accent) 0%, #0066ff 100%)", color: "#0d0d14", padding: "1rem 2rem", borderRadius: "12px", textDecoration: "none", fontWeight: 600, fontSize: "1rem" } }, "Let's Talk")
+    ); }
+
+    function Projects() { return React.createElement("section", { style: { marginBottom: "3rem" } },
+      React.createElement("h2", { style: { fontSize: "1.8rem", fontWeight: 400, letterSpacing: "-0.5", marginBottom: "2rem", color: "var(--text)" } }, "Projects"),
+      React.createElement("div", { style: { display: "grid", gap: "1.5rem", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" } },
+        React.createElement("article", { className: "project-card", style: { tabindex: "0", role: "button", borderRadius: "20px", padding: "2rem" }, "aria-label": "View Project 1 details" },
+          React.createElement("h3", { style: { color: "var(--accent)", marginBottom: "0.8rem", fontSize: "1.25rem", fontWeight: 500 } }, "Project 1"),
+          React.createElement("p", null, "A React-based web app with real-time features."),
+          React.createElement("div", { style: { display: "flex", gap: "0.5rem", flexWrap: "wrap", marginTop: "1rem" } },
+            React.createElement("span", { className: "tech-tag", style: { background: "rgba(0, 212, 170, 0.15)", color: "var(--accent)", padding: "0.3rem 0.8rem", borderRadius: "20px", fontSize: "0.75rem", fontWeight: 500, textTransform: "uppercase" } }, "React"),
+            React.createElement("span", { className: "tech-tag", style: { background: "rgba(0, 212, 170, 0.15)", color: "var(--accent)", padding: "0.3rem 0.8rem", borderRadius: "20px", fontSize: "0.75rem", fontWeight: 500, textTransform: "uppercase" } }, "WebSockets"),
+            React.createElement("span", { className: "tech-tag", style: { background: "rgba(0, 212, 170, 0.15)", color: "var(--accent)", padding: "0.3rem 0.8rem", borderRadius: "20px", fontSize: "0.75rem", fontWeight: 500, textTransform: "uppercase" } }, "Node.js")
+          )
+        ),
+        React.createElement("article", { className: "project-card", style: { tabindex: "0", role: "button", borderRadius: "20px", padding: "2rem" }, "aria-label": "View Project 2 details" },
+          React.createElement("h3", { style: { color: "var(--accent)", marginBottom: "0.8rem", fontSize: "1.25rem", fontWeight: 500 } }, "Project 2"),
+          React.createElement("p", null, "Portfolio site built with React and CDN imports."),
+          React.createElement("div", { style: { display: "flex", gap: "0.5rem", flexWrap: "wrap", marginTop: "1rem" } },
+            React.createElement("span", { className: "tech-tag", style: { background: "rgba(0, 212, 170, 0.15)", color: "var(--accent)", padding: "0.3rem 0.8rem", borderRadius: "20px", fontSize: "0.75rem", fontWeight: 500, textTransform: "uppercase" } }, "React"),
+            React.createElement("span", { className: "tech-tag", style: { background: "rgba(0, 212, 170, 0.15)", color: "var(--accent)", padding: "0.3rem 0.8rem", borderRadius: "20px", fontSize: "0.75rem", fontWeight: 500, textTransform: "uppercase" } }, "CDN"),
+            React.createElement("span", { className: "tech-tag", style: { background: "rgba(0, 212, 170, 0.15)", color: "var(--accent)", padding: "0.3rem 0.8rem", borderRadius: "20px", fontSize: "0.75rem", fontWeight: 500, textTransform: "uppercase" } }, "HTML5")
+          )
+        ),
+        React.createElement("article", { className: "project-card", style: { tabindex: "0", role: "button", borderRadius: "20px", padding: "2rem" }, "aria-label": "View Project 3 details" },
+          React.createElement("h3", { style: { color: "var(--accent)", marginBottom: "0.8rem", fontSize: "1.25rem", fontWeight: 500 } }, "Project 3"),
+          React.createElement("p", null, "Dashboard interface with context API and theming."),
+          React.createElement("div", { style: { display: "flex", gap: "0.5rem", flexWrap: "wrap", marginTop: "1rem" } },
+            React.createElement("span", { className: "tech-tag", style: { background: "rgba(0, 212, 170, 0.15)", color: "var(--accent)", padding: "0.3rem 0.8rem", borderRadius: "20px", fontSize: "0.75rem", fontWeight: 500, textTransform: "uppercase" } }, "React"),
+            React.createElement("span", { className: "tech-tag", style: { background: "rgba(0, 212, 170, 0.15)", color: "var(--accent)", padding: "0.3rem 0.8rem", borderRadius: "20px", fontSize: "0.75rem", fontWeight: 500, textTransform: "uppercase" } }, "Context API"),
+            React.createElement("span", { className: "tech-tag", style: { background: "rgba(0, 212, 170, 0.15)", color: "var(--accent)", padding: "0.3rem 0.8rem", borderRadius: "20px", fontSize: "0.75rem", fontWeight: 500, textTransform: "uppercase" } }, "Theming")
+          )
+        )
+      )
+    ); }
+
+    function Contact() { return React.createElement("section", { style: { textAlign: "center" } },
+      React.createElement("h2", { style: { fontSize: "1.8rem", fontWeight: 400, letterSpacing: "-0.5", marginBottom: "2rem", color: "var(--text)" } }, "Contact"),
+      React.createElement("div", { style: { maxWidth: "480px", margin: "0 auto", textAlign: "left" } },
+        React.createElement("p", { style: { color: "var(--muted)", fontSize: "1rem", marginBottom: "1rem" } },
+          "Email: ",
+          React.createElement("a", { href: "mailto:you@example.com", className: "contact-link", style: { color: "var(--muted)", textDecoration: "none" }, target: "_blank", rel: "noopener" }, "you@example.com")
+        ),
+        React.createElement("p", { style: { color: "var(--muted)", fontSize: "1rem", marginBottom: "1rem" } },
+          "GitHub: ",
+          React.createElement("a", { href: "https://github.com/yourhandle", className: "contact-link", style: { color: "var(--muted)", textDecoration: "none" }, target: "_blank", rel: "noopener" }, "github.com/yourhandle")
+        )
+      )
+    ); }
+
+    function App() { return React.createElement("div", null, React.createElement(Hero), React.createElement(About), React.createElement(Projects), React.createElement(Contact)); }
+    ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
+  </script>
+</body>
+</html>

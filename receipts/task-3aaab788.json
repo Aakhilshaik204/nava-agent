@@ -1,0 +1,31 @@
+[
+    {
+        "receipt_id": "1de43cef-27bc-4982-ba3e-304c3e8444a8",
+        "task_id": "task-3aaab788",
+        "agent_id": "agt-ca1acfa7",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.create_pdf",
+        "action_summary": "Executed file.create_pdf",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-ba275bda",
+            "tool_request_id": "req-ba275bda",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T14:22:17.697823"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "Must provide either markdown_content, html_content, or a valid source_file."
+        },
+        "executed_at": "2026-08-20T08:52:17.703076"
+    }
+]

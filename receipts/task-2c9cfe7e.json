@@ -1,0 +1,370 @@
+[
+    {
+        "receipt_id": "6528205f-7650-4405-b882-9c088bae605f",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-aecdc3a5",
+            "tool_request_id": "req-aecdc3a5",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:24:56.631414"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "result": "Navigated to https://html.duckduckgo.com/html/?q=India+news+yesterday"
+        },
+        "executed_at": "2026-08-20T09:55:00.783930"
+    },
+    {
+        "receipt_id": "87cb5088-0d88-4760-9a5c-ae54debb87ed",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.extract_text",
+        "action_summary": "Executed browser.extract_text",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-3fcb9f4d",
+            "tool_request_id": "req-3fcb9f4d",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:25:02.690657"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "text": "All Regions\nArgentina\nAustralia\nAustria\nBelgium (fr)\nBelgium (nl)\nBrazil\nBulgaria\nCanada (en)\nCanada (fr)\nCatalonia\nChile\nChina\nColombia\nCroatia\nCzech Republic\nDenmark\nEstonia\nFinland\nFrance\nGermany\nGreece\nHong Kong\nHungary\nIceland\nIndia (en)\nIndonesia (en)\nIreland\nIsrael (en)\nItaly\nJapan\nKorea\nLatvia\nLithuania\nMalaysia (en)\nMexico\nNetherlands\nNew Zealand\nNorway\nPakistan (en)\nPeru\nPhilippines (en)\nPoland\nPortugal\nRomania\nRussia\nSaudi Arabia\nSingapore\nSlovakia\nSlovenia\nSouth Africa\nSpain (ca)\nSpain (es)\nSweden\nSwitzerland (de)\nSwitzerland (fr)\nTaiwan\nThailand (en)\nTurkey\nUS (English)\nUS (Spanish)\nUkraine\nUnited Kingdom\nVietnam (en)\n \nAny Time\nPast Day\nPast Week\nPast Month\nPast Year\nIndia News, Latest Breaking News Headlines from India, Live News Updates\n www.indiatoday.in/india\nIndia News Today: Read latest and breaking news headlines from India. Top India News, Current headlines, videos, photos and live india news updates at India Today\nIndia News: Latest India News, Today breaking News Headlines, Real-time ...\n www.hindustantimes.com/india-news\nIndia News: Get the latest India News, breaking headlines and live updates on politics, economy, crime, policy, society and major national developments.\nTOI - Breaking News, Latest News, India News, World News, Bollywood ...\n timesofindia.indiatimes.com\nStay updated with breaking news, latest headlines, and in-depth coverage of India and world events on Times of India.\nHindustan Times: Breaking News, Latest News, India News, World News ...\n www.hindustantimes.com\nHindustan Times: Stay updated with Hindustan Times for the top India news, world events, and breaking stories. Get real-time updates on politics, wars, live cricket scores, entertainment news, and ...\nIndia News | Today's latest updates and breaking news from India, Live ...\n www.ndtv.com/india \u00a0 \u00a0 2026-08-20T09:49:00.0000000\nGet the latest updates and breaking news from India, including politics, elections, government, business, technology, and Bollywood.\nGoogle News - India - Latest\n news.google.com/topics/CAAqJQgKIh9DQkFTRVFvSUwyMHZNRE55YXpBU0JXVnVMVWRDS0FBUAE?hl=en-IN&ceid=IN:en\nRead full articles, watch videos, browse thousands of titles and more on the 'India' topic with Google News.\nIndia News | Latest India News Today & Real-time News from India, India ...\n timesofindia.indiatimes.com/india\nIndia News Today: Get latest India news and breaking news from India on Times of India. TOI brings the top news headlines from India on Politics, Elections, Current Affairs and more\nGet Latest News, India News, Breaking News, Today's News - NDTV.com\n www.ndtv.com\nGet breaking news alerts from India and follow today's live news updates in field of politics, business, technology, Bollywood, cricket and more.\nIndia Today - Latest News, Breaking News Today - Entertainment, Cricket ...\n www.indiatoday.in\nCheck out the latest news from India and around the world. Latest India news on Bollywood, Politics, Business, Cricket, Technology and Travel.\nGoogle News\n news.google.com/?hl=en-IN&ceid=IN:en\nStay updated with the latest news and headlines from around the world on Google News.\nFeedback"
+        },
+        "executed_at": "2026-08-20T09:55:02.721991"
+    },
+    {
+        "receipt_id": "bbe9d7d3-a093-4ca5-8345-deb56b070f2b",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-c10ee189",
+            "tool_request_id": "req-c10ee189",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:25:08.643764"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "result": "Navigated to https://www.indiatoday.in/india"
+        },
+        "executed_at": "2026-08-20T09:55:10.900799"
+    },
+    {
+        "receipt_id": "722c12d9-d7e3-4ed0-bee2-d93d1a930c34",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.extract_text",
+        "action_summary": "Executed browser.extract_text",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-1f18f527",
+            "tool_request_id": "req-1f18f527",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:25:12.067676"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "text": "August 20, 2026 15:25 IST\nIndia Today\nAaj Tak\nIndia Today Hindi\nNewsTak\nGNTTV\nLallantop\nBusiness Today\nBangla\nMalayalam\nNortheast\nBT Bazaar\nHarper's Bazaar\nSports Tak\nAstro Tak\nGaming\nBrides Today\nCosmopolitan\nKisan Tak\nReader\u2019s Digest\nAugust 20, 2026 15:25 IST\nIndia Today\nAaj Tak\nIndia Today Hindi\nNewsTak\nGNTTV\nLallantop\nBusiness Today\nBangla\nMalayalam\nNortheast\nSIGN IN\nEdition\nIN\nIN\nUS\nUnlock Ad-Free\nDownload App\nFollow Us On:\nNewsIndia\nIndia News\nAdvertisement\nIndia News\nGoodbye Niketu Iralu: Peace icon who emerged from cradle of Naga armed rebellion\n\nNagaland today bid adieu to iconic peace activist Niketu Iralu who died this week. For over six decades, Iralu had been offering a healing touch to the fractured Naga society. He was born in Khonoma, the same village where Angami Zapu Phizo, father of Naga insurgency, was born. Iralu was related to Phizo but took a very different path.\n\nIndia News\nDead Rat Found In Branded Namkeen Packet In Kanpur Dehat; Food Safety Department Issues Notice\n\nA serious food safety concern has emerged from Kanpur Dehat after a dead rat was reportedly discovered inside a sealed packet of Bikanervala Navratna mixture namkeen. The packet, purchased at a grocery store on Mughal Road, prompted immediate outrage and demands for a strict investigation regarding hygiene standards. Following a formal complaint and viral video of the incident, the Food and Safety Department in Uttar Pradesh issued a notice to the manufacturer. Officials sent a regional food safety inspection team to conduct an on-spot investigation, record witness statements, and question company representatives to enforce compliance with food safety laws.\n\n04:48\nIndia News\nAbhijeet Dipke seeks Maharashtra Minister's resignation over crumbling schools\n\nAfter inspecting a school in Latur, Abhijeet Dipke demanded Maharashtra Education Minister Dada Bhuse's resignation over poor facilities.\n\nIndia News\nYou faced it all since Papa left: Rahul's tribute to Sonia before memoir release\n\nOn former PM Rajiv Gandhi's anniversary, Congress MP Rahul Gandhi said he is proud that his mother Sonia Gandhi's memoir will be read by millions of readers. The memoir is set to be released on November 10.\n\nadvertisement\nIndia News\nRTO Begins Marathi Proficiency Test For Auto Drivers In Thane; Non-Compliant Drivers Served Notices\n\nThe Regional Transport Office in Thane, Maharashtra, has initiated checks on auto-rickshaw and taxi drivers to assess their working knowledge of the Marathi language. Under the Maharashtra Motor Vehicles Rules, Marathi proficiency is compulsory for obtaining commercial driving licenses and badges. During the drive, officials test drivers on basic Marathi skills. Drivers unable to speak or understand the language are being issued notices requiring them to acquire working knowledge within one month. The mandate has sparked debate among transport unions, who previously protested against verifying existing license holders, citing concerns over language politics.\n\n03:29\nIndia News\nOpposition Leader Targets Government, RSS Over Student Issues; Congress Plans Gen Z Outreach\n\nThe Leader of Opposition launched a sharp attack against the government and the Rashtriya Swayamsevak Sangh over student issues and the centralization of power. The opposition party alleged that the system is attempting to control and attack students rather than listening to their concerns. Furthermore, criticisms were raised against the central governing model, citing the monopolization of business and resources that hinders self-reliance. To connect with young voters, the opposition is launching a major youth outreach campaign, including an upcoming gathering for women students in Pune to highlight issues concerning the nation's youth and social fabric.\n\n04:51\nIndia News\nRizwan Arshad Terms Delimitation 'Unfair', Warns South May Become 'Tax Slaves' At Southern CMs Meet\n\nA special regional report highlights major political, economic, and civic developments across Southern Indian states. At the Southern Chief Ministers' meeting chaired by the Union Home Minister in Mahabalipuram, Karnataka Food and Civil Supplies Minister Rizwan Arshad criticized the proposed delimitation exercise. Arshad endorsed Karnataka Deputy Chief Minister DK Shivakumar's resolution to freeze Lok Sabha seats at 543 based on the 1971 census, raising concerns over reduced tax devolution despite Southern states contributing 33 percent to India's GDP. Representatives from Tamil Nadu, Kerala, Telangana, and Andhra Pradesh addressed critical state priorities, including inter-state water disputes over the Cauvery and Mekedatu rivers, NEET, and federal fund allocation. In Tamil Nadu, the state government clarified an administrative error regarding student protest circulars. Meanwhile, in Bengaluru, an engineer created an artificial intelligence app to report potholes to civic authorities. In Andhra Pradesh, political controversy emerged over alleged examination irregularities under the previous YSRCP regime, while Telangana's Nalgonda police arrested two juveniles in connection with a local murder investigation.\n\n43:43\nSouth News\nCauvery, NEET, delimitation dominate South Chief Ministers' meet with Amit Shah\n\nSouth CMs made a pitch that the region's economic contribution must be matched by political representation, fiscal fairness, infrastructure support and a greater voice in national policymaking.\n\nadvertisement\nIndia News\n31st Southern Zonal Council Meets: Focus On Bullet Train Corridor, Water Issues And Women's Quota\n\nThe 31st Southern Zonal Council meeting brought together Chief Ministers and representatives from Andhra Pradesh, Karnataka, Kerala, Tamil Nadu, Telangana, Puducherry, Andaman and Nicobar, and Lakshadweep to address critical interstate and centre-state matters. Key discussions revolved around enhancing regional cooperation, developing transport infrastructure, and resolving longstanding interstate disputes. Proposals were introduced for a bullet train corridor connecting Amaravati, Bengaluru, and Chennai, alongside the interlinking of the Godavari and Cauvery rivers to mitigate ongoing water sharing conflicts. The council also deliberated on the Mullaperiyar dam construction, regional port development under Mission Samudra, and the annulment of the Mineral Act Amendment. Additionally, concerns were raised regarding parliamentary delimitation, with calls to implement a one-third reservation for women within the existing parliamentary strength. Interstate water management, particularly concerning the Cauvery and Mullaperiyar dams, remained a central focus as participating states sought long-term cooperative solutions to balance drinking water, agricultural, and industrial needs across the southern region.\n\n09:19\nIndia News\nAmit Shah Chairs South Zonal Meet: Delimitation, Water Sharing & Rail Links Take Centre Stage\n\nFirst images have emerged from the Southern Zonal Council meeting chaired by Union Home Minister Amit Shah alongside key southern chief ministers and union territory representatives. Discussions focused on crucial interstate concerns including delimitation, water sharing, trade, and transport connectivity. Andhra Pradesh Chief Minister N. Chandrababu Naidu highlighted the need for improved rail infrastructure and bullet train links between southern capital cities. Meanwhile, state leaders raised strong concerns over delimitation, emphasizing that southern states must not lose parliamentary representation. Issues surrounding fiscal federalism, Cauvery water distribution, and interstate coordination against drug abuse were also addressed during the meeting.\n\n04:44\nIndia News\nTN CM Raises NEET Exemption And Delimitation Issues In Meeting With Home Minister Amit Shah\n\nTamil Nadu Chief Minister meets Union Home Minister Amit Shah at the Southern Zonal Council meeting to address major policy concerns. The Chief Minister calls for a NEET exemption in Tamil Nadu, proposing that MBBS, BDS, and AYUSH admissions be determined by Class 12 marks rather than the national entrance examination. Additionally, the Chief Minister raises the issue of delimitation, stating that public policy must not penalize southern states for fulfilling national objectives or diminish their political representation. The discussion also covers broader inter-state matters affecting southern states.\n\n04:34\nMaharashtra News\n1 month to learn or face action: Marathi test begins for cab, auto drivers\n\nMaharashtra RTOs have begun testing taxi and autorickshaw drivers for practical Marathi through oral interactions. Drivers who fail have been given a month to learn the language, even as responses among drivers remain mixed.\n\nadvertisement\nIndia News\nCongress Attacks PM Modi, BJP Counters CWC Label, Flashpoints On NEET And Vande Mataram Escalate\n\nA political war of words has erupted between the Congress and the Bharatiya Janata Party following the Congress Working Committee meeting. The Congress mounted a direct attack on Prime Minister Narendra Modi, alleging that his political standing has weakened due to key national issues such as the COVID-19 pandemic response, NEET examination irregularities, and paper leaks. Party leaders emphasized that the opposition has continuously questioned the government on matters including alleged Ram Mandir donation embezzlement and the Vande Mataram singing row. In response, the Bharatiya Janata Party countered by calling the CWC the Congress Whitewash Committee, accusing the opposition of refusing to acknowledge its own political mistakes. Congress spokesperson Abhishek Dubey further asserted that criticisms from various public figures reflect dissatisfaction with government policies. Both parties continue to clash over parliamentary functioning, policy decisions, and national priorities.\n\n05:49\nLaw News\nOld age doesn't mean humiliation: SC on parents' right to evict children\n\nThe Supreme Court held that elderly parents can seek eviction of children or relatives from their homes when their safety and dignity are at risk. The ruling restored the tribunal's authority under the 2007 law and said old age cannot mean humiliation or insecurity.\n\nIndia News\nMekedatu Row: Karnataka Pitches Cauvery Water Cooperation To Union Minister Amit Shah\n\nIn a meeting with Union Home Minister Amit Shah, Karnataka representative DK Shivakumar raised the long-standing Cauvery water issue, advocating a shift from water sharing to water cooperation based on equity, transparency, and mutual respect while protecting Karnataka's lawful share. Shivakumar emphasized that the proposed Mekedatu project would benefit farmers in Tamil Nadu and Puducherry alongside Karnataka. Reporter Apoorva noted that the proposal comes amid rising tensions between Karnataka and Tamil Nadu, where the state government remains firm on constructing the Mekedatu dam for drinking water needs despite ongoing opposition from Tamil Nadu and proceedings before the Supreme Court and Cauvery tribunal.\n\n02:28\nIndia News\nFormer Congress MP Sajjan Kumar Dies At 80 While Serving Life Sentence In Tihar Jail\n\nFormer Congress Member of Parliament and leader Sajjan Kumar has passed away at the age of 80 while serving life imprisonment in Tihar Jail. Hospital sources from Delhi's Safdarjung Hospital confirmed that he was declared brought dead after being brought unconscious from jail. Kumar was serving multiple life sentences following his conviction for murder, rioting, and arson in cases arising out of the 1984 anti-Sikh riots. He had previously filed court petitions seeking bail due to severe health conditions, but medical committees advised that hospitalization was unnecessary. A former three-time Lok Sabha MP from Outer Delhi who resigned from the party after his conviction, he was also facing additional ongoing trials.\n\n03:30\nIndia News\nDid RAF fire non-existent plastic pellets at CJP protesters?\n\nTwo cartridges with plastic pellets were fired at protesters by the Rapid Action Force (RAF) of the CRPF during the July 20 Parliament march in New Delhi, said a general diary entry. But no expert has ever seen plastic pellets, heard of them being used, or encountered a victim injured by them. Here's what we got after a month-long chase of the mysterious pellets.\n\nLaw News\nMan accused of extorting Rs 10 crore from Delhi defence businessman gets bail\n\nPatiala House Court granted regular bail to Gurpinder Singh in the alleged Rs 10-crore extortion case involving defence entrepreneur Sahil Luthra. The court noted the investigation was complete and custodial interrogation was no longer required.\n\nIndia News\nSajjan Kumar, ex-Congress MP convicted for anti-Sikh riots, dies at 80 in jail\n\nSajjan Kumar, who was serving a life sentence in Delhi's Tihar Jail in anti-Sikh riot-related cases, was declared brought dead at Safdarjung Hospital.\n\nIndia News\nBaby on sale for Rs 1.5 lakh in Gujarat, cops bust human trafficking ring\n\nPolice in Sabarkantha arrested five people after intercepting a one-month-old baby girl allegedly being taken to Mumbai for sale. The case has renewed concern over repeated infant trafficking allegations in the district as the search for two absconding suspects continues.\n\nLoad More\nAdvertisement\nAlso Watch\nUS envoy calls Kashmir important part of India. The reality Pakistan must admit\nSatyendar Jain, Azam Khan in ED net. Rule of law or arm-twisting by govt?\nTamil Nadu's third child policy sparks row, Congress opposes CM Vijay's move\nAdvertisement\nLatest Stories\nGoodbye Niketu Iralu: Peace icon who emerged from cradle of Naga armed rebellion\nFrom neurosurgeons to AI engineers: 20 highest-paying jobs shaping 2026\nRs 18 lakh a year for school? Dubai mom reveals daughter\u2019s shocking school fees\nRecommended\nAdvertisement\nAdvertisement"
+        },
+        "executed_at": "2026-08-20T09:55:12.514157"
+    },
+    {
+        "receipt_id": "dc52b627-bea7-4ebc-8441-3805e0c1b5eb",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.save_to_scratch",
+        "action_summary": "Executed browser.save_to_scratch",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-91929ba6",
+            "tool_request_id": "req-91929ba6",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:25:35.779247"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 5880,
+            "file": "scratch\\agt-0861e8ed_extraction.md"
+        },
+        "executed_at": "2026-08-20T09:55:35.788181"
+    },
+    {
+        "receipt_id": "e883718b-346b-4fa7-aae4-5846dc0d7c31",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-74923c85",
+            "tool_request_id": "req-74923c85",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:25:37.759216"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "result": "Navigated to https://www.hindustantimes.com/india-news"
+        },
+        "executed_at": "2026-08-20T09:55:41.366397"
+    },
+    {
+        "receipt_id": "b53c1fda-2736-403e-b759-eeb5b28d30be",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.extract_text",
+        "action_summary": "Executed browser.extract_text",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-3e76de29",
+            "tool_request_id": "req-3e76de29",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:25:43.748069"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "text": "Edit Profile\nSubscribe Now\nSaved Articles\nFollowing\nMy Reads\nSign out\nGet App\nHome\nHTLS 2025\nAstrology\nIndia News\nLifestyle\nEntertainment\nElections\nTrending\nHT Cricket\nVideos\nEducation\nPhotos\nSports\nCities\nDaily Digest\nQuickreads\nOpinion\nAnalysis\nFor You\nFollowing\nScience\nHT Government\nHT Games\nProduct Hub\nPodcasts\nBangla News\nTelugu News\nWeather\nHT Premium\nTechnology\nCricket\nLive Cricket Score\nCricket Players\nICC Rankings\nCricket Schedule\nWorld News\nUS News\nCities\nDelhi\nMumbai\nBengaluru\nGurugram\nNoida\nHyderabad\nChennai\nKolkata\nBhopal\nChandigarh\nDehradun\nIndore\nJaipur\nLucknow\nPatna\nPune\nRanchi\nOther Cities\nHT Business\nIncome Tax Calculator\nPetrol Prices\nDiesel Prices\nGold Rate\nSilver Rate\nSmart Money\nLifestyle\nFitness\nFashion\nHealth\nRelationships\nArt and Culture\nTravel\nRecipes\nFestivals\nFood\nPet\nBrunch\nEntertainment\nBollywood\nTV\nWeb Series\nMusic\nHollywood\nTelugu Cinema\nTamil Cinema\nAnime\nEducation News\nEngineering Exams\nBoard Exams\nStudy Abroad\nJEE\nExam Results\nAdmission News\nEmployment News\nCompetitive Exams\nBBA Colleges\nEngineering Colleges\nMedical Colleges\nBCA Colleges\nBBA Exams\nBCA Exams\nMedical Exams\nAstrology\nHoroscope\nHoroscope 2026\nLove Horoscope\nTarot\nChinese\nPanchang\nFestival Calendar\nCompatibility Calculator\nCareer Horoscope\nManifestation\nTransits\nHT Premium\nE-Paper\nThe Economist Articles\nThe Wall Street Journal\nHT Insider\nHT Insight\nAssembly Elections: Latest News\nWest Bengal\nTamil Nadu\nAssam\nKerala\nPuducherry\nElection Schedule\nBihar\nDelhi\nMaharashtra\nHaryana\nJ&K\nVideos\nindia news\ninfocus\nHT Insight\nExplainer Video\nOn The Record\nHT Weekend\nAur Batao\nVikram Chandra Daily Wrap\nPhotos\nEntertainment Photos\nLifestyle Photos\nNews Photos\nSports\nGlassgow 2026\nCWG 2026 Medals Tally\nCWG 2026 News\nUS Sports\nWWE\nFootball\nTennis\nHockey\nOther Sports\nHT Insight\nPublic Health\nEconomic Policy\nInternational Affairs\nClimate Change\nGender Equality\nknowledge\nfuture tech\nGovernance\nHT INITIATIVES\nDiabetes Management Journey\nTravel Mela\nGenetic Blueprint\nProsperity Tales\nZurich Playbook\nMSME Honours\nSafest Lap\nUnleash yourCareer\nFactory of Happiness\nReal Estate\nINDIA NEXT REAL ESTATE EXPO\nDigital Real Estate\nReal Estate Guide\nMORE FROM HT\nHT Epaper\nLiveMint\nLive Hindustan\nAuto\nHT Tech\nHT Newsletters\nWeather Today\nAbout Us\nContact Us\nPrivacy Policy\nTerms of Use\nPrint Ad Rates\nCode of Ethics\nSitemap\nRSS Feeds\nSubscription - Terms of Use\nPrivacy and Cookie Settings\nCopyright \u00a9 HT Digital Streams Ltd. All rights reserved.\nFOLLOW US\nSign in\nHome\nE-Paper\nCricket\nIndia News\nEntertainment\nWorld News\nLifestyle\nCJP Protest LIVE\nDPL 2026\nTrending\nCities\nAstrology\nHTCity\nNRI\nUS News\nHT Premium\nHT The Next Voice\nGames\nHT Bangla\nHT Telugu\nBusiness\nReal Estate\nEducation\nLatest News\nLivemint\n+ 20 more\nDPL 2026\nTrending\nCities\nAstrology\nHTCity\nNRI\nUS News\nHT Premium\nHT The Next Voice\nGames\nHT Bangla\nHT Telugu\nHT Tech\nBusiness\nReal Estate\nEducation\nLatest News\nLivemint\nTop News\nindia news\nSajjan Kumar, jailed in 1984 anti-Sikh riots case, dies at 80\nUpdated 22 mins ago\nindia news\nLucknow banker kills wife outside bank, puts WhatsApp status before killing self\nUpdated 36 mins ago\nindia news\nVijay, Shivakumar, Naidu on stage: Amit Shah's meeting unites southern CMs\nUpdated 1 hour ago\nindia news\nPM CARES Fund: Why was it set up and can its money be used to fix schools?\nUpdated 15 mins ago\nindia news\n\u2018New Muslim League\u2019: BJP's Nabin attacks Congress, Vande Mataram row escalates\nUpdated 1 hour ago\nTrending Topics\nDonald TrumpMohan BhagwatAmit ShahRajpal yadavVirat KohliGautam GambhirBatwara 1947 CollectionRhea ChakrabortyCJP Protest LIVECareer HoroscopeLove HoroscopeNumerology HoroscopeToday's HoroscopeManipur School College ClosedSajjan Kumar\nDon't Miss\ntamil cinema\nJailer 2 song Ala Bolelo promo makes Keralites fume over mispronunciation\nUpdated 1 hour ago\ntv\nShweta Tiwari tags Tukaram Mundhe after finding cockroach in her online order\nUpdated 2 hours ago\ntrending\nLaid off on H-1B, Indian man took up cleaning job to survive: \u2018Money ran out\u2019\nUpdated 2 hours ago\nart culture\nInside the Patiala royal family\u2019s fascinating world of art, jewels and heirlooms\nPublished 2 hours ago\nart culture\nStep inside this beautiful ancestral home in Karnataka where Kantara was filmed\nUpdated 2 hours ago\nView All\nLatest News\nworld news\n'Loves me as much as Melania': Trump's remarks for aide Natalie Harp spark storm\nPublished 43 mins ago\nindia news\nSC rejects NIA plea to cancel Kabir Talwar bail in 3,000kg Mundra drug haul case\nPublished 43 mins ago\ncompetitive exams\nNICL Assistant Admit Card 2026 released, direct link to download here\nUpdated 44 mins ago\nvideos\nIndia-Japan Defence Ties In Focus As Rajnath Singh Meets Japanese Counterpart In Delhi\nPublished 44 mins ago\nreal estate\nChina Evergrande founder sentenced to life in prison\nUpdated 45 mins ago\nindia news\nGiven 24 hours to remove derogatory content on Shirdi Sai Baba: Centre to HC\nindia news\nPublished 14 mins ago\nPM CARES Fund: Why was it set up and can its money be used to fix schools?\nindia news\nUpdated 15 mins ago\nTaxi drivers failing Marathi test in Maha face action, given notice and deadline\nindia news\nUpdated 29 mins ago\nSC reconstitutes bench to hear review pleas challenging 2022 PMLA verdict\nindia news\nPublished 32 mins ago\n\u2018Only Priyanka and I know\u2019: Rahul on Sonia\u2019s life after Rajiv Gandhi\u2019s death\nindia news\nUpdated 36 mins ago\nGloves, paper left inside woman\u2019s abdomen after C-section; probe ordered\nindia news\nUpdated 40 mins ago\nSC rejects NIA plea to cancel Kabir Talwar bail in 3,000kg Mundra drug haul case\nindia news\nPublished 43 mins ago\nLucknow banker kills wife outside bank, puts WhatsApp status before killing self\nindia news\nUpdated 36 mins ago\nCISF intercepts \u20b968.53 lakh unaccounted cash at Delhi Airport\nindia news\nUpdated 53 mins ago\nUP bars entry of YouTubers into govt schools amid protests over poor facilities\nindia news\nUpdated 50 mins ago\nWho was Sajjan Kumar, ex-Congress MP and 1984 riots convict\nindia news\nUpdated 1 hour ago\nTelangana minister's daughter challenges CM: \u2018Who is he to decide my ticket?'\nindia news\nUpdated 1 hour ago\nSajjan Kumar, jailed in 1984 anti-Sikh riots case, dies at 80\nindia news\nUpdated 22 mins ago\nMehul Choksi\u2019s lawyer Vijay Aggarwal held in London over sexual assault charges\nindia news\nUpdated 1 hour ago\nWatch: Vande Bharat clocks nearly 100kmph on world's highest rail bridge\nindia news\nUpdated 1 hour ago\nSC to hear review pleas against 2022 verdict upholding ED\u2019s powers in money laundering cases\nindia news\nPublished 2 hours ago\nIndian girl develops sepsis after being scratched by tiger at Pattaya park\nindia news\nPublished 2 hours ago\nAmit Shah chairs southern CMs conclave, Shivakumar flags delimitation\nindia news\nPublished 2 hours ago\n\u2018New Muslim League\u2019: BJP's Nabin attacks Congress, Vande Mataram row escalates\nindia news\nUpdated 1 hour ago\nShivakumar seeks Southern Zonal Council resolution to retain 543 Lok Sabha seats, honour 1971 census\nindia news\nPublished 2 hours ago\nTarun Tejpal moves SC against conviction in 2013 sexual assault case\nindia news\nUpdated 1 hour ago\nVijay, Shivakumar, Naidu on stage: Amit Shah's meeting unites southern CMs\nindia news\nUpdated 1 hour ago\nMayawati backs Gen Alpha school protests, urges govts to address basic needs\nindia news\nPublished 2 hours ago\nOdisha floods: ASHA worker carries elderly woman to safety on back\nindia news\nPublished 3 hours ago\nMurder case filed against six policemen over jeweller's death in UP's Shahjahanpur\nindia news\nPublished 3 hours ago\nManipur schools, colleges shut amid tensions over demands for NRC before Census\nindia news\nPublished 3 hours ago\nCentre tightens sugar stock curbs amid record price, bulk buyers face 15-day cap\nindia news\nUpdated 3 hours ago\nJharkhand to roll out action plan to prevent disaster losses\nindia news\nPublished 3 hours ago\nArmy veterans fume at viral 'we're Gen Z' outburst in Ladakh, back soldiers\nindia news\nUpdated 1 hour ago\nSC\u2019s 5:4 verdict refines 48-yr-old \u2018industry\u2019 test but protects pending disputes\nindia news\nUpdated 3 hours ago\n1\n2\n3\n...\nHome\u00a0/\u00a0India News\nTop News\nSajjan Kumar, jailed in 1984 anti-Sikh riots case, dies at 80\nLucknow banker kills wife outside bank, puts WhatsApp status before killing self\nVijay, Shivakumar, Naidu on stage: Amit Shah's meeting unites southern CMs\nPM CARES Fund: Why was it set up and can its money be used to fix schools?\n\u2018New Muslim League\u2019: BJP's Nabin attacks Congress, Vande Mataram row escalates\n[\nShop Now\n]\n67% OFF\n\nCampus Sutra Classic Self Design Spread Collar Casual Shirt\n\nRs. 626Rs. 1899\nBUY NOW\n60% OFF\n\nTHE BEAR HOUSE Men Purple Slim Fit Casual Shirt\n\nRs. 998Rs. 2495\nBUY NOW\n62% OFF\n\nPowerlook Tartan Checked Opaque India Slim Casual Oversized Shirt\n\nRs. 683Rs. 1799\nBUY NOW\n40% OFF\n\nLevis Men Printed Slim Fit Shirt\n\nRs. 1439Rs. 2399\nBUY NOW\nEXPLORE MORE DEALS\nHT Games\nCryptic Crossword\n\nMatch your wits against ace setters\n\nWord Flower\n\nCreate words with these letters\n\nWord Row\n\nDeduce a name or title, word by word\n\nSuperbrain teasers\n\nTest your IQ with maths/logic puzzles\n\nMini Crossword\n\nCan you solve it in under 2 minutes?\n\nView more\nDon't Miss\nJailer 2 song Ala Bolelo promo makes Keralites fume over mispronunciation\nShweta Tiwari tags Tukaram Mundhe after finding cockroach in her online order\nLaid off on H-1B, Indian man took up cleaning job to survive: \u2018Money ran out\u2019\nInside the Patiala royal family\u2019s fascinating world of art, jewels and heirlooms\nStep inside this beautiful ancestral home in Karnataka where Kantara was filmed\nLatest News\n'Loves me as much as Melania': Trump's remarks for aide Natalie Harp spark storm\nSC rejects NIA plea to cancel Kabir Talwar bail in 3,000kg Mundra drug haul case\nNICL Assistant Admit Card 2026 released, direct link to download here\nIndia-Japan Defence Ties In Focus As Rajnath Singh Meets Japanese Counterpart In Delhi\nChina Evergrande founder sentenced to life in prison\nPhotos\nRain, traffic and chaos: Delhi battles \u2018saavan ki baarish\u2019 | In pics\n12\nPyres, cockroaches, hanging satyagrahas: Major protests across India | In pics\n14\nCockroaches, clash, cries: Photos from one of India's biggest youth protests\n17\nMetro gates shut, tear gas and lathicharge: CJP's Parliament march chaos in pics\n11\n5 unseen photos of Joni Lamb as fans mourn her death\n5\nTrending\n\u2018I won\u2019t deliver\u2019: Woman alleges delivery boy refused her parcel\n\u2018I was the only person from India\u2019: Employee laid off from US job over 9 pm call\nLaid off on H-1B, Indian man took up cleaning job to survive: \u2018Money ran out\u2019\nForeign tourists praise Delhi Metro over Western underground systems\nHow a candidate with \u2018terrible English\u2019 became a Mumbai founder\u2019s \u2018best hire\u2019\nVideos\nAmazon in trouble over misleading 'Ayodhya Ram Mandir Prasad' sweets\nCJP founder Abhijeet Dipke reacts to Modi Minister's offer to join NDA\nKolkata hotel fire deaths: \u2018Only one entrance, exit\u2026\u2019\nDMK paper questions Trisha\u2019s presence, salute exchange at I-Day event\nTrump cites India's EC Gyanesh Kumar, renews push for mandatory voter photo ID\nBest Deals\nUpgrade to a 15L water heater under \u20b910000 with our selection from Amazon\nGeyser for bathroom with modern design, advanced safety features: Top 10 picks\nBluetooth smart TVs: What Bluetooth means and what buyers get wrong; top picks\nHow to wear your favourite saree to a winter wedding: From fabric to footwear\nVitamin D supplements: Top 10 choices for stronger bones and better immunity\nAbout Us\nContact us\nTerms of use\nPrivacy policy\nWeather Today\nHT Newsletters\nSubscription\nPrint Ad Rates\nCode of Ethics\nSitemap\nRSS Feeds\n\u00a9 2026 HindustanTimes"
+        },
+        "executed_at": "2026-08-20T09:55:44.473924"
+    },
+    {
+        "receipt_id": "d2a3dcdd-6805-4c01-ae61-104f66897a35",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.save_to_scratch",
+        "action_summary": "Executed browser.save_to_scratch",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-81fdcd1f",
+            "tool_request_id": "req-81fdcd1f",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:26:27.566185"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 6483,
+            "file": "scratch\\agt-0861e8ed_extraction.md"
+        },
+        "executed_at": "2026-08-20T09:56:27.571980"
+    },
+    {
+        "receipt_id": "8a6b6c29-ad4d-444d-8669-6ef58fa9395d",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-9a641052",
+            "tool_request_id": "req-9a641052",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:26:32.952767"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "result": "Navigated to https://www.thehindu.com/news/national/"
+        },
+        "executed_at": "2026-08-20T09:56:35.983292"
+    },
+    {
+        "receipt_id": "24e80085-10b3-49fd-aa0e-6d7e1518db28",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.extract_text",
+        "action_summary": "Executed browser.extract_text",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-58de517d",
+            "tool_request_id": "req-58de517d",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:26:59.489426"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "Page.evaluate: Execution context was destroyed, most likely because of a navigation"
+        },
+        "executed_at": "2026-08-20T09:56:59.535162"
+    },
+    {
+        "receipt_id": "94262512-16d2-49c1-827b-53a0df7cc26e",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.extract_text",
+        "action_summary": "Executed browser.extract_text",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-2cb9cb83",
+            "tool_request_id": "req-2cb9cb83",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:27:01.164334"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "text": "India\nNEWS\n \nINDIA\n \nWORLD\n \nSTATES\n \nCITIES\nINDIA\nLawyers protest outside BCI office, demand Chairman Manan Mishra\u2019s resignation amid NALSAR row\nANI\nINDIA\nDistrict collectors in eight States, UTs empowered to grant citizenship under CAA; central panels phased out\nVIJAITA SINGH\nINDIA\nRahul Gandhi wants monitoring of colleagues after Kharge laments their silence on Haldwani \u2018purification ritual\u2019\nSANDEEP PHUKAN\nINDIA\nRajiv Gandhi helped prepare India for promise of 21st century, says Congress\nPTI\nSajjan Kumar, former Congress MP convicted in anti-Sikh riots case, passes away\nSajjan Kumar was sentenced to life imprisonment by the Delhi High Court on December 17, 2018, in a case related to the murder of five Sikhs during the 1984 anti-Sikh killings\nTHE HINDU BUREAU\nINDIA\nIndia, Japan sign maritime security pact to deepen defence cooperation\nSAURABH TRIVEDI\nINDIA\nTarun Tejpal appeals in Supreme Court against 10-year term in 2013 rape case\n\t\nSupreme Court upholds definition of \u2018industry\u2019 as per Industrial Relations Code, 2020\nMost Popular\nKolkata hotel fire kills nine, including Bangladeshi nationals\nNorth Korea fires unidentified projectile off its east coast: South Korea\nPrakash Raj says \u2018end of fascists is closing,\u2019 hails youth activism\nMore stories from India\nUN Deputy Secretary-General Amina Mohammed to visit India later this month\nPTI\n\u2018Homemaker\u2019 is a gender-neutral term: What did the Karnataka High Court say?\nRIZMI LIA M.\nIndia, Japan sign maritime security pact to deepen defence cooperation\nSAURABH TRIVEDI\n100 days of governments in Keralam, Puducherry, Tamil Nadu and West Bengal\nTHE HINDU BUREAU\nLawyers protest outside BCI office, demand Chairman Manan Mishra\u2019s resignation amid NALSAR row\nANI\nBorders neglected in past, top priority for Modi government now: Rijiju on claims of Chinese intrusion in Arunachal\nPTI\nTarun Tejpal appeals in Supreme Court against 10-year term in 2013 rape case\nTHE HINDU BUREAU\nRajiv Gandhi-era reforms: From 18-year-old voters to National Policy on Education\nTHE HINDU BUREAU\nRajiv Gandhi helped prepare India for promise of 21st century, says Congress\nPTI\nSitharaman-led ministerial delegation meets Singapore PM Lawrence Wong\nPTI\nSupreme Court upholds definition of \u2018industry\u2019 as per Industrial Relations Code, 2020\nTHE HINDU BUREAU\nIndian national dies in Israel; suspect arrested\nPTI\nBengal, J&K, Ladakh and five other State Collectors empowered to grant citizenship under CAA\nVIJAITA SINGH\nUNSC membership must not be used to 'legitimise' terrorists: India\nPTI\nIn Case You Missed It\nCongress will return to power with 117 seats, says CM\nED claims to have seized handwritten notes of Veena relating to fund transfer to Dubai\nAs August 23 eKYC deadline for LPG connection nears, people make a dash to gas agencies\nCPI(M) holds Tamil Nadu Chief Secretary responsible for circular on student participation in Left parties\u2019 protests\nIndia vs Pakistan hockey World Cup 2026: Where to watch in India, live stream, squads\nMaharashtra FDA suspends licences of two online food delivery facilities\nShould be mandatory for education officials to send their kids to govt schools, says Abhijeet Dipke\nRahul Gandhi wants monitoring of colleagues after Kharge laments their silence on Haldwani \u2018purification ritual\u2019\nSign in to unlock member-only benefits!\nAccess 10 free stories every month\nSave stories to read later\nAccess to comment on every story\nSign-up/manage your newsletter subscriptions with a single click\nGet notified by email for early access to discounts & offers on our products"
+        },
+        "executed_at": "2026-08-20T09:57:01.471307"
+    },
+    {
+        "receipt_id": "c65e7275-fa69-4360-ba39-d52f73c17da7",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.save_to_scratch",
+        "action_summary": "Executed browser.save_to_scratch",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-65c529a0",
+            "tool_request_id": "req-65c529a0",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:27:20.517974"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 4049,
+            "file": "scratch\\agt-0861e8ed_extraction.md"
+        },
+        "executed_at": "2026-08-20T09:57:20.528844"
+    },
+    {
+        "receipt_id": "b79b54b7-1128-4265-a315-351a849cd86f",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-1ccde366",
+            "tool_request_id": "req-1ccde366",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:27:22.048483"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "result": "Navigated to https://timesofindia.indiatimes.com/india"
+        },
+        "executed_at": "2026-08-20T09:57:25.482380"
+    },
+    {
+        "receipt_id": "1aacacea-401a-43e7-a957-d3aad6432672",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.extract_text",
+        "action_summary": "Executed browser.extract_text",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-1d30c3f9",
+            "tool_request_id": "req-1d30c3f9",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:27:27.155113"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "text": "Edition\nIN\nEnglish\nWeather\nRead ePaper\nSubscribe To TOI+\nSign In\nTOI\nNews\nINDIA NEWS\nIndia News\nINDIA / Aug 20, 2026\nJ&K: Security forces search Kathua forests after locals report suspicious movement\n\nNEW DELHI: Security forces conducted a search operation in the forested areas of Jammu and Kashmir\u2019s Kathua district on Thursday after locals reported suspected movement of unidentified persons, officials said. The search was launched in the Billawar\n\nINDIA / Aug 20, 2026\n'Illiterate government': Kejriwal takes aim at Centre over E20 fuel policy, sugar prices\nINDIA / Aug 20, 2026\nDehradun cave party: Men with large speaker dance inside Robber's Cave; internet slams 'zero civic sense'\nINDIA / Aug 20, 2026\n'Papa looking down proudly': Rahul, Priyanka's emotional note for 'Mama' Sonia Gandhi ahead of memoir release\n\nNEW DELHI: Leader of opposition Rahul Gandhi and Congress MP Priyanka Gandhi Vadra on Thursday penned emotional notes for their mother Sonia Gandhi, who is set to release her memoir 'Belonging: A Journey of Love' in November. The messages came on the\n\nINDIA / Aug 20, 2026\nFormer Congress MP Sajjan Kumar, convicted in 1984 anti-Sikh riots case, dies at 80\nINDIA / Aug 20, 2026\nNALSAR row sparks fresh protest: Lawyers demand resignation of BCI chief Manan Mishra\nINDIA / Aug 20, 2026\n'Anti-national decision': Amit Shah slams Congress's stand to stick to first two stanzas of Vande Mataram\nTrending Topics\nPrevious\nNitin Nabin\nRahul Gandhi\nSupreme Court\nDara Singh\nSergio Gor\nPrathap C Reddy\nUGC Net\nAmina Mohammad\nNTA\nMohan Bhagwat\nNitin Nabin\nRahul Gandhi\nSupreme Court\nDara Singh\nSergio Gor\nPrathap C Reddy\nUGC Net\nAmina Mohammad\nNTA\nMohan Bhagwat\nNitin Nabin\nRahul Gandhi\nSupreme Court\nDara Singh\nSergio Gor\nPrathap C Reddy\nUGC Net\nAmina Mohammad\nNTA\nMohan Bhagwat\nNext\nTOI Top 10\n\nYour essential daily 10\u2014from headlines to highlights, all the news you need, fast.\n\nEmail\nSubscribe\nVideos\n08:47\n'Not Mahatma Gandhi's Congress': FULL Vande Mataram Rejected At INC Events, BJP Doubts 'Loyalty'\n08:47\n'Not Mahatma Gandhi's Congress': FULL Vande Mataram Rejected At INC Events, BJP Doubts 'Loyalty'\n03:21\nUS Body Opposes Mohan Bhagwat\u2019s Visit, Seeks Sanctions on RSS Members Over Religious Freedom Claims\n04:16\nDJB Tender Scam Row: AAP Questions Why Raghav Chadha Was Never Questioned By Investigators\nMaharashtra\u2019s Power Shift: Fadnavis Can Now Reverse Ministerial Decisions In Public Interest\nIndia Removes Pakistan Mission Barricades After Islamabad Move, Tensions Rise Over Kashmir Remarks\n03:17\nModi Govt\u2019s Gen-Z Outreach: One Union Minister To Visit One University Daily\nPopular India Stories\nMOST READMOST COMMENTEDMOST SHARED\nCongress Working Committee discusses Vande Mataram, firm on singing just 2 stanzas\nPM Modi's Gen Z, Gen Alpha outreach: Ministers told to visit universities, govt schools\nVande Mataram row: BJP chief Nabin slams Congress, calls it new Muslim League\nPaternity test of child can be allowed in marital dispute: SC\nVijay govt revokes order barring students from Left, CJP protests in Tamil Nadu\nSunali Khatun's husband joins her, SC closes case\nIf accused has right to silence, cops have right to arrest: SC\nNCERT recasts political science textbook panel; 4 with RSS links among 20 members\nVijay rolls out slew of perks for Tamil Nadu MLAs: Vehicle, monthly allowances, bigger health cover\n'Quickest way to erode goodwill': J&K CM Omar Abdullah reacts to viral 'we are Gen Z' video\nUGC NET row: AI used recklessly to draft questions, say experts; NTA denies\nCabinet clears Rs 13,041-crore railway, highway projects across 5 states\nCentre, UT govt have made J&K safer, says US envoy\nFSSAI action prompts Amway, Emami, four other brands to drop '100%' product claims\n'Voice sample is not required': Rahul Gandhi\u2019s counsel opposes plea in Savarkar defamation case\nDecide on Dara Singh's remission plea or we will: SC to Odisha govt\nMore India News\n'Anti-national decision': Amit Shah slams Congress's stand to stick to first two stanzas of Vande Mataram\nPanic in Amethi as 29 copper spheres emerge from ground during house construction; Archaeology (ASI) team examines suspected ammunition\n\u2018Correct interpretation\u2019: SC upholds broad definition of \u2018industry\u2019 laid down in 1978 judgment\nIndian national dies in Israel; suspect arrested, Embassy says probe under way\nAmit Shah chairs Southern Zonal Council meeting in Tamil Nadu; Vijay, DKS among key participants\nGandhi manuscript fetches Rs 16.2 crore at Saffronart, sets world auction record\nPolice cannot investigate sex determination offences under PCPNDT Act: Supreme Court\nRahul Gandhi's 'Chhatron Ki Goonj' event in Pune gets nod with 30 conditions; CM Fadnavis reacts\n\u2018Membership must not be used to legitimise terrorists\u2019: India seeks transparency in UNSC\nIndia makes its vow for longevity: Country's first longevity summit concludes at Fairmont Mumbai\n'Impose sanctions against RSS': US religious freedom body opposes Mohan Bhagwat's New York visit\n\u2018PM Modi\u2019s political rule in final phase, successor search under way\u2019: Rahul Gandhi at CWC meet\nStop, think, check: 5.7 lakhs kids learn to question answers\nSC: Can't assume Speaker's role to direct MLAs' disqualification\nDecide on Dara Singh's remission plea or we will: SC to Odisha govt\nSCorders clinics for periodic health checkup of captive elephants\nCentre, UT govt have made J&K safer, says US envoy\n'Hotel tariff & hospital rent... not the correct comparison'\nWill hold retest of 3 subjects of UGC-NET: Govt\nCabinet clears Rs 13,041-crore railway, highway projects across 5 states\nUN Deputy Secretary-General Amina Mohammed to visit India later this month\nUGC NET row: AI used recklessly to draft questions, say experts; NTA denies\nVande Mataram row: BJP chief Nabin slams Congress, calls it new Muslim League\nCongress Working Committee discusses Vande Mataram, firm on singing just 2 stanzas\nNCERT recasts political science textbook panel; 4 with RSS links among 20 members\nSunali Khatun's husband joins her, SC closes case\nPaternity test of child can be allowed in marital dispute: SC\nUP gets Japan investment boost with projects worth Rs 3000 crore\nIf accused has right to silence, cops have right to arrest: SC\nED claims cash disclosures in Veena's notes\nLadakh representatives draw the hard line: Give us an assembly, drop cases\nSUV falls in J&K gorge; 3 killed\nNIA court issues non-bailable warrant against top LeT commander\nCollectors of border states to decide citizenship applications under CAA\nDisability rights groups raise concern over Census enumeration framework\nPM Modi's Gen Z, Gen Alpha outreach: Ministers told to visit universities, govt schools\nCCPA fines Amazon Rs 1 lakh for misleading \u2018Shri Ram Mandir Ayodhya Prasad\u2019 listings\nUttarakhand HC rejects bail pleas of 3 convicts in Ankita Bhandari murder case\nAmit Shah to chair meeting with CMs, top officials of southern states to resolve inter-state issues\nVande Mataram, Chhatron ki Goonj & chanda chori: What Congress discussed in key strategy meet\nGovernment planning to bring E10 back? Clamour grows after top bureaucrat's remark\nTwo Mumbai doctors to receive Pakistan\u2019s highest civilian honour for keeping Jinnah\u2019s illness secret\nDelhi Jal Board case: Satyendar Jain, four others sent to 14-day judicial custody\n03:17\nModi govt's Gen Z outreach: One Union minister to visit one university every day\nBEL, Ananth Technologies ink pact\nEvening news wrap: Kiren Rijiju rejects China incursion claim; US envoy Sergio Gor visits Srinagar, and more\nJharkhand students suspend 26-day protest over JPSC-JSSC exam; give 2-month ultimatum to Soren govt\n'Quickest way to erode goodwill': J&K CM Omar Abdullah reacts to viral 'we are Gen Z' video\nSumit Sarkar: The Citizen Historian\nFSSAI action prompts Amway, Emami, four other brands to drop '100%' product claims\n3 killed, 3 injured after truck gas tank explodes at Delhi CNG station while refuelling\n1\n2\n3\n4\n5\nYou May Like\nStart Forex Trading.\u00a0Get a 100% Welcome BonusiFOREX\nSign Up\nUndo\nThe cost of hearing aids in Bethapudi might surprise youHearing Loss\nLearn More\nUndo\nIndians over 70 are switching from hearing aids to this new device.Hearing Aids\nLearn More\nUndo\n\u00a0\u00a0\u00a0\u00a0\nby Taboolaby Taboola\nSponsored LinksSponsored Links\nPromoted LinksPromoted Links\nQuick Links\nNARENDRA MODI\nNITIN NABIN\nMALLIKARJUN KHARGE\nUN SECURITY COUNCIL\nSUPREME COURT\nRAJIV ACHARYA\nAMETHI NEWS\nAYODHYA TEMPLE DONATION THEFT\nMOHAN BHAGWAT\nAMIT SHAH\nRAHUL GANDHI\nDARA SINGH\nExplore Every Corner\nAcross The Globe\nEngland Vs Pakistan Match Score\nJason Kelce\nManav Suthar\nCandace Owens\nNick Kyrgios\nMax Verstappen\nKochi Grandfather Murder\nJason Kelce Career\nConor Mcgregor\nBrittany Mahomes\nKansas City Chief\nBryson DeChambeau\nBWF World Championship Schedule\nFortnite Chapter 7\nRhiya Ahir Education\nOllie Robinson\nBWF World Championship 2026\nChandrajeet Singh Rajawat\nAJ Smith Relationship\nLionel Messi\nHyderabad Principle Murder\nNFL Retired Players\nKevin Owens\nPennsylvania plane crash\nPakistan High Commission\nAb De Villiers\nOmar Abdullah\nKarnataka Double Murder\nIIT Delhi Student Innovation\nJose Mourinho\nAbout us\nCreate Your Own Ad\nTerms of Use and Grievance Redressal Policy\nPrivacy policy\nAdvertise with us\nRSS\nNewsletter\nFeedback\nePaper\nArchives\nContact Us\nEditorial Policy\nLiving and Entertainment\nCricbuzz\nLifestyle\nNewspaper Subscription\nFood News\nTV\nTimes Prime\nTravel Destinations\nWhats Hot\nETimes\nTimes Life\nTimes Pets\nMyLifeXP\nServices\nCouponDunia\nTechGig\nTimesJobs\nBreaking News\nTimes Mobile\nGadgets\nCity News\nWork with Us\nColombia\nHot on the Web\nArpita Khan\nVivek Oberoi House\nAbhishek Bachchan\nRajshri Deshpande\nKangana Ranaut\nKate Winslet Quote\nVishwanath and Sons Box Office Collection\nAwarapan 2 Box Office Collection\nBatwara 1947 Box Office Collection\nBigg Boss 20\nVande Bharat Sleeper Train\nRajinikanth\nSohail Khan\nErnest Hemingway Quote\nAwarapan 2 Movie Review\nSalman Khan\nAsha Bhosle\nAkashdeep Saigal\nBhagyashree House\nShatrughan Sinha\nRajshri Deshpande\nAnti Lizard Tricks\nRanveer Allahbadia\nSalman Khan\nMathilde Favier\nDC Collection\nSuvinder Vicky\nSpider Man Box Office Collection\nBaby Names\nHoroscope Today\nAIIMS Rishikesh Compensation\nPradeep Rai\nWoman Lawyer Appointment\nLord Ram Property Case\nAatmanirbhar Bharat Defence\nIndia Armenia MoU\nChina Robot Dogs\nBiodegradable Plastic\nShiva Nataraja Statue\nBrain To Brain Communication\nWax Coated Sand\nCaptions For Instagram Posts\nTrending Topics\nValkyraes Ai Controversy\nJason Heyward\nGisele Bundchen\nVolhynia Massacres\nSuper Bowl LXI\nRic Flair vs Brock Lesnar\nZeeshan Siddique\nSophie Cunnigham\nNico Daws\nNaomi Osaka\nMitch Evans\nIan Machado Garry\nVictoria Beckham\nMinecraft New Update\nTom Brady\nAustralia Vs Bangladesh Match Score\nRyanair\nJoel Eriksson\nCody Rhodes\nRahul Gandhi\nKylie Kelce\nLondon E Prix\nGautam Rangarajan\nMichael J Fox\nKing Charles\nF 16 Fighter Jet Crash\nDan Scavino\nShell Rock River Habitat Program\nAung San Suu Kyi\nIShowSpeed\nSundar Pichai\nGoogle Pixel 11\nGemini Student Offer\nSamsung Galaxy Event\nSam Altman\nAndra Mallard\nSarah Friar\nCMF Buds Neo\niQOO Z11 5G\nHsu Ting Wei Taiwan\nReed Hastings\nPopular Categories\nHeadlines\nSports News\nBusiness News\nIndia News\nWorld News\nInternational Sports\nHealth\nBreaking News\nTravel\nAstrology\nDeorhi\nTOI Young Leaders\nTOI Home Decor Awards\nPower Creator Awards 2026\nThe Times of India Ecopreneur\nGold Rate Today\nWeather Today\nSilver Price Today\nDelhi Weather Today\nPetrol Price Today\nDiesel Price Today\nCNG Price Today\nLPG Price Today\nPetrol Price Mumbai\nFIFA 2026\nIs Bank Open Today\nFIFA 2026 Schedule\nIs Bank Open Tomorrow\nPublic Holidays in June\nBank Holidays in June\nTrending Videos\nChina Achieves Rocket Landing Milestone\nQueen At Sea - Official Trailer\n'Not Mahatma Gandhi's Congress': FULL Vande Mataram Rejected At INC Events, BJP Doubts 'Loyalty'\nUS Body Opposes Mohan Bhagwat\u2019s Visit, Seeks Sanctions on RSS Members Over Religious Freedom Claims\nKorean Kanakaraju | Song - Wrath Of Bhairava\nIshqnama | Song - Ki Keya\nKorean Kanakaraju | Song - Neowa Hummke Ya\nModern Missamma | Song - Missamma Title Song\nSir Madam | Song - Manninchavey\nEnjoy The Latest Haryanvi Song 'Shuruaat' By KD Desirock And Misty Vox\nDevi Mahathme | Song - Jagava Kayo Devanu\nHouthis Tighten Grip On Global Trade Chokepoint, Plan Strategic Coastal Advance Along Bab El-Mandab\nHayden Panettiere Death Probe: Neighbour Calls Brian Hickerson 'Terrifying' As Cops Reach His Home\n'No Food, No Power, No AC': U.S. Sailors 'STARVE' Aboard Navy Destroyer For 4 Days Near China\nToss| Song - Hello Hello Neelambari\nDalliance' Trailer: Watch The Official Trailer Of Hugo Weaving And David Wenham Starrer 'Dalliance'\nRussia PUMMELS Kyiv; U.S. Defences Crushed, Missiles Explode, Apocalyptic Scenes In Ukraine Capital\nRussia's Deadly Banderol Drones Kill 2 Ukrainian Cops; Zhytomyr Police HQ Bombed\nLatest News\nHazaribag man drowns while fishing in lake\n\"Behen Darr Gayi!\": Fans relive \u2018Bhagam Bhag\u2019 era after watching Akshay Kumar's 'Bhooth Bangla' trailer\nMBOSE HSLC result 2026 to release tomorrow: Check details here\nIran war risk: JPMorgan CEO Jamie Dimon warns of oil shocks, sticky inflation and higher interest rates\nMake your clutch last longer with these easy driving tips\n\u201cThree-against-one situation\u201d: El Rubius opens up on being \u201ctargeted\u201d in MrBeast\u2019s viral $1M challenge\nBihar BTSC lab assistant notification released for 1091 posts at btsc.bihar.gov.in; apply here\nIPL craze costs techie Rs 1.46 lakh in fake RCB vs CSK ticket scam\nRaising \u201crobot-proof\u201d kids: Why creativity and curiosity matter more than ever\nInside \u2018Satguru Sharan\u2019: Exploring Saif Ali Khan and Kareena Kapoor Khan\u2019s Rs 100 crore Bandra home\nHow selling Alaska in 1867 was a costly mistake for Russia\n'Hera Pheri 3 is coming': Paresh Rawal dismisses delay reports and reveals he will 'start shooting soon'\nUS-Iran War: A daring rescue Hollywood blockbuster is on its way. Till then, pick your favourite from these 10 films on bringing someone home against all odds\nKolkata team unveils fan mural at Rash Behari Avenue, celebrating city\u2019s first love\nHow US spread a lie to rescue a pilot of a jet shot down in Iran\nNetflix unveils \u2018VOID\u2019, an AI model that can change a movie plot\nAI data centers are causing 'stress' not just to tech companies, but also private insurers\n\"Trans women are.....\": Clavicular\u2019s viral moment with trans women sparks fresh conversation on internet culture\nCopyright \u00a9 2026 Bennett, Coleman & Co. Ltd. All rights reserved. For reprint rights: Times Syndication Service\nFollow Us On"
+        },
+        "executed_at": "2026-08-20T09:57:27.695289"
+    },
+    {
+        "receipt_id": "c4a59a92-1d9d-41c3-ae90-541848ec4395",
+        "task_id": "task-2c9cfe7e",
+        "agent_id": "agt-0861e8ed",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.save_to_scratch",
+        "action_summary": "Executed browser.save_to_scratch",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-e9453cc4",
+            "tool_request_id": "req-e9453cc4",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:28:37.639411"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 10317,
+            "file": "scratch\\agt-0861e8ed_extraction.md"
+        },
+        "executed_at": "2026-08-20T09:58:37.644987"
+    }
+]

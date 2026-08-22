@@ -1,0 +1,15 @@
+langchain-google-genai
+langchain-core
+langgraph
+cryptography
+pydantic
+python-dotenv
+PyYAML
+mcp
+markdown
+xhtml2pdf
+python-docx
+python-pptx
+httpx
+langchain-openai
+langchain-groq

@@ -1,0 +1,57 @@
+[
+    {
+        "receipt_id": "1daa193e-ce9a-446a-8cc4-46acaff5a3b2",
+        "task_id": "task-54f982a3",
+        "agent_id": "agt-a79658f5",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-c92c2b34",
+            "tool_request_id": "req-c92c2b34",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:39:34.960743"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 3205,
+            "_observation": {
+                "pre_snapshot_id": "7646e45a-ea14-41e3-9f80-e7faf484ab7e",
+                "pre_resource": "scratch/india_news_summary.md",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-20T10:09:34.973566"
+    },
+    {
+        "receipt_id": "a40cf2bf-b257-4ce0-b627-d0bc521f6158",
+        "task_id": "task-54f982a3",
+        "agent_id": "agt-b8131a43",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.create_pdf",
+        "action_summary": "Executed file.create_pdf",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-6c9fda71",
+            "tool_request_id": "req-6c9fda71",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T15:39:38.104652"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "message": "Beautiful PDF created at india_news_report.pdf"
+        },
+        "executed_at": "2026-08-20T10:09:41.490211"
+    }
+]

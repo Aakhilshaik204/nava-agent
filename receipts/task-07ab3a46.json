@@ -1,0 +1,26 @@
+[
+    {
+        "receipt_id": "9015aaf5-e855-4a64-b311-e196428c0be1",
+        "task_id": "task-07ab3a46",
+        "agent_id": "agt-d2b366af",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.read",
+        "action_summary": "Executed file.read",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-12343d01",
+            "tool_request_id": "req-12343d01",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T17:12:53.729727"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "filename is required"
+        },
+        "executed_at": "2026-08-21T11:42:53.746339"
+    }
+]

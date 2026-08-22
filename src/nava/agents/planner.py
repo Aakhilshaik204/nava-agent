@@ -1,0 +1,127 @@
+import os
+import uuid
+import hashlib
+import datetime
+from typing import List, Dict, Any, Optional
+from langchain_core.messages import SystemMessage, HumanMessage
+from pydantic import BaseModel, Field
+from nava.core.schemas import AgentSpec, Priority
+from nava.core.llm import get_llm
+
+class SubGoal(BaseModel):
+    role: str = Field(description="The formal role of the agent (must be a known template, or 'DynamicAgent' if none fit).")
+    display_label: Optional[str] = Field(None, description="A human-readable descriptive name (e.g. 'WebResearchAgent', 'DataAnalysisAgent', 'PDFAnalyzer') used only for audit logs.")
+    goal: str = Field(description="The specific goal for this sub-agent.")
+    required_tools: List[str] = Field(description="The tools this agent will need.")
+    required_permissions: List[str] = Field(description="The permissions this agent will need.")
+    stage: int = Field(default=1, description="The execution stage number (1, 2, 3...). Sub-goals with the same stage number execute concurrently in parallel.")
+    is_parallel: bool = Field(default=True, description="Whether this sub-goal can run concurrently with others in the same stage.")
+
+class GoalPlan(BaseModel):
+    thoughts: str = Field(description="Your step-by-step reasoning for breaking down the objective into parallel and sequential execution stages.")
+    sub_goals: List[SubGoal] = Field(description="List of sub-goals organized by execution stages.")
+
+def compute_dedup_hash(role: str, goal: str, tools: List[str]) -> str:
+    clean_goal = goal.strip().lower()
+    tools_str = ",".join(sorted(tools))
+    raw = f"{role}:{clean_goal}:{tools_str}".encode('utf-8')
+    return hashlib.sha256(raw).hexdigest()[:16]
+
+class GoalPlanner:
+    def __init__(self, available_templates: List[str], ceiling_tools: List[str], ceiling_permissions: List[str], budget_engine=None, registry=None):
+        self.available_templates = available_templates
+        self.ceiling_tools = ceiling_tools
+        self.ceiling_permissions = ceiling_permissions
+        self.budget_engine = budget_engine
+        self.registry = registry
+        if os.environ.get("NAVA_TEST_MODE") == "1":
+            self.llm = None
+        else:
+            self.llm = get_llm()
+
+
+    def plan(self, objective: str, parent_id: str, budget_ref: str = None) -> List[AgentSpec]:
+        if os.environ.get("NAVA_TEST_MODE") == "1":
+            # Mock plan for testing
+            return [
+                AgentSpec(
+                    request_id=f"req-{uuid.uuid4().hex[:8]}",
+                    requested_role="DocumentAgent",
+                    goal=objective,
+                    parent_agent_id=parent_id,
+                    requested_tools=["file.write"],
+                    requested_permission_scope=["filesystem.write"],
+                    ttl=datetime.timedelta(minutes=15),
+                    max_steps=10,
+                    max_tokens=5000,
+                    max_children=2,
+                    dedup_hash=compute_dedup_hash("DocumentAgent", objective, ["file.write"]),
+                    stage=1,
+                    is_parallel=True
+                )
+            ]
+
+        prompt_path = os.path.join(os.path.dirname(__file__), "..", "prompts", "planner_prompt.txt")
+        with open(prompt_path, "r", encoding="utf-8") as f:
+            prompt_template = f.read()
+            
+        system_prompt = prompt_template.format(
+            templates=self.available_templates,
+            tools=self.ceiling_tools,
+            permissions=self.ceiling_permissions
+        )
+        
+        sys_msg = SystemMessage(content=system_prompt)
+        human_msg = HumanMessage(content=f"Objective: {objective}")
+
+        structured_llm = self.llm.with_structured_output(GoalPlan)
+        try:
+            if self.budget_engine and budget_ref:
+                self.budget_engine.consume_internal_llm_call(budget_ref, tokens=500)
+            plan: GoalPlan = structured_llm.invoke([sys_msg, human_msg])
+        except Exception as e:
+            print(f"Planner failed: {e}")
+            raise e
+
+        print(f"\n[Orchestrator Planner Thinking]:\n{plan.thoughts}\n")
+        print("[Orchestrator Plan]:")
+        for i, sg in enumerate(plan.sub_goals):
+            print(f"  [Stage {sg.stage}] {sg.role} ({sg.display_label or sg.role}) → {sg.goal}")
+            print(f"     Tools: {sg.required_tools}")
+
+        specs = []
+        for sg in plan.sub_goals:
+            dedup = compute_dedup_hash(sg.role, sg.goal, sg.required_tools)
+            
+            # Auto-synthesize requested_permission_scope from required_tools if registry is available
+            derived_perms = list(sg.required_permissions or [])
+            if self.registry:
+                for t_name in sg.required_tools:
+                    try:
+                        t_def = self.registry.get_tool(t_name)
+                        if t_def:
+                            for p in t_def.permissions_required:
+                                if p not in derived_perms:
+                                    derived_perms.append(p)
+                    except Exception:
+                        pass
+
+            specs.append(AgentSpec(
+                request_id=f"req-{uuid.uuid4().hex[:8]}",
+                requested_role=sg.role,
+                display_label=sg.display_label or sg.role,
+                goal=sg.goal,
+                parent_agent_id=parent_id,
+                requested_tools=sg.required_tools,
+                requested_permission_scope=derived_perms,
+                ttl=datetime.timedelta(minutes=30),
+                max_steps=20,
+                max_tokens=10000,
+                max_children=2,
+                dedup_hash=dedup,
+                stage=sg.stage,
+                is_parallel=sg.is_parallel
+            ))
+            
+        return specs
+

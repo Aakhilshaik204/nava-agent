@@ -1,0 +1,58 @@
+[
+    {
+        "receipt_id": "0ac84efc-df64-4328-9354-ba259b33fc09",
+        "task_id": "task-9badd382",
+        "agent_id": "agt-7152741b",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-798b6f1b",
+            "tool_request_id": "req-798b6f1b",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T14:11:34.208460"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": "Navigated to https://html.duckduckgo.com/html/",
+        "executed_at": "2026-08-20T08:41:38.560527"
+    },
+    {
+        "receipt_id": "3f0b2638-e016-4269-939b-02c8bc666015",
+        "task_id": "task-9badd382",
+        "agent_id": "agt-7152741b",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.extract_dom",
+        "action_summary": "Executed browser.extract_dom",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-7c057eaf",
+            "tool_request_id": "req-7c057eaf",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T14:11:41.450244"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "html": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><!--<![endif]--><head>\n  <link rel=\"canonical\" href=\"https://duckduckgo.com/\">\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=1\">\n  <meta name=\"referrer\" content=\"origin\">\n  <title>DuckDuckGo HTML: Private Search Without JavaScript</title>\n  <meta name=\"description\" content=\"DuckDuckGo private search for people who keep JavaScript off in their browser. It doesn't spy on your searches.\">\n  <link title=\"DuckDuckGo (HTML)\" type=\"application/opensearchdescription+xml\" rel=\"search\" href=\"//duckduckgo.com/opensearch_html_v2.xml\">\n  <link rel=\"icon\" href=\"//duckduckgo.com/favicon.ico\" type=\"image/x-icon\">\n  <link id=\"icon60\" rel=\"apple-touch-icon\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_60x60.png?v=2\">\n  <link id=\"icon76\" rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_76x76.png?v=2\">\n  <link id=\"icon120\" rel=\"apple-touch-icon\" sizes=\"120x120\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_120x120.png?v=2\">\n  <link id=\"icon152\" rel=\"apple-touch-icon\" sizes=\"152x152\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_152x152.png?v=2\">\n  <link rel=\"image_src\" href=\"//duckduckgo.com/assets/icons/meta/DDG-icon_256x256.png\">\n  <link rel=\"stylesheet\" media=\"handheld, all\" href=\"//duckduckgo.com/dist/h.b7791eaa1c6d921ef675.css\" type=\"text/css\">\n</head>\n\n<body class=\"body--home body--html\">\n  <div class=\"header-wrap--home\"></div>\n  <div id=\"content_wrapper_homepage\" class=\"content-wrap--home\">\n  <div id=\"content_homepage\" class=\"content--home\">\n    <div class=\"logo-wrap--home\">\n    <a title=\"About DuckDuckGo\" class=\"logo_homepage\" href=\"//duckduckgo.com/about.html\">About DuckDuckGo</a>\n    </div>\n    <div class=\"search-wrap--home\">\n        <form name=\"x\" id=\"search_form_homepage\" class=\"search\" action=\"/html/\" method=\"post\">\n\n          <input name=\"q\" autocomplete=\"off\" id=\"search_form_input_homepage\" class=\"search__input\" type=\"text\" autofocus=\"\">\n\n          <input name=\"b\" id=\"search_button_homepage\" class=\"search__button search__button--html\" value=\"\" title=\"Search\" alt=\"Search\" type=\"submit\">\n\n\n\n\n\n\n        </form>\n    </div>\n\n    <!--[if IE 6]>\n        <p class=\"text-center\">This browser is not supported. Please visit <a href=\"/lite\">/lite</a>.</p>\n    <![endif]-->\n\n\t<div id=\"html-only-notice\">\n<!--          This is the HTML version. Get the JS version <a href=\"https://duckduckgo.com/\">here</a>. //-->\n\t</div>\n\n  </div> <!-- id=\"content_homepage\" -->\n  </div> <!-- id=\"content_wrapper_homepage\" -->\n\n\n</body></html>"
+        },
+        "executed_at": "2026-08-20T08:41:41.507809"
+    }
+]

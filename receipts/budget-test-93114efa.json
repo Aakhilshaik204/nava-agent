@@ -1,0 +1,67 @@
+[
+    {
+        "receipt_id": "aac2c3b8-40ff-4428-8c3c-57fecbbb81db",
+        "task_id": "budget-test-93114efa",
+        "agent_id": "test_agent",
+        "parent_agent_id": "ROOT",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req1",
+            "tool_request_id": "req1",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T12:38:51.680644"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 16,
+            "_observation": {
+                "pre_snapshot_id": "c337487f-c3dd-4e2d-aa0a-cd9c1eb44032",
+                "pre_resource": "temp_transfer.txt",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-20T07:08:51.717175"
+    },
+    {
+        "receipt_id": "c8cffb38-2408-4e82-b36f-eac268beb474",
+        "task_id": "budget-test-93114efa",
+        "agent_id": "test_agent",
+        "parent_agent_id": "ROOT",
+        "tool_name": "mock.send_wire_transfer",
+        "action_summary": "Executed mock.send_wire_transfer",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req2",
+            "tool_request_id": "req2",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T12:38:51.730320"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "transaction_id": "MOCK-TX-999"
+        },
+        "executed_at": "2026-08-20T07:08:51.761909"
+    }
+]

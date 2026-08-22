@@ -1,0 +1,68 @@
+[
+    {
+        "receipt_id": "8ce235eb-9c52-400d-9bbd-744b54260a80",
+        "task_id": "task-e94bda91",
+        "agent_id": "agt-55443849",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-a6ed4cea",
+            "tool_request_id": "req-a6ed4cea",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T13:54:50.145426"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 1768,
+            "_observation": {
+                "pre_snapshot_id": "ba6f2cc1-2265-4a07-ace5-f9fd9e4d5518",
+                "pre_resource": "get_top_story.py",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-20T08:24:50.151003"
+    },
+    {
+        "receipt_id": "62fbadd4-01dc-4e04-b7ea-f50db6bb6759",
+        "task_id": "task-e94bda91",
+        "agent_id": "agt-55443849",
+        "parent_agent_id": "system-root",
+        "tool_name": "test.run",
+        "action_summary": "Executed test.run",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-bbaa46eb",
+            "tool_request_id": "req-bbaa46eb",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T13:54:52.305984"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "returncode": 9009,
+            "stdout": "",
+            "stderr": "Python was not found; run without arguments to install from the Microsoft Store, or disable this shortcut from Settings > Apps > Advanced app settings > App execution aliases.\n"
+        },
+        "executed_at": "2026-08-20T08:24:52.737429"
+    }
+]

@@ -1,0 +1,32 @@
+[
+    {
+        "receipt_id": "0653391d-ce36-4b6f-89d4-7ac485988853",
+        "task_id": "task-e57a23ad",
+        "agent_id": "agt-7c76b23d",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-67dffeaf",
+            "tool_request_id": "req-67dffeaf",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-22T18:09:39.154176"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 2921,
+            "_observation": {
+                "pre_snapshot_id": "bfdca416-d28a-468b-8ca4-a06d19eb01c0",
+                "pre_resource": "research_memory.md",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-22T12:39:39.158177"
+    }
+]

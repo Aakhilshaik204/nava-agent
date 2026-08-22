@@ -1,0 +1,60 @@
+[
+    {
+        "receipt_id": "000b59e5-38ac-4eab-9335-bccc409c0ead",
+        "task_id": "task-cf519b2a",
+        "agent_id": "agt-091f310d",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-dcf69b8f",
+            "tool_request_id": "req-dcf69b8f",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:37:57.659270"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "result": "Navigated to https://indianexpress.com/section/india/"
+        },
+        "executed_at": "2026-08-21T18:08:05.316777"
+    },
+    {
+        "receipt_id": "64a1444e-13f6-4ebd-8f32-85a8df3712f1",
+        "task_id": "task-cf519b2a",
+        "agent_id": "agt-4158d72a",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-66e4e54e",
+            "tool_request_id": "req-66e4e54e",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:42:11.204123"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "result": "Navigation notice: Cannot switch to a different thread\n\tCurrent:  <greenlet.greenlet object at 0x00000146D4478C00 (otid=0x00000146D2E7E370) current active started main>\n\tExpected: <greenlet.greenlet object at 0x00000146D414F840 (otid=0x00000146D4135980) suspended active started main>"
+        },
+        "executed_at": "2026-08-21T18:12:11.208118"
+    }
+]

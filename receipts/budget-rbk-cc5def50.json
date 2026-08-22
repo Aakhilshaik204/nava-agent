@@ -1,0 +1,61 @@
+[
+    {
+        "receipt_id": "648822a0-c29a-4e0a-bcb2-9fe5b222cf26",
+        "task_id": "budget-rbk-cc5def50",
+        "agent_id": "SYSTEM_ROLLBACK",
+        "parent_agent_id": "ROOT",
+        "tool_name": "system.flag_review",
+        "action_summary": "Executed system.flag_review",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_cmp-c1b31467",
+            "tool_request_id": "cmp-c1b31467",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T12:38:55.774035"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true
+        },
+        "executed_at": "2026-08-20T07:08:55.788928"
+    },
+    {
+        "receipt_id": "e800ba9e-af49-41d4-b86d-9aaa90a0ea88",
+        "task_id": "budget-rbk-cc5def50",
+        "agent_id": "SYSTEM_ROLLBACK",
+        "parent_agent_id": "ROOT",
+        "tool_name": "file.delete",
+        "action_summary": "Executed file.delete",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_rbk-b59ce828",
+            "tool_request_id": "rbk-b59ce828",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T12:38:55.858930"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "message": "Deleted temp_transfer.txt"
+        },
+        "executed_at": "2026-08-20T07:08:55.876898"
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "receipt_id": "b43b5fa8-a553-4ae2-ab7c-0e91bf76f1ee",
+        "task_id": "task-5e83d6e4",
+        "agent_id": "agt-f1fcaed9",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.create_pdf",
+        "action_summary": "Executed file.create_pdf",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-ecb2bc37",
+            "tool_request_id": "req-ecb2bc37",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T16:32:20.648712"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "Must provide either markdown_content, html_content, or a valid source_file."
+        },
+        "executed_at": "2026-08-20T11:02:20.656360"
+    }
+]

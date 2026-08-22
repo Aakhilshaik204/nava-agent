@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NAVA OS - Next-Generation Quantum-Ready Operating System">
+  <title>NAVA OS | The Next-Gen Quantum Operating System</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="glow-bg-grid"></div>
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="brand">
+        <span class="brand-icon">⚡</span>
+        <span class="brand-text">NAVA <span class="accent-text">OS</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#benchmarks">Benchmarks</a>
+        <a href="#terminal">Live Terminal</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="#download" class="btn btn-secondary">Docs</a>
+        <a href="#download" class="btn btn-primary glow-btn">Get NAVA OS</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-container">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span class="badge-text">NAVA OS v3.2 Neon Edition Released</span>
+      </div>
+      <h1 class="hero-title">The Next-Gen <span class="neon-text">Quantum-Ready</span> Operating System</h1>
+      <p class="hero-subtitle">
+        Engineered for extreme performance, autonomous AI thread orchestration, and zero-trust security. Experience seamless glassmorphic desktop computing at raw metal speed.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#download" class="btn btn-primary btn-lg glow-btn">
+          <span class="btn-icon">🚀</span> Download ISO v3.2
+        </a>
+        <a href="#terminal" class="btn btn-outline btn-lg">
+          <span class="btn-icon">💻</span> Launch Live Preview
+        </a>
+      </div>
+
+      <!-- Interactive OS Preview Window -->
+      <div class="os-preview-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="control close"></span>
+            <span class="control minimize"></span>
+            <span class="control maximize"></span>
+          </div>
+          <div class="window-title">nava-kernel-daemon ~ status</div>
+          <div class="window-status">
+            <span class="status-indicator active"></span> ONLINE
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="terminal-output">
+            <p class="term-line"><span class="prompt">root@nava-node-01:~#</span> nava --status</p>
+            <p class="term-line info">[KERNEL] NAVA Microkernel v3.2.0-release (x86_64 / ARM64)</p>
+            <p class="term-line success">[SYSTEM] Neural Scheduler Active | Threads: 128 | Latency: 0.12ms</p>
+            <p class="term-line success">[SECURITY] Zero-Trust Enclave Locked | Memory Protection: Quantum Enforced</p>
+            <div class="metrics-row">
+              <div class="metric-box">
+                <span class="metric-val">0.12ms</span>
+                <span class="metric-label">Context Switch</span>
+              </div>
+              <div class="metric-box">
+                <span class="metric-val">99.999%</span>
+                <span class="metric-label">Kernel Uptime</span>
+              </div>
+              <div class="metric-box">
+                <span class="metric-val">1.2 GB</span>
+                <span class="metric-label">Idle Footprint</span>
+              </div>
+              <div class="metric-box">
+                <span class="metric-val">400 Gbps</span>
+                <span class="metric-label">I/O Throughput</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Architected for <span class="neon-text">Unmatched Speed</span></h2>
+        <p class="section-desc">Built from the ground up in Rust and C++23 with zero legacy overhead.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="card-icon">⚡</div>
+          <h3>Neural Thread Scheduler</h3>
+          <p>Predicts CPU workload bottlenecks before they occur using lightweight hardware-level AI heuristics.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🛡️</div>
+          <h3>Zero-Trust Enclaves</h3>
+          <p>Every process runs inside an isolated, hardware-encrypted memory boundary with micro-permissions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">💎</div>
+          <h3>Glass Canvas Compositor</h3>
+          <p>Hardware-accelerated GPU desktop environment running at ultra-fluid 240Hz+ frame rates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🔄</div>
+          <h3>Universal Package Mesh</h3>
+          <p>Native execution of Linux ELF, macOS Mach-O, and WASM binaries with zero performance translation penalty.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🌐</div>
+          <h3>Quantum-Safe Network Stack</h3>
+          <p>Integrated Kyber post-quantum cryptography natively protecting every socket and peer-to-peer connection.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">⚙️</div>
+          <h3>Instant Snapshot Restore</h3>
+          <p>Atomically checkpoint and restore the entire OS state in under 50 milliseconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture Section -->
+  <section id="architecture" class="architecture">
+    <div class="container">
+      <div class="arch-wrapper">
+        <div class="arch-content">
+          <span class="section-tag">SYSTEM ARCHITECTURE</span>
+          <h2>Microkernel Microsecond Execution Core</h2>
+          <p>Unlike monolithic legacy operating systems, NAVA OS isolates drivers, filesystems, and network layers into user-space micro-services. A crash in a GPU driver will never bring down your system.</p>
+          <ul class="arch-list">
+            <li><span>✓</span> Memory-safe Rust core kernel</li>
+            <li><span>✓</span> Direct NVMe & CXL memory interface</li>
+            <li><span>✓</span> Real-time telemetry & eBPF tracing</li>
+          </ul>
+        </div>
+        <div class="arch-visual">
+          <div class="arch-stack">
+            <div class="stack-layer layer-app">User Applications & AI Agents</div>
+            <div class="stack-layer layer-ui">Glass Canvas GUI Compositor</div>
+            <div class="stack-layer layer-services">Micro-Service Drivers & IPC Mesh</div>
+            <div class="stack-layer layer-kernel">NAVA Microkernel (Rust Core)</div>
+            <div class="stack-layer layer-hw">Bare-Metal Hardware / Quantum Accelerator</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download / CTA Section -->
+  <section id="download" class="cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Ready to Experience the Future of Computing?</h2>
+        <p>Deploy NAVA OS on workstations, cloud nodes, or edge devices in minutes.</p>
+        <div class="cta-buttons">
+          <a href="#" class="btn btn-primary btn-lg glow-btn">Download ISO (2.1 GB)</a>
+          <a href="#" class="btn btn-secondary btn-lg">Read Quickstart Guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <a href="#" class="brand">
+          <span class="brand-icon">⚡</span> NAVA <span class="accent-text">OS</span>
+        </a>
+        <p>Next-Generation Quantum-Ready Operating System.</p>
+      </div>
+      <div class="footer-links">
+        <div class="link-group">
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#download">Download</a>
+        </div>
+        <div class="link-group">
+          <h4>Resources</h4>
+          <a href="#">Documentation</a>
+          <a href="#">Kernel Specs</a>
+          <a href="#">Source Code</a>
+        </div>
+        <div class="link-group">
+          <h4>Community</h4>
+          <a href="#">GitHub</a>
+          <a href="#">Discord</a>
+          <a href="#">Twitter / X</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container bottom-content">
+        <p>&copy; 2025 NAVA OS Systems. Built for high performance.</p>
+        <span class="system-status"><span class="status-dot"></span> All Systems Operational</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

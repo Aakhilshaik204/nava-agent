@@ -1,0 +1,339 @@
+[
+    {
+        "receipt_id": "5c122af8-ec3b-4c24-871d-8ab8f6dce2ef",
+        "task_id": "task-e18646ef",
+        "agent_id": "agt-2d84caef",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-9e3f81fb",
+            "tool_request_id": "req-9e3f81fb",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:20:22.286751"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 2621,
+            "_observation": {
+                "pre_snapshot_id": "5c15b212-2072-4ccf-b9fb-bf0a6dbc5ab4",
+                "pre_resource": "nava_security.md",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-21T17:50:22.289746"
+    },
+    {
+        "receipt_id": "7a349931-a9c7-438c-8e3b-409315c0adfc",
+        "task_id": "task-e18646ef",
+        "agent_id": "agt-2ac16d15",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-fd8cfc6b",
+            "tool_request_id": "req-fd8cfc6b",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:20:41.172889"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 3330,
+            "_observation": {
+                "pre_snapshot_id": "494b726f-7afa-4b65-bda0-dcfee643bac8",
+                "pre_resource": "nava_arch.md",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-21T17:50:41.179884"
+    },
+    {
+        "receipt_id": "b57b10d8-4669-464a-8d9d-82c603bc4c04",
+        "task_id": "task-e18646ef",
+        "agent_id": "agt-0f10c443",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.read",
+        "action_summary": "Executed file.read",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-79af2733",
+            "tool_request_id": "req-79af2733",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:21:27.368614"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "content": "# NAVA OS: Technical Architecture Breakdown\n\n## 1. Executive Overview & System Vision\nNAVA OS is an autonomous, multi-step agentic operating system designed to execute general data transformation, file processing, and multi-agent workflow orchestration inside a governed execution loop. NAVA OS emphasizes dynamic planning, verifiable state changes, sandboxed tool execution, and deterministic control flows.\n\n## 2. Core System Components\n\n### 2.1 Dynamic Agent Loop (ReAct / Plan-Execute-Observe-Reflect)\nAt the core of NAVA OS is the cyclic DynamicAgent loop:\n- **Plan**: Evaluates the objective, context, and episodic memory to formulate the next discrete step.\n- **Execute**: Emits a strictly formatted tool call (JSON) corresponding to a tool registered in the allowed schema.\n- **Observe**: Receives structured output or environment feedback (Observation) resulting from tool execution.\n- **Reflect & Verify**: Inspects observations to confirm state changes, diagnose failures, or update internal plan trajectories before taking the next action.\n\n### 2.2 Orchestration & Context Manager\n- **Context Assembly**: Dynamically injects context, current objectives, available tool schemas, skill catalogs, and episodic memories into the agent context window.\n- **State Tracking**: Maintains task turn counters, history summaries, and verification status across multi-turn trajectories.\n\n### 2.3 Memory Subsystem\n- **Episodic Memory**: Records historical task completions, execution traces, and outcomes across previous agent invocations.\n- **Working Memory**: Manages intermediate state, file contents, and observation logs during active execution turns.\n- **Skill Catalog**: Stores trusted skills and procedural knowledge accessible via system reading interfaces.\n\n## 3. Agent Interaction & Lifecycle Models\n\n### 3.1 Multi-Agent Orchestration & Sub-agent Spawning\n- NAVA OS supports concurrent and sequential agent delegation models.\n- **Parent-Child Lifecycle**: A primary coordinator agent can spawn domain-specific sub-agents (e.g., CodingAgent, DataAgent, SecurityAgent) with bounded objectives and isolated context windows.\n- **Synchronization Points**: Parent agents aggregate sub-agent output artifacts (e.g., generated Markdown reports, structured datasets) before proceeding to final synthesis stages.\n\n### 3.2 Inter-Agent Communication & Observation Protocols\n- Communication between agents occurs via persistent file interfaces or direct message passing.\n- All dynamic input received by sub-agents is classified as untrusted data to prevent prompt injection or nested command exploitation.\n\n## 4. Tool Integration Models & Governance\n\n### 4.1 Schema Enforcement & Serialization\n- Tools are defined via strict JSON Schema specifications (e.g., `file.write`, `file.read`, `shell.execute`).\n- Every tool invocation must adhere strictly to valid JSON formatting rules without control characters or unescaped sequences.\n\n### 4.2 Governed Execution Loop & Security Boundaries\n- **Scope Enforcement**: Agents are restricted to explicitly granted tool schemas.\n- **Verification Rule**: File writes and modifications require read-back verification (`file.read`) prior to signaling task completion (`FINISH`).\n- **Fault Diagnosis**: Tool failures trigger diagnostic reflection steps rather than immediate identical re-try loops."
+        },
+        "executed_at": "2026-08-21T17:51:27.370615"
+    },
+    {
+        "receipt_id": "6272dc3a-a720-490e-a79e-f39cd796e131",
+        "task_id": "task-e18646ef",
+        "agent_id": "agt-0f10c443",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.read",
+        "action_summary": "Executed file.read",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-8c88d0e4",
+            "tool_request_id": "req-8c88d0e4",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:21:41.856907"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "content": "# NAVA OS Security & Governance Audit\n\n## 1. Executive Summary\nThis document presents a comprehensive security and governance audit of NAVA OS, evaluating its permission scoping, safety boundaries, risk profile, and policy enforcement mechanisms within autonomous multi-step agent execution environments.\n\n## 2. Permission Scoping\n- **Tool-Level Scoping**: Capabilities are strictly partitioned into explicit, minimal tool definitions. Agents operate under principle of least privilege and cannot access ungranted tools.\n- **Dynamic Skill Verification**: Only certified, trusted skills registered within the platform catalog are accessible via `system.read_skill` APIs.\n- **Contextual Isolation**: Access to episodic memory and runtime context is restricted per execution turn, preventing cross-agent context contamination.\n\n## 3. Safety Boundaries\n- **Strict Data/Instruction Separation**: Content loaded from external files or user payloads is processed strictly as raw data. Embedded prompt injections or directives are neutralized by policy.\n- **Bounded Execution Loops**: Dynamic agents execute within controlled turn loops with fail-safe bounds to prevent infinite tool call loops or resource exhaustion.\n- **System Workspace Isolation**: Operations are restricted to validated paths to prevent directory traversal or system file manipulation.\n\n## 4. Risk Analysis & Threat Modeling\n| Risk Vector | Vulnerability Level | Mitigation Strategy |\n| :--- | :--- | :--- |\n| **Indirect Prompt Injection** | High | Hardened system prompts enforcing non-executability of file payload instructions. |\n| **Privilege Escalation** | High | Strict schema validation; invocation of unlisted tools is prohibited. |\n| **Infinite Execution Loop** | Medium | Bounded turn limits and mandatory failure diagnosis before retries. |\n| **Data Exfiltration / Leakage** | Medium | Structured output schemas and governed execution output filters. |\n\n## 5. Policy Enforcement & Auditing\n- **Schema Compliance**: Every tool request is validated against strict JSON schema definitions before invocation.\n- **Deterministic Audit Logging**: All steps, thoughts, tool calls, and observations are recorded in episodic memory for auditing and operational review.\n- **Verification Control**: Tasks altering filesystem state require validation to ensure operational integrity.\n\n## 6. Recommendations & Compliance Readiness\nNAVA OS exhibits a strong governance posture against standard LLM agent vulnerabilities. Continued adherence to least-privilege tool allocation and automated schema validation ensures enterprise compliance and operational safety."
+        },
+        "executed_at": "2026-08-21T17:51:41.859426"
+    },
+    {
+        "receipt_id": "a74752cf-6fbf-4557-a0bd-5a5af535c20f",
+        "task_id": "task-e18646ef",
+        "agent_id": "agt-0f10c443",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-aa4cb796",
+            "tool_request_id": "req-aa4cb796",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:22:04.276280"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 3460,
+            "_observation": {
+                "pre_snapshot_id": "9b401c54-b299-4c36-8433-eaed01feea23",
+                "pre_resource": "nava_executive_summary.md",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-21T17:52:04.284280"
+    },
+    {
+        "receipt_id": "5b2948d2-1e32-4f72-9a55-a3b81a26201b",
+        "task_id": "task-e18646ef",
+        "agent_id": "agt-0f10c443",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.read",
+        "action_summary": "Executed file.read",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-08197ee9",
+            "tool_request_id": "req-08197ee9",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:22:22.481271"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "content": "# NAVA OS: Executive Readiness Summary\n\n## 1. Executive Overview & Synthesis\nNAVA OS is an enterprise-grade, autonomous multi-step agent operating system engineered to execute general data transformation, file processing, and complex workflow orchestration within a strictly governed execution environment. By combining a dynamic ReAct cycle (Plan-Execute-Observe-Reflect) with rigorous security boundaries and permission scoping, NAVA OS offers both high operational autonomy and strict corporate compliance.\n\nSynthesizing the technical architecture and security governance audit, this summary evaluates the platform's readiness for production enterprise deployment.\n\n---\n\n## 2. Technical Architecture Key Summary\n- **Dynamic Agent Loop**: Autonomous, deterministic iteration across Plan, Execute, Observe, and Reflect stages ensures verification before task finalization.\n- **Orchestration & Context Management**: Dynamic context assembly combines user objectives, episodic memory, skill catalogs, and strict tool schemas to maintain state integrity.\n- **Memory Subsystem**: Dual-layer memory architecture featuring Episodic Memory (task trajectory histories) and Working Memory (transient operational state).\n- **Sandboxed Tool & Skill Engine**: Strict JSON schema enforcement and trusted skill verification (`system.read_skill`) ensure agents execute only within designated capabilities.\n- **Structural Verification Protocol**: Mandatory read-back checks on file modifications guarantee state verification prior to objective completion.\n\n---\n\n## 3. Security, Governance & Risk Posture\n- **Principle of Least Privilege**: Agents operate under granular, tool-level permission scopes; unlisted tools are inaccessible.\n- **Data vs. Instruction Separation**: Robust policy defenses isolate untrusted input content, treating external file data purely as static text to prevent prompt injection and unauthorized command execution.\n- **Bounded Execution Safety**: Enforced turn limits and mandatory failure diagnosis mechanisms protect against recursive loops and resource exhaustion.\n- **Deterministic Auditability**: Every step, reasoning chain (thought), tool call, and observation is recorded in episodic memory for compliance and post-execution auditing.\n\n---\n\n## 4. Executive Readiness Assessment\n| Dimension | Assessment | Status |\n| :--- | :--- | :--- |\n| **Architectural Robustness** | Dynamic ReAct loop with mandatory state verification ensures resilient execution. | **READY** |\n| **Security & Safety** | Hardened prompt boundaries and schema-validated tool access mitigate major LLM risks. | **READY** |\n| **Operational Governance** | Deterministic memory logging and step-by-step verification provide audit clarity. | **READY** |\n| **Enterprise Scalability** | Modular agent spawning and tool schemas support seamless multi-agent orchestration. | **READY** |\n\n---\n\n## 5. Strategic Recommendations & Strategic Roadmap\n1. **Continuous Schema Monitoring**: Implement automated regression testing for tool and skill schema updates.\n2. **Enhanced Runtime Telemetry**: Integrate real-time log streaming for high-throughput enterprise SIEM systems.\n3. **Granular Skill Certification**: Establish a formal certification pipeline for registering trusted third-party skills in the skill catalog.\n\n**Conclusion**: NAVA OS demonstrates strong architectural integrity and effective risk governance, making it ready for governed deployment in enterprise workflows."
+        },
+        "executed_at": "2026-08-21T17:52:22.483270"
+    },
+    {
+        "receipt_id": "a427555f-7f0c-4e58-8a5c-edae410a29d6",
+        "task_id": "task-e18646ef",
+        "agent_id": "agt-7fda3575",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-b5802cb5",
+            "tool_request_id": "req-b5802cb5",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:31:29.404499"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "'(' was never closed (browser.py, line 100)"
+        },
+        "executed_at": "2026-08-21T18:01:29.439321"
+    },
+    {
+        "receipt_id": "7c29938c-c39b-4c83-b58a-49c5493b60f1",
+        "task_id": "task-e18646ef",
+        "agent_id": "agt-9674c091",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-e9e884e6",
+            "tool_request_id": "req-e9e884e6",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:31:36.096284"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "'(' was never closed (browser.py, line 100)"
+        },
+        "executed_at": "2026-08-21T18:01:36.100276"
+    },
+    {
+        "receipt_id": "5a925ac7-7e7a-40e2-b71d-dc0a03fce5c4",
+        "task_id": "task-e18646ef",
+        "agent_id": "agt-7fda3575",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-7e79e873",
+            "tool_request_id": "req-7e79e873",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:31:41.226465"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "'(' was never closed (browser.py, line 100)"
+        },
+        "executed_at": "2026-08-21T18:01:41.231470"
+    },
+    {
+        "receipt_id": "ec184f85-db2f-480e-b371-ff1f9e8f6c19",
+        "task_id": "task-e18646ef",
+        "agent_id": "agt-9674c091",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-ad8aad0e",
+            "tool_request_id": "req-ad8aad0e",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:31:53.751697"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "'(' was never closed (browser.py, line 100)"
+        },
+        "executed_at": "2026-08-21T18:01:53.757693"
+    },
+    {
+        "receipt_id": "fc999c85-4a0c-4d64-9ef7-3dbe0540a7a3",
+        "task_id": "task-e18646ef",
+        "agent_id": "agt-7fda3575",
+        "parent_agent_id": "system-root",
+        "tool_name": "browser.navigate",
+        "action_summary": "Executed browser.navigate",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-01f1be1f",
+            "tool_request_id": "req-01f1be1f",
+            "factors": [
+                {
+                    "name": "Outside working hours",
+                    "weight": 15
+                }
+            ],
+            "total_score": 15,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T23:31:54.399651"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "'(' was never closed (browser.py, line 100)"
+        },
+        "executed_at": "2026-08-21T18:01:54.404647"
+    }
+]

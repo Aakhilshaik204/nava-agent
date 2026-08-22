@@ -1,0 +1,27 @@
+[
+    {
+        "receipt_id": "c29ad1af-149f-4db3-84b7-bef6b19d498b",
+        "task_id": "task-c7311fdc",
+        "agent_id": "agt-f0bfbda1",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.create_pdf",
+        "action_summary": "Executed file.create_pdf",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-c4ff2e9a",
+            "tool_request_id": "req-c4ff2e9a",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-20T16:38:04.719544"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "message": "Beautiful PDF created at scratch/india_report.pdf"
+        },
+        "executed_at": "2026-08-20T11:08:08.582574"
+    }
+]

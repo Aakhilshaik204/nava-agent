@@ -1,0 +1,11 @@
+{
+  "gmail": {
+    "tools": {
+      "gmail.search": {
+        "hash": "8c9c2f72935e3477209381aa62287a218604580e99f7336d3912d7020a0b4a0f",
+        "last_trusted_content": "{\n  \"name\": \"gmail.search\",\n  \"description\": \"Search Gmail messages using Gmail search syntax.\",\n  \"input_schema\": {\n    \"query\": \"string\"\n  },\n  \"permissions_required\": [\n    \"gmail.read\"\n  ],\n  \"risk_level\": \"MEDIUM\",\n  \"reversible\": true,\n  \"required_credentials\": [\n    \"gmail\"\n  ]\n}",
+        "approved_by": "human_reviewer"
+      }
+    }
+  }
+}

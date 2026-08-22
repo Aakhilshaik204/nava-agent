@@ -1,0 +1,5276 @@
+{
+  "root_dir": "C:\\Users\\aakhi\\Desktop\\Nava",
+  "total_files": 119,
+  "tech_stack": [
+    "HTML/CSS",
+    "JavaScript/TypeScript",
+    "Python"
+  ],
+  "files": [
+    {
+      "path": "calculator.py",
+      "filename": "calculator.py",
+      "extension": ".py",
+      "size_bytes": 572,
+      "symbol_count": 7
+    },
+    {
+      "path": "cleanup_old_agents.py",
+      "filename": "cleanup_old_agents.py",
+      "extension": ".py",
+      "size_bytes": 1351,
+      "symbol_count": 0
+    },
+    {
+      "path": "fix.md",
+      "filename": "fix.md",
+      "extension": ".md",
+      "size_bytes": 16600
+    },
+    {
+      "path": "generate_invoice.py",
+      "filename": "generate_invoice.py",
+      "extension": ".py",
+      "size_bytes": 8490,
+      "symbol_count": 1
+    },
+    {
+      "path": "get_top_story.py",
+      "filename": "get_top_story.py",
+      "extension": ".py",
+      "size_bytes": 1824,
+      "symbol_count": 6
+    },
+    {
+      "path": "index.html",
+      "filename": "index.html",
+      "extension": ".html",
+      "size_bytes": 18230
+    },
+    {
+      "path": "MANUAL.md",
+      "filename": "MANUAL.md",
+      "extension": ".md",
+      "size_bytes": 1587
+    },
+    {
+      "path": "memory.md",
+      "filename": "memory.md",
+      "extension": ".md",
+      "size_bytes": 48996
+    },
+    {
+      "path": "merge_sort.py",
+      "filename": "merge_sort.py",
+      "extension": ".py",
+      "size_bytes": 865,
+      "symbol_count": 3
+    },
+    {
+      "path": "Modelfile",
+      "filename": "Modelfile",
+      "extension": "",
+      "size_bytes": 66
+    },
+    {
+      "path": "nava.yaml",
+      "filename": "nava.yaml",
+      "extension": ".yaml",
+      "size_bytes": 2472
+    },
+    {
+      "path": "nava_arch.md",
+      "filename": "nava_arch.md",
+      "extension": ".md",
+      "size_bytes": 3373
+    },
+    {
+      "path": "nava_audit.jsonl",
+      "filename": "nava_audit.jsonl",
+      "extension": ".jsonl",
+      "size_bytes": 295897
+    },
+    {
+      "path": "nava_executive_summary.md",
+      "filename": "nava_executive_summary.md",
+      "extension": ".md",
+      "size_bytes": 3501
+    },
+    {
+      "path": "nava_security.md",
+      "filename": "nava_security.md",
+      "extension": ".md",
+      "size_bytes": 2650
+    },
+    {
+      "path": "nava_shell.py",
+      "filename": "nava_shell.py",
+      "extension": ".py",
+      "size_bytes": 2552,
+      "is_entry_point": true,
+      "symbol_count": 1
+    },
+    {
+      "path": "portfolio.html",
+      "filename": "portfolio.html",
+      "extension": ".html",
+      "size_bytes": 18233
+    },
+    {
+      "path": "pytest.ini",
+      "filename": "pytest.ini",
+      "extension": ".ini",
+      "size_bytes": 26
+    },
+    {
+      "path": "quick_sort.py",
+      "filename": "quick_sort.py",
+      "extension": ".py",
+      "size_bytes": 3798,
+      "symbol_count": 5
+    },
+    {
+      "path": "real_mcp_test.py",
+      "filename": "real_mcp_test.py",
+      "extension": ".py",
+      "size_bytes": 4718,
+      "symbol_count": 1
+    },
+    {
+      "path": "requirements.txt",
+      "filename": "requirements.txt",
+      "extension": ".txt",
+      "size_bytes": 175
+    },
+    {
+      "path": "script.js",
+      "filename": "script.js",
+      "extension": ".js",
+      "size_bytes": 1693
+    },
+    {
+      "path": "style.css",
+      "filename": "style.css",
+      "extension": ".css",
+      "size_bytes": 9419
+    },
+    {
+      "path": "test_calculator.py",
+      "filename": "test_calculator.py",
+      "extension": ".py",
+      "size_bytes": 1222,
+      "symbol_count": 7
+    },
+    {
+      "path": "test_run.bat",
+      "filename": "test_run.bat",
+      "extension": ".bat",
+      "size_bytes": 66
+    },
+    {
+      "path": "test_server_boot.py",
+      "filename": "test_server_boot.py",
+      "extension": ".py",
+      "size_bytes": 1495,
+      "symbol_count": 1
+    },
+    {
+      "path": "wire_transfer.py",
+      "filename": "wire_transfer.py",
+      "extension": ".py",
+      "size_bytes": 307,
+      "symbol_count": 1
+    },
+    {
+      "path": "memory/episodic.json",
+      "filename": "episodic.json",
+      "extension": ".json",
+      "size_bytes": 17355
+    },
+    {
+      "path": "memory/profile.json",
+      "filename": "profile.json",
+      "extension": ".json",
+      "size_bytes": 950
+    },
+    {
+      "path": "memory/test_vault.json",
+      "filename": "test_vault.json",
+      "extension": ".json",
+      "size_bytes": 849
+    },
+    {
+      "path": "memory/trusted_mcp_servers.json",
+      "filename": "trusted_mcp_servers.json",
+      "extension": ".json",
+      "size_bytes": 572
+    },
+    {
+      "path": "memory/vault.json",
+      "filename": "vault.json",
+      "extension": ".json",
+      "size_bytes": 1445
+    },
+    {
+      "path": "scripts/run_live_agent.py",
+      "filename": "run_live_agent.py",
+      "extension": ".py",
+      "size_bytes": 3939,
+      "symbol_count": 1
+    },
+    {
+      "path": "src/nava/orchestrator.py",
+      "filename": "orchestrator.py",
+      "extension": ".py",
+      "size_bytes": 55216,
+      "symbol_count": 6
+    },
+    {
+      "path": "src/nava/agents/factory.py",
+      "filename": "factory.py",
+      "extension": ".py",
+      "size_bytes": 6751,
+      "symbol_count": 3
+    },
+    {
+      "path": "src/nava/agents/planner.py",
+      "filename": "planner.py",
+      "extension": ".py",
+      "size_bytes": 5146,
+      "symbol_count": 6
+    },
+    {
+      "path": "src/nava/agents/templates.py",
+      "filename": "templates.py",
+      "extension": ".py",
+      "size_bytes": 5247,
+      "symbol_count": 4
+    },
+    {
+      "path": "src/nava/agents/runtime/browser_agent.py",
+      "filename": "browser_agent.py",
+      "extension": ".py",
+      "size_bytes": 6994,
+      "symbol_count": 3
+    },
+    {
+      "path": "src/nava/agents/runtime/coding_agent.py",
+      "filename": "coding_agent.py",
+      "extension": ".py",
+      "size_bytes": 4488,
+      "symbol_count": 2
+    },
+    {
+      "path": "src/nava/agents/runtime/computer_agent.py",
+      "filename": "computer_agent.py",
+      "extension": ".py",
+      "size_bytes": 4613,
+      "symbol_count": 2
+    },
+    {
+      "path": "src/nava/agents/runtime/dynamic_agent.py",
+      "filename": "dynamic_agent.py",
+      "extension": ".py",
+      "size_bytes": 4480,
+      "symbol_count": 2
+    },
+    {
+      "path": "src/nava/agents/runtime/file_agent.py",
+      "filename": "file_agent.py",
+      "extension": ".py",
+      "size_bytes": 5195,
+      "symbol_count": 5
+    },
+    {
+      "path": "src/nava/agents/runtime/file_agent_variants.py",
+      "filename": "file_agent_variants.py",
+      "extension": ".py",
+      "size_bytes": 827,
+      "symbol_count": 3
+    },
+    {
+      "path": "src/nava/agents/runtime/nava_agent.py",
+      "filename": "nava_agent.py",
+      "extension": ".py",
+      "size_bytes": 8726,
+      "symbol_count": 9
+    },
+    {
+      "path": "src/nava/agents/runtime/research_agent.py",
+      "filename": "research_agent.py",
+      "extension": ".py",
+      "size_bytes": 4644,
+      "symbol_count": 2
+    },
+    {
+      "path": "src/nava/agents/runtime/reviewer_agent.py",
+      "filename": "reviewer_agent.py",
+      "extension": ".py",
+      "size_bytes": 4264,
+      "symbol_count": 4
+    },
+    {
+      "path": "src/nava/agents/runtime/terminal_agent.py",
+      "filename": "terminal_agent.py",
+      "extension": ".py",
+      "size_bytes": 4585,
+      "symbol_count": 2
+    },
+    {
+      "path": "src/nava/core/boot.py",
+      "filename": "boot.py",
+      "extension": ".py",
+      "size_bytes": 2209,
+      "symbol_count": 3
+    },
+    {
+      "path": "src/nava/core/ledger.py",
+      "filename": "ledger.py",
+      "extension": ".py",
+      "size_bytes": 5498,
+      "symbol_count": 19
+    },
+    {
+      "path": "src/nava/core/llm.py",
+      "filename": "llm.py",
+      "extension": ".py",
+      "size_bytes": 1802,
+      "symbol_count": 1
+    },
+    {
+      "path": "src/nava/core/message_bus.py",
+      "filename": "message_bus.py",
+      "extension": ".py",
+      "size_bytes": 6383,
+      "symbol_count": 13
+    },
+    {
+      "path": "src/nava/core/sanitizer.py",
+      "filename": "sanitizer.py",
+      "extension": ".py",
+      "size_bytes": 1526,
+      "symbol_count": 2
+    },
+    {
+      "path": "src/nava/core/schemas.py",
+      "filename": "schemas.py",
+      "extension": ".py",
+      "size_bytes": 6661,
+      "symbol_count": 27
+    },
+    {
+      "path": "src/nava/credentials/broker.py",
+      "filename": "broker.py",
+      "extension": ".py",
+      "size_bytes": 4244,
+      "symbol_count": 9
+    },
+    {
+      "path": "src/nava/credentials/vault.py",
+      "filename": "vault.py",
+      "extension": ".py",
+      "size_bytes": 4785,
+      "symbol_count": 10
+    },
+    {
+      "path": "src/nava/gateway/pipeline.py",
+      "filename": "pipeline.py",
+      "extension": ".py",
+      "size_bytes": 13316,
+      "symbol_count": 32
+    },
+    {
+      "path": "src/nava/gateway/schema_validator.py",
+      "filename": "schema_validator.py",
+      "extension": ".py",
+      "size_bytes": 2960,
+      "symbol_count": 4
+    },
+    {
+      "path": "src/nava/governance/budget_engine.py",
+      "filename": "budget_engine.py",
+      "extension": ".py",
+      "size_bytes": 3929,
+      "symbol_count": 8
+    },
+    {
+      "path": "src/nava/governance/compensation_engine.py",
+      "filename": "compensation_engine.py",
+      "extension": ".py",
+      "size_bytes": 4299,
+      "symbol_count": 7
+    },
+    {
+      "path": "src/nava/governance/dom_sanitizer.py",
+      "filename": "dom_sanitizer.py",
+      "extension": ".py",
+      "size_bytes": 4715,
+      "symbol_count": 7
+    },
+    {
+      "path": "src/nava/governance/hitl_manager.py",
+      "filename": "hitl_manager.py",
+      "extension": ".py",
+      "size_bytes": 3050,
+      "symbol_count": 5
+    },
+    {
+      "path": "src/nava/governance/lock_manager.py",
+      "filename": "lock_manager.py",
+      "extension": ".py",
+      "size_bytes": 6521,
+      "symbol_count": 16
+    },
+    {
+      "path": "src/nava/governance/policy_engine.py",
+      "filename": "policy_engine.py",
+      "extension": ".py",
+      "size_bytes": 1861,
+      "symbol_count": 4
+    },
+    {
+      "path": "src/nava/governance/risk_engine.py",
+      "filename": "risk_engine.py",
+      "extension": ".py",
+      "size_bytes": 5922,
+      "symbol_count": 7
+    },
+    {
+      "path": "src/nava/governance/rollback_engine.py",
+      "filename": "rollback_engine.py",
+      "extension": ".py",
+      "size_bytes": 6085,
+      "symbol_count": 7
+    },
+    {
+      "path": "src/nava/governance/state_observer.py",
+      "filename": "state_observer.py",
+      "extension": ".py",
+      "size_bytes": 2200,
+      "symbol_count": 6
+    },
+    {
+      "path": "src/nava/memory/ai_twin.py",
+      "filename": "ai_twin.py",
+      "extension": ".py",
+      "size_bytes": 4471,
+      "symbol_count": 8
+    },
+    {
+      "path": "src/nava/memory/store.py",
+      "filename": "store.py",
+      "extension": ".py",
+      "size_bytes": 7970,
+      "symbol_count": 26
+    },
+    {
+      "path": "src/nava/prompts/browser_prompt.txt",
+      "filename": "browser_prompt.txt",
+      "extension": ".txt",
+      "size_bytes": 4902
+    },
+    {
+      "path": "src/nava/prompts/coding_agent_prompt.txt",
+      "filename": "coding_agent_prompt.txt",
+      "extension": ".txt",
+      "size_bytes": 5186
+    },
+    {
+      "path": "src/nava/prompts/computer_agent_prompt.txt",
+      "filename": "computer_agent_prompt.txt",
+      "extension": ".txt",
+      "size_bytes": 730
+    },
+    {
+      "path": "src/nava/prompts/dynamic_agent_prompt.txt",
+      "filename": "dynamic_agent_prompt.txt",
+      "extension": ".txt",
+      "size_bytes": 3438
+    },
+    {
+      "path": "src/nava/prompts/file_agent_prompt.txt",
+      "filename": "file_agent_prompt.txt",
+      "extension": ".txt",
+      "size_bytes": 2516
+    },
+    {
+      "path": "src/nava/prompts/nava_agent_prompt.txt",
+      "filename": "nava_agent_prompt.txt",
+      "extension": ".txt",
+      "size_bytes": 2570
+    },
+    {
+      "path": "src/nava/prompts/planner_prompt.txt",
+      "filename": "planner_prompt.txt",
+      "extension": ".txt",
+      "size_bytes": 4140
+    },
+    {
+      "path": "src/nava/prompts/research_agent_prompt.txt",
+      "filename": "research_agent_prompt.txt",
+      "extension": ".txt",
+      "size_bytes": 1027
+    },
+    {
+      "path": "src/nava/prompts/reviewer_agent_prompt.txt",
+      "filename": "reviewer_agent_prompt.txt",
+      "extension": ".txt",
+      "size_bytes": 5379
+    },
+    {
+      "path": "src/nava/prompts/terminal_agent_prompt.txt",
+      "filename": "terminal_agent_prompt.txt",
+      "extension": ".txt",
+      "size_bytes": 662
+    },
+    {
+      "path": "src/nava/skills/manager.py",
+      "filename": "manager.py",
+      "extension": ".py",
+      "size_bytes": 7030,
+      "symbol_count": 15
+    },
+    {
+      "path": "src/nava/skills/promotion.py",
+      "filename": "promotion.py",
+      "extension": ".py",
+      "size_bytes": 6215,
+      "symbol_count": 8
+    },
+    {
+      "path": "src/nava/tools/browser.py",
+      "filename": "browser.py",
+      "extension": ".py",
+      "size_bytes": 9575,
+      "symbol_count": 14
+    },
+    {
+      "path": "src/nava/tools/desktop.py",
+      "filename": "desktop.py",
+      "extension": ".py",
+      "size_bytes": 8170,
+      "symbol_count": 12
+    },
+    {
+      "path": "src/nava/tools/executor.py",
+      "filename": "executor.py",
+      "extension": ".py",
+      "size_bytes": 36677,
+      "symbol_count": 48
+    },
+    {
+      "path": "src/nava/tools/mcp_client.py",
+      "filename": "mcp_client.py",
+      "extension": ".py",
+      "size_bytes": 16033,
+      "symbol_count": 22
+    },
+    {
+      "path": "src/nava/tools/mcp_error.log",
+      "filename": "mcp_error.log",
+      "extension": ".log",
+      "size_bytes": 920
+    },
+    {
+      "path": "src/nava/tools/mcp_gmail_server.py",
+      "filename": "mcp_gmail_server.py",
+      "extension": ".py",
+      "size_bytes": 5040,
+      "symbol_count": 1
+    },
+    {
+      "path": "src/nava/tools/registry.py",
+      "filename": "registry.py",
+      "extension": ".py",
+      "size_bytes": 1216,
+      "symbol_count": 6
+    },
+    {
+      "path": "src/nava/workspace/indexer.py",
+      "filename": "indexer.py",
+      "extension": ".py",
+      "size_bytes": 6838,
+      "symbol_count": 6
+    },
+    {
+      "path": "src/nava/workspace/project_manager.py",
+      "filename": "project_manager.py",
+      "extension": ".py",
+      "size_bytes": 11564,
+      "symbol_count": 12
+    },
+    {
+      "path": "src/nava/workspace/__init__.py",
+      "filename": "__init__.py",
+      "extension": ".py",
+      "size_bytes": 315,
+      "symbol_count": 0
+    },
+    {
+      "path": "tests/test_21_invariants.py",
+      "filename": "test_21_invariants.py",
+      "extension": ".py",
+      "size_bytes": 22522,
+      "symbol_count": 24
+    },
+    {
+      "path": "tests/test_agent_message_bus.py",
+      "filename": "test_agent_message_bus.py",
+      "extension": ".py",
+      "size_bytes": 4637,
+      "symbol_count": 6
+    },
+    {
+      "path": "tests/test_credentials.py",
+      "filename": "test_credentials.py",
+      "extension": ".py",
+      "size_bytes": 4536,
+      "symbol_count": 7
+    },
+    {
+      "path": "tests/test_phase0.py",
+      "filename": "test_phase0.py",
+      "extension": ".py",
+      "size_bytes": 5679,
+      "symbol_count": 29
+    },
+    {
+      "path": "tests/test_phase1.py",
+      "filename": "test_phase1.py",
+      "extension": ".py",
+      "size_bytes": 4213,
+      "symbol_count": 3
+    },
+    {
+      "path": "tests/test_phase2.py",
+      "filename": "test_phase2.py",
+      "extension": ".py",
+      "size_bytes": 6392,
+      "symbol_count": 4
+    },
+    {
+      "path": "tests/test_phase3.py",
+      "filename": "test_phase3.py",
+      "extension": ".py",
+      "size_bytes": 3022,
+      "symbol_count": 2
+    },
+    {
+      "path": "tests/test_phase4.py",
+      "filename": "test_phase4.py",
+      "extension": ".py",
+      "size_bytes": 4214,
+      "symbol_count": 1
+    },
+    {
+      "path": "tests/test_phase4c.py",
+      "filename": "test_phase4c.py",
+      "extension": ".py",
+      "size_bytes": 4851,
+      "symbol_count": 1
+    },
+    {
+      "path": "tests/test_phase4d.py",
+      "filename": "test_phase4d.py",
+      "extension": ".py",
+      "size_bytes": 5395,
+      "symbol_count": 3
+    },
+    {
+      "path": "tests/test_project_workspace.py",
+      "filename": "test_project_workspace.py",
+      "extension": ".py",
+      "size_bytes": 6004,
+      "symbol_count": 9
+    },
+    {
+      "path": "tests/test_specialized_agents.py",
+      "filename": "test_specialized_agents.py",
+      "extension": ".py",
+      "size_bytes": 6447,
+      "symbol_count": 10
+    },
+    {
+      "path": "tests/test_step1_fixes.py",
+      "filename": "test_step1_fixes.py",
+      "extension": ".py",
+      "size_bytes": 10655,
+      "symbol_count": 10
+    },
+    {
+      "path": "tests/test_step2_parallel.py",
+      "filename": "test_step2_parallel.py",
+      "extension": ".py",
+      "size_bytes": 12468,
+      "symbol_count": 10
+    },
+    {
+      "path": "tests/test_step3_mcp_hardening.py",
+      "filename": "test_step3_mcp_hardening.py",
+      "extension": ".py",
+      "size_bytes": 6635,
+      "symbol_count": 10
+    },
+    {
+      "path": "tests/test_step4_skill_promotion.py",
+      "filename": "test_step4_skill_promotion.py",
+      "extension": ".py",
+      "size_bytes": 7316,
+      "symbol_count": 8
+    },
+    {
+      "path": "tests/test_step5_kill_switch_injection.py",
+      "filename": "test_step5_kill_switch_injection.py",
+      "extension": ".py",
+      "size_bytes": 7850,
+      "symbol_count": 8
+    },
+    {
+      "path": "tests/test_step6_memory_ai_twin.py",
+      "filename": "test_step6_memory_ai_twin.py",
+      "extension": ".py",
+      "size_bytes": 7783,
+      "symbol_count": 9
+    },
+    {
+      "path": "tests/test_tier1_real.py",
+      "filename": "test_tier1_real.py",
+      "extension": ".py",
+      "size_bytes": 4165,
+      "symbol_count": 1
+    },
+    {
+      "path": "tests/utils.py",
+      "filename": "utils.py",
+      "extension": ".py",
+      "size_bytes": 2739,
+      "symbol_count": 23
+    },
+    {
+      "path": "tests/__init__.py",
+      "filename": "__init__.py",
+      "extension": ".py",
+      "size_bytes": 163,
+      "symbol_count": 0
+    },
+    {
+      "path": "typst-pdf-maker/SKILL.md",
+      "filename": "SKILL.md",
+      "extension": ".md",
+      "size_bytes": 9442
+    },
+    {
+      "path": "typst-pdf-maker/assets/markdown_entry.typ",
+      "filename": "markdown_entry.typ",
+      "extension": ".typ",
+      "size_bytes": 6995
+    },
+    {
+      "path": "typst-pdf-maker/assets/report_entry.typ",
+      "filename": "report_entry.typ",
+      "extension": ".typ",
+      "size_bytes": 7254
+    },
+    {
+      "path": "typst-pdf-maker/assets/report_theme.typ",
+      "filename": "report_theme.typ",
+      "extension": ".typ",
+      "size_bytes": 8884
+    },
+    {
+      "path": "typst-pdf-maker/references/routing-catalog.json",
+      "filename": "routing-catalog.json",
+      "extension": ".json",
+      "size_bytes": 311
+    },
+    {
+      "path": "typst-pdf-maker/scripts/generate_pdf.py",
+      "filename": "generate_pdf.py",
+      "extension": ".py",
+      "size_bytes": 11849,
+      "symbol_count": 6
+    },
+    {
+      "path": "typst-pdf-maker/scripts/plan_document.py",
+      "filename": "plan_document.py",
+      "extension": ".py",
+      "size_bytes": 1435,
+      "symbol_count": 1
+    },
+    {
+      "path": "typst-pdf-maker/scripts/prepare_document.py",
+      "filename": "prepare_document.py",
+      "extension": ".py",
+      "size_bytes": 6053,
+      "symbol_count": 1
+    }
+  ],
+  "symbols": [
+    {
+      "name": "Calculator",
+      "kind": "class",
+      "file": "calculator.py",
+      "line": 1,
+      "docstring": ""
+    },
+    {
+      "name": "Calculator.add",
+      "kind": "method",
+      "file": "calculator.py",
+      "line": 3,
+      "docstring": ""
+    },
+    {
+      "name": "Calculator.subtract",
+      "kind": "method",
+      "file": "calculator.py",
+      "line": 7,
+      "docstring": ""
+    },
+    {
+      "name": "Calculator.multiply",
+      "kind": "method",
+      "file": "calculator.py",
+      "line": 11,
+      "docstring": ""
+    },
+    {
+      "name": "Calculator.divide",
+      "kind": "method",
+      "file": "calculator.py",
+      "line": 15,
+      "docstring": ""
+    },
+    {
+      "name": "Calculator.power",
+      "kind": "method",
+      "file": "calculator.py",
+      "line": 21,
+      "docstring": ""
+    },
+    {
+      "name": "Calculator.modulo",
+      "kind": "method",
+      "file": "calculator.py",
+      "line": 25,
+      "docstring": ""
+    },
+    {
+      "name": "create_invoice",
+      "kind": "function",
+      "file": "generate_invoice.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "HNParser",
+      "kind": "class",
+      "file": "get_top_story.py",
+      "line": 4,
+      "docstring": ""
+    },
+    {
+      "name": "HNParser.__init__",
+      "kind": "method",
+      "file": "get_top_story.py",
+      "line": 5,
+      "docstring": ""
+    },
+    {
+      "name": "HNParser.handle_starttag",
+      "kind": "method",
+      "file": "get_top_story.py",
+      "line": 12,
+      "docstring": ""
+    },
+    {
+      "name": "HNParser.handle_endtag",
+      "kind": "method",
+      "file": "get_top_story.py",
+      "line": 21,
+      "docstring": ""
+    },
+    {
+      "name": "HNParser.handle_data",
+      "kind": "method",
+      "file": "get_top_story.py",
+      "line": 31,
+      "docstring": ""
+    },
+    {
+      "name": "main",
+      "kind": "function",
+      "file": "get_top_story.py",
+      "line": 35,
+      "docstring": ""
+    },
+    {
+      "name": "merge_sort",
+      "kind": "function",
+      "file": "merge_sort.py",
+      "line": 1,
+      "docstring": ""
+    },
+    {
+      "name": "merge",
+      "kind": "function",
+      "file": "merge_sort.py",
+      "line": 12,
+      "docstring": ""
+    },
+    {
+      "name": "test_merge_sort",
+      "kind": "function",
+      "file": "merge_sort.py",
+      "line": 29,
+      "docstring": ""
+    },
+    {
+      "name": "main",
+      "kind": "function",
+      "file": "nava_shell.py",
+      "line": 13,
+      "docstring": ""
+    },
+    {
+      "name": "partition",
+      "kind": "function",
+      "file": "quick_sort.py",
+      "line": 4,
+      "docstring": "Partition the array around a pivot element."
+    },
+    {
+      "name": "quick_sort",
+      "kind": "function",
+      "file": "quick_sort.py",
+      "line": 20,
+      "docstring": "Quick sort implementation using recursion."
+    },
+    {
+      "name": "quick_sort_iterative",
+      "kind": "function",
+      "file": "quick_sort.py",
+      "line": 36,
+      "docstring": "Quick sort implementation using iteration instead of recursion."
+    },
+    {
+      "name": "quick_sort_with_stack",
+      "kind": "function",
+      "file": "quick_sort.py",
+      "line": 59,
+      "docstring": "Quick sort implementation using explicit stack."
+    },
+    {
+      "name": "main",
+      "kind": "function",
+      "file": "quick_sort.py",
+      "line": 75,
+      "docstring": "Main function demonstrating quick sort algorithm."
+    },
+    {
+      "name": "main",
+      "kind": "function",
+      "file": "real_mcp_test.py",
+      "line": 8,
+      "docstring": ""
+    },
+    {
+      "name": "TestCalculator",
+      "kind": "class",
+      "file": "test_calculator.py",
+      "line": 4,
+      "docstring": ""
+    },
+    {
+      "name": "TestCalculator.test_add",
+      "kind": "method",
+      "file": "test_calculator.py",
+      "line": 5,
+      "docstring": ""
+    },
+    {
+      "name": "TestCalculator.test_subtract",
+      "kind": "method",
+      "file": "test_calculator.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "TestCalculator.test_multiply",
+      "kind": "method",
+      "file": "test_calculator.py",
+      "line": 14,
+      "docstring": ""
+    },
+    {
+      "name": "TestCalculator.test_divide",
+      "kind": "method",
+      "file": "test_calculator.py",
+      "line": 19,
+      "docstring": ""
+    },
+    {
+      "name": "TestCalculator.test_power",
+      "kind": "method",
+      "file": "test_calculator.py",
+      "line": 25,
+      "docstring": ""
+    },
+    {
+      "name": "TestCalculator.test_modulo",
+      "kind": "method",
+      "file": "test_calculator.py",
+      "line": 29,
+      "docstring": ""
+    },
+    {
+      "name": "test_server_boot",
+      "kind": "function",
+      "file": "test_server_boot.py",
+      "line": 17,
+      "docstring": ""
+    },
+    {
+      "name": "simulate_wire_transfer",
+      "kind": "function",
+      "file": "wire_transfer.py",
+      "line": 1,
+      "docstring": ""
+    },
+    {
+      "name": "run_live",
+      "kind": "function",
+      "file": "scripts/run_live_agent.py",
+      "line": 15,
+      "docstring": ""
+    },
+    {
+      "name": "Orchestrator",
+      "kind": "class",
+      "file": "src/nava/orchestrator.py",
+      "line": 26,
+      "docstring": ""
+    },
+    {
+      "name": "Orchestrator.__init__",
+      "kind": "method",
+      "file": "src/nava/orchestrator.py",
+      "line": 27,
+      "docstring": ""
+    },
+    {
+      "name": "Orchestrator.register_tools",
+      "kind": "method",
+      "file": "src/nava/orchestrator.py",
+      "line": 105,
+      "docstring": ""
+    },
+    {
+      "name": "Orchestrator.execute",
+      "kind": "method",
+      "file": "src/nava/orchestrator.py",
+      "line": 346,
+      "docstring": ""
+    },
+    {
+      "name": "Orchestrator._execute_single_agent",
+      "kind": "method",
+      "file": "src/nava/orchestrator.py",
+      "line": 652,
+      "docstring": ""
+    },
+    {
+      "name": "Orchestrator.emergency_stop",
+      "kind": "method",
+      "file": "src/nava/orchestrator.py",
+      "line": 907,
+      "docstring": "Emergency Kill Switch (Section 31.4 & Invariant #18):\nOut-of-band immediate shutdown of all in-flight execution."
+    },
+    {
+      "name": "AgentFactory",
+      "kind": "class",
+      "file": "src/nava/agents/factory.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "AgentFactory.__init__",
+      "kind": "method",
+      "file": "src/nava/agents/factory.py",
+      "line": 11,
+      "docstring": ""
+    },
+    {
+      "name": "AgentFactory.spawn_agent",
+      "kind": "method",
+      "file": "src/nava/agents/factory.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "SubGoal",
+      "kind": "class",
+      "file": "src/nava/agents/planner.py",
+      "line": 11,
+      "docstring": ""
+    },
+    {
+      "name": "GoalPlan",
+      "kind": "class",
+      "file": "src/nava/agents/planner.py",
+      "line": 20,
+      "docstring": ""
+    },
+    {
+      "name": "compute_dedup_hash",
+      "kind": "function",
+      "file": "src/nava/agents/planner.py",
+      "line": 24,
+      "docstring": ""
+    },
+    {
+      "name": "GoalPlanner",
+      "kind": "class",
+      "file": "src/nava/agents/planner.py",
+      "line": 30,
+      "docstring": ""
+    },
+    {
+      "name": "GoalPlanner.__init__",
+      "kind": "method",
+      "file": "src/nava/agents/planner.py",
+      "line": 31,
+      "docstring": ""
+    },
+    {
+      "name": "GoalPlanner.plan",
+      "kind": "method",
+      "file": "src/nava/agents/planner.py",
+      "line": 42,
+      "docstring": ""
+    },
+    {
+      "name": "StaticAgentTemplate",
+      "kind": "class",
+      "file": "src/nava/agents/templates.py",
+      "line": 4,
+      "docstring": "Governance registry definition for static agents.\nThis class defines the identity and strictly bounded permission scope of an agent.\nIt does NOT contain the execution logic."
+    },
+    {
+      "name": "Templates",
+      "kind": "class",
+      "file": "src/nava/agents/templates.py",
+      "line": 18,
+      "docstring": ""
+    },
+    {
+      "name": "Templates.get_all",
+      "kind": "method",
+      "file": "src/nava/agents/templates.py",
+      "line": 118,
+      "docstring": ""
+    },
+    {
+      "name": "Templates.get_template",
+      "kind": "method",
+      "file": "src/nava/agents/templates.py",
+      "line": 127,
+      "docstring": ""
+    },
+    {
+      "name": "_sanitize_error",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/browser_agent.py",
+      "line": 20,
+      "docstring": "Strip API keys, tokens, and internal paths from error messages."
+    },
+    {
+      "name": "BrowserPlan",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/browser_agent.py",
+      "line": 29,
+      "docstring": ""
+    },
+    {
+      "name": "build_browser_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/browser_agent.py",
+      "line": 34,
+      "docstring": "Builds the Tier 2 cyclic BrowserAgent execution graph."
+    },
+    {
+      "name": "CodingPlan",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/coding_agent.py",
+      "line": 11,
+      "docstring": ""
+    },
+    {
+      "name": "build_coding_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/coding_agent.py",
+      "line": 16,
+      "docstring": "Builds the Tier 2 cyclic coding agent execution graph."
+    },
+    {
+      "name": "ComputerPlan",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/computer_agent.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "build_computer_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/computer_agent.py",
+      "line": 15,
+      "docstring": "Builds the Tier 2 cyclic ComputerAgent execution graph for Desktop OS automation."
+    },
+    {
+      "name": "DynamicPlan",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/dynamic_agent.py",
+      "line": 18,
+      "docstring": ""
+    },
+    {
+      "name": "build_dynamic_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/dynamic_agent.py",
+      "line": 24,
+      "docstring": "Builds a cyclic multi-step agent for DynamicAgent roles."
+    },
+    {
+      "name": "FileAgentState",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/file_agent.py",
+      "line": 27,
+      "docstring": ""
+    },
+    {
+      "name": "FileDecision",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/file_agent.py",
+      "line": 39,
+      "docstring": ""
+    },
+    {
+      "name": "plan_node",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/file_agent.py",
+      "line": 48,
+      "docstring": ""
+    },
+    {
+      "name": "teardown_node",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/file_agent.py",
+      "line": 109,
+      "docstring": ""
+    },
+    {
+      "name": "build_file_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/file_agent.py",
+      "line": 116,
+      "docstring": "Build the single-shot file-producing agent graph."
+    },
+    {
+      "name": "build_document_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/file_agent_variants.py",
+      "line": 12,
+      "docstring": "Agent that reads and summarizes content into structured file outputs."
+    },
+    {
+      "name": "build_data_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/file_agent_variants.py",
+      "line": 17,
+      "docstring": "Agent that analyzes data and produces analytical file reports."
+    },
+    {
+      "name": "build_verifier_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/file_agent_variants.py",
+      "line": 22,
+      "docstring": "Agent that verifies outputs and produces structured validation reports."
+    },
+    {
+      "name": "NavaAgentState",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/nava_agent.py",
+      "line": 27,
+      "docstring": ""
+    },
+    {
+      "name": "NavAction",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/nava_agent.py",
+      "line": 39,
+      "docstring": ""
+    },
+    {
+      "name": "NavPlan",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/nava_agent.py",
+      "line": 44,
+      "docstring": ""
+    },
+    {
+      "name": "analyze_node",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/nava_agent.py",
+      "line": 51,
+      "docstring": ""
+    },
+    {
+      "name": "act_node",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/nava_agent.py",
+      "line": 105,
+      "docstring": ""
+    },
+    {
+      "name": "VerificationDecision",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/nava_agent.py",
+      "line": 130,
+      "docstring": ""
+    },
+    {
+      "name": "observe_node",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/nava_agent.py",
+      "line": 134,
+      "docstring": ""
+    },
+    {
+      "name": "teardown_node",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/nava_agent.py",
+      "line": 190,
+      "docstring": ""
+    },
+    {
+      "name": "build_nava_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/nava_agent.py",
+      "line": 197,
+      "docstring": "Build the NAVA ad-hoc agent graph used for any dynamically-invented role."
+    },
+    {
+      "name": "ResearchPlan",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/research_agent.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "build_research_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/research_agent.py",
+      "line": 15,
+      "docstring": "Builds the Tier 2 cyclic ResearchAgent execution graph for multi-source research and synthesis."
+    },
+    {
+      "name": "GraphState",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/reviewer_agent.py",
+      "line": 15,
+      "docstring": ""
+    },
+    {
+      "name": "PlanDecision",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/reviewer_agent.py",
+      "line": 23,
+      "docstring": ""
+    },
+    {
+      "name": "plan_node",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/reviewer_agent.py",
+      "line": 29,
+      "docstring": ""
+    },
+    {
+      "name": "build_reviewer_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/reviewer_agent.py",
+      "line": 106,
+      "docstring": ""
+    },
+    {
+      "name": "TerminalPlan",
+      "kind": "class",
+      "file": "src/nava/agents/runtime/terminal_agent.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "build_terminal_agent",
+      "kind": "function",
+      "file": "src/nava/agents/runtime/terminal_agent.py",
+      "line": 15,
+      "docstring": "Builds the Tier 2 cyclic TerminalAgent execution graph for build/test execution."
+    },
+    {
+      "name": "NavaBootstrapper",
+      "kind": "class",
+      "file": "src/nava/core/boot.py",
+      "line": 8,
+      "docstring": "Bootstraps the root agent and global task budget from a configuration file."
+    },
+    {
+      "name": "NavaBootstrapper.__init__",
+      "kind": "method",
+      "file": "src/nava/core/boot.py",
+      "line": 12,
+      "docstring": ""
+    },
+    {
+      "name": "NavaBootstrapper.bootstrap",
+      "kind": "method",
+      "file": "src/nava/core/boot.py",
+      "line": 15,
+      "docstring": ""
+    },
+    {
+      "name": "AuditLedger",
+      "kind": "class",
+      "file": "src/nava/core/ledger.py",
+      "line": 7,
+      "docstring": "Append-only stream of chronological events.\nBy design, this interface exposes NO methods for update or deletion."
+    },
+    {
+      "name": "AuditLedger.append_event",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 14,
+      "docstring": ""
+    },
+    {
+      "name": "AuditLedger.get_events",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 18,
+      "docstring": ""
+    },
+    {
+      "name": "ImmutableReceiptStore",
+      "kind": "class",
+      "file": "src/nava/core/ledger.py",
+      "line": 22,
+      "docstring": "Storage for structured, immutable records of completed actions.\nBy design, this interface exposes NO methods for update or deletion."
+    },
+    {
+      "name": "ImmutableReceiptStore.store_receipt",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 29,
+      "docstring": ""
+    },
+    {
+      "name": "ImmutableReceiptStore.get_receipt",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 33,
+      "docstring": ""
+    },
+    {
+      "name": "JsonlAuditLedger",
+      "kind": "class",
+      "file": "src/nava/core/ledger.py",
+      "line": 41,
+      "docstring": ""
+    },
+    {
+      "name": "JsonlAuditLedger.__init__",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 42,
+      "docstring": ""
+    },
+    {
+      "name": "JsonlAuditLedger.append_event",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 51,
+      "docstring": ""
+    },
+    {
+      "name": "JsonlAuditLedger.get_events",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 55,
+      "docstring": ""
+    },
+    {
+      "name": "JsonlReceiptStore",
+      "kind": "class",
+      "file": "src/nava/core/ledger.py",
+      "line": 68,
+      "docstring": ""
+    },
+    {
+      "name": "JsonlReceiptStore.__init__",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 69,
+      "docstring": ""
+    },
+    {
+      "name": "JsonlReceiptStore.store_receipt",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 77,
+      "docstring": ""
+    },
+    {
+      "name": "JsonlReceiptStore.get_receipt",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 83,
+      "docstring": ""
+    },
+    {
+      "name": "LocalFileReceiptStore",
+      "kind": "class",
+      "file": "src/nava/core/ledger.py",
+      "line": 91,
+      "docstring": "Stores all receipts from a single task in a unified JSON file in a specified directory,\nmaking it extremely easy to read the entire execution trace of a query."
+    },
+    {
+      "name": "LocalFileReceiptStore.__init__",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 96,
+      "docstring": ""
+    },
+    {
+      "name": "LocalFileReceiptStore.store_receipt",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 100,
+      "docstring": ""
+    },
+    {
+      "name": "LocalFileReceiptStore.get_receipt",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 117,
+      "docstring": ""
+    },
+    {
+      "name": "LocalFileReceiptStore.get_receipts_by_agent",
+      "kind": "method",
+      "file": "src/nava/core/ledger.py",
+      "line": 133,
+      "docstring": ""
+    },
+    {
+      "name": "get_llm",
+      "kind": "function",
+      "file": "src/nava/core/llm.py",
+      "line": 13,
+      "docstring": ""
+    },
+    {
+      "name": "MessageType",
+      "kind": "class",
+      "file": "src/nava/core/message_bus.py",
+      "line": 9,
+      "docstring": ""
+    },
+    {
+      "name": "AgentMessage",
+      "kind": "class",
+      "file": "src/nava/core/message_bus.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "AgentMessageBus",
+      "kind": "class",
+      "file": "src/nava/core/message_bus.py",
+      "line": 27,
+      "docstring": "Thread-Safe Inter-Agent Pub/Sub Message Bus (Blueprint Section 24 & Claude Cowork Pillar B).\nEnables dynamic subagents to communicate across channels, broadcast live progress,\nand execute closed-loop "
+    },
+    {
+      "name": "AgentMessageBus.__init__",
+      "kind": "method",
+      "file": "src/nava/core/message_bus.py",
+      "line": 33,
+      "docstring": ""
+    },
+    {
+      "name": "AgentMessageBus.subscribe",
+      "kind": "method",
+      "file": "src/nava/core/message_bus.py",
+      "line": 42,
+      "docstring": "Subscribes an agent callback to a specific channel."
+    },
+    {
+      "name": "AgentMessageBus.unsubscribe",
+      "kind": "method",
+      "file": "src/nava/core/message_bus.py",
+      "line": 50,
+      "docstring": "Removes a subscriber from a channel."
+    },
+    {
+      "name": "AgentMessageBus.add_global_listener",
+      "kind": "method",
+      "file": "src/nava/core/message_bus.py",
+      "line": 58,
+      "docstring": "Registers a global listener that receives every published message (e.g. for UI streaming)."
+    },
+    {
+      "name": "AgentMessageBus.publish",
+      "kind": "method",
+      "file": "src/nava/core/message_bus.py",
+      "line": 63,
+      "docstring": "Publishes a message to its designated channel, notifying all registered subscribers\nand global listeners."
+    },
+    {
+      "name": "AgentMessageBus.broadcast_progress",
+      "kind": "method",
+      "file": "src/nava/core/message_bus.py",
+      "line": 89,
+      "docstring": "Broadcasts live progress metrics from an active agent to the global stream."
+    },
+    {
+      "name": "AgentMessageBus.request_peer_review",
+      "kind": "method",
+      "file": "src/nava/core/message_bus.py",
+      "line": 118,
+      "docstring": "Publishes a peer review request from a worker agent (e.g. CodingAgent)."
+    },
+    {
+      "name": "AgentMessageBus.send_review_feedback",
+      "kind": "method",
+      "file": "src/nava/core/message_bus.py",
+      "line": 140,
+      "docstring": "Publishes peer review feedback (approval or changes requested)."
+    },
+    {
+      "name": "AgentMessageBus.get_channel_history",
+      "kind": "method",
+      "file": "src/nava/core/message_bus.py",
+      "line": 165,
+      "docstring": "Returns recent message history for a specific channel."
+    },
+    {
+      "name": "AgentMessageBus.get_all_events",
+      "kind": "method",
+      "file": "src/nava/core/message_bus.py",
+      "line": 171,
+      "docstring": "Returns all recent messages across all channels."
+    },
+    {
+      "name": "sanitize_prompt_text",
+      "kind": "function",
+      "file": "src/nava/core/sanitizer.py",
+      "line": 14,
+      "docstring": "Sanitizes raw text from external sources to neutralize common prompt injection vectors."
+    },
+    {
+      "name": "wrap_untrusted_content",
+      "kind": "function",
+      "file": "src/nava/core/sanitizer.py",
+      "line": 27,
+      "docstring": "Wraps external untrusted content in strict Section 30 boundary delimiters.\nEscapes internal closing tags to prevent delimiter escape vulnerabilities."
+    },
+    {
+      "name": "AgentType",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "AgentStatus",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 14,
+      "docstring": ""
+    },
+    {
+      "name": "Priority",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 22,
+      "docstring": ""
+    },
+    {
+      "name": "Outcome",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 27,
+      "docstring": ""
+    },
+    {
+      "name": "PolicySource",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 32,
+      "docstring": ""
+    },
+    {
+      "name": "RiskTier",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 36,
+      "docstring": ""
+    },
+    {
+      "name": "RiskDecision",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 42,
+      "docstring": ""
+    },
+    {
+      "name": "BudgetStatus",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 48,
+      "docstring": ""
+    },
+    {
+      "name": "ApprovalStatus",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 54,
+      "docstring": ""
+    },
+    {
+      "name": "ResultEnum",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 61,
+      "docstring": ""
+    },
+    {
+      "name": "StatePhase",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 72,
+      "docstring": ""
+    },
+    {
+      "name": "MemoryTier",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 76,
+      "docstring": ""
+    },
+    {
+      "name": "MemoryTrustLevel",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 82,
+      "docstring": ""
+    },
+    {
+      "name": "MemoryApprovalState",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 87,
+      "docstring": ""
+    },
+    {
+      "name": "MemoryConflictState",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 92,
+      "docstring": ""
+    },
+    {
+      "name": "TaskBudget",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 101,
+      "docstring": ""
+    },
+    {
+      "name": "AgentState",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 118,
+      "docstring": ""
+    },
+    {
+      "name": "AgentSpec",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 139,
+      "docstring": ""
+    },
+    {
+      "name": "ToolRequest",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 157,
+      "docstring": ""
+    },
+    {
+      "name": "PolicyRule",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 167,
+      "docstring": ""
+    },
+    {
+      "name": "RiskFactor",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 176,
+      "docstring": ""
+    },
+    {
+      "name": "RiskAssessment",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 180,
+      "docstring": ""
+    },
+    {
+      "name": "Approval",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 189,
+      "docstring": ""
+    },
+    {
+      "name": "Receipt",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 199,
+      "docstring": ""
+    },
+    {
+      "name": "StateSnapshot",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 213,
+      "docstring": ""
+    },
+    {
+      "name": "Event",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 221,
+      "docstring": ""
+    },
+    {
+      "name": "MemoryRecord",
+      "kind": "class",
+      "file": "src/nava/core/schemas.py",
+      "line": 229,
+      "docstring": ""
+    },
+    {
+      "name": "scope_matches",
+      "kind": "function",
+      "file": "src/nava/credentials/broker.py",
+      "line": 6,
+      "docstring": ""
+    },
+    {
+      "name": "is_in_scope_list",
+      "kind": "function",
+      "file": "src/nava/credentials/broker.py",
+      "line": 14,
+      "docstring": ""
+    },
+    {
+      "name": "CredentialBroker",
+      "kind": "class",
+      "file": "src/nava/credentials/broker.py",
+      "line": 17,
+      "docstring": "Acts as the issuing authority for agent credentials (Section 17.2).\nSits between the Action Gateway and the Credential Vault."
+    },
+    {
+      "name": "CredentialBroker.__init__",
+      "kind": "method",
+      "file": "src/nava/credentials/broker.py",
+      "line": 22,
+      "docstring": ""
+    },
+    {
+      "name": "CredentialBroker._fetch_root_token",
+      "kind": "method",
+      "file": "src/nava/credentials/broker.py",
+      "line": 25,
+      "docstring": "In a production system, this fetches the raw root token from an HSM or Secret Manager.\nFor Phase 6, we pull it from the secure environment variables."
+    },
+    {
+      "name": "CredentialBroker.request_credential",
+      "kind": "method",
+      "file": "src/nava/credentials/broker.py",
+      "line": 35,
+      "docstring": "Mints a short-lived ScopedCredential for the agent.\nEnforces Section 17.3: requested_scope \u2286 agent.credential_scope \u2286 agent.permission_scope.\nAlso enforces Phase 9 Cross-Origin domain bounds if provid"
+    },
+    {
+      "name": "CredentialBroker.revoke_all",
+      "kind": "method",
+      "file": "src/nava/credentials/broker.py",
+      "line": 66,
+      "docstring": "Revokes all active credentials for an agent. Called during teardown."
+    },
+    {
+      "name": "CredentialBroker.emergency_revoke_all",
+      "kind": "method",
+      "file": "src/nava/credentials/broker.py",
+      "line": 82,
+      "docstring": "Emergency Kill Switch (Section 31.4 & Invariant #18):\nImmediately revokes ALL active credentials across the entire vault."
+    },
+    {
+      "name": "CredentialBroker.materialize_for_subprocess",
+      "kind": "method",
+      "file": "src/nava/credentials/broker.py",
+      "line": 97,
+      "docstring": "Securely retrieves the raw token for environment injection.\nThis ensures the Vault's _get_raw is ONLY called by the Broker."
+    },
+    {
+      "name": "ScopedCredential",
+      "kind": "class",
+      "file": "src/nava/credentials/vault.py",
+      "line": 14,
+      "docstring": ""
+    },
+    {
+      "name": "CredentialVault",
+      "kind": "class",
+      "file": "src/nava/credentials/vault.py",
+      "line": 23,
+      "docstring": "Encrypted-at-rest storage for sensitive tokens.\nEnforces Section 17.1: No raw token exposure to callers outside the Broker/MCP layer."
+    },
+    {
+      "name": "CredentialVault.__init__",
+      "kind": "method",
+      "file": "src/nava/credentials/vault.py",
+      "line": 28,
+      "docstring": ""
+    },
+    {
+      "name": "CredentialVault._ensure_storage_dirs",
+      "kind": "method",
+      "file": "src/nava/credentials/vault.py",
+      "line": 36,
+      "docstring": ""
+    },
+    {
+      "name": "CredentialVault._load_or_generate_key",
+      "kind": "method",
+      "file": "src/nava/credentials/vault.py",
+      "line": 39,
+      "docstring": ""
+    },
+    {
+      "name": "CredentialVault._ensure_storage",
+      "kind": "method",
+      "file": "src/nava/credentials/vault.py",
+      "line": 48,
+      "docstring": ""
+    },
+    {
+      "name": "CredentialVault.mint",
+      "kind": "method",
+      "file": "src/nava/credentials/vault.py",
+      "line": 53,
+      "docstring": "Stores the encrypted token and returns a safe ScopedCredential struct."
+    },
+    {
+      "name": "CredentialVault.revoke",
+      "kind": "method",
+      "file": "src/nava/credentials/vault.py",
+      "line": 89,
+      "docstring": "Revokes a specific credential."
+    },
+    {
+      "name": "CredentialVault.validate",
+      "kind": "method",
+      "file": "src/nava/credentials/vault.py",
+      "line": 99,
+      "docstring": "Checks if a credential exists and has not expired."
+    },
+    {
+      "name": "CredentialVault._get_raw",
+      "kind": "method",
+      "file": "src/nava/credentials/vault.py",
+      "line": 113,
+      "docstring": "INTERNAL USE ONLY. Used exclusively by the Broker/MCP executor.\nWill raise an error if the credential has expired."
+    },
+    {
+      "name": "SchemaValidator",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "SchemaValidator.validate",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 12,
+      "docstring": ""
+    },
+    {
+      "name": "IdentityVerifier",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 14,
+      "docstring": ""
+    },
+    {
+      "name": "IdentityVerifier.verify",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "ScopeVerifier",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 18,
+      "docstring": ""
+    },
+    {
+      "name": "ScopeVerifier.verify_parent_scope",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 20,
+      "docstring": ""
+    },
+    {
+      "name": "PermissionChecker",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 22,
+      "docstring": ""
+    },
+    {
+      "name": "PermissionChecker.check",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 24,
+      "docstring": ""
+    },
+    {
+      "name": "PolicyEngine",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 26,
+      "docstring": ""
+    },
+    {
+      "name": "PolicyEngine.evaluate",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 28,
+      "docstring": ""
+    },
+    {
+      "name": "RiskEngine",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 30,
+      "docstring": ""
+    },
+    {
+      "name": "RiskEngine.evaluate",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 32,
+      "docstring": ""
+    },
+    {
+      "name": "BudgetEngine",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 34,
+      "docstring": ""
+    },
+    {
+      "name": "BudgetEngine.check_and_consume",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 36,
+      "docstring": ""
+    },
+    {
+      "name": "BudgetEngine.check_spawn",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 39,
+      "docstring": ""
+    },
+    {
+      "name": "ConcurrencyManager",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 41,
+      "docstring": ""
+    },
+    {
+      "name": "ConcurrencyManager.check_locks",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 43,
+      "docstring": ""
+    },
+    {
+      "name": "HITLManager",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 45,
+      "docstring": ""
+    },
+    {
+      "name": "HITLManager.decide",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 47,
+      "docstring": ""
+    },
+    {
+      "name": "Executor",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 49,
+      "docstring": ""
+    },
+    {
+      "name": "Executor.execute",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 51,
+      "docstring": ""
+    },
+    {
+      "name": "StateObserver",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 53,
+      "docstring": ""
+    },
+    {
+      "name": "StateObserver.observe",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 55,
+      "docstring": ""
+    },
+    {
+      "name": "Verifier",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 57,
+      "docstring": ""
+    },
+    {
+      "name": "Verifier.verify",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 59,
+      "docstring": ""
+    },
+    {
+      "name": "MemoryUpdater",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 61,
+      "docstring": ""
+    },
+    {
+      "name": "MemoryUpdater.update",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 63,
+      "docstring": ""
+    },
+    {
+      "name": "ActionGateway",
+      "kind": "class",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 66,
+      "docstring": "Central trust boundary for NAVA.\nAll mutating tool requests MUST pass through this exact sequence."
+    },
+    {
+      "name": "ActionGateway.__init__",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 71,
+      "docstring": ""
+    },
+    {
+      "name": "ActionGateway.process_request",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 111,
+      "docstring": ""
+    },
+    {
+      "name": "ActionGateway._log_event",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 277,
+      "docstring": ""
+    },
+    {
+      "name": "ActionGateway._generate_dry_run_receipt",
+      "kind": "method",
+      "file": "src/nava/gateway/pipeline.py",
+      "line": 286,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultSchemaValidator",
+      "kind": "class",
+      "file": "src/nava/gateway/schema_validator.py",
+      "line": 6,
+      "docstring": "Validates tool requests against registered tool input schemas.\nSupports both JSON-Schema standard objects and flat parameter type maps."
+    },
+    {
+      "name": "DefaultSchemaValidator.__init__",
+      "kind": "method",
+      "file": "src/nava/gateway/schema_validator.py",
+      "line": 11,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultSchemaValidator._check_type",
+      "kind": "method",
+      "file": "src/nava/gateway/schema_validator.py",
+      "line": 14,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultSchemaValidator.validate",
+      "kind": "method",
+      "file": "src/nava/gateway/schema_validator.py",
+      "line": 32,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultBudgetEngine",
+      "kind": "class",
+      "file": "src/nava/governance/budget_engine.py",
+      "line": 7,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultBudgetEngine.__init__",
+      "kind": "method",
+      "file": "src/nava/governance/budget_engine.py",
+      "line": 8,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultBudgetEngine.register_budget",
+      "kind": "method",
+      "file": "src/nava/governance/budget_engine.py",
+      "line": 12,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultBudgetEngine._update_status",
+      "kind": "method",
+      "file": "src/nava/governance/budget_engine.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultBudgetEngine.check_and_consume",
+      "kind": "method",
+      "file": "src/nava/governance/budget_engine.py",
+      "line": 35,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultBudgetEngine.consume_internal_llm_call",
+      "kind": "method",
+      "file": "src/nava/governance/budget_engine.py",
+      "line": 44,
+      "docstring": "Allows components like the Planner or internal Verification steps to consume\nbudget resources even if they don't invoke a formal ToolRequest through the Gateway."
+    },
+    {
+      "name": "DefaultBudgetEngine.check_spawn",
+      "kind": "method",
+      "file": "src/nava/governance/budget_engine.py",
+      "line": 58,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultBudgetEngine.record_failure",
+      "kind": "method",
+      "file": "src/nava/governance/budget_engine.py",
+      "line": 76,
+      "docstring": "Implements Section 14.4 Runaway Loop Protection via Failure-State Hashing.\nReturns False if the loop must be terminated (max_retries reached for the exact same failure)."
+    },
+    {
+      "name": "CompensatingTool",
+      "kind": "class",
+      "file": "src/nava/governance/compensation_engine.py",
+      "line": 12,
+      "docstring": ""
+    },
+    {
+      "name": "CompensationDecision",
+      "kind": "class",
+      "file": "src/nava/governance/compensation_engine.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "CompensationEngine",
+      "kind": "class",
+      "file": "src/nava/governance/compensation_engine.py",
+      "line": 21,
+      "docstring": ""
+    },
+    {
+      "name": "CompensationEngine.__init__",
+      "kind": "method",
+      "file": "src/nava/governance/compensation_engine.py",
+      "line": 22,
+      "docstring": ""
+    },
+    {
+      "name": "CompensationEngine.compensate",
+      "kind": "method",
+      "file": "src/nava/governance/compensation_engine.py",
+      "line": 25,
+      "docstring": "Drafts a compensating action for an irreversible tool and routes it through HITL."
+    },
+    {
+      "name": "CompensationEngine.compensate_rollback_failure",
+      "kind": "method",
+      "file": "src/nava/governance/compensation_engine.py",
+      "line": 62,
+      "docstring": "Compensates for the mechanical failure of a rollback."
+    },
+    {
+      "name": "CompensationEngine.trigger_hard_fallback",
+      "kind": "method",
+      "file": "src/nava/governance/compensation_engine.py",
+      "line": 79,
+      "docstring": "Safe fallback when the LLM itself is unavailable (e.g. rate limit).\nDoes NOT use the LLM and does NOT use shell.execute. Uses strict bounded tool."
+    },
+    {
+      "name": "DOMSanitizer",
+      "kind": "class",
+      "file": "src/nava/governance/dom_sanitizer.py",
+      "line": 5,
+      "docstring": ""
+    },
+    {
+      "name": "DOMSanitizer.__init__",
+      "kind": "method",
+      "file": "src/nava/governance/dom_sanitizer.py",
+      "line": 6,
+      "docstring": ""
+    },
+    {
+      "name": "DOMSanitizer._scan_and_append",
+      "kind": "method",
+      "file": "src/nava/governance/dom_sanitizer.py",
+      "line": 29,
+      "docstring": "Scans text for tripwires. Replaces matches with [SECURITY_BLOCK]."
+    },
+    {
+      "name": "DOMSanitizer.handle_starttag",
+      "kind": "method",
+      "file": "src/nava/governance/dom_sanitizer.py",
+      "line": 55,
+      "docstring": ""
+    },
+    {
+      "name": "DOMSanitizer.handle_endtag",
+      "kind": "method",
+      "file": "src/nava/governance/dom_sanitizer.py",
+      "line": 93,
+      "docstring": ""
+    },
+    {
+      "name": "DOMSanitizer.handle_data",
+      "kind": "method",
+      "file": "src/nava/governance/dom_sanitizer.py",
+      "line": 109,
+      "docstring": ""
+    },
+    {
+      "name": "sanitize_dom",
+      "kind": "function",
+      "file": "src/nava/governance/dom_sanitizer.py",
+      "line": 115,
+      "docstring": "Returns (sanitized_text, is_suspicious)\nis_suspicious can be used to elevate risk for the agent's current session."
+    },
+    {
+      "name": "SingleApprovalManager",
+      "kind": "class",
+      "file": "src/nava/governance/hitl_manager.py",
+      "line": 6,
+      "docstring": "Manages human-in-the-loop interventions (single, unbatched logic)."
+    },
+    {
+      "name": "SingleApprovalManager.__init__",
+      "kind": "method",
+      "file": "src/nava/governance/hitl_manager.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "SingleApprovalManager.decide",
+      "kind": "method",
+      "file": "src/nava/governance/hitl_manager.py",
+      "line": 13,
+      "docstring": "Determines whether a tool execution requires human approval.\nReturns:\n    Outcome.ALLOW if it can auto-execute.\n    Outcome.BLOCK if it's too dangerous to even ask (CRITICAL).\n    Approval object if i"
+    },
+    {
+      "name": "SingleApprovalManager.request_approval",
+      "kind": "method",
+      "file": "src/nava/governance/hitl_manager.py",
+      "line": 48,
+      "docstring": "Explicitly requests human approval for a tool invocation or escalation context."
+    },
+    {
+      "name": "SingleApprovalManager.cancel_all_pending",
+      "kind": "method",
+      "file": "src/nava/governance/hitl_manager.py",
+      "line": 62,
+      "docstring": "Emergency Kill Switch (Section 31.4):\nCancels all pending approvals immediately."
+    },
+    {
+      "name": "LockType",
+      "kind": "class",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 9,
+      "docstring": ""
+    },
+    {
+      "name": "ResourceLock",
+      "kind": "class",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 13,
+      "docstring": ""
+    },
+    {
+      "name": "ResourceLock.__init__",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 14,
+      "docstring": ""
+    },
+    {
+      "name": "ResourceLock.cleanup",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 19,
+      "docstring": ""
+    },
+    {
+      "name": "ResourceLock.release_agent",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 27,
+      "docstring": ""
+    },
+    {
+      "name": "ResourceLock.can_acquire",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 33,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultLockManager",
+      "kind": "class",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 42,
+      "docstring": "Manages resource locks to prevent simultaneous overwrites by concurrent agents.\nImplements Section 15.3 Shared/Read and Exclusive/Write lock distinctions."
+    },
+    {
+      "name": "DefaultLockManager.__init__",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 47,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultLockManager._normalize_uri",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 52,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultLockManager._extract_uris",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 60,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultLockManager._infer_lock_type",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 91,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultLockManager._is_path_conflict",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 98,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultLockManager.check_locks",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 105,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultLockManager.release_lock",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 137,
+      "docstring": "Releases locks for a specific tool request."
+    },
+    {
+      "name": "DefaultLockManager.release_all",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 146,
+      "docstring": "Releases all locks held by a specific agent. Used during teardown."
+    },
+    {
+      "name": "DefaultLockManager.release_all_global",
+      "kind": "method",
+      "file": "src/nava/governance/lock_manager.py",
+      "line": 152,
+      "docstring": "Emergency Kill Switch (Section 31.4):\nImmediately flushes all active locks across all resources."
+    },
+    {
+      "name": "DefaultPolicyEngine",
+      "kind": "class",
+      "file": "src/nava/governance/policy_engine.py",
+      "line": 6,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultPolicyEngine.__init__",
+      "kind": "method",
+      "file": "src/nava/governance/policy_engine.py",
+      "line": 7,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultPolicyEngine.load_rules",
+      "kind": "method",
+      "file": "src/nava/governance/policy_engine.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultPolicyEngine.evaluate",
+      "kind": "method",
+      "file": "src/nava/governance/policy_engine.py",
+      "line": 13,
+      "docstring": "Evaluates the tool request against loaded rules.\nFor Phase 1, rule evaluation is limited to simple scope-based matching \n(e.g., tool namespaces like `gmail.*`). Full compound conditional \nevaluation ("
+    },
+    {
+      "name": "DefaultRiskEngine",
+      "kind": "class",
+      "file": "src/nava/governance/risk_engine.py",
+      "line": 8,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultRiskEngine.__init__",
+      "kind": "method",
+      "file": "src/nava/governance/risk_engine.py",
+      "line": 9,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultRiskEngine.is_external_recipient",
+      "kind": "method",
+      "file": "src/nava/governance/risk_engine.py",
+      "line": 20,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultRiskEngine.is_unknown_contact",
+      "kind": "method",
+      "file": "src/nava/governance/risk_engine.py",
+      "line": 30,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultRiskEngine.is_sensitive_file",
+      "kind": "method",
+      "file": "src/nava/governance/risk_engine.py",
+      "line": 37,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultRiskEngine.is_outside_working_hours",
+      "kind": "method",
+      "file": "src/nava/governance/risk_engine.py",
+      "line": 44,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultRiskEngine.evaluate",
+      "kind": "method",
+      "file": "src/nava/governance/risk_engine.py",
+      "line": 52,
+      "docstring": ""
+    },
+    {
+      "name": "RollbackEngine",
+      "kind": "class",
+      "file": "src/nava/governance/rollback_engine.py",
+      "line": 8,
+      "docstring": ""
+    },
+    {
+      "name": "RollbackEngine.__init__",
+      "kind": "method",
+      "file": "src/nava/governance/rollback_engine.py",
+      "line": 9,
+      "docstring": ""
+    },
+    {
+      "name": "RollbackEngine.rollback",
+      "kind": "method",
+      "file": "src/nava/governance/rollback_engine.py",
+      "line": 13,
+      "docstring": "Iterates backward through the provided receipts and deterministically undoes them.\nReturns True if the entire chain was successfully rolled back, False otherwise."
+    },
+    {
+      "name": "RollbackEngine._construct_inverse",
+      "kind": "method",
+      "file": "src/nava/governance/rollback_engine.py",
+      "line": 70,
+      "docstring": ""
+    },
+    {
+      "name": "RollbackEngine._log_rollback_failed",
+      "kind": "method",
+      "file": "src/nava/governance/rollback_engine.py",
+      "line": 107,
+      "docstring": ""
+    },
+    {
+      "name": "RollbackEngine._log_compensation_unavailable",
+      "kind": "method",
+      "file": "src/nava/governance/rollback_engine.py",
+      "line": 114,
+      "docstring": ""
+    },
+    {
+      "name": "RollbackEngine._log_compensation_failed",
+      "kind": "method",
+      "file": "src/nava/governance/rollback_engine.py",
+      "line": 117,
+      "docstring": ""
+    },
+    {
+      "name": "StateSnapshot",
+      "kind": "class",
+      "file": "src/nava/governance/state_observer.py",
+      "line": 8,
+      "docstring": ""
+    },
+    {
+      "name": "StateSnapshot.__init__",
+      "kind": "method",
+      "file": "src/nava/governance/state_observer.py",
+      "line": 9,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultStateObserver",
+      "kind": "class",
+      "file": "src/nava/governance/state_observer.py",
+      "line": 15,
+      "docstring": "Captures BEFORE and AFTER state snapshots for reversible actions (e.g. file writes).\nSaves snapshot data to .nava/snapshots/."
+    },
+    {
+      "name": "DefaultStateObserver.__init__",
+      "kind": "method",
+      "file": "src/nava/governance/state_observer.py",
+      "line": 20,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultStateObserver.capture_before",
+      "kind": "method",
+      "file": "src/nava/governance/state_observer.py",
+      "line": 24,
+      "docstring": ""
+    },
+    {
+      "name": "DefaultStateObserver.observe",
+      "kind": "method",
+      "file": "src/nava/governance/state_observer.py",
+      "line": 41,
+      "docstring": "Return the observation, including pre_snapshot reference so it can be stored in the Receipt."
+    },
+    {
+      "name": "UserPersona",
+      "kind": "class",
+      "file": "src/nava/memory/ai_twin.py",
+      "line": 11,
+      "docstring": ""
+    },
+    {
+      "name": "AITwinManager",
+      "kind": "class",
+      "file": "src/nava/memory/ai_twin.py",
+      "line": 21,
+      "docstring": "Manages the Tier 4 AI Twin persona and structured user facts (Section 6 & Section 22).\nGenerates dynamic prompt instructions that align autonomous agents with user identity."
+    },
+    {
+      "name": "AITwinManager.__init__",
+      "kind": "method",
+      "file": "src/nava/memory/ai_twin.py",
+      "line": 26,
+      "docstring": ""
+    },
+    {
+      "name": "AITwinManager._ensure_default_persona",
+      "kind": "method",
+      "file": "src/nava/memory/ai_twin.py",
+      "line": 30,
+      "docstring": ""
+    },
+    {
+      "name": "AITwinManager.get_persona",
+      "kind": "method",
+      "file": "src/nava/memory/ai_twin.py",
+      "line": 47,
+      "docstring": ""
+    },
+    {
+      "name": "AITwinManager.update_persona",
+      "kind": "method",
+      "file": "src/nava/memory/ai_twin.py",
+      "line": 53,
+      "docstring": ""
+    },
+    {
+      "name": "AITwinManager.get_system_persona_prompt",
+      "kind": "method",
+      "file": "src/nava/memory/ai_twin.py",
+      "line": 73,
+      "docstring": "Generates structured persona prompt for system prompt injection."
+    },
+    {
+      "name": "AITwinManager.get_conflicts",
+      "kind": "method",
+      "file": "src/nava/memory/ai_twin.py",
+      "line": 100,
+      "docstring": "Returns all profile memories currently in CONFLICT_DETECTED state."
+    },
+    {
+      "name": "MemoryStore",
+      "kind": "class",
+      "file": "src/nava/memory/store.py",
+      "line": 11,
+      "docstring": ""
+    },
+    {
+      "name": "MemoryStore.store",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 13,
+      "docstring": ""
+    },
+    {
+      "name": "MemoryStore.retrieve",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 17,
+      "docstring": ""
+    },
+    {
+      "name": "MemoryStore.delete",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 21,
+      "docstring": ""
+    },
+    {
+      "name": "WorkingMemoryStore",
+      "kind": "class",
+      "file": "src/nava/memory/store.py",
+      "line": 24,
+      "docstring": "Tier 1: Ephemeral task-scoped working memory scratchpad."
+    },
+    {
+      "name": "WorkingMemoryStore.__init__",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 26,
+      "docstring": ""
+    },
+    {
+      "name": "WorkingMemoryStore.store",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 29,
+      "docstring": ""
+    },
+    {
+      "name": "WorkingMemoryStore.retrieve",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 32,
+      "docstring": ""
+    },
+    {
+      "name": "WorkingMemoryStore.delete",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 36,
+      "docstring": ""
+    },
+    {
+      "name": "WorkingMemoryStore.clear",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 39,
+      "docstring": ""
+    },
+    {
+      "name": "PersistentJSONStore",
+      "kind": "class",
+      "file": "src/nava/memory/store.py",
+      "line": 42,
+      "docstring": "Base class for persistent JSON array storage."
+    },
+    {
+      "name": "PersistentJSONStore.__init__",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 44,
+      "docstring": ""
+    },
+    {
+      "name": "PersistentJSONStore._load",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 49,
+      "docstring": ""
+    },
+    {
+      "name": "PersistentJSONStore._save",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 65,
+      "docstring": ""
+    },
+    {
+      "name": "PersistentJSONStore.store",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 71,
+      "docstring": ""
+    },
+    {
+      "name": "PersistentJSONStore.retrieve",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 76,
+      "docstring": ""
+    },
+    {
+      "name": "PersistentJSONStore.get_recent",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 87,
+      "docstring": ""
+    },
+    {
+      "name": "PersistentJSONStore.delete",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 91,
+      "docstring": ""
+    },
+    {
+      "name": "PersistentJSONStore.promote_to_verified",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 96,
+      "docstring": "Section 31.2: Explicit user promotion of an UNVERIFIED memory to VERIFIED."
+    },
+    {
+      "name": "PersistentJSONStore.resolve_conflict",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 107,
+      "docstring": "Allows user to explicitly resolve a CONFLICT_DETECTED memory record."
+    },
+    {
+      "name": "EpisodicMemoryStore",
+      "kind": "class",
+      "file": "src/nava/memory/store.py",
+      "line": 119,
+      "docstring": "Tier 2: Experience-based ledger tracking task execution trajectories and failures."
+    },
+    {
+      "name": "SemanticMemoryStore",
+      "kind": "class",
+      "file": "src/nava/memory/store.py",
+      "line": 123,
+      "docstring": "Tier 3: Unstructured Knowledge & RAG memory store.\nSupports document chunking, provenance metadata grounding, and ranked retrieval."
+    },
+    {
+      "name": "SemanticMemoryStore.ingest_document",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 128,
+      "docstring": "Chunks text into semantic blocks and stores them with grounding metadata."
+    },
+    {
+      "name": "ProfileMemoryStore",
+      "kind": "class",
+      "file": "src/nava/memory/store.py",
+      "line": 179,
+      "docstring": "Tier 4: AI Twin structured facts. Enforces strict Section 31.2 Trust Escalation rules."
+    },
+    {
+      "name": "ProfileMemoryStore.__init__",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 181,
+      "docstring": ""
+    },
+    {
+      "name": "ProfileMemoryStore.store",
+      "kind": "method",
+      "file": "src/nava/memory/store.py",
+      "line": 184,
+      "docstring": ""
+    },
+    {
+      "name": "SkillTrustState",
+      "kind": "class",
+      "file": "src/nava/skills/manager.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "SkillDefinition",
+      "kind": "class",
+      "file": "src/nava/skills/manager.py",
+      "line": 15,
+      "docstring": ""
+    },
+    {
+      "name": "SkillManager",
+      "kind": "class",
+      "file": "src/nava/skills/manager.py",
+      "line": 22,
+      "docstring": ""
+    },
+    {
+      "name": "SkillManager.__init__",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 23,
+      "docstring": ""
+    },
+    {
+      "name": "SkillManager._load_ledger",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 35,
+      "docstring": ""
+    },
+    {
+      "name": "SkillManager._save_ledger",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 46,
+      "docstring": ""
+    },
+    {
+      "name": "SkillManager.approve_skill",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 51,
+      "docstring": "Approves a skill, hashing its current disk content and saving to the ledger."
+    },
+    {
+      "name": "SkillManager.get_ledger_content",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 72,
+      "docstring": "Returns the last trusted content for diffing."
+    },
+    {
+      "name": "SkillManager.refresh_skills",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 78,
+      "docstring": "Scans directories for SKILL.md files and parses them."
+    },
+    {
+      "name": "SkillManager._load_skill",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 94,
+      "docstring": ""
+    },
+    {
+      "name": "SkillManager.get_trusted_skills",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 150,
+      "docstring": "Returns all skills currently in TRUSTED state."
+    },
+    {
+      "name": "SkillManager.get_catalog_string",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 154,
+      "docstring": "Returns a concise catalog of trusted skills for planning context."
+    },
+    {
+      "name": "SkillManager.export_skill_prompt_context",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 164,
+      "docstring": "Returns formatted string of trusted skills for injection into planning or dynamic reasoning contexts."
+    },
+    {
+      "name": "SkillManager.get_skill",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 174,
+      "docstring": ""
+    },
+    {
+      "name": "SkillManager.get_all_skills",
+      "kind": "method",
+      "file": "src/nava/skills/manager.py",
+      "line": 177,
+      "docstring": ""
+    },
+    {
+      "name": "PromotionCandidate",
+      "kind": "class",
+      "file": "src/nava/skills/promotion.py",
+      "line": 13,
+      "docstring": ""
+    },
+    {
+      "name": "SkillPromoter",
+      "kind": "class",
+      "file": "src/nava/skills/promotion.py",
+      "line": 25,
+      "docstring": "Manages user-governed dynamic skill promotion (Section 9.7 & Section 10).\nCaptures multi-step workflows as candidates, requiring explicit user approval\nbefore generating and hash-locking new SKILL.md "
+    },
+    {
+      "name": "SkillPromoter.__init__",
+      "kind": "method",
+      "file": "src/nava/skills/promotion.py",
+      "line": 31,
+      "docstring": ""
+    },
+    {
+      "name": "SkillPromoter.evaluate_and_propose_candidate",
+      "kind": "method",
+      "file": "src/nava/skills/promotion.py",
+      "line": 36,
+      "docstring": "Evaluates completed execution. If the workflow executed successful mutating or multi-step\noperations, creates a promotion candidate for user consideration.\nDoes NOT promote automatically."
+    },
+    {
+      "name": "SkillPromoter.list_candidates",
+      "kind": "method",
+      "file": "src/nava/skills/promotion.py",
+      "line": 83,
+      "docstring": ""
+    },
+    {
+      "name": "SkillPromoter.get_candidate",
+      "kind": "method",
+      "file": "src/nava/skills/promotion.py",
+      "line": 86,
+      "docstring": ""
+    },
+    {
+      "name": "SkillPromoter.reject_candidate",
+      "kind": "method",
+      "file": "src/nava/skills/promotion.py",
+      "line": 94,
+      "docstring": ""
+    },
+    {
+      "name": "SkillPromoter.promote_candidate",
+      "kind": "method",
+      "file": "src/nava/skills/promotion.py",
+      "line": 101,
+      "docstring": "Explicitly promotes an approved candidate into a hash-locked SKILL.md bundle on disk.\nRequires explicit user action (e.g. /skill promote <name>)."
+    },
+    {
+      "name": "_is_url_blocked",
+      "kind": "function",
+      "file": "src/nava/tools/browser.py",
+      "line": 27,
+      "docstring": "Returns True if the URL targets a blocked scheme or private/local host."
+    },
+    {
+      "name": "_escape_selector_for_js",
+      "kind": "function",
+      "file": "src/nava/tools/browser.py",
+      "line": 54,
+      "docstring": "Escape a CSS selector for safe interpolation into a JS string literal."
+    },
+    {
+      "name": "BrowserEngine",
+      "kind": "class",
+      "file": "src/nava/tools/browser.py",
+      "line": 61,
+      "docstring": ""
+    },
+    {
+      "name": "BrowserEngine.__init__",
+      "kind": "method",
+      "file": "src/nava/tools/browser.py",
+      "line": 62,
+      "docstring": ""
+    },
+    {
+      "name": "BrowserEngine.navigate",
+      "kind": "method",
+      "file": "src/nava/tools/browser.py",
+      "line": 74,
+      "docstring": ""
+    },
+    {
+      "name": "BrowserEngine.go_back",
+      "kind": "method",
+      "file": "src/nava/tools/browser.py",
+      "line": 87,
+      "docstring": ""
+    },
+    {
+      "name": "BrowserEngine.get_url",
+      "kind": "method",
+      "file": "src/nava/tools/browser.py",
+      "line": 96,
+      "docstring": ""
+    },
+    {
+      "name": "BrowserEngine.extract_dom",
+      "kind": "method",
+      "file": "src/nava/tools/browser.py",
+      "line": 102,
+      "docstring": "Returns raw page HTML (use extract_text for readable content)."
+    },
+    {
+      "name": "BrowserEngine.extract_text",
+      "kind": "method",
+      "file": "src/nava/tools/browser.py",
+      "line": 107,
+      "docstring": "Extracts only the meaningful readable text from the page,\nstripping ads, navs, scripts, styles, and tracker noise.\nReturns clean text suitable for LLM consumption."
+    },
+    {
+      "name": "BrowserEngine.screenshot",
+      "kind": "method",
+      "file": "src/nava/tools/browser.py",
+      "line": 155,
+      "docstring": "Takes a screenshot of the current page."
+    },
+    {
+      "name": "BrowserEngine.click",
+      "kind": "method",
+      "file": "src/nava/tools/browser.py",
+      "line": 165,
+      "docstring": ""
+    },
+    {
+      "name": "BrowserEngine.type_text",
+      "kind": "method",
+      "file": "src/nava/tools/browser.py",
+      "line": 188,
+      "docstring": ""
+    },
+    {
+      "name": "BrowserEngine.scroll",
+      "kind": "method",
+      "file": "src/nava/tools/browser.py",
+      "line": 215,
+      "docstring": ""
+    },
+    {
+      "name": "BrowserEngine.close",
+      "kind": "method",
+      "file": "src/nava/tools/browser.py",
+      "line": 223,
+      "docstring": ""
+    },
+    {
+      "name": "DesktopEngine",
+      "kind": "class",
+      "file": "src/nava/tools/desktop.py",
+      "line": 19,
+      "docstring": "OS-Level Desktop GUI Automation Engine (Blueprint Section 21 & Claude Cowork Pillar A).\nProvides screen perception, DPI-scaling awareness, mouse movement/clicks/drags, and keyboard hotkeys."
+    },
+    {
+      "name": "DesktopEngine.__init__",
+      "kind": "method",
+      "file": "src/nava/tools/desktop.py",
+      "line": 24,
+      "docstring": ""
+    },
+    {
+      "name": "DesktopEngine._init_dpi_awareness",
+      "kind": "method",
+      "file": "src/nava/tools/desktop.py",
+      "line": 30,
+      "docstring": "Enable Per-Monitor DPI awareness on Windows to guarantee exact pixel coordinate clicks."
+    },
+    {
+      "name": "DesktopEngine._init_drivers",
+      "kind": "method",
+      "file": "src/nava/tools/desktop.py",
+      "line": 44,
+      "docstring": ""
+    },
+    {
+      "name": "DesktopEngine.get_screen_size",
+      "kind": "method",
+      "file": "src/nava/tools/desktop.py",
+      "line": 53,
+      "docstring": "Returns the primary screen resolution and detected DPI scale."
+    },
+    {
+      "name": "DesktopEngine.screenshot",
+      "kind": "method",
+      "file": "src/nava/tools/desktop.py",
+      "line": 75,
+      "docstring": "Takes a full or cropped region screenshot of the OS desktop.\nregion: optional dict with keys {'left': int, 'top': int, 'width': int, 'height': int} or {'x1', 'y1', 'x2', 'y2'}"
+    },
+    {
+      "name": "DesktopEngine.click",
+      "kind": "method",
+      "file": "src/nava/tools/desktop.py",
+      "line": 108,
+      "docstring": "Moves cursor to (x, y) and performs a click or double click."
+    },
+    {
+      "name": "DesktopEngine.mouse_drag",
+      "kind": "method",
+      "file": "src/nava/tools/desktop.py",
+      "line": 125,
+      "docstring": "Drags the mouse cursor from (start_x, start_y) to (end_x, end_y)."
+    },
+    {
+      "name": "DesktopEngine.mouse_scroll",
+      "kind": "method",
+      "file": "src/nava/tools/desktop.py",
+      "line": 140,
+      "docstring": "Scrolls the mouse wheel. Negative values scroll down, positive values scroll up."
+    },
+    {
+      "name": "DesktopEngine.type_text",
+      "kind": "method",
+      "file": "src/nava/tools/desktop.py",
+      "line": 148,
+      "docstring": "Types text into the currently focused window."
+    },
+    {
+      "name": "DesktopEngine.keyboard_press",
+      "kind": "method",
+      "file": "src/nava/tools/desktop.py",
+      "line": 160,
+      "docstring": "Presses a single key (e.g. 'enter', 'tab', 'esc', 'backspace', 'space', 'down')."
+    },
+    {
+      "name": "DesktopEngine.hotkey",
+      "kind": "method",
+      "file": "src/nava/tools/desktop.py",
+      "line": 169,
+      "docstring": "Presses a key combination (e.g. ['ctrl', 's'] or 'alt+tab')."
+    },
+    {
+      "name": "LocalToolExecutor",
+      "kind": "class",
+      "file": "src/nava/tools/executor.py",
+      "line": 7,
+      "docstring": "Executes actual operations on the local system for Tier 1 tools, and routes\nexternal tools to the MCPClientManager."
+    },
+    {
+      "name": "LocalToolExecutor.__init__",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 12,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor.__del__",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 17,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor.execute",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 24,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor.execute_tool",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 122,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._sanitize_path",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 125,
+      "docstring": "Guarantees that path resolution stays strictly inside the workspace boundary,\npreventing directory traversal attacks (Section 29.2 & Section 30)."
+    },
+    {
+      "name": "LocalToolExecutor._file_delete",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 145,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._file_read",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 159,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._file_write",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 170,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._data_analyze",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 184,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._test_run",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 198,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._code_replace_content",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 210,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._code_replace_content_batch",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 235,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._shell_execute",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 277,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._git_status",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 288,
+      "docstring": "Returns concise git status showing branch, staged, modified, and untracked files."
+    },
+    {
+      "name": "LocalToolExecutor._git_diff",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 302,
+      "docstring": "Returns unified git diff of working directory or staged changes."
+    },
+    {
+      "name": "LocalToolExecutor._search_web",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 316,
+      "docstring": "Searches the web via DuckDuckGo and returns top structured results."
+    },
+    {
+      "name": "LocalToolExecutor._memory_semantic_ingest",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 356,
+      "docstring": "Ingests research facts or document text into Tier 3 Semantic Memory."
+    },
+    {
+      "name": "LocalToolExecutor._code_find_references",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 372,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._code_search",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 393,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._code_read_directory_tree",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 417,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._system_flag_review",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 432,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._system_read_skill",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 436,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._code_diff_review",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 452,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._file_create_pdf",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 468,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._file_create_docx",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 535,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._file_create_pptx",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 561,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._ensure_browser",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 691,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor.browser_engine",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 703,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor.browser_engine",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 707,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._browser_navigate",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 713,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._browser_extract_dom",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 720,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._browser_extract_text",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 724,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._browser_click",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 728,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._browser_type",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 735,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._browser_scroll",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 743,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._browser_go_back",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 747,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._browser_get_url",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 751,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._browser_save_to_scratch",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 755,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._ensure_desktop",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 782,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._desktop_screenshot",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 788,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._desktop_click",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 794,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._desktop_drag",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 802,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._desktop_scroll",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 812,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._desktop_type",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 817,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._desktop_press",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 822,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._desktop_hotkey",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 827,
+      "docstring": ""
+    },
+    {
+      "name": "LocalToolExecutor._desktop_get_screen_size",
+      "kind": "method",
+      "file": "src/nava/tools/executor.py",
+      "line": 832,
+      "docstring": ""
+    },
+    {
+      "name": "MCPToolTrustState",
+      "kind": "class",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 14,
+      "docstring": ""
+    },
+    {
+      "name": "StdioMCPClient",
+      "kind": "class",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 20,
+      "docstring": "Standard JSON-RPC 2.0 Client communicating over stdio subprocess transport.\nComplies with Model Context Protocol (MCP) specifications."
+    },
+    {
+      "name": "StdioMCPClient.__init__",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 25,
+      "docstring": ""
+    },
+    {
+      "name": "StdioMCPClient._next_id",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 33,
+      "docstring": ""
+    },
+    {
+      "name": "StdioMCPClient.start",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 37,
+      "docstring": ""
+    },
+    {
+      "name": "StdioMCPClient.send_request",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 47,
+      "docstring": ""
+    },
+    {
+      "name": "StdioMCPClient.list_tools",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 76,
+      "docstring": ""
+    },
+    {
+      "name": "StdioMCPClient.call_tool",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 90,
+      "docstring": ""
+    },
+    {
+      "name": "StdioMCPClient.close",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 103,
+      "docstring": ""
+    },
+    {
+      "name": "MCPClientManager",
+      "kind": "class",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 112,
+      "docstring": "Manages registration, discovery, hash-locking verification, and execution of MCP tools.\nDesigned for effortless registration of local and remote MCP servers."
+    },
+    {
+      "name": "MCPClientManager.__init__",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 117,
+      "docstring": ""
+    },
+    {
+      "name": "MCPClientManager._load_ledger",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 126,
+      "docstring": ""
+    },
+    {
+      "name": "MCPClientManager._save_ledger",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 137,
+      "docstring": ""
+    },
+    {
+      "name": "MCPClientManager._hash_tool_def",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 142,
+      "docstring": "Canonicalizes and hashes a tool definition dict."
+    },
+    {
+      "name": "MCPClientManager._infer_risk",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 156,
+      "docstring": ""
+    },
+    {
+      "name": "MCPClientManager.register_server",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 166,
+      "docstring": "Easy registration API for any MCP Server.\nExample:\n    mcp_manager.register_server(\"github\", \"npx\", [\"-y\", \"@modelcontextprotocol/server-github\"], required_service=\"github\")"
+    },
+    {
+      "name": "MCPClientManager._discover_server_tools_sync",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 224,
+      "docstring": "Synchronously runs async tool discovery."
+    },
+    {
+      "name": "MCPClientManager._process_fetched_tools",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 254,
+      "docstring": ""
+    },
+    {
+      "name": "MCPClientManager.get_pending_approvals",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 290,
+      "docstring": "Returns tools that require human approval for a given server."
+    },
+    {
+      "name": "MCPClientManager.approve_tool",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 296,
+      "docstring": ""
+    },
+    {
+      "name": "MCPClientManager.get_ledger_content",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 341,
+      "docstring": ""
+    },
+    {
+      "name": "MCPClientManager.execute_tool",
+      "kind": "method",
+      "file": "src/nava/tools/mcp_client.py",
+      "line": 346,
+      "docstring": "Executes a tool on an MCP server via JSON-RPC stdio."
+    },
+    {
+      "name": "run_server",
+      "kind": "function",
+      "file": "src/nava/tools/mcp_gmail_server.py",
+      "line": 9,
+      "docstring": ""
+    },
+    {
+      "name": "ToolDefinition",
+      "kind": "class",
+      "file": "src/nava/tools/registry.py",
+      "line": 5,
+      "docstring": ""
+    },
+    {
+      "name": "ToolRegistry",
+      "kind": "class",
+      "file": "src/nava/tools/registry.py",
+      "line": 18,
+      "docstring": "Centralized interface for all capabilities (local and external MCP)."
+    },
+    {
+      "name": "ToolRegistry.__init__",
+      "kind": "method",
+      "file": "src/nava/tools/registry.py",
+      "line": 22,
+      "docstring": ""
+    },
+    {
+      "name": "ToolRegistry.register_tool",
+      "kind": "method",
+      "file": "src/nava/tools/registry.py",
+      "line": 25,
+      "docstring": ""
+    },
+    {
+      "name": "ToolRegistry.get_tool",
+      "kind": "method",
+      "file": "src/nava/tools/registry.py",
+      "line": 30,
+      "docstring": ""
+    },
+    {
+      "name": "ToolRegistry.list_tools",
+      "kind": "method",
+      "file": "src/nava/tools/registry.py",
+      "line": 35,
+      "docstring": ""
+    },
+    {
+      "name": "ProjectIndexer",
+      "kind": "class",
+      "file": "src/nava/workspace/indexer.py",
+      "line": 16,
+      "docstring": "Lightweight AST and File Tree indexer for NAVA workspaces.\nScans codebases and generates structured symbol tables and file hierarchy."
+    },
+    {
+      "name": "ProjectIndexer.__init__",
+      "kind": "method",
+      "file": "src/nava/workspace/indexer.py",
+      "line": 21,
+      "docstring": ""
+    },
+    {
+      "name": "ProjectIndexer.build_index",
+      "kind": "method",
+      "file": "src/nava/workspace/indexer.py",
+      "line": 26,
+      "docstring": "Scans the project directory and generates a comprehensive symbol and file index."
+    },
+    {
+      "name": "ProjectIndexer._parse_python_ast",
+      "kind": "method",
+      "file": "src/nava/workspace/indexer.py",
+      "line": 96,
+      "docstring": "Extracts top-level and class-level functions, classes, and docstrings via AST."
+    },
+    {
+      "name": "ProjectIndexer.search_symbols",
+      "kind": "method",
+      "file": "src/nava/workspace/indexer.py",
+      "line": 138,
+      "docstring": "Finds matching functions, methods, or classes matching a query string."
+    },
+    {
+      "name": "ProjectIndexer.get_summary",
+      "kind": "method",
+      "file": "src/nava/workspace/indexer.py",
+      "line": 156,
+      "docstring": "Returns high-level summary of the workspace index."
+    },
+    {
+      "name": "ProjectWorkspace",
+      "kind": "class",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 9,
+      "docstring": "Manages project-scoped context, workspace indexing, and persistent `.nava/project_memory.md`.\nProvides autonomous context continuity across sessions (\"Continue where we left off\")\nand snapshot restore"
+    },
+    {
+      "name": "ProjectWorkspace.__init__",
+      "kind": "method",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 15,
+      "docstring": ""
+    },
+    {
+      "name": "ProjectWorkspace.initialize_project_memory",
+      "kind": "method",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 24,
+      "docstring": "Creates or updates the `.nava/project_memory.md` file based on project analysis."
+    },
+    {
+      "name": "ProjectWorkspace.read_memory",
+      "kind": "method",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 64,
+      "docstring": "Reads the current contents of `.nava/project_memory.md`."
+    },
+    {
+      "name": "ProjectWorkspace.save_checkpoint",
+      "kind": "method",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 74,
+      "docstring": "Saves a structured execution checkpoint to `.nava/project_memory.md`\nand optionally creates a snapshot backup in `.nava/checkpoints/`."
+    },
+    {
+      "name": "ProjectWorkspace.create_file_snapshot",
+      "kind": "method",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 138,
+      "docstring": "Copies touched files into `.nava/checkpoints/<snapshot_id>/` for fast rollback."
+    },
+    {
+      "name": "ProjectWorkspace.restore_file_snapshot",
+      "kind": "method",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 162,
+      "docstring": "Restores files from a previous snapshot."
+    },
+    {
+      "name": "ProjectWorkspace.get_welcome_back_message",
+      "kind": "method",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 181,
+      "docstring": "Returns a friendly startup greeting if an active checkpoint is ready to resume."
+    },
+    {
+      "name": "ProjectWorkspace.get_active_objective",
+      "kind": "method",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 211,
+      "docstring": "Returns the active objective from memory if present."
+    },
+    {
+      "name": "ProjectWorkspace.append_decision",
+      "kind": "method",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 219,
+      "docstring": "Appends an architectural decision or constraint to Section 3."
+    },
+    {
+      "name": "ProjectWorkspace._append_decision_to_text",
+      "kind": "method",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 226,
+      "docstring": ""
+    },
+    {
+      "name": "ProjectWorkspace.get_resume_context",
+      "kind": "method",
+      "file": "src/nava/workspace/project_manager.py",
+      "line": 235,
+      "docstring": "Extracts recent checkpoint data from `.nava/project_memory.md` to inject into the planner."
+    },
+    {
+      "name": "Test21SystemInvariants",
+      "kind": "class",
+      "file": "tests/test_21_invariants.py",
+      "line": 39,
+      "docstring": "Comprehensive verification suite testing all 21 Core System Invariants\ndefined in Section 27 of the NAVA Personal Agent OS Blueprint."
+    },
+    {
+      "name": "Test21SystemInvariants.setUp",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 44,
+      "docstring": ""
+    },
+    {
+      "name": "Test21SystemInvariants.tearDown",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 124,
+      "docstring": ""
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_01_mutation_gate_chokepoint",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 128,
+      "docstring": "Invariant #1: Every mutating tool request MUST pass through the 12-step ActionGateway."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_02_append_only_audit_ledger",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 140,
+      "docstring": "Invariant #2: Audit ledger is strictly append-only; historical events cannot be overwritten."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_03_receipt_immutability",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 152,
+      "docstring": "Invariant #3: Receipts cannot be modified once written."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_04_root_ceiling_enforced",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 165,
+      "docstring": "Invariant #4: Dynamic subagents can NEVER exceed root agent ceiling capabilities."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_05_non_increasing_permissions",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 179,
+      "docstring": "Invariant #5: Child permissions = Parent \u2229 Requested \u2229 Policy."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_06_max_spawn_depth_limit",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 192,
+      "docstring": "Invariant #6: Child spawn fails when depth + 1 > max_depth."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_07_hard_runaway_loop_bound",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 210,
+      "docstring": "Invariant #7: Maximum 3 retries (4th identical failure state halts execution)."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_08_short_lived_credential_scoping",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 220,
+      "docstring": "Invariant #8: Scoped credentials have 5-min TTL and raw token is isolated from agent view."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_09_write_exclusive_locking",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 231,
+      "docstring": "Invariant #9: Exclusive write lock blocks concurrent writes and reads on same resource."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_10_shared_read_concurrency",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 239,
+      "docstring": "Invariant #10: Multiple agents can acquire shared read locks concurrently."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_11_automatic_reversible_rollback",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 247,
+      "docstring": "Invariant #11: Failed task triggers automatic inverse state restoration for reversible tools."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_12_irreversible_compensation_routing",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 262,
+      "docstring": "Invariant #12: Non-reversible tool failures route to CompensationEngine."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_13_bounded_cleanup_budget",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 275,
+      "docstring": "Invariant #13: Rollback & compensation operations run under bounded cleanup budget (max_steps=5)."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_14_hitl_escalation_enforcement",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 286,
+      "docstring": "Invariant #14: Policy APPROVAL outcomes strictly require an approved HITL record."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_15_critical_risk_hard_block",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 297,
+      "docstring": "Invariant #15: CRITICAL risk operations are hard-blocked."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_16_deterministic_resource_teardown",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 305,
+      "docstring": "Invariant #16: Agent teardown sets TERMINATED status, flushes locks, and revokes credentials."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_17_plugin_skill_hash_locking",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 326,
+      "docstring": "Invariant #17: Modifying SKILL.md on disk triggers UNTRUSTED_MODIFIED trust state."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_18_out_of_band_emergency_kill_switch",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 347,
+      "docstring": "Invariant #18: Emergency stop immediately halts execution, revokes credentials, and cancels approvals."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_19_untrusted_delimiter_boundary",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 355,
+      "docstring": "Invariant #19: External data wrapped in <untrusted_content> with tag escaping and injection filtering."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_20_profile_trust_escalation_gate",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 363,
+      "docstring": "Invariant #20: Inferred facts cannot silently overwrite VERIFIED profile memories."
+    },
+    {
+      "name": "Test21SystemInvariants.test_invariant_21_scope_alignment_invariant",
+      "kind": "method",
+      "file": "tests/test_21_invariants.py",
+      "line": 384,
+      "docstring": "Invariant #21: Agent Permission \u2287 Credential Scope \u2287 Tool Scope."
+    },
+    {
+      "name": "TestAgentMessageBus",
+      "kind": "class",
+      "file": "tests/test_agent_message_bus.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "TestAgentMessageBus.setUp",
+      "kind": "method",
+      "file": "tests/test_agent_message_bus.py",
+      "line": 11,
+      "docstring": ""
+    },
+    {
+      "name": "TestAgentMessageBus.test_message_bus_pub_sub",
+      "kind": "method",
+      "file": "tests/test_agent_message_bus.py",
+      "line": 14,
+      "docstring": "Verify channels route messages only to subscribed agents."
+    },
+    {
+      "name": "TestAgentMessageBus.test_progress_broadcasting",
+      "kind": "method",
+      "file": "tests/test_agent_message_bus.py",
+      "line": 46,
+      "docstring": "Verify broadcast_progress calculates percentages and notifies listeners."
+    },
+    {
+      "name": "TestAgentMessageBus.test_peer_review_and_feedback_loop",
+      "kind": "method",
+      "file": "tests/test_agent_message_bus.py",
+      "line": 72,
+      "docstring": "Verify CodingAgent to ReviewerAgent peer review handshake with correlation IDs."
+    },
+    {
+      "name": "TestAgentMessageBus.test_global_listener_for_ui_streaming",
+      "kind": "method",
+      "file": "tests/test_agent_message_bus.py",
+      "line": 113,
+      "docstring": "Verify global listener captures all events across all channels in real time."
+    },
+    {
+      "name": "TestCredentials",
+      "kind": "class",
+      "file": "tests/test_credentials.py",
+      "line": 9,
+      "docstring": ""
+    },
+    {
+      "name": "TestCredentials.setUp",
+      "kind": "method",
+      "file": "tests/test_credentials.py",
+      "line": 10,
+      "docstring": ""
+    },
+    {
+      "name": "TestCredentials.tearDown",
+      "kind": "method",
+      "file": "tests/test_credentials.py",
+      "line": 25,
+      "docstring": ""
+    },
+    {
+      "name": "TestCredentials.test_vault_isolation",
+      "kind": "method",
+      "file": "tests/test_credentials.py",
+      "line": 31,
+      "docstring": "Assert no code path outside CredentialBroker can retrieve a raw token from CredentialVault."
+    },
+    {
+      "name": "TestCredentials.test_scope_alignment",
+      "kind": "method",
+      "file": "tests/test_credentials.py",
+      "line": 48,
+      "docstring": "Attempt to request a credential scope broader than the agent's credential_scope \u2014 assert denial."
+    },
+    {
+      "name": "TestCredentials.test_expiry",
+      "kind": "method",
+      "file": "tests/test_credentials.py",
+      "line": 72,
+      "docstring": "Mint a credential with a short TTL, wait past it, assert a subsequent use fails."
+    },
+    {
+      "name": "TestCredentials.test_teardown",
+      "kind": "method",
+      "file": "tests/test_credentials.py",
+      "line": 83,
+      "docstring": "Spawn an agent, mint it a credential, terminate the agent, assert the credential is revoked."
+    },
+    {
+      "name": "test_schema_validation_and_deduplication",
+      "kind": "function",
+      "file": "tests/test_phase0.py",
+      "line": 14,
+      "docstring": ""
+    },
+    {
+      "name": "test_audit_ledger_append_only",
+      "kind": "function",
+      "file": "tests/test_phase0.py",
+      "line": 32,
+      "docstring": ""
+    },
+    {
+      "name": "MockSchemaValidator",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 49,
+      "docstring": ""
+    },
+    {
+      "name": "MockSchemaValidator.validate",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 50,
+      "docstring": ""
+    },
+    {
+      "name": "MockIdentityVerifier",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 52,
+      "docstring": ""
+    },
+    {
+      "name": "MockIdentityVerifier.verify",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 53,
+      "docstring": ""
+    },
+    {
+      "name": "MockScopeVerifier",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 68,
+      "docstring": ""
+    },
+    {
+      "name": "MockScopeVerifier.verify_parent_scope",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 69,
+      "docstring": ""
+    },
+    {
+      "name": "MockPermissionChecker",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 71,
+      "docstring": ""
+    },
+    {
+      "name": "MockPermissionChecker.check",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 72,
+      "docstring": ""
+    },
+    {
+      "name": "MockPolicyEngine",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 74,
+      "docstring": ""
+    },
+    {
+      "name": "MockPolicyEngine.evaluate",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 75,
+      "docstring": ""
+    },
+    {
+      "name": "MockRiskEngine",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 77,
+      "docstring": ""
+    },
+    {
+      "name": "MockRiskEngine.evaluate",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 78,
+      "docstring": ""
+    },
+    {
+      "name": "MockBudgetEngine",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 87,
+      "docstring": ""
+    },
+    {
+      "name": "MockBudgetEngine.check_and_consume",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 88,
+      "docstring": ""
+    },
+    {
+      "name": "MockConcurrencyManager",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 90,
+      "docstring": ""
+    },
+    {
+      "name": "MockConcurrencyManager.check_locks",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 91,
+      "docstring": ""
+    },
+    {
+      "name": "MockHITLManager",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 93,
+      "docstring": ""
+    },
+    {
+      "name": "MockHITLManager.decide",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 94,
+      "docstring": ""
+    },
+    {
+      "name": "MockExecutor",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 96,
+      "docstring": ""
+    },
+    {
+      "name": "MockExecutor.execute",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 97,
+      "docstring": ""
+    },
+    {
+      "name": "MockStateObserver",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 99,
+      "docstring": ""
+    },
+    {
+      "name": "MockStateObserver.observe",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 100,
+      "docstring": ""
+    },
+    {
+      "name": "MockVerifier",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 102,
+      "docstring": ""
+    },
+    {
+      "name": "MockVerifier.verify",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 103,
+      "docstring": ""
+    },
+    {
+      "name": "MockMemoryUpdater",
+      "kind": "class",
+      "file": "tests/test_phase0.py",
+      "line": 105,
+      "docstring": ""
+    },
+    {
+      "name": "MockMemoryUpdater.update",
+      "kind": "method",
+      "file": "tests/test_phase0.py",
+      "line": 106,
+      "docstring": ""
+    },
+    {
+      "name": "test_action_gateway_pipeline",
+      "kind": "function",
+      "file": "tests/test_phase0.py",
+      "line": 108,
+      "docstring": ""
+    },
+    {
+      "name": "test_tool_registry",
+      "kind": "function",
+      "file": "tests/test_phase1.py",
+      "line": 8,
+      "docstring": ""
+    },
+    {
+      "name": "test_agent_templates",
+      "kind": "function",
+      "file": "tests/test_phase1.py",
+      "line": 48,
+      "docstring": ""
+    },
+    {
+      "name": "test_policy_engine",
+      "kind": "function",
+      "file": "tests/test_phase1.py",
+      "line": 58,
+      "docstring": ""
+    },
+    {
+      "name": "test_risk_engine_tiers",
+      "kind": "function",
+      "file": "tests/test_phase2.py",
+      "line": 11,
+      "docstring": ""
+    },
+    {
+      "name": "test_risk_context_regression",
+      "kind": "function",
+      "file": "tests/test_phase2.py",
+      "line": 63,
+      "docstring": ""
+    },
+    {
+      "name": "test_budget_engine",
+      "kind": "function",
+      "file": "tests/test_phase2.py",
+      "line": 70,
+      "docstring": ""
+    },
+    {
+      "name": "test_hitl_manager",
+      "kind": "function",
+      "file": "tests/test_phase2.py",
+      "line": 104,
+      "docstring": ""
+    },
+    {
+      "name": "test_profile_memory_hard_rule",
+      "kind": "function",
+      "file": "tests/test_phase3.py",
+      "line": 8,
+      "docstring": ""
+    },
+    {
+      "name": "test_episodic_ttl",
+      "kind": "function",
+      "file": "tests/test_phase3.py",
+      "line": 44,
+      "docstring": ""
+    },
+    {
+      "name": "test_phase4_integration_universal_file",
+      "kind": "function",
+      "file": "tests/test_phase4.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "test_phase4c_dynamic_agent",
+      "kind": "function",
+      "file": "tests/test_phase4c.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "test_phase4d_bootstrapper",
+      "kind": "function",
+      "file": "tests/test_phase4d.py",
+      "line": 13,
+      "docstring": ""
+    },
+    {
+      "name": "test_phase4d_runaway_loop_protection",
+      "kind": "function",
+      "file": "tests/test_phase4d.py",
+      "line": 41,
+      "docstring": ""
+    },
+    {
+      "name": "test_phase4d_max_depth_protection",
+      "kind": "function",
+      "file": "tests/test_phase4d.py",
+      "line": 99,
+      "docstring": ""
+    },
+    {
+      "name": "TestProjectWorkspace",
+      "kind": "class",
+      "file": "tests/test_project_workspace.py",
+      "line": 12,
+      "docstring": ""
+    },
+    {
+      "name": "TestProjectWorkspace.setUp",
+      "kind": "method",
+      "file": "tests/test_project_workspace.py",
+      "line": 13,
+      "docstring": ""
+    },
+    {
+      "name": "TestProjectWorkspace.tearDown",
+      "kind": "method",
+      "file": "tests/test_project_workspace.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "TestProjectWorkspace.test_project_workspace_initialization",
+      "kind": "method",
+      "file": "tests/test_project_workspace.py",
+      "line": 19,
+      "docstring": "Verify .nava/project_memory.md is generated with structured markdown sections."
+    },
+    {
+      "name": "TestProjectWorkspace.test_project_indexer_ast_parsing",
+      "kind": "method",
+      "file": "tests/test_project_workspace.py",
+      "line": 32,
+      "docstring": "Verify AST indexer parses Python classes, functions, docstrings and builds index."
+    },
+    {
+      "name": "TestProjectWorkspace.test_checkpoint_persistence_and_resume_context",
+      "kind": "method",
+      "file": "tests/test_project_workspace.py",
+      "line": 66,
+      "docstring": "Verify checkpoint saving updates markdown and generates prompt context."
+    },
+    {
+      "name": "TestProjectWorkspace.test_append_architectural_decision",
+      "kind": "method",
+      "file": "tests/test_project_workspace.py",
+      "line": 92,
+      "docstring": "Verify appending decisions maintains Section 3 format."
+    },
+    {
+      "name": "TestProjectWorkspace.test_file_snapshot_and_rollback",
+      "kind": "method",
+      "file": "tests/test_project_workspace.py",
+      "line": 101,
+      "docstring": "Verify file snapshots are created in .nava/checkpoints/ and can be restored."
+    },
+    {
+      "name": "TestProjectWorkspace.test_welcome_back_message_formatting",
+      "kind": "method",
+      "file": "tests/test_project_workspace.py",
+      "line": 126,
+      "docstring": "Verify get_welcome_back_message formats startup greeting correctly."
+    },
+    {
+      "name": "TestSpecializedAgents",
+      "kind": "class",
+      "file": "tests/test_specialized_agents.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "TestSpecializedAgents.setUp",
+      "kind": "method",
+      "file": "tests/test_specialized_agents.py",
+      "line": 17,
+      "docstring": ""
+    },
+    {
+      "name": "TestSpecializedAgents.test_desktop_screen_size_and_dpi",
+      "kind": "method",
+      "file": "tests/test_specialized_agents.py",
+      "line": 20,
+      "docstring": "Verify get_screen_size returns valid dimensions and DPI scale."
+    },
+    {
+      "name": "TestSpecializedAgents.test_desktop_screenshot_full_and_cropped",
+      "kind": "method",
+      "file": "tests/test_specialized_agents.py",
+      "line": 29,
+      "docstring": "Verify full and region-cropped screenshots generate valid image files."
+    },
+    {
+      "name": "TestSpecializedAgents.test_desktop_mouse_and_keyboard_controls",
+      "kind": "method",
+      "file": "tests/test_specialized_agents.py",
+      "line": 48,
+      "docstring": "Verify simulated mouse drag, scroll, and key press."
+    },
+    {
+      "name": "TestSpecializedAgents.test_desktop_sensitive_typing_blocked",
+      "kind": "method",
+      "file": "tests/test_specialized_agents.py",
+      "line": 59,
+      "docstring": "Verify DesktopEngine refuses to type sensitive API keys or tokens."
+    },
+    {
+      "name": "TestSpecializedAgents.test_desktop_high_risk_triggers_hitl",
+      "kind": "method",
+      "file": "tests/test_specialized_agents.py",
+      "line": 67,
+      "docstring": "Verify high-risk desktop GUI actions trigger HITL in RiskEngine."
+    },
+    {
+      "name": "TestSpecializedAgents.test_templates_permissions",
+      "kind": "method",
+      "file": "tests/test_specialized_agents.py",
+      "line": 103,
+      "docstring": "Verify ComputerAgent, TerminalAgent, and ResearchAgent template definitions."
+    },
+    {
+      "name": "TestSpecializedAgents.test_executor_desktop_tool_dispatch",
+      "kind": "method",
+      "file": "tests/test_specialized_agents.py",
+      "line": 111,
+      "docstring": "Verify LocalToolExecutor dispatches desktop tools."
+    },
+    {
+      "name": "TestSpecializedAgents.test_research_and_terminal_tools_dispatch",
+      "kind": "method",
+      "file": "tests/test_specialized_agents.py",
+      "line": 126,
+      "docstring": "Verify ResearchAgent and TerminalAgent tools dispatch in LocalToolExecutor."
+    },
+    {
+      "name": "TestStep1Fixes",
+      "kind": "class",
+      "file": "tests/test_step1_fixes.py",
+      "line": 32,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep1Fixes.setUp",
+      "kind": "method",
+      "file": "tests/test_step1_fixes.py",
+      "line": 33,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep1Fixes.tearDown",
+      "kind": "method",
+      "file": "tests/test_step1_fixes.py",
+      "line": 102,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep1Fixes.test_policy_block_enforced_in_gateway",
+      "kind": "method",
+      "file": "tests/test_step1_fixes.py",
+      "line": 105,
+      "docstring": "Invariant: Policy BLOCK outcome must be enforced and raise PermissionError."
+    },
+    {
+      "name": "TestStep1Fixes.test_policy_approval_enforced_in_gateway",
+      "kind": "method",
+      "file": "tests/test_step1_fixes.py",
+      "line": 121,
+      "docstring": "Invariant: Policy APPROVAL outcome requires approved status."
+    },
+    {
+      "name": "TestStep1Fixes.test_agent_ttl_expiration_enforced",
+      "kind": "method",
+      "file": "tests/test_step1_fixes.py",
+      "line": 137,
+      "docstring": "Invariant #16: Expired agent cannot execute actions past its TTL."
+    },
+    {
+      "name": "TestStep1Fixes.test_single_approval_manager_request_approval",
+      "kind": "method",
+      "file": "tests/test_step1_fixes.py",
+      "line": 166,
+      "docstring": "Verify SingleApprovalManager implements request_approval cleanly."
+    },
+    {
+      "name": "TestStep1Fixes.test_factory_depth_and_wildcard_permissions",
+      "kind": "method",
+      "file": "tests/test_step1_fixes.py",
+      "line": 181,
+      "docstring": "Verify AgentFactory handles wildcard permissions and proper depth limit."
+    },
+    {
+      "name": "TestStep1Fixes.test_reviewer_agent_graph_execution",
+      "kind": "method",
+      "file": "tests/test_step1_fixes.py",
+      "line": 222,
+      "docstring": "Verify ReviewerAgent graph compiles and runs without double compile crash."
+    },
+    {
+      "name": "TestStep1Fixes.test_audit_ledger_append_event",
+      "kind": "method",
+      "file": "tests/test_step1_fixes.py",
+      "line": 240,
+      "docstring": "Verify AuditLedger append_event writes structured Event JSON."
+    },
+    {
+      "name": "TestStep2ParallelEngine",
+      "kind": "class",
+      "file": "tests/test_step2_parallel.py",
+      "line": 35,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep2ParallelEngine.setUp",
+      "kind": "method",
+      "file": "tests/test_step2_parallel.py",
+      "line": 36,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep2ParallelEngine.tearDown",
+      "kind": "method",
+      "file": "tests/test_step2_parallel.py",
+      "line": 78,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep2ParallelEngine.test_lock_manager_write_exclusive_blocks_parallel_agent",
+      "kind": "method",
+      "file": "tests/test_step2_parallel.py",
+      "line": 81,
+      "docstring": "Invariant: Exclusive write lock acquired by Agent A blocks Agent B from writing to same file."
+    },
+    {
+      "name": "TestStep2ParallelEngine.test_lock_manager_read_shared_allows_parallel_agents",
+      "kind": "method",
+      "file": "tests/test_step2_parallel.py",
+      "line": 106,
+      "docstring": "Invariant: Multiple agents can acquire shared read locks on the same file concurrently."
+    },
+    {
+      "name": "TestStep2ParallelEngine.test_lock_manager_path_hierarchy_and_normalization",
+      "kind": "method",
+      "file": "tests/test_step2_parallel.py",
+      "line": 129,
+      "docstring": "Verify normalized paths and directory hierarchy boundary checks."
+    },
+    {
+      "name": "TestStep2ParallelEngine.test_lock_manager_release_lock",
+      "kind": "method",
+      "file": "tests/test_step2_parallel.py",
+      "line": 144,
+      "docstring": "Verify release_lock frees resource so another agent can acquire it."
+    },
+    {
+      "name": "TestStep2ParallelEngine.test_budget_engine_thread_safety",
+      "kind": "method",
+      "file": "tests/test_step2_parallel.py",
+      "line": 164,
+      "docstring": "Verify TaskBudget is thread-safe under 20 concurrent threads."
+    },
+    {
+      "name": "TestStep2ParallelEngine.test_goal_planner_stage_decomposition_and_dedup",
+      "kind": "method",
+      "file": "tests/test_step2_parallel.py",
+      "line": 194,
+      "docstring": "Verify GoalPlanner outputs stage attributes and canonical SHA-256 deduplication hashes."
+    },
+    {
+      "name": "TestStep2ParallelEngine.test_parallel_dynamic_agents_stage_execution",
+      "kind": "method",
+      "file": "tests/test_step2_parallel.py",
+      "line": 212,
+      "docstring": "Verify parallel execution of independent dynamic agents in parallel worker pool."
+    },
+    {
+      "name": "TestStep3MCPHardening",
+      "kind": "class",
+      "file": "tests/test_step3_mcp_hardening.py",
+      "line": 18,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep3MCPHardening.setUp",
+      "kind": "method",
+      "file": "tests/test_step3_mcp_hardening.py",
+      "line": 19,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep3MCPHardening.tearDown",
+      "kind": "method",
+      "file": "tests/test_step3_mcp_hardening.py",
+      "line": 54,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep3MCPHardening.test_schema_validator_accepts_valid_arguments",
+      "kind": "method",
+      "file": "tests/test_step3_mcp_hardening.py",
+      "line": 57,
+      "docstring": "Verify DefaultSchemaValidator accepts requests meeting type and required specs."
+    },
+    {
+      "name": "TestStep3MCPHardening.test_schema_validator_rejects_missing_required_fields",
+      "kind": "method",
+      "file": "tests/test_step3_mcp_hardening.py",
+      "line": 68,
+      "docstring": "Verify DefaultSchemaValidator rejects requests missing required parameters."
+    },
+    {
+      "name": "TestStep3MCPHardening.test_schema_validator_rejects_wrong_data_types",
+      "kind": "method",
+      "file": "tests/test_step3_mcp_hardening.py",
+      "line": 79,
+      "docstring": "Verify DefaultSchemaValidator rejects incorrect data types (e.g. integer for string)."
+    },
+    {
+      "name": "TestStep3MCPHardening.test_filesystem_path_containment_blocks_traversal",
+      "kind": "method",
+      "file": "tests/test_step3_mcp_hardening.py",
+      "line": 90,
+      "docstring": "Verify LocalToolExecutor blocks directory traversal attacks outside workspace."
+    },
+    {
+      "name": "TestStep3MCPHardening.test_filesystem_path_containment_allows_safe_workspace_paths",
+      "kind": "method",
+      "file": "tests/test_step3_mcp_hardening.py",
+      "line": 103,
+      "docstring": "Verify LocalToolExecutor allows safe file operations within workspace directory."
+    },
+    {
+      "name": "TestStep3MCPHardening.test_mcp_client_manager_easy_registration",
+      "kind": "method",
+      "file": "tests/test_step3_mcp_hardening.py",
+      "line": 126,
+      "docstring": "Verify easy registration and hash-locking trust workflow for custom MCP servers."
+    },
+    {
+      "name": "TestStep3MCPHardening.test_stdio_mcp_client_protocol_handshake",
+      "kind": "method",
+      "file": "tests/test_step3_mcp_hardening.py",
+      "line": 162,
+      "docstring": "Verify StdioMCPClient constructs valid JSON-RPC 2.0 sequence IDs."
+    },
+    {
+      "name": "TestStep4SkillPromotion",
+      "kind": "class",
+      "file": "tests/test_step4_skill_promotion.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep4SkillPromotion.setUp",
+      "kind": "method",
+      "file": "tests/test_step4_skill_promotion.py",
+      "line": 17,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep4SkillPromotion.tearDown",
+      "kind": "method",
+      "file": "tests/test_step4_skill_promotion.py",
+      "line": 77,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep4SkillPromotion.test_skill_promoter_creates_candidate_without_auto_promoting",
+      "kind": "method",
+      "file": "tests/test_step4_skill_promotion.py",
+      "line": 80,
+      "docstring": "Invariant: Tasks are NOT auto-promoted; promoter creates candidate waiting for user decision."
+    },
+    {
+      "name": "TestStep4SkillPromotion.test_skill_promoter_reject_candidate",
+      "kind": "method",
+      "file": "tests/test_step4_skill_promotion.py",
+      "line": 95,
+      "docstring": "Verify user can dismiss/reject a promotion candidate."
+    },
+    {
+      "name": "TestStep4SkillPromotion.test_skill_promoter_user_approved_promotion",
+      "kind": "method",
+      "file": "tests/test_step4_skill_promotion.py",
+      "line": 108,
+      "docstring": "Verify user-approved promotion writes SKILL.md, YAML frontmatter, and hash-locks into ledger."
+    },
+    {
+      "name": "TestStep4SkillPromotion.test_skill_manager_export_skill_prompt_context",
+      "kind": "method",
+      "file": "tests/test_step4_skill_promotion.py",
+      "line": 137,
+      "docstring": "Verify trusted skills are properly formatted for agent/planner reasoning context."
+    },
+    {
+      "name": "TestStep4SkillPromotion.test_promoted_skill_tamper_detection",
+      "kind": "method",
+      "file": "tests/test_step4_skill_promotion.py",
+      "line": 154,
+      "docstring": "Verify modifying a promoted SKILL.md flips trust to UNTRUSTED_MODIFIED (Section 30)."
+    },
+    {
+      "name": "TestStep5KillSwitchAndInjection",
+      "kind": "class",
+      "file": "tests/test_step5_kill_switch_injection.py",
+      "line": 26,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep5KillSwitchAndInjection.setUp",
+      "kind": "method",
+      "file": "tests/test_step5_kill_switch_injection.py",
+      "line": 27,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep5KillSwitchAndInjection.tearDown",
+      "kind": "method",
+      "file": "tests/test_step5_kill_switch_injection.py",
+      "line": 81,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep5KillSwitchAndInjection.test_emergency_kill_switch_blocks_gateway_actions",
+      "kind": "method",
+      "file": "tests/test_step5_kill_switch_injection.py",
+      "line": 84,
+      "docstring": "Invariant #18: ActionGateway halts immediately when emergency stop is active."
+    },
+    {
+      "name": "TestStep5KillSwitchAndInjection.test_emergency_kill_switch_revokes_all_credentials",
+      "kind": "method",
+      "file": "tests/test_step5_kill_switch_injection.py",
+      "line": 111,
+      "docstring": "Section 31.4: Emergency stop immediately revokes all credentials across the vault."
+    },
+    {
+      "name": "TestStep5KillSwitchAndInjection.test_emergency_kill_switch_cancels_all_pending_approvals",
+      "kind": "method",
+      "file": "tests/test_step5_kill_switch_injection.py",
+      "line": 128,
+      "docstring": "Section 31.4: Emergency stop immediately cancels all pending HITL approvals."
+    },
+    {
+      "name": "TestStep5KillSwitchAndInjection.test_emergency_kill_switch_releases_all_locks",
+      "kind": "method",
+      "file": "tests/test_step5_kill_switch_injection.py",
+      "line": 145,
+      "docstring": "Section 31.4: Emergency stop flushes all concurrency locks."
+    },
+    {
+      "name": "TestStep5KillSwitchAndInjection.test_untrusted_content_sanitizer_wrapping_and_escaping",
+      "kind": "method",
+      "file": "tests/test_step5_kill_switch_injection.py",
+      "line": 161,
+      "docstring": "Section 30: Untrusted content wrapping, delimiter escaping, and prompt injection defense."
+    },
+    {
+      "name": "TestStep6MemoryAndAITwin",
+      "kind": "class",
+      "file": "tests/test_step6_memory_ai_twin.py",
+      "line": 18,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep6MemoryAndAITwin.setUp",
+      "kind": "method",
+      "file": "tests/test_step6_memory_ai_twin.py",
+      "line": 19,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep6MemoryAndAITwin.tearDown",
+      "kind": "method",
+      "file": "tests/test_step6_memory_ai_twin.py",
+      "line": 30,
+      "docstring": ""
+    },
+    {
+      "name": "TestStep6MemoryAndAITwin.test_four_tier_memory_stores_instantiation",
+      "kind": "method",
+      "file": "tests/test_step6_memory_ai_twin.py",
+      "line": 33,
+      "docstring": "Verify all 4 memory tiers function with correct isolation."
+    },
+    {
+      "name": "TestStep6MemoryAndAITwin.test_semantic_memory_document_chunking_and_retrieval",
+      "kind": "method",
+      "file": "tests/test_step6_memory_ai_twin.py",
+      "line": 53,
+      "docstring": "Tier 3: Document chunking, metadata grounding, and ranked RAG retrieval."
+    },
+    {
+      "name": "TestStep6MemoryAndAITwin.test_profile_memory_trust_escalation_blocked",
+      "kind": "method",
+      "file": "tests/test_step6_memory_ai_twin.py",
+      "line": 74,
+      "docstring": "Section 31.2: Inferred agent content cannot silently become VERIFIED without explicit user action."
+    },
+    {
+      "name": "TestStep6MemoryAndAITwin.test_profile_memory_conflict_detection",
+      "kind": "method",
+      "file": "tests/test_step6_memory_ai_twin.py",
+      "line": 93,
+      "docstring": "Section 31.2: Divergent claims against a VERIFIED fact trigger CONFLICT_DETECTED state."
+    },
+    {
+      "name": "TestStep6MemoryAndAITwin.test_user_explicit_memory_promotion_and_conflict_resolution",
+      "kind": "method",
+      "file": "tests/test_step6_memory_ai_twin.py",
+      "line": 132,
+      "docstring": "Verify user can explicitly promote memories to VERIFIED and resolve conflicts."
+    },
+    {
+      "name": "TestStep6MemoryAndAITwin.test_ai_twin_system_persona_prompt_formatting",
+      "kind": "method",
+      "file": "tests/test_step6_memory_ai_twin.py",
+      "line": 159,
+      "docstring": "Verify AITwinManager formats persona details into structured prompt instructions."
+    },
+    {
+      "name": "test_tier1_real_execution",
+      "kind": "function",
+      "file": "tests/test_tier1_real.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "DummySchemaValidator",
+      "kind": "class",
+      "file": "tests/utils.py",
+      "line": 11,
+      "docstring": ""
+    },
+    {
+      "name": "DummySchemaValidator.validate",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 12,
+      "docstring": ""
+    },
+    {
+      "name": "DummyIdentityVerifier",
+      "kind": "class",
+      "file": "tests/utils.py",
+      "line": 14,
+      "docstring": ""
+    },
+    {
+      "name": "DummyIdentityVerifier.__init__",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 15,
+      "docstring": ""
+    },
+    {
+      "name": "DummyIdentityVerifier.verify",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 16,
+      "docstring": ""
+    },
+    {
+      "name": "DummyScopeVerifier",
+      "kind": "class",
+      "file": "tests/utils.py",
+      "line": 18,
+      "docstring": ""
+    },
+    {
+      "name": "DummyScopeVerifier.verify_parent_scope",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 19,
+      "docstring": ""
+    },
+    {
+      "name": "DummyPermissionChecker",
+      "kind": "class",
+      "file": "tests/utils.py",
+      "line": 21,
+      "docstring": ""
+    },
+    {
+      "name": "DummyPermissionChecker.check",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 22,
+      "docstring": ""
+    },
+    {
+      "name": "DummyConcurrencyManager",
+      "kind": "class",
+      "file": "tests/utils.py",
+      "line": 24,
+      "docstring": ""
+    },
+    {
+      "name": "DummyConcurrencyManager.check_locks",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 25,
+      "docstring": ""
+    },
+    {
+      "name": "DummyExecutor",
+      "kind": "class",
+      "file": "tests/utils.py",
+      "line": 27,
+      "docstring": ""
+    },
+    {
+      "name": "DummyExecutor.execute",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 28,
+      "docstring": ""
+    },
+    {
+      "name": "DummyStateObserver",
+      "kind": "class",
+      "file": "tests/utils.py",
+      "line": 30,
+      "docstring": ""
+    },
+    {
+      "name": "DummyStateObserver.observe",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 31,
+      "docstring": ""
+    },
+    {
+      "name": "DummyVerifier",
+      "kind": "class",
+      "file": "tests/utils.py",
+      "line": 33,
+      "docstring": ""
+    },
+    {
+      "name": "DummyVerifier.verify",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 34,
+      "docstring": ""
+    },
+    {
+      "name": "DummyReceiptStore",
+      "kind": "class",
+      "file": "tests/utils.py",
+      "line": 36,
+      "docstring": ""
+    },
+    {
+      "name": "DummyReceiptStore.store_receipt",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 37,
+      "docstring": ""
+    },
+    {
+      "name": "DummyReceiptStore.get_receipt",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 38,
+      "docstring": ""
+    },
+    {
+      "name": "DummyMemoryUpdater",
+      "kind": "class",
+      "file": "tests/utils.py",
+      "line": 40,
+      "docstring": ""
+    },
+    {
+      "name": "DummyMemoryUpdater.update",
+      "kind": "method",
+      "file": "tests/utils.py",
+      "line": 41,
+      "docstring": ""
+    },
+    {
+      "name": "build_test_gateway",
+      "kind": "function",
+      "file": "tests/utils.py",
+      "line": 43,
+      "docstring": ""
+    },
+    {
+      "name": "NumberedCanvas",
+      "kind": "class",
+      "file": "typst-pdf-maker/scripts/generate_pdf.py",
+      "line": 19,
+      "docstring": ""
+    },
+    {
+      "name": "NumberedCanvas.__init__",
+      "kind": "method",
+      "file": "typst-pdf-maker/scripts/generate_pdf.py",
+      "line": 20,
+      "docstring": ""
+    },
+    {
+      "name": "NumberedCanvas.showPage",
+      "kind": "method",
+      "file": "typst-pdf-maker/scripts/generate_pdf.py",
+      "line": 24,
+      "docstring": ""
+    },
+    {
+      "name": "NumberedCanvas.save",
+      "kind": "method",
+      "file": "typst-pdf-maker/scripts/generate_pdf.py",
+      "line": 28,
+      "docstring": ""
+    },
+    {
+      "name": "NumberedCanvas.draw_page_decorations",
+      "kind": "method",
+      "file": "typst-pdf-maker/scripts/generate_pdf.py",
+      "line": 36,
+      "docstring": ""
+    },
+    {
+      "name": "create_pdf",
+      "kind": "function",
+      "file": "typst-pdf-maker/scripts/generate_pdf.py",
+      "line": 60,
+      "docstring": ""
+    },
+    {
+      "name": "plan_document",
+      "kind": "function",
+      "file": "typst-pdf-maker/scripts/plan_document.py",
+      "line": 12,
+      "docstring": ""
+    },
+    {
+      "name": "prepare_project",
+      "kind": "function",
+      "file": "typst-pdf-maker/scripts/prepare_document.py",
+      "line": 12,
+      "docstring": ""
+    }
+  ]
+}

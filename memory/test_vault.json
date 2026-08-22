@@ -1,0 +1,24 @@
+{
+  "cred-ffe448bfe5e8": {
+    "credential_id": "cred-ffe448bfe5e8",
+    "service": "github",
+    "scope": [
+      "github.write"
+    ],
+    "encrypted_token": "gAAAAABqhrbl3vtdJ79yQl7fg3ZnGn874UHHUlgxJWFQeQGYnWTZFk4yLAxzSL-NQzD98-t2fP16CGsSglgx9Lx_D2Unf0wRyLSSjm8qxf7RucT9UKNeY54=",
+    "issued_at": "2026-08-20T08:12:21.996118",
+    "expires_at": "2026-08-20T08:17:21.996118",
+    "agent_id": "browser-123"
+  },
+  "cred-083dbdb0b930": {
+    "credential_id": "cred-083dbdb0b930",
+    "service": "github",
+    "scope": [
+      "github.write"
+    ],
+    "encrypted_token": "gAAAAABqhrdRaA7WkLDANbnERgZFggItMBX7n3PmzmrXJYayJKbZbhclmFL_9V81J9H-2O4_Q5vXfNX2yICpAtdQVP1Mt-VDmIrA4cvfEI5C9kSlqFub0-s=",
+    "issued_at": "2026-08-20T08:14:09.904137",
+    "expires_at": "2026-08-20T08:19:09.904137",
+    "agent_id": "browser-123"
+  }
+}

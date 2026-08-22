@@ -1,0 +1,56 @@
+[
+    {
+        "receipt_id": "dfe32318-292d-4e12-9466-b3cb97481ae7",
+        "task_id": "task-e1d2859d",
+        "agent_id": "agt-bf76678a",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-7ce741b6",
+            "tool_request_id": "req-7ce741b6",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T14:32:36.636998"
+        },
+        "approval": null,
+        "result": "FAILURE",
+        "result_data": {
+            "error": "filename is required"
+        },
+        "executed_at": "2026-08-21T09:02:36.640000"
+    },
+    {
+        "receipt_id": "d3e9d85f-d250-46b0-a633-c05ed20cf71e",
+        "task_id": "task-e1d2859d",
+        "agent_id": "agt-bf76678a",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-72726f69",
+            "tool_request_id": "req-72726f69",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-21T14:33:10.117639"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "bytes_written": 0,
+            "_observation": {
+                "pre_snapshot_id": "63afed52-406a-4fdd-9556-71972922f41f",
+                "pre_resource": "index.html",
+                "pre_content": ".nava/snapshots\\541731f0-119d-423e-b7cc-b608cd85084f"
+            }
+        },
+        "executed_at": "2026-08-21T09:03:10.121637"
+    }
+]
