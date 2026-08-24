@@ -6,7 +6,7 @@ AVAILABLE DESKTOP TOOLS:
 {tool_schemas_str}
 
 ## OPERATING PRINCIPLES
-1. Screen Perception: Use 'desktop.screenshot' to inspect the screen before taking mouse or keyboard actions.
+1. Screen Perception: Use 'desktop.screenshot' to inspect the screen before taking mouse or keyboard actions (e.g. `desktop.screenshot(path="screenshot.png")`). The OS automatically routes screenshot deliverables into the active task's artifacts directory.
 2. Coordinate Grounding: Calculate coordinates (x, y) based on the visual layout or screen size from 'desktop.get_screen_size'.
 3. Action Safety:
    - Always confirm focus before typing.

@@ -86,11 +86,12 @@ class Orchestrator:
         
         from nava.credentials.vault import CredentialVault
         from nava.credentials.broker import CredentialBroker
-        from nava.workspace.project_manager import ProjectWorkspace
+        from nava.workspace.project_manager import ProjectWorkspace, TaskManager
         from nava.core.message_bus import AgentMessageBus
         self.vault = CredentialVault()
         self.credential_broker = CredentialBroker(self.vault)
         self.workspace = ProjectWorkspace(root_dir=os.getcwd())
+        self.task_manager = TaskManager(root_dir=os.getcwd())
         self.workspace.initialize_project_memory()
         self.message_bus = AgentMessageBus()
         
@@ -337,8 +338,15 @@ class Orchestrator:
             permissions_required=["search.web"], risk_level=RiskTier.LOW, reversible=True
         ))
         self.registry.register_tool(ToolDefinition(
-            name="memory.semantic_ingest", description="Ingests synthesized research facts into Tier 3 Semantic Memory.",
-            input_schema={"content": "string", "source": "string (optional)", "tags": "array (optional)"}, output_schema={"success": "boolean", "entry_id": "string"},
+            name="memory.semantic_ingest", description="Ingests documents, research facts, or code into Tier 3 Hybrid RAG Memory.",
+            input_schema={"content": "string (optional)", "filename": "string (optional)", "title": "string (optional)", "doc_id": "string (optional)", "source": "string (optional)"},
+            output_schema={"success": "boolean", "doc_id": "string", "chunks_created": "integer"},
+            permissions_required=["memory.semantic"], risk_level=RiskTier.LOW, reversible=True
+        ))
+        self.registry.register_tool(ToolDefinition(
+            name="memory.semantic_search", description="Performs a hybrid dense vector and BM25 sparse search with Reciprocal Rank Fusion over Tier 3 Knowledge.",
+            input_schema={"query": "string", "limit": "integer (optional, default 5)", "dense_weight": "number (optional, default 0.5)", "sparse_weight": "number (optional, default 0.5)"},
+            output_schema={"query": "string", "total_results": "integer", "results": "array"},
             permissions_required=["memory.semantic"], risk_level=RiskTier.LOW, reversible=True
         ))
         self.registry.register_tool(ToolDefinition(
@@ -560,17 +568,37 @@ class Orchestrator:
         # Inject skill context & project context into the objective for the planner
         enhanced_objective = f"{goal}\n{explicit_skill_context}\n{project_context}".strip()
         
+        # Initialize isolated task session
+        active_task_id = self.task_manager.create_task(goal, project_id=self.workspace.project_name)
+        if not hasattr(self, '_shared_executor'):
+            self._shared_executor = LocalToolExecutor(mcp_manager=self.mcp_manager, skill_manager=self.skill_manager)
+        self._shared_executor.set_active_task(active_task_id)
+
         agent_specs = self.planner.plan(enhanced_objective, self.root_agent.agent_id, budget_ref=self.root_agent.budget_ref)
         
+        # Record plan into task_memory.md
+        stages_desc = [f"[Stage {getattr(s, 'stage', 1)}] {s.requested_role} → {s.goal}" for s in agent_specs]
+        self.task_manager.record_plan(active_task_id, stages_desc)
+
+        # Render Rich Orchestrator Plan
+        from nava.ui.terminal import BoxRenderer, TerminalTheme, AgentTreeVisualizer
+        plan_rows = []
+        for s in agent_specs:
+            stg = getattr(s, 'stage', 1) or 1
+            mode = "PARALLEL" if getattr(s, 'is_parallel', True) else "SEQUENTIAL"
+            badge = TerminalTheme.badge(s.requested_role)
+            plan_rows.append(f"Stage {stg} [{mode}] → {badge} ({s.display_label or s.requested_role}): {s.goal}")
+        print("\n" + BoxRenderer.render_panel("📋 ORCHESTRATOR EXECUTION PLAN", plan_rows, color=TerminalTheme.CYAN))
+
         # 2. Execute
-        # Retrieve recent episodic memories to provide cross-session context
         from nava.memory.store import EpisodicMemoryStore
         epi_store = EpisodicMemoryStore("memory/episodic.json")
         recent_memories = [str(r.content) for r in epi_store.get_recent(limit=3)]
         
         global_payload = {
             "context": f"Overall Objective: {goal}\n{explicit_skill_context}",
-            "recent_episodic_memory": recent_memories
+            "recent_episodic_memory": recent_memories,
+            "task_id": active_task_id
         }
         
         import threading
@@ -589,81 +617,69 @@ class Orchestrator:
             
         sorted_stages = sorted(stages.keys())
         
-        for stg in sorted_stages:
-            stage_items = stages[stg]
-            can_parallel = len(stage_items) > 1 and all(getattr(s, 'is_parallel', True) for _, s in stage_items)
-            
-            if can_parallel:
-                print(f"\n=======================================================")
-                print(f"  EXECUTING STAGE {stg} IN PARALLEL ({len(stage_items)} Dynamic Agents)")
-                print(f"=======================================================")
-                
-                with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(stage_items), 8)) as executor:
-                    future_to_spec = {
-                        executor.submit(self._execute_single_agent, spec, idx, len(agent_specs), global_payload, payload_lock): (idx, spec)
-                        for idx, spec in stage_items
-                    }
-                    for future in concurrent.futures.as_completed(future_to_spec):
-                        idx, spec = future_to_spec[future]
-                        try:
-                            future.result()
-                        except Exception as e:
-                            print(f"[!] Error in parallel worker for Stage {stg} ({spec.requested_role}): {e}")
-            else:
-                for idx, spec in stage_items:
-                    self._execute_single_agent(spec, idx, len(agent_specs), global_payload, payload_lock)
-
-        # Log successful completion to Episodic Memory
         try:
-            from nava.memory.store import EpisodicMemoryStore
-            from nava.core.schemas import MemoryRecord, MemoryTier, MemoryTrustLevel
-            import uuid
-            
-            epi_store = EpisodicMemoryStore("memory/episodic.json")
-            record = MemoryRecord(
-                memory_id=f"epi-{uuid.uuid4().hex[:8]}",
-                tier=MemoryTier.EPISODIC,
-                content={"event": "OBJECTIVE_COMPLETED", "objective": goal, "payload_summary": list(global_payload.keys())},
-                source="orchestrator",
-                confidence=1.0,
-                importance=0.8,
-                sensitivity="low",
-                trust_level=MemoryTrustLevel.VERIFIED,
-                provenance=["orchestrator"]
-            )
-            epi_store.store(record)
-            print("\n-> Orchestrator: Logged session completion to Episodic Memory.")
-        except Exception as e:
-            print(f"Failed to log episodic memory: {e}")
-            
+            for stg in sorted_stages:
+                if self._emergency_stop_event.is_set():
+                    break
+
+                stage_items = stages[stg]
+                can_parallel = len(stage_items) > 1 and all(getattr(s, 'is_parallel', True) for _, s in stage_items)
+                
+                # Print Rich Live Stage Header and Workers
+                print(AgentTreeVisualizer.render_stage_header(stg, len(sorted_stages), can_parallel, len(stage_items)))
+                for j, (idx, spec) in enumerate(stage_items):
+                    is_last = (j == len(stage_items) - 1)
+                    print(AgentTreeVisualizer.render_worker_line(idx + 1, is_last, spec.requested_role, spec.display_label or spec.requested_role, spec.goal, "RUNNING"))
+                print(AgentTreeVisualizer.render_stage_footer())
+                
+                if can_parallel:
+                    with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(stage_items), 8)) as executor:
+                        future_to_spec = {
+                            executor.submit(self._execute_single_agent, spec, idx, len(agent_specs), global_payload, payload_lock, active_task_id): (idx, spec)
+                            for idx, spec in stage_items
+                        }
+                        for future in concurrent.futures.as_completed(future_to_spec):
+                            idx, spec = future_to_spec[future]
+                            try:
+                                future.result()
+                            except Exception as e:
+                                print(f"{TerminalTheme.BRIGHT_RED}[!] Error in parallel worker for Stage {stg} ({spec.requested_role}): {e}{TerminalTheme.RESET}")
+                else:
+                    for idx, spec in stage_items:
+                        if self._emergency_stop_event.is_set():
+                            break
+                        self._execute_single_agent(spec, idx, len(agent_specs), global_payload, payload_lock, active_task_id)
+
+            if not self._emergency_stop_event.is_set():
+                # Complete task in TaskManager
+                self.task_manager.complete_task(active_task_id, outcome_summary=f"Completed {len(agent_specs)} sub-tasks successfully.", is_success=True)
+                print(f"\n{TerminalTheme.BRIGHT_GREEN}✅ Task completed! Memory saved to: tasks/{active_task_id}/task_memory.md{TerminalTheme.RESET}")
+            else:
+                self.task_manager.complete_task(active_task_id, outcome_summary="Task halted by emergency stop.", is_success=False)
+                print(f"\n{TerminalTheme.BRIGHT_RED}🛑 Task halted by Emergency Stop.{TerminalTheme.RESET}")
+
+        except KeyboardInterrupt:
+            print(f"\n\n{TerminalTheme.BRIGHT_RED}{TerminalTheme.BOLD}🚨 KEYBOARD INTERRUPT (Ctrl+C) DETECTED! TRIGGERING EMERGENCY STOP...{TerminalTheme.RESET}")
+            self.emergency_stop()
+            self.task_manager.complete_task(active_task_id, outcome_summary="Emergency stop triggered via Ctrl+C.", is_success=False)
+            print(f"{TerminalTheme.BRIGHT_RED}🛑 In-flight agents aborted. Scoped credentials revoked. Concurrency locks released.{TerminalTheme.RESET}")
+        finally:
+            self._emergency_stop_event.clear()
+
         import glob
         for f in glob.glob("scratch/*_extraction.md"):
             try:
                 os.remove(f)
-                print(f"[Teardown] Cleaned up ephemeral extraction file: {f}")
-            except Exception as e:
+                print(f"{TerminalTheme.DIM}[Teardown] Cleaned up ephemeral extraction file: {f}{TerminalTheme.RESET}")
+            except Exception:
                 pass
         
-        # Record execution checkpoint into ProjectWorkspace
-        if hasattr(self, 'workspace'):
-            try:
-                import uuid
-                touched_files = [f for f in os.listdir(".") if os.path.isfile(f) and f.endswith(('.md', '.py', '.txt', '.pdf', '.docx', '.pptx', '.json', '.html'))]
-                self.workspace.save_checkpoint(
-                    task_id=f"tsk-{uuid.uuid4().hex[:6]}",
-                    objective=goal,
-                    last_agent="OrchestratorSwarm",
-                    touched_files=touched_files[-5:],
-                    status="READY_TO_RESUME"
-                )
-                print("[ProjectWorkspace] Checkpoint recorded in .nava/project_memory.md")
-            except Exception as e:
-                pass
-        
-        print(f"\n--- Objective Execution Finished ---\n")
+        print(f"\n{TerminalTheme.CYAN}──────────────────────────────────────────────────────────────────────────{TerminalTheme.RESET}\n")
 
-    def _execute_single_agent(self, spec, index: int, total_specs: int, global_payload: dict, payload_lock: Any):
-        print(f"\n[{index+1}/{total_specs}] Spawning {spec.requested_role} ({spec.display_label or spec.requested_role}) for goal: {spec.goal}")
+    def _execute_single_agent(self, spec, index: int, total_specs: int, global_payload: dict, payload_lock: Any, task_id: Optional[str] = None):
+        from nava.ui.terminal import TerminalTheme
+        badge = TerminalTheme.badge(spec.requested_role)
+        print(f"\n{TerminalTheme.BOLD}[{index+1}/{total_specs}]{TerminalTheme.RESET} Spawning {badge} ({spec.display_label or spec.requested_role}) for goal: {spec.goal}")
         
         try:
             child_agent = self.factory.spawn_agent(spec, self.root_agent)
@@ -686,6 +702,10 @@ class Orchestrator:
             gateway._emergency_event = self._emergency_stop_event
         if not hasattr(self, '_shared_executor'):
             self._shared_executor = LocalToolExecutor(mcp_manager=self.mcp_manager, skill_manager=self.skill_manager)
+        if hasattr(self, "workspace") and self.workspace:
+            self._shared_executor.set_active_project(self.workspace.project_name)
+        if task_id:
+            self._shared_executor.set_active_task(task_id)
         gateway.executor = self._shared_executor
         
         from nava.agents.runtime.coding_agent import build_coding_agent
@@ -756,7 +776,7 @@ class Orchestrator:
         print(f"Invoking graph for {child_agent.role}...")
         
         try:
-            if child_agent.role in ["CodingAgent", "ReviewerAgent", "BrowserAgent", "DynamicAgent"]:
+            if child_agent.role in ["CodingAgent", "ReviewerAgent", "BrowserAgent", "DynamicAgent", "ResearchAgent", "ComputerAgent", "TerminalAgent"]:
                 current_state = initial_state
                 while True:
                     current_state = graph.invoke(current_state, config={"recursion_limit": 50})
@@ -780,6 +800,13 @@ class Orchestrator:
                         receipt = gateway.process_request(tool_req)
                         print(f"-> Tool Execution Result: {receipt.result.name}")
                         print(f"-> Data: {receipt.result_data}")
+                        
+                        if task_id:
+                            self.task_manager.record_action(task_id, child_agent.role, tool_req.tool_name, tool_req.arguments, receipt.result.name)
+                            if isinstance(receipt.result_data, dict):
+                                art_p = receipt.result_data.get("saved_to") or receipt.result_data.get("screenshot_path") or receipt.result_data.get("file")
+                                if art_p:
+                                    self.task_manager.record_artifact(task_id, str(art_p))
                         
                         if receipt.result.name == "FAILURE":
                             error_str = str(receipt.result_data.get("error", "Unknown error"))

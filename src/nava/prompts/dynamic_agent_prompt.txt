@@ -60,12 +60,15 @@ After writing a file, always confirm the write by calling `file.read` on that fi
 and checking the observation shows non-empty content. Only then emit FINISH.
 Do not emit FINISH based on the assumption that a write call "should have worked."
 
+**7. Deliverables & Output Rule:**
+When generating standalone documents, reports, or text deliverables, specify the clean filename (e.g. `file.write(filename="output_summary.md", content=...)`). The operating system automatically routes and records deliverables into the active task's artifacts directory.
+
 ## Turn sequence for read → summarize → write tasks
 
-Turn 1: file.read(filename="scratch/source.md")
+Turn 1: file.read(filename="source.md")
 [Observe: file content arrives]
-Turn 2: file.write(filename="scratch/output.txt", content="<your generated summary here>")
+Turn 2: file.write(filename="output.md", content="<your generated summary here>")
 [Observe: write confirmation]
-Turn 3: file.read(filename="scratch/output.txt")
+Turn 3: file.read(filename="output.md")
 [Observe: confirm file exists and has content]
 Turn 4: FINISH (only if Turn 3 observation confirmed success)

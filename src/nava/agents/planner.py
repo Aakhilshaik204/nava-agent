@@ -91,12 +91,31 @@ class GoalPlanner:
 
         specs = []
         for sg in plan.sub_goals:
-            dedup = compute_dedup_hash(sg.role, sg.goal, sg.required_tools)
+            req_tools = list(sg.required_tools or [])
+            # Ensure baseline tools for specialized roles (guards against small LLM tool omissions)
+            if sg.role == "CodingAgent":
+                for bt in ["file.write", "file.read", "code.replace_content", "code.search", "test.run"]:
+                    if bt not in req_tools and (not self.ceiling_tools or bt in self.ceiling_tools or "*" in self.ceiling_tools):
+                        req_tools.append(bt)
+            elif sg.role == "ResearchAgent":
+                for bt in ["search.web", "browser.navigate", "browser.extract_text", "file.write", "file.read"]:
+                    if bt not in req_tools and (not self.ceiling_tools or bt in self.ceiling_tools or "*" in self.ceiling_tools):
+                        req_tools.append(bt)
+            elif sg.role == "ComputerAgent":
+                for bt in ["desktop.screenshot", "desktop.click", "desktop.type", "desktop.get_screen_size"]:
+                    if bt not in req_tools and (not self.ceiling_tools or bt in self.ceiling_tools or "*" in self.ceiling_tools):
+                        req_tools.append(bt)
+            elif sg.role == "TerminalAgent":
+                for bt in ["terminal.execute", "file.read"]:
+                    if bt not in req_tools and (not self.ceiling_tools or bt in self.ceiling_tools or "*" in self.ceiling_tools):
+                        req_tools.append(bt)
+
+            dedup = compute_dedup_hash(sg.role, sg.goal, req_tools)
             
             # Auto-synthesize requested_permission_scope from required_tools if registry is available
             derived_perms = list(sg.required_permissions or [])
             if self.registry:
-                for t_name in sg.required_tools:
+                for t_name in req_tools:
                     try:
                         t_def = self.registry.get_tool(t_name)
                         if t_def:
@@ -112,7 +131,7 @@ class GoalPlanner:
                 display_label=sg.display_label or sg.role,
                 goal=sg.goal,
                 parent_agent_id=parent_id,
-                requested_tools=sg.required_tools,
+                requested_tools=req_tools,
                 requested_permission_scope=derived_perms,
                 ttl=datetime.timedelta(minutes=30),
                 max_steps=20,

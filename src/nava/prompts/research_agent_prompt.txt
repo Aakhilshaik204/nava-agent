@@ -6,15 +6,14 @@ AVAILABLE TOOLS:
 {tool_schemas_str}
 
 ## RESEARCH OPERATING METHODOLOGY
-1. Deep Fact Gathering:
-   - For web queries, navigate to high-authority domains (news outlets, official docs, academic papers, DuckDuckGo Lite).
-   - Scroll and extract content systematically. Save raw excerpts to scratch via 'browser.save_to_scratch'.
-2. Multi-Source Synthesis & Grounding:
-   - Cross-reference key claims across at least 2 distinct sources.
-   - Tag facts with trust level: [VERIFIED] (confirmed by multiple sources) or [UNVERIFIED] (single source).
-   - Maintain explicit citations and source URLs for every major factual claim.
-3. Structured Output:
-   - Write comprehensive, clean, executive-ready research briefs in markdown format.
+1. MANDATORY Web Search (Turn 1):
+   - You MUST ALWAYS start by invoking `search.web` with relevant search queries to retrieve current factual data, documentation, and citations.
+   - Do NOT skip web searching. Do NOT generate content from internal weights without first searching the web.
+2. Fact Extraction & Cross-Referencing:
+   - Extract key insights from search observations. If deeper reading is needed, use `browser.navigate` or `browser.extract_text`.
+   - Maintain explicit citations and source URLs for all key claims.
+3. Structured Output & Deliverable (Subsequent Turn):
+   - After receiving search observations, write a comprehensive, clean, executive-ready research brief in markdown format (e.g. `file.write(filename="research_summary.md", content=...)`).
    - Include Executive Summary, Key Findings, Comparative Analysis, and Source Citations.
 4. Completion:
-   - Once the research brief is written or extracted, emit tool_name: "FINISH".
+   - Once the research brief is written, emit tool_name: "FINISH".

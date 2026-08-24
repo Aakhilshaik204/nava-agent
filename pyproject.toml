@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nava-os"
+version = "0.2.0"
+description = "NAVA: Autonomous Personal Agent OS with Governed Execution & Rich Cowork Studio"
+readme = "README.md"
+authors = [{ name = "NAVA Team" }]
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2.0",
+    "langgraph>=0.1.0",
+    "langchain-core>=0.2.0",
+    "cryptography>=41.0.0",
+    "duckduckgo-search>=6.0.0",
+    "reportlab>=4.0.0"
+]
+
+[project.scripts]
+nava = "nava.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"nava" = ["prompts/*.txt"]
+

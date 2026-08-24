@@ -1,0 +1,357 @@
+[
+    {
+        "receipt_id": "a0c641a3-ac82-4727-a4fe-a436b0aefa2d",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-c116cdc8",
+        "parent_agent_id": "system-root",
+        "tool_name": "search.web",
+        "action_summary": "Executed search.web",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-b3583568",
+            "tool_request_id": "req-b3583568",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T18:57:47.202293"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "query": "vLLM Ollama SGLang TGI inference engine benchmark tokens per second PagedAttention memory optimization",
+            "raw_search_extract": "All Regions\nArgentina\nAustralia\nAustria\nBelgium (fr)\nBelgium (nl)\nBrazil\nBulgaria\nCanada (en)\nCanada (fr)\nCatalonia\nChile\nChina\nColombia\nCroatia\nCzech Republic\nDenmark\nEstonia\nFinland\nFrance\nGermany\nGreece\nHong Kong\nHungary\nIceland\nIndia (en)\nIndonesia (en)\nIreland\nIsrael (en)\nItaly\nJapan\nKorea\nLatvia\nLithuania\nMalaysia (en)\nMexico\nNetherlands\nNew Zealand\nNorway\nPakistan (en)\nPeru\nPhilippines (en)\nPoland\nPortugal\nRomania\nRussia\nSaudi Arabia\nSingapore\nSlovakia\nSlovenia\nSouth Africa\nSpain (ca)\nSpain (es)\nSweden\nSwitzerland (de)\nSwitzerland (fr)\nTaiwan\nThailand (en)\nTurkey\nUS (English)\nUS (Spanish)\nUkraine\nUnited Kingdom\nVietnam (en)\n \nAny Time\nPast Day\nPast Week\nPast Month\nPast Year\nQ2 2026 LLM Inference Benchmark: vLLM vs TGI vs SGLang vs Triton\n iotdigitaltwinplm.com/llm-inference-benchmark-vllm-tgi-sglang-triton-q2-2026/ \u00a0 \u00a0 2026-04-29T00:00:00.0000000\nQ2 2026 LLM inference benchmark across vLLM, TGI, SGLang, and Triton \u2014 throughput, p50/p99 TTFT/TPOT, KV-cache efficiency, and which engine wins per workload class.\nvLLM vs SGLang vs TGI: 2026 Inference Engine Benchmark\n llm-academy.dev/inference/vllm-vs-sglang/\nHead-to-head benchmark of vLLM, SGLang, and TGI on H100 \u2014 throughput, latency, VRAM, and when to pick each.\nvLLM vs Ollama vs SGLang vs TensorRT-LLM Serving 2026 Search\n theaiengineer.substack.com/p/vllm-vs-ollama-vs-sglang-vs-tensorrt \u00a0 \u00a0 2026-04-10T00:00:00.0000000\nBenchmarks and a decision framework for the four LLM serving engines that matter in 2026. PagedAttention vs RadixAttention vs CUDA optimization explained. Tags: Hardware & Inference, Tool Comparison\nvLLM vs SGLang vs TensorRT-LLM vs Ollama: Choosing an Inference Engine ...\n leetllm.com/blog/llm-inference-engine-comparison-2026 \u00a0 \u00a0 2026-04-01T00:00:00.0000000\nvLLM vs SGLang vs TensorRT-LLM vs Ollama: Choosing an Inference Engine in 2026 Compare vLLM, SGLang, TensorRT-LLM, Ollama, and llama.cpp by deployment surface, checkpoint recipes, latency, throughput, and operating cost.\nLocal Inference Benchmark (July 2026) \u2014 Ollama vs vLLM vs llama.cpp ...\n plugsky.com/local-inference-benchmark \u00a0 \u00a0 2026-07-10T00:00:00.0000000\nReference \u00b7 July 2026 Local Inference Benchmark \u2014 July 2026 Tested 4 local inference engines (Ollama, vLLM, llama.cpp, SGLang) across 3 hardware tiers with 5 popular models. Here are the real performance numbers \u2014 tokens per second, time-to-first-token, memory usage, and cost per million tokens.\nToken Throughput Comparison: vLLM vs Ollama vs TGI\n dasroot.net/posts/2026/02/token-throughput-comparison-vllm-ollama-tgi/ \u00a0 \u00a0 2026-02-26T00:00:00.0000000\nCompare token throughput, memory management, and scalability of vLLM, Ollama, and TGI for large language model inference. Learn optimal use cases and performance tuning for production deployments.\nLLM Inference Engine Showdown: vLLM vs Ollama vs TGI\n www.buildwithmatija.com/blog/vllm-vs-ollama-vs-tgi-choose-llm-inference-engine \u00a0 \u00a0 2026-02-07T00:00:00.0000000\nLLM inference engine comparison: vLLM, Ollama, and TGI benchmark"
+        },
+        "executed_at": "2026-08-23T13:27:54.193107"
+    },
+    {
+        "receipt_id": "99da917c-7c54-4f96-8444-6c7a343b7f95",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-0d8985f0",
+        "parent_agent_id": "system-root",
+        "tool_name": "search.web",
+        "action_summary": "Executed search.web",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-365decfb",
+            "tool_request_id": "req-365decfb",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T18:57:52.407815"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "query": "SGLang vs TGI vs vLLM benchmark throughput tokens per second memory optimization RadixAttention PagedAttention chunked prefill",
+            "raw_search_extract": "All Regions\nArgentina\nAustralia\nAustria\nBelgium (fr)\nBelgium (nl)\nBrazil\nBulgaria\nCanada (en)\nCanada (fr)\nCatalonia\nChile\nChina\nColombia\nCroatia\nCzech Republic\nDenmark\nEstonia\nFinland\nFrance\nGermany\nGreece\nHong Kong\nHungary\nIceland\nIndia (en)\nIndonesia (en)\nIreland\nIsrael (en)\nItaly\nJapan\nKorea\nLatvia\nLithuania\nMalaysia (en)\nMexico\nNetherlands\nNew Zealand\nNorway\nPakistan (en)\nPeru\nPhilippines (en)\nPoland\nPortugal\nRomania\nRussia\nSaudi Arabia\nSingapore\nSlovakia\nSlovenia\nSouth Africa\nSpain (ca)\nSpain (es)\nSweden\nSwitzerland (de)\nSwitzerland (fr)\nTaiwan\nThailand (en)\nTurkey\nUS (English)\nUS (Spanish)\nUkraine\nUnited Kingdom\nVietnam (en)\n \nAny Time\nPast Day\nPast Week\nPast Month\nPast Year\nvLLM vs SGLang vs TGI: 2026 Inference Engine Benchmark\n llm-academy.dev/inference/vllm-vs-sglang/\nHead-to-head benchmark of vLLM, SGLang, and TGI on H100 \u2014 throughput, latency, VRAM, and when to pick each.\nQ2 2026 LLM Inference Benchmark: vLLM vs TGI vs SGLang vs Triton\n iotdigitaltwinplm.com/llm-inference-benchmark-vllm-tgi-sglang-triton-q2-2026/ \u00a0 \u00a0 2026-04-29T00:00:00.0000000\nQ2 2026 LLM inference benchmark across vLLM, TGI, SGLang, and Triton \u2014 throughput, p50/p99 TTFT/TPOT, KV-cache efficiency, and which engine wins per workload class.\nvLLM vs SGLang 2026: RadixAttention vs PagedAttention Benchmarks\n www.spheron.network/blog/vllm-vs-sglang-2026/ \u00a0 \u00a0 2026-06-23T00:00:00.0000000\nvLLM vs SGLang 2026: RadixAttention prefix reuse vs PagedAttention KV paging, H100/H200 throughput benchmarks, structured output, and cost per million tokens.\nvLLM vs TGI vs SGLang: 2026 Guide | Python Data Bench\n pythondatabench.com/article/llm-inference-servers-vllm-tgi-sglang-compared-2026 \u00a0 \u00a0 2026-06-13T00:00:00.0000000\nCompare vLLM, TGI, and SGLang for LLM inference in 2026. Throughput, TTFT, quantization, and production Docker setup with working code.\nvLLM vs TGI vs SGLang: choosing an LLM serving engine\n vibeengines.com/handbook/vllm-vs-tgi-vs-sglang \u00a0 \u00a0 2026-07-24T00:00:00.0000000\nvLLM vs TGI vs SGLang: three open-source LLM serving engines that all do continuous batching but differ in their signature KV-cache trick \u2014 vLLM's PagedAttention, SGLang's RadixAttention prefix reuse, and TGI's production-hardened Hugging Face integration. Where each wins, why throughput is workload-dependent, and how to choose.\nGitHub - deepaksatna/llm-serving-benchmark: A comprehensive ...\n github.com/deepaksatna/llm-serving-benchmark \u00a0 \u00a0 2026-01-19T10:06:00.0000000\nDescription: This bar chart compares token generation throughput (tokens per second) across all four frameworks for both Llama-3-8B and Mistral-7B models. NVIDIA NIM consistently leads, with SGLang following as the best open-source performer.\nSGLang vs vLLM Benchmarks 2026: Throughput, Latency, Cost\n markaicode.com/benchmarks/sglang-llama-31-a100-80gb-throughput-benchmark/ \u00a0 \u00a0 2026-07-05T00:00:00.0000000\nVerified SGLang vs vLLM throughput and latency data for 2026: SGLang leads by ~29% on H100 for 8B-class models via RadixAttention, with source"
+        },
+        "executed_at": "2026-08-23T13:27:59.104583"
+    },
+    {
+        "receipt_id": "bee5b2d5-ba93-4eda-8747-1e37cd4059ea",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-c116cdc8",
+        "parent_agent_id": "system-root",
+        "tool_name": "search.web",
+        "action_summary": "Executed search.web",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-1bf3c717",
+            "tool_request_id": "req-1bf3c717",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T18:58:14.191350"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "query": "vLLM vs SGLang vs TGI vs Ollama benchmark tokens per second throughput comparison 2025 2026",
+            "raw_search_extract": "All Regions\nArgentina\nAustralia\nAustria\nBelgium (fr)\nBelgium (nl)\nBrazil\nBulgaria\nCanada (en)\nCanada (fr)\nCatalonia\nChile\nChina\nColombia\nCroatia\nCzech Republic\nDenmark\nEstonia\nFinland\nFrance\nGermany\nGreece\nHong Kong\nHungary\nIceland\nIndia (en)\nIndonesia (en)\nIreland\nIsrael (en)\nItaly\nJapan\nKorea\nLatvia\nLithuania\nMalaysia (en)\nMexico\nNetherlands\nNew Zealand\nNorway\nPakistan (en)\nPeru\nPhilippines (en)\nPoland\nPortugal\nRomania\nRussia\nSaudi Arabia\nSingapore\nSlovakia\nSlovenia\nSouth Africa\nSpain (ca)\nSpain (es)\nSweden\nSwitzerland (de)\nSwitzerland (fr)\nTaiwan\nThailand (en)\nTurkey\nUS (English)\nUS (Spanish)\nUkraine\nUnited Kingdom\nVietnam (en)\n \nAny Time\nPast Day\nPast Week\nPast Month\nPast Year\nvLLM, SGLang, or Ollama: Self-Hosted LLM Engines Benchmarked\n stackpulsar.com/blog/vllm-sglang-ollama-comparison/\nvLLM tops throughput, SGLang adds multi-model routing, Ollama wins on simplicity. 2026 self-hosted LLM serving + LFM2.5, Maple-preview.\nvLLM vs SGLang vs TGI: 2026 Inference Engine Benchmark\n llm-academy.dev/inference/vllm-vs-sglang/\nHead-to-head 2026 benchmark of vLLM, SGLang, and TGI on H100: throughput, latency, VRAM, and when to pick each engine for production LLM serving.\nvLLM vs Ollama vs TGI: LLM Serving Framework Comparison\n www.gingerlabs.ai/blog/vllm-vs-ollama-vs-tgi\nvLLM vs Ollama vs TGI benchmark comparison: throughput, latency, concurrency, and a clear decision framework to pick the right LLM serving framework in 2025.\nvLLM vs Ollama vs llama.cpp vs SGLang 2026 | VRLA Tech\n vrlatech.com/llm-inference-engine-comparison-2026/\nAt 10 concurrent users, vLLM delivers significantly more tokens per second than Ollama on equivalent hardware. Is TGI (Text Generation Inference) still recommended in 2026?\nQ2 2026 LLM Inference Benchmark: vLLM vs TGI vs SGLang vs Triton\n iotdigitaltwinplm.com/llm-inference-benchmark-vllm-tgi-sglang-triton-q2-2026/ \u00a0 \u00a0 2026-04-29T00:00:00.0000000\nQ2 2026 LLM inference benchmark across vLLM, TGI, SGLang, and Triton \u2014 throughput, p50/p99 TTFT/TPOT, KV-cache efficiency, and which engine wins per workload class.\nLLM Serving: Ollama vs vLLM vs TGI | Guides | Clore.ai\n docs.clore.ai/guides/comparisons/llm-serving-comparison\nSGLang (Structured Generation Language) is a high-throughput LLM serving framework developed by researchers from UC Berkeley and LMSYS. In 2025 benchmarks it frequently matches or exceeds vLLM \u2014 especially for reasoning models like DeepSeek-R1.\nvLLM vs SGLang vs TensorRT-LLM vs Ollama: Choosing an Inference Engine ...\n leetllm.com/blog/llm-inference-engine-comparison-2026 \u00a0 \u00a0 2026-04-01T00:00:00.0000000\nvLLM vs SGLang vs TensorRT-LLM vs Ollama: Choosing an Inference Engine in 2026 Compare vLLM, SGLang, TensorRT-LLM, Ollama, and llama.cpp by deployment surface, checkpoint recipes, latency, throughput, and operating cost.\nvLLM vs TGI vs SGLang: 2026 Guide | Python Data Bench\n pythondatabench.com/article/llm-inference-servers-vllm-tgi-sglang-compared-2026 \u00a0 \u00a0 2026-06-13T00:00:00.0000000\nCompare vLLM, TGI, and SGLan"
+        },
+        "executed_at": "2026-08-23T13:28:18.020005"
+    },
+    {
+        "receipt_id": "34401948-80e9-424f-81e0-6d76575ade06",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-0d8985f0",
+        "parent_agent_id": "system-root",
+        "tool_name": "search.web",
+        "action_summary": "Executed search.web",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-2f0f91ef",
+            "tool_request_id": "req-2f0f91ef",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T18:58:24.036118"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "query": "vLLM SGLang TGI Ollama comparison throughput quantization FP8 AWQ GGUF Tensor Parallelism Prometheus metrics license",
+            "raw_search_extract": "All Regions\nArgentina\nAustralia\nAustria\nBelgium (fr)\nBelgium (nl)\nBrazil\nBulgaria\nCanada (en)\nCanada (fr)\nCatalonia\nChile\nChina\nColombia\nCroatia\nCzech Republic\nDenmark\nEstonia\nFinland\nFrance\nGermany\nGreece\nHong Kong\nHungary\nIceland\nIndia (en)\nIndonesia (en)\nIreland\nIsrael (en)\nItaly\nJapan\nKorea\nLatvia\nLithuania\nMalaysia (en)\nMexico\nNetherlands\nNew Zealand\nNorway\nPakistan (en)\nPeru\nPhilippines (en)\nPoland\nPortugal\nRomania\nRussia\nSaudi Arabia\nSingapore\nSlovakia\nSlovenia\nSouth Africa\nSpain (ca)\nSpain (es)\nSweden\nSwitzerland (de)\nSwitzerland (fr)\nTaiwan\nThailand (en)\nTurkey\nUS (English)\nUS (Spanish)\nUkraine\nUnited Kingdom\nVietnam (en)\n \nAny Time\nPast Day\nPast Week\nPast Month\nPast Year\nvLLM, SGLang, or Ollama: Self-Hosted LLM Engines Benchmarked\n stackpulsar.com/blog/vllm-sglang-ollama-comparison/\nvLLM tops throughput, SGLang adds multi-model routing, Ollama wins on simplicity. 2026 self-hosted LLM serving + LFM2.5, Maple-preview.\nvLLM vs TGI vs SGLang: 2026 Guide | Python Data Bench\n pythondatabench.com/article/llm-inference-servers-vllm-tgi-sglang-compared-2026 \u00a0 \u00a0 2026-06-13T00:00:00.0000000\nCompare vLLM, TGI, and SGLang for LLM inference in 2026. Throughput, TTFT, quantization, and production Docker setup with working code.\nLLM Serving Optimization: vLLM vs TGI vs SGLang (July 2026)\n data-gate.ch/llm-serving-optimization-vllm-tgi-sglang-2026/\nQuantization Support: GPTQ, AWQ, GGUF, FP8, and INT4/INT8 quantization with minimal accuracy loss. Tensor Parallelism: Multi-GPU serving with efficient tensor parallelism for models that exceed single-GPU memory.\nBest LLM Serving Frameworks 2026: vLLM, SGLang, and TensorRT-LLM\n llmops.report/posts/best-llm-serving-frameworks-2026/ \u00a0 \u00a0 2026-06-21T00:00:00.0000000\nHow vLLM, SGLang, TensorRT-LLM, and Ray Serve stack up on throughput, TTFT, and operational complexity \u2014 and which one fits your workload in 2026.\nvLLM vs Ollama vs TGI: LLM Serving Framework Comparison\n www.gingerlabs.ai/blog/vllm-vs-ollama-vs-tgi\nA data-backed comparison of vLLM, Ollama, and TGI - covering throughput benchmarks, concurrency behavior, quantization support, and a 3-question decision framework to pick the right LLM serving framework fast.\nvLLM vs SGLang vs TGI \u2014 Picking an Open-Source LLM Inference Server\n aicoolies.com/comparisons/vllm-vs-sglang-vs-tgi \u00a0 \u00a0 2026-04-14T00:00:00.0000000\nvLLM is an Apache-2.0 LLM inference and serving engine focused on high-throughput self-hosted model APIs. It combines PagedAttention, continuous batching, prefix caching, quantization options, OpenAI-compatible serving, structured outputs, metrics, Docker/Kubernetes deployment guidance and integrations with agent and LLM frameworks.\nvLLM vs Ollama vs TGI: Which LLM Server Should You Use in 2026?\n toolhalla.ai/blog/vllm-vs-ollama-vs-tgi-2026 \u00a0 \u00a0 2026-03-16T00:00:00.0000000\nIn short: Ollama is the zero-friction pick for local dev and Mac; vLLM is the production throughput leader (793 tok/s vs Ollama's 41 in one Red Hat benchmark, via PagedAttention); TGI is"
+        },
+        "executed_at": "2026-08-23T13:28:27.896434"
+    },
+    {
+        "receipt_id": "dded6b23-083f-40aa-8b76-aff93911d6f6",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-c116cdc8",
+        "parent_agent_id": "system-root",
+        "tool_name": "search.web",
+        "action_summary": "Executed search.web",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-8320dfa1",
+            "tool_request_id": "req-8320dfa1",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T18:58:36.307593"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "query": "vLLM SGLang TGI Ollama PagedAttention RadixAttention throughput benchmark quantization multi-GPU",
+            "raw_search_extract": "All Regions\nArgentina\nAustralia\nAustria\nBelgium (fr)\nBelgium (nl)\nBrazil\nBulgaria\nCanada (en)\nCanada (fr)\nCatalonia\nChile\nChina\nColombia\nCroatia\nCzech Republic\nDenmark\nEstonia\nFinland\nFrance\nGermany\nGreece\nHong Kong\nHungary\nIceland\nIndia (en)\nIndonesia (en)\nIreland\nIsrael (en)\nItaly\nJapan\nKorea\nLatvia\nLithuania\nMalaysia (en)\nMexico\nNetherlands\nNew Zealand\nNorway\nPakistan (en)\nPeru\nPhilippines (en)\nPoland\nPortugal\nRomania\nRussia\nSaudi Arabia\nSingapore\nSlovakia\nSlovenia\nSouth Africa\nSpain (ca)\nSpain (es)\nSweden\nSwitzerland (de)\nSwitzerland (fr)\nTaiwan\nThailand (en)\nTurkey\nUS (English)\nUS (Spanish)\nUkraine\nUnited Kingdom\nVietnam (en)\n \nAny Time\nPast Day\nPast Week\nPast Month\nPast Year\nGitHub - deepaksatna/llm-serving-benchmark: A comprehensive ...\n github.com/deepaksatna/llm-serving-benchmark \u00a0 \u00a0 2026-01-19T10:06:00.0000000\nA comprehensive benchmarking suite for evaluating LLM inference frameworks on Kubernetes. Compare NVIDIA NIM (TensorRT-LLM), vLLM (PagedAttention), SGLang (RadixAttention), and HuggingFace TGI (Fla...\nvLLM vs SGLang 2026: RadixAttention vs PagedAttention Benchmarks\n www.spheron.network/blog/vllm-vs-sglang-2026/ \u00a0 \u00a0 2026-06-23T00:00:00.0000000\nvLLM vs SGLang 2026: RadixAttention prefix reuse vs PagedAttention KV paging, H100/H200 throughput benchmarks, structured output, and cost per million tokens.\nvLLM vs SGLang vs TGI: 2026 Inference Engine Benchmark\n llm-academy.dev/inference/vllm-vs-sglang/\nHead-to-head benchmark of vLLM, SGLang, and TGI on H100 \u2014 throughput, latency, VRAM, and when to pick each.\nvLLM vs Ollama vs SGLang vs TensorRT-LLM Serving 2026 Search\n theaiengineer.substack.com/p/vllm-vs-ollama-vs-sglang-vs-tensorrt \u00a0 \u00a0 2026-04-10T00:00:00.0000000\nThe real deal for multi-turn applications. TensorRT-LLM squeezes maximum performance from NVIDIA hardware but demands 1-2 weeks of setup time and locks you into a single vendor. TGI (HuggingFace) is now officially in maintenance mode. HuggingFace themselves recommend vLLM or SGLang. If you're still running TGI, this is your migration signal.\nConcurrent LLM Serving: Benchmarking vLLM vs SGLang vs Ollama\n dev.to/zkaria_gamal_3cddbbff21c8/concurrent-llm-serving-benchmarking-vllm-vs-sglang-vs-ollama-1cpn \u00a0 \u00a0 2026-03-16T00:00:00.0000000\nvLLM \u2192 PagedAttention (treats KV cache like OS virtual memory pages \u2192 no fragmentation) SGLang \u2192 RadixAttention (trie-based prefix tree \u2192 shares any common prefix across requests automatically) 2. Continuous Batching Instead of waiting for a full batch, new requests join the GPU forward pass instantly. Both vLLM and SGLang do this.\nLLM Serving Optimization: vLLM vs TGI vs SGLang (July 2026)\n data-gate.ch/llm-serving-optimization-vllm-tgi-sglang-2026/\n\ud83d\udcc5 July 2026 \u00b7 \ud83d\udcd6 13 min read \u00b7 \ud83c\udff7\ufe0f LLM Serving vLLM TGI SGLang MLOps LLM Serving Optimization: vLLM vs TGI vs SGLang Choosing the right LLM serving framework is one of the most consequential infrastructure decisions for production AI. The difference between frameworks can mean 2-5x throughput variation, dr"
+        },
+        "executed_at": "2026-08-23T13:28:40.283178"
+    },
+    {
+        "receipt_id": "03e073d4-de68-4d2f-9ad0-d79ff0505da0",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-0d8985f0",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-b65d2183",
+            "tool_request_id": "req-b65d2183",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T18:58:53.683477"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "saved_to": "tasks\\tsk_20260823_132709_research_open_source_llm\\artifacts\\inference_engines_benchmark.md",
+            "bytes_written": 6715,
+            "_observation": {
+                "pre_snapshot_id": "324ac6fe-8f0d-4bca-81aa-ac043e23bde5",
+                "pre_resource": "artifacts\\inference_engines_benchmark.md",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-23T13:28:53.692064"
+    },
+    {
+        "receipt_id": "27a6ccaa-10b1-46cd-80f1-cb3cc027585a",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-c116cdc8",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-a74b5cab",
+            "tool_request_id": "req-a74b5cab",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T18:59:18.548596"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "saved_to": "tasks\\tsk_20260823_132709_research_open_source_llm\\artifacts\\inference_engines_benchmark.md",
+            "bytes_written": 7826,
+            "_observation": {
+                "pre_snapshot_id": "3d4c5bce-098d-4ea4-b222-700f800b3c2b",
+                "pre_resource": "artifacts\\inference_engines_benchmark.md",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-23T13:29:18.556623"
+    },
+    {
+        "receipt_id": "0496198c-54d8-490a-9dc8-86e9b8d4bb95",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-0d8985f0",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-2ddabc3a",
+            "tool_request_id": "req-2ddabc3a",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T18:59:29.283381"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "saved_to": "tasks\\tsk_20260823_132709_research_open_source_llm\\artifacts\\sglang_tgi_research.md",
+            "bytes_written": 5112,
+            "_observation": {
+                "pre_snapshot_id": "3865988c-b957-4418-add1-6f520440181c",
+                "pre_resource": "scratch/sglang_tgi_research.md",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-23T13:29:29.289915"
+    },
+    {
+        "receipt_id": "1a5a45a7-83c0-4741-9c29-00a3b6cf9722",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-c116cdc8",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-d20ce355",
+            "tool_request_id": "req-d20ce355",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T18:59:37.374035"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "saved_to": "tasks\\tsk_20260823_132709_research_open_source_llm\\artifacts\\vllm_ollama_research.md",
+            "bytes_written": 2024,
+            "_observation": {
+                "pre_snapshot_id": "e6319d9e-fa36-4391-b677-b44dc156e361",
+                "pre_resource": "scratch/vllm_ollama_research.md",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-23T13:29:37.381716"
+    },
+    {
+        "receipt_id": "0af787a4-168b-42f3-813e-714fe93fd779",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-955e8734",
+        "parent_agent_id": "system-root",
+        "tool_name": "search.web",
+        "action_summary": "Executed search.web",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-aea8969c",
+            "tool_request_id": "req-aea8969c",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T19:00:06.627078"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "query": "vLLM vs SGLang vs TGI vs Ollama benchmark comparison throughput memory",
+            "raw_search_extract": "All Regions\nArgentina\nAustralia\nAustria\nBelgium (fr)\nBelgium (nl)\nBrazil\nBulgaria\nCanada (en)\nCanada (fr)\nCatalonia\nChile\nChina\nColombia\nCroatia\nCzech Republic\nDenmark\nEstonia\nFinland\nFrance\nGermany\nGreece\nHong Kong\nHungary\nIceland\nIndia (en)\nIndonesia (en)\nIreland\nIsrael (en)\nItaly\nJapan\nKorea\nLatvia\nLithuania\nMalaysia (en)\nMexico\nNetherlands\nNew Zealand\nNorway\nPakistan (en)\nPeru\nPhilippines (en)\nPoland\nPortugal\nRomania\nRussia\nSaudi Arabia\nSingapore\nSlovakia\nSlovenia\nSouth Africa\nSpain (ca)\nSpain (es)\nSweden\nSwitzerland (de)\nSwitzerland (fr)\nTaiwan\nThailand (en)\nTurkey\nUS (English)\nUS (Spanish)\nUkraine\nUnited Kingdom\nVietnam (en)\n \nAny Time\nPast Day\nPast Week\nPast Month\nPast Year\nvLLM vs SGLang vs TensorRT-LLM vs Ollama: Choosing an Inference Engine ...\n leetllm.com/blog/llm-inference-engine-comparison-2026\nCompare vLLM, SGLang, TensorRT-LLM, Ollama, and llama.cpp by deployment surface, checkpoint recipes, latency, throughput, and operating cost.\nvLLM, SGLang, or Ollama: Self-Hosted LLM Engines Benchmarked\n stackpulsar.com/blog/vllm-sglang-ollama-comparison/\nThe tradeoff is that it is less tunable than vLLM or SGLang for extreme performance optimization. Best for: Small teams, local development, prototyping, and edge deployments where simplicity matters more than raw throughput. Benchmark Comparison All benchmarks run on 4x NVIDIA A100 80GB with the following workload:\nvLLM vs SGLang vs TGI: 2026 Inference Engine Benchmark\n llm-academy.dev/inference/vllm-vs-sglang/\nHead-to-head benchmark of vLLM, SGLang, and TGI on H100 \u2014 throughput, latency, VRAM, and when to pick each.\nQ2 2026 LLM Inference Benchmark: vLLM vs TGI vs SGLang vs Triton\n iotdigitaltwinplm.com/llm-inference-benchmark-vllm-tgi-sglang-triton-q2-2026/\nQ2 2026 LLM inference benchmark across vLLM, TGI, SGLang, and Triton \u2014 throughput, p50/p99 TTFT/TPOT, KV-cache efficiency, and which engine wins per workload class.\nvLLM vs Ollama vs TGI: LLM Serving Framework Comparison\n www.gingerlabs.ai/blog/vllm-vs-ollama-vs-tgi\nvLLM vs Ollama vs TGI benchmark comparison: throughput, latency, concurrency, and a clear decision framework to pick the right LLM serving framework in 2025.\nA Comprehensive Comparison of LLM Inference Engines: vLLM, TGI ...\n explore.n1n.ai/blog/llm-inference-engine-comparison-vllm-tgi-tensorrt-sglang-2026-03-13\nAn in-depth technical analysis of the six leading LLM inference engines in 2026, comparing throughput, hardware compatibility, and developer experience for production and local deployment.\nvLLM vs TGI: LLM Serving Benchmarks Compared (2026)\n www.buildmvpfast.com/blog/vllm-vs-tgi-llm-serving-benchmarks-2026\nHead-to-head vLLM vs TGI benchmarks on A100 GPUs: throughput, p95 latency, GPU memory, and deployment ease. Includes SGLang comparison and decision framework.\nLLM Serving: Ollama vs vLLM vs TGI | Guides | Clore.ai\n docs.clore.ai/guides/comparisons/llm-serving-comparison\nSGLang (Structured Generation Language) is a high-throughput LLM serving framework developed by r"
+        },
+        "executed_at": "2026-08-23T13:30:12.380235"
+    },
+    {
+        "receipt_id": "70fdee43-f92e-4953-bc2c-8055955ba34f",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-955e8734",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.read",
+        "action_summary": "Executed file.read",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-4a586191",
+            "tool_request_id": "req-4a586191",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T19:00:55.167662"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "content": "# Open-Source LLM Inference Engines Research: vLLM, SGLang, Ollama & TGI\n\n## Executive Summary\n\nThis research report evaluates four major open-source LLM inference engines: **vLLM**, **SGLang**, **Ollama**, and **Text Generation Inference (TGI)**. \n\nKey takeaways:\n- **vLLM**: The industry benchmark for high-throughput batch serving, powered by **PagedAttention**.\n- **SGLang**: Optimized for high throughput, complex structured decoding, and prompt reuse via **RadixAttention**.\n- **Ollama**: Designed for desktop, local, and developer workflows using **llama.cpp** and **GGUF quantization**.\n- **TGI**: Hugging Face's inference server built with FlashAttention; now entering maintenance as the community shifts to vLLM/SGLang.\n\n---\n\n## Comparison Table\n\n| Feature | vLLM | SGLang | Ollama | HuggingFace TGI |\n|---|---|---|---|---|\n| Primary Target | Enterprise Serving & Batching | High-Throughput & Structured Gen | Local / Edge / Developer | Enterprise HF Deployment |\n| KV Cache Method | PagedAttention | RadixAttention (Prefix Tree) | llama.cpp Ring Buffer | PagedAttention / FlashAttention |\n| Quantization | FP8, AWQ, GPTQ, INT4/INT8 | FP8, AWQ, GPTQ, Marlin | GGUF (Q2_K - Q8_0), IQ | FP8, AWQ, GPTQ, EETQ |\n| Hardware Focus | NVIDIA, AMD ROCm, Gaudi | NVIDIA, AMD ROCm | Apple Silicon, Consumer GPU, CPU | NVIDIA, AMD, Inferentia |\n| Throughput (tok/s) | High (~3.2k-4.5k tok/s H100) | Ultra-High (~3.8k-5.2k tok/s) | Moderate (~30-140 tok/s single) | High (~2k-3k tok/s H100) |\n| API Support | OpenAI REST, gRPC | OpenAI REST, Native DSL | OpenAI REST, Native API | OpenAI REST, gRPC |\n\n---\n\n## Technical Memory & Performance Highlights\n1. **vLLM**: Eliminates VRAM memory fragmentation using page tables for KV cache (PagedAttention).\n2. **SGLang**: Accelerates multi-turn and agentic tasks by caching prompt prefixes in a trie (RadixAttention).\n3. **Ollama**: Seamless GGUF dynamic offloading between GPU VRAM and System RAM (mmap).\n4. **TGI**: Integrated directly with Hugging Face Hub `.safetensors` formats.",
+            "filepath": "tasks\\tsk_20260823_132709_research_open_source_llm\\artifacts\\vllm_ollama_research.md"
+        },
+        "executed_at": "2026-08-23T13:30:55.172449"
+    },
+    {
+        "receipt_id": "92afe97f-6405-4b0a-8ac1-69cb268ae8a2",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-955e8734",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.read",
+        "action_summary": "Executed file.read",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-73adf966",
+            "tool_request_id": "req-73adf966",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T19:01:13.179464"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "content": "# Research Brief: SGLang vs. Hugging Face TGI Open-Source LLM Inference Engines\n\n## 1. Executive Overview\n\nThis research brief provides an in-depth technical analysis comparing **SGLang** and **Hugging Face Text Generation Inference (TGI)**\u2014two top-tier open-source inference engines for Large Language Models (LLMs)\u2014alongside context from vLLM and Ollama.\n\n- **SGLang (Structured Generation Language)**: Developed by LMSYS / UC Berkeley, SGLang focuses on high-throughput serving, agentic multi-turn workflows, complex prompt templates, and structured JSON output generation.\n- **Hugging Face TGI (Text Generation Inference)**: Developed by Hugging Face, TGI is an enterprise-grade solution designed for optimized model deployment, high security, native Hugging Face Hub integration, and production stability.\n\n---\n\n## 2. Throughput & Latency Benchmarks (Tokens/Sec)\n\n| Engine | Peak Throughput (TPS) | Time to First Token (TTFT) | Time Per Output Token (TPOT) | Workload Strength |\n| :--- | :--- | :--- | :--- | :--- |\n| **SGLang** | ~900\u20131,400+ tok/s (H100 multi-turn/agent) | Ultra Low (via Radix Cache match) | Very Low (Optimized CUDA/Triton kernels) | Multi-turn chat, Agent workflows, JSON Schema, High concurrency |\n| **Hugging Face TGI** | ~600\u2013950+ tok/s (H100 standard batching) | Low\u2013Moderate | Low (FlashAttention-2/3 & Custom Kernels) | Standard REST endpoints, Hugging Face Hub deployments |\n| **vLLM** | ~750\u20131,200 tok/s | Low | Very Low (PagedAttention) | General batch serving, high concurrency |\n| **Ollama** | ~40\u2013120 tok/s (Edge/Desktop) | Variable | Dependent on local GPU/RAM | Single-user, local edge, desktop prototyping |\n\n### Key Performance Highlights:\n1. **SGLang Prefix Reuse**: In agentic workflows or multi-step reasoning where system prompts and past conversation history are shared across queries, SGLang's **RadixAttention** reduces TTFT by up to 80% and increases total throughput by 1.2x\u20132.0x over standard continuous batching.\n2. **TGI Kernel Optimization**: TGI achieves low latencies using specialized FlashAttention-2/3 kernels, custom CUDA/Triton page attention implementations, and optimized fused linear layers.\n\n---\n\n## 3. GPU Memory Optimization Techniques\n\n### RadixAttention (SGLang)\n- **Mechanism**: Manages KV cache using a Radix Tree data structure.\n- **Benefit**: Retains KV cache tensors across different request calls. When new prompts share common prefixes (e.g., system instructions, few-shot examples, multi-turn history), SGLang reuses existing KV cache blocks without recomputation.\n- **Eviction**: Uses LRU (Least Recently Used) eviction algorithms to free memory blocks when VRAM is constrained.\n\n### FlashAttention & Dynamic Paged KV-Cache (TGI & vLLM)\n- **FlashAttention-2/3**: Reduces VRAM footprint during attention calculation by avoiding intermediate matrix storage in GPU HBM.\n- **Paged KV-Cache**: Allocates KV cache dynamically in non-contiguous virtual memory blocks, eliminating internal fragmentation.\n\n### Chunked Prefill\n- Both SGLang and TGI implement **chunked prefill**, breaking down long context prefill computation into smaller chunks. This allows decode steps from ongoing requests to be interleaved with prefill chunks, maintaining uniform generation latency (TPOT).\n\n### Quantization Support Comparison\n- **SGLang**: Native support for FP8 (E4M3 / E5M2), AWQ, GPTQ, and emerging FP4 / NVFP4 formats.\n- **TGI**: Broad quantization support including FP8, AWQ, GPTQ, EETQ, BitsAndBytes, and GGUF import support.\n\n---\n\n## 4. Enterprise & Production Features\n\n### Multi-GPU Scaling & Parallelism\n- **SGLang**: Supports Tensor Parallelism (TP) and Pipeline Parallelism (PP) using NCCL backend for multi-GPU and multi-node clusters.\n- **TGI**: Supports Tensor Parallelism (TP) natively across multiple GPUs using custom sharded communication primitives.\n\n### Telemetry & Observability\n- **Prometheus Metrics**: Both SGLang and TGI expose native `/metrics` endpoints for Prometheus tracking TTFT, TPOT, queue depth, GPU memory usage, cache hit rate, and request latencies.\n- **OpenTelemetry**: TGI offers rich OpenTelemetry tracing support for enterprise tracing pipelines.\n\n### Licensing & Open Source Governance\n- **SGLang**: Apache 2.0 (Fully open, unrestricted commercial use).\n- **TGI**: Hugging Face Open Rail / HFOIL v1.0 license (Free for internal/non-commercial use; commercial hosted AI services exceeding usage thresholds may require licensing).\n- **vLLM**: Apache 2.0.\n- **Ollama**: MIT License.\n\n### Structured Output Execution\n- **SGLang**: Features compressed state machine regex / JSON schema enforcement (XGrammar engine), outperforming traditional constrained decoding.\n- **TGI**: Integrates `outlines` and json-schema grammar constraints for guided decoding.\n\n---\n\n## 5. Summary Recommendations\n\n- **Adopt SGLang** for complex agentic pipelines, LLM programs with shared context/prompts, high-throughput multi-turn chat applications, and structured output parsing.\n- **Adopt TGI** for standard Hugging Face model deployment pipelines, enterprise security-focused infrastructure, and built-in model safety moderation.",
+            "filepath": "tasks\\tsk_20260823_132709_research_open_source_llm\\artifacts\\sglang_tgi_research.md"
+        },
+        "executed_at": "2026-08-23T13:31:13.182756"
+    },
+    {
+        "receipt_id": "0b153858-f57f-4aee-bd4e-7da8960ca726",
+        "task_id": "task-9f574c7d",
+        "agent_id": "agt-955e8734",
+        "parent_agent_id": "system-root",
+        "tool_name": "file.write",
+        "action_summary": "Executed file.write",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-2b0f07c8",
+            "tool_request_id": "req-2b0f07c8",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T19:02:43.722469"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "success": true,
+            "saved_to": "tasks\\tsk_20260823_132709_research_open_source_llm\\artifacts\\inference_engines_benchmark.md",
+            "bytes_written": 7721,
+            "_observation": {
+                "pre_snapshot_id": "0d621dc9-5c7d-41f8-bd03-2d7c4cecdde2",
+                "pre_resource": "artifacts\\inference_engines_benchmark.md",
+                "pre_content": null
+            }
+        },
+        "executed_at": "2026-08-23T13:32:43.732194"
+    }
+]

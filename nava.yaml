@@ -26,6 +26,7 @@ root_agent:
     - browser.type
     - browser.scroll
     - browser.save_to_scratch
+    - search.web
     
     # OS Desktop GUI Automation (ComputerAgent)
     - desktop.read
@@ -35,6 +36,7 @@ root_agent:
     # Skills, Knowledge & System
     - system.read_skill
     - system.flag_review
+    - memory.semantic
     - mock.send_wire_transfer
     - mock.notify_admin
 
@@ -74,6 +76,7 @@ root_agent:
     - browser.save_to_scratch
     - search.web
     - memory.semantic_ingest
+    - memory.semantic_search
     
     # 5. OS Desktop GUI Tools (ComputerAgent)
     - desktop.screenshot

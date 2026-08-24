@@ -22,6 +22,10 @@ class ToolRegistry:
     def __init__(self):
         self._tools: Dict[str, ToolDefinition] = {}
 
+    @property
+    def tools(self) -> Dict[str, ToolDefinition]:
+        return self._tools
+
     def register_tool(self, tool: ToolDefinition) -> None:
         if tool.name in self._tools:
             raise ValueError(f"Tool {tool.name} is already registered.")

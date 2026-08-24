@@ -1,0 +1,26 @@
+[
+    {
+        "receipt_id": "4b70c838-fa73-46b8-a39f-cb0988e003f6",
+        "task_id": "task-9d0f1ead",
+        "agent_id": "agt-fbaedab9",
+        "parent_agent_id": "system-root",
+        "tool_name": "desktop.screenshot",
+        "action_summary": "Executed desktop.screenshot",
+        "policy_evaluation": [],
+        "risk_assessment": {
+            "assessment_id": "risk_req-a2cb2fb4",
+            "tool_request_id": "req-a2cb2fb4",
+            "factors": [],
+            "total_score": 0,
+            "tier": "LOW",
+            "decision": "AUTO_EXECUTE",
+            "computed_at": "2026-08-23T17:11:56.877309"
+        },
+        "approval": null,
+        "result": "SUCCESS",
+        "result_data": {
+            "screenshot_path": "artifacts/current_screen.png"
+        },
+        "executed_at": "2026-08-23T11:41:57.393998"
+    }
+]

@@ -72,11 +72,15 @@ class DesktopEngine:
             except Exception:
                 return {"width": 1920, "height": 1080, "dpi_scale": dpi_scale}
 
-    def screenshot(self, path: str = "scratch/desktop_screenshot.png", region: Optional[Dict[str, int]] = None) -> str:
+    def screenshot(self, path: str = "artifacts/desktop_screenshot.png", region: Optional[Dict[str, int]] = None) -> str:
         """
         Takes a full or cropped region screenshot of the OS desktop.
         region: optional dict with keys {'left': int, 'top': int, 'width': int, 'height': int} or {'x1', 'y1', 'x2', 'y2'}
         """
+        clean_p = path.replace("\\", "/")
+        if "/" not in clean_p and not clean_p.startswith((".", "artifacts", "scratch")):
+            path = os.path.join("artifacts", path)
+
         with self._lock:
             os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
             

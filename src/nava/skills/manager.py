@@ -177,3 +177,42 @@ class SkillManager:
     def get_all_skills(self) -> Dict[str, SkillDefinition]:
         return self.skills
 
+    def promote_workflow_to_skill(
+        self,
+        skill_name: str,
+        description: str,
+        instructions: str,
+        auto_approve: bool = True,
+        actor: str = "local_user"
+    ) -> Optional[SkillDefinition]:
+        """
+        Promotes a completed task workflow into a permanent SKILL.md file inside .nava/skills/<skill_name>/
+        and auto-hashes & approves it in the trusted plugins ledger.
+        """
+        clean_name = skill_name.strip().lower().replace(" ", "_")
+        target_dir = os.path.join(os.getcwd(), ".nava", "skills", clean_name)
+        os.makedirs(target_dir, exist_ok=True)
+        
+        skill_file = os.path.join(target_dir, "SKILL.md")
+        skill_content = f"""---
+name: {clean_name}
+description: {description.strip()}
+---
+
+# {clean_name.replace('_', ' ').title()}
+
+## Overview
+{description.strip()}
+
+## Workflow & Execution Instructions
+{instructions.strip()}
+"""
+        with open(skill_file, "w", encoding="utf-8") as f:
+            f.write(skill_content)
+            
+        self.refresh_skills()
+        if auto_approve:
+            self.approve_skill(clean_name, approved_by=actor)
+            
+        return self.skills.get(clean_name)
+

@@ -48,6 +48,9 @@ AVAILABLE PERMISSIONS (CEILING): {permissions}
       * Fetching data from independent endpoints simultaneously.
     - Subsequent tasks that depend on the combined results of Stage 1 MUST be assigned to Stage 2 (or higher).
     - Single-shot formatting or final synthesis tasks should be assigned to the final stage.
+11. DELIVERABLES & ARTIFACTS RULE:
+    - All generated documents, research briefs, summaries, exports, and final deliverables (.md reports, .pdf, .docx, .pptx) are automatically managed within the active task session. Specify clean filenames (e.g. `research_summary.md`, `final_report.pdf`).
+    - Application source code belongs in `src/` and unit tests belong in `tests/`. Do NOT generate arbitrary root files.
 
 ## Output
 

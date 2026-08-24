@@ -1,0 +1,3 @@
+include README.md
+include nava.yaml
+recursive-include src/nava/prompts *.txt

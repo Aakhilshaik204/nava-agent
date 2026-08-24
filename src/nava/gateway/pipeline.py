@@ -148,7 +148,25 @@ class ActionGateway:
 
         # Step 6: Risk Evaluation
         risk_assessment = self.risk_engine.evaluate(request, agent)
-        tool_def = self.registry.get_tool(request.tool_name) if self.registry else None
+        tool_def = self.registry.tools.get(request.tool_name) if self.registry else None
+        
+        # If tool does not exist in registry, return failure receipt to allow model self-correction
+        if self.registry and request.tool_name not in self.registry.tools and not request.tool_name.startswith("system."):
+            available_tools = list(self.registry.tools.keys())
+            err_msg = f"Tool '{request.tool_name}' not found in registry. Please use one of the available tools: {available_tools}"
+            return Receipt(
+                receipt_id=str(uuid.uuid4()),
+                task_id=agent.budget_ref,
+                agent_id=agent.agent_id,
+                parent_agent_id=agent.parent_agent_id or "ROOT",
+                tool_name=request.tool_name,
+                action_summary=f"Attempted invalid tool {request.tool_name}",
+                policy_evaluation=[],
+                risk_assessment=risk_assessment,
+                approval=None,
+                result=ResultEnum.FAILURE,
+                result_data={"error": err_msg, "success": False}
+            )
         
         # Override calculated risk if the tool's base risk is higher
         if tool_def and getattr(tool_def, "risk_level", None):

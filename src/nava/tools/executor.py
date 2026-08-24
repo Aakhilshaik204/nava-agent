@@ -13,6 +13,48 @@ class LocalToolExecutor(Executor):
         self.mcp_manager = mcp_manager
         self.skill_manager = skill_manager
         self.browser_engine = None
+        self.active_task_id: Optional[str] = None
+        self.active_project: str = "Nava"
+
+    def set_active_task(self, task_id: str) -> None:
+        """Sets the active task context for task-scoped artifact routing."""
+        self.active_task_id = task_id
+
+    def set_active_project(self, project_name: str) -> None:
+        """Sets the active project context for project codebase isolation."""
+        self.active_project = project_name
+
+    def _resolve_project_code_path(self, filename: str) -> str:
+        """
+        Routes project codebase files inside `projects/<active_project>/<filename>`.
+        Prevents code pollution in the root workspace directory.
+        """
+        clean_name = filename.replace("\\", "/").lstrip("/")
+        
+        # If path already explicitly targets projects/, tasks/, memory/, or .nava/
+        if clean_name.startswith(("projects/", "tasks/", "memory/", ".nava/")):
+            return self._sanitize_path(clean_name)
+            
+        # If active project is set, place codebase file inside projects/<active_project>/
+        if self.active_project:
+            proj_dir = os.path.join("projects", self.active_project)
+            os.makedirs(proj_dir, exist_ok=True)
+            return self._sanitize_path(os.path.join(proj_dir, clean_name))
+            
+        return self._sanitize_path(clean_name)
+
+    def _resolve_artifact_path(self, filename: str) -> str:
+        """Routes a deliverable filename to the active task's tasks/<task_id>/artifacts directory."""
+        clean_name = filename.replace("\\", "/")
+        base_name = os.path.basename(clean_name)
+        
+        if self.active_task_id:
+            art_dir = os.path.join("tasks", self.active_task_id, "artifacts")
+        else:
+            art_dir = os.path.join("tasks", "default_task", "artifacts")
+            
+        os.makedirs(art_dir, exist_ok=True)
+        return os.path.join(art_dir, base_name)
 
     def __del__(self):
         if self.browser_engine:
@@ -65,6 +107,8 @@ class LocalToolExecutor(Executor):
                 return self._search_web(args)
             elif tool == "memory.semantic_ingest":
                 return self._memory_semantic_ingest(args)
+            elif tool == "memory.semantic_search":
+                return self._memory_semantic_search(args)
             elif tool == "code.read_directory_tree":
                 return self._code_read_directory_tree(args)
             elif tool == "code.diff_review":
@@ -147,9 +191,18 @@ class LocalToolExecutor(Executor):
         if not filename:
             return {"error": "filename is required"}
         try:
-            safe_path = self._sanitize_path(filename)
-            if os.path.exists(safe_path):
-                os.remove(safe_path)
+            clean_name = filename.replace("\\", "/").lstrip("/")
+            candidate_paths = [
+                self._resolve_project_code_path(clean_name),
+                self._sanitize_path(clean_name)
+            ]
+            deleted = False
+            for p in candidate_paths:
+                if os.path.exists(p):
+                    os.remove(p)
+                    deleted = True
+                    break
+            if deleted:
                 return {"success": True, "message": f"Deleted {filename}"}
             else:
                 return {"success": True, "message": f"File {filename} did not exist."}
@@ -160,12 +213,32 @@ class LocalToolExecutor(Executor):
         filename = args.get("filename")
         if not filename:
             raise ValueError("filename is required")
-        safe_path = self._sanitize_path(filename)
+            
+        clean_name = filename.replace("\\", "/").lstrip("/")
+        
+        # Check project path, task artifacts path, and root workspace
+        candidate_paths = [
+            self._resolve_project_code_path(clean_name),
+            self._resolve_artifact_path(clean_name),
+            self._sanitize_path(clean_name)
+        ]
+        
+        safe_path = None
+        for p in candidate_paths:
+            if os.path.exists(p):
+                safe_path = p
+                break
+                
+        if not safe_path:
+            safe_path = candidate_paths[0]
+            if not os.path.exists(safe_path):
+                raise FileNotFoundError(f"[Errno 2] No such file or directory: '{filename}'")
+
         try:
             with open(safe_path, "r", encoding="utf-8") as f:
-                return {"content": f.read()}
+                return {"content": f.read(), "filepath": os.path.relpath(safe_path, os.getcwd())}
         except UnicodeDecodeError:
-            return {"content": "<binary_file_exists_and_readable>"}
+            return {"content": "<binary_file_exists_and_readable>", "filepath": os.path.relpath(safe_path, os.getcwd())}
 
     def _file_write(self, args: dict) -> Any:
         filename = args.get("filename")
@@ -173,13 +246,25 @@ class LocalToolExecutor(Executor):
         if not filename:
             raise ValueError("filename is required")
         
-        safe_path = self._sanitize_path(filename)
-        # Ensure directory exists
-        os.makedirs(os.path.dirname(safe_path), exist_ok=True)
+        clean_name = filename.replace("\\", "/").lstrip("/")
         
+        # 1. Explicit top-level paths (projects/, tasks/, memory/, .nava/)
+        if clean_name.startswith(("projects/", "tasks/", "memory/", ".nava/")):
+            safe_path = self._sanitize_path(clean_name)
+        # 2. Scratch notes or temporary files
+        elif clean_name.startswith("scratch/"):
+            safe_path = self._resolve_artifact_path(clean_name)
+        # 3. Standalone reports / documents (.pdf, .docx, .pptx)
+        elif clean_name.endswith((".pdf", ".docx", ".pptx")):
+            safe_path = self._resolve_artifact_path(clean_name)
+        # 4. Codebase files -> placed directly inside projects/<active_project>/
+        else:
+            safe_path = self._resolve_project_code_path(clean_name)
+            
+        os.makedirs(os.path.dirname(safe_path), exist_ok=True)
         with open(safe_path, "w", encoding="utf-8") as f:
             f.write(content)
-        return {"success": True, "bytes_written": len(content)}
+        return {"success": True, "saved_to": os.path.relpath(safe_path, os.getcwd()), "bytes_written": len(content)}
 
     def _data_analyze(self, args: dict) -> Any:
         filename = args.get("filename")
@@ -215,8 +300,18 @@ class LocalToolExecutor(Executor):
         if not filename or not target_content or replacement_content is None:
             raise ValueError("filename, target_content, and replacement_content are required")
             
-        safe_path = self._sanitize_path(filename)
-        if not os.path.exists(safe_path):
+        clean_name = filename.replace("\\", "/").lstrip("/")
+        candidate_paths = [
+            self._resolve_project_code_path(clean_name),
+            self._sanitize_path(clean_name)
+        ]
+        safe_path = None
+        for p in candidate_paths:
+            if os.path.exists(p):
+                safe_path = p
+                break
+                
+        if not safe_path or not os.path.exists(safe_path):
             return {"error": f"File {filename} not found."}
             
         with open(safe_path, "r", encoding="utf-8") as f:
@@ -230,7 +325,7 @@ class LocalToolExecutor(Executor):
         with open(safe_path, "w", encoding="utf-8") as f:
             f.write(content)
             
-        return {"success": True, "message": f"Content successfully replaced in {filename}"}
+        return {"success": True, "message": f"Content successfully replaced in {os.path.relpath(safe_path, os.getcwd())}"}
         
     def _code_replace_content_batch(self, args: dict) -> Any:
         edits = args.get("edits", [])
@@ -354,20 +449,84 @@ class LocalToolExecutor(Executor):
             return {"query": query, "message": f"Search executed for query: {query}", "status": "COMPLETED"}
 
     def _memory_semantic_ingest(self, args: dict) -> Any:
-        """Ingests research facts or document text into Tier 3 Semantic Memory."""
-        content = args.get("content")
-        source = args.get("source", "ResearchAgent")
-        tags = args.get("tags", [])
+        """Ingests documents, research facts, or code into Tier 3 Hybrid RAG Memory."""
+        import uuid
+        content = args.get("content") or args.get("text")
+        filename = args.get("filename")
+        title = args.get("title", "Document")
+        doc_id = args.get("doc_id") or (os.path.basename(filename) if filename else f"doc-{uuid.uuid4().hex[:8]}")
+        source = args.get("source", "user")
+        metadata = args.get("metadata", {})
+
+        if not content and filename:
+            try:
+                clean_name = filename.replace("\\", "/").lstrip("/")
+                candidate_paths = [
+                    self._resolve_project_code_path(clean_name),
+                    self._resolve_artifact_path(clean_name),
+                    self._sanitize_path(clean_name)
+                ]
+                safe_path = None
+                for p in candidate_paths:
+                    if os.path.exists(p):
+                        safe_path = p
+                        break
+                if safe_path and os.path.exists(safe_path):
+                    with open(safe_path, "r", encoding="utf-8") as f:
+                        content = f.read()
+                        title = os.path.basename(filename)
+            except Exception as e:
+                return {"error": f"Failed reading file for ingestion: {e}"}
+
         if not content:
-            return {"error": "content is required"}
+            return {"error": "content or valid filename is required for ingestion"}
 
         try:
             from nava.memory.store import SemanticMemoryStore
             sem_store = SemanticMemoryStore("memory/semantic.json")
-            entry_id = sem_store.add_document(content=content, source=source, tags=tags)
-            return {"success": True, "entry_id": entry_id, "source": source}
+            chunks = sem_store.ingest_document(
+                doc_id=doc_id,
+                title=title,
+                text=content,
+                source=source,
+                metadata=metadata
+            )
+            return {
+                "success": True,
+                "doc_id": doc_id,
+                "title": title,
+                "chunks_created": len(chunks),
+                "source": source
+            }
         except Exception as e:
-            return {"success": True, "message": f"Ingested into semantic store: {str(e)}"}
+            return {"error": f"Semantic ingestion failed: {e}"}
+
+    def _memory_semantic_search(self, args: dict) -> Any:
+        """Executes a Hybrid RAG (Dense Vector + BM25 Sparse with RRF) query over Tier 3 Knowledge."""
+        query = args.get("query")
+        limit = args.get("limit", 5)
+        dense_weight = args.get("dense_weight", 0.5)
+        sparse_weight = args.get("sparse_weight", 0.5)
+
+        if not query:
+            return {"error": "query is required"}
+
+        try:
+            from nava.memory.store import SemanticMemoryStore
+            sem_store = SemanticMemoryStore("memory/semantic.json")
+            results = sem_store.hybrid_search(
+                query=query,
+                limit=limit,
+                dense_weight=dense_weight,
+                sparse_weight=sparse_weight
+            )
+            return {
+                "query": query,
+                "total_results": len(results),
+                "results": results
+            }
+        except Exception as e:
+            return {"error": f"Semantic search failed: {e}"}
 
     def _code_find_references(self, args: dict) -> Any:
         func_name = args.get("function_name")
@@ -396,32 +555,55 @@ class LocalToolExecutor(Executor):
         if not query:
             raise ValueError("query is required")
             
-        # Using git grep or normal grep depending on availability, 
-        # but for safety/cross-platform we'll just use a python walk
+        # Target active project directory if default '.' is requested
+        if directory in [".", "./"]:
+            target_dir = os.path.join("projects", self.active_project) if self.active_project else "."
+        else:
+            clean_dir = directory.replace("\\", "/").lstrip("/")
+            if not clean_dir.startswith(("projects/", "tasks/", "memory/", ".nava/")) and self.active_project:
+                target_dir = os.path.join("projects", self.active_project, clean_dir)
+            else:
+                target_dir = directory
+                
+        if not os.path.exists(target_dir):
+            target_dir = "."
+            
         results = []
-        for root, dirs, files in os.walk(directory):
-            if '.git' in root or '__pycache__' in root:
+        for root, dirs, files in os.walk(target_dir):
+            if '.git' in root or '__pycache__' in root or 'node_modules' in root:
                 continue
             for file in files:
-                if file.endswith(('.py', '.js', '.html', '.css', '.md', '.txt')):
+                if file.endswith(('.py', '.js', '.ts', '.tsx', '.jsx', '.html', '.css', '.md', '.txt', '.json', '.go', '.rs', '.java', '.cpp', '.c', '.sh', '.yaml', '.yml')):
                     filepath = os.path.join(root, file)
                     try:
                         with open(filepath, 'r', encoding='utf-8') as f:
                             for i, line in enumerate(f):
                                 if query in line:
-                                    results.append(f"{filepath}:{i+1}: {line.strip()}")
+                                    results.append(f"{os.path.relpath(filepath, os.getcwd())}:{i+1}: {line.strip()}")
                     except (UnicodeDecodeError, FileNotFoundError):
                         pass
         return {"results": "\n".join(results) if results else "No matches found."}
 
     def _code_read_directory_tree(self, args: dict) -> Any:
         directory = args.get("directory", ".")
+        if directory in [".", "./"]:
+            target_dir = os.path.join("projects", self.active_project) if self.active_project else "."
+        else:
+            clean_dir = directory.replace("\\", "/").lstrip("/")
+            if not clean_dir.startswith(("projects/", "tasks/", "memory/", ".nava/")) and self.active_project:
+                target_dir = os.path.join("projects", self.active_project, clean_dir)
+            else:
+                target_dir = directory
+                
+        if not os.path.exists(target_dir):
+            target_dir = "."
+            
         tree = []
-        for root, dirs, files in os.walk(directory):
-            if '.git' in root or '__pycache__' in root:
+        for root, dirs, files in os.walk(target_dir):
+            if '.git' in root or '__pycache__' in root or 'node_modules' in root:
                 dirs[:] = []
                 continue
-            level = root.replace(directory, '').count(os.sep)
+            level = root.replace(target_dir, '').count(os.sep)
             indent = ' ' * 4 * (level)
             tree.append(f"{indent}{os.path.basename(root)}/")
             subindent = ' ' * 4 * (level + 1)
@@ -477,15 +659,26 @@ class LocalToolExecutor(Executor):
         if not filename:
             raise ValueError("filename is required")
             
+        clean_name = filename.replace("\\", "/")
+        if not clean_name.startswith((".", "src", "tests", "memory", ".nava")):
+            filename = self._resolve_artifact_path(filename)
+        else:
+            filename = self._sanitize_path(filename)
+            
         if source_file:
-            if os.path.exists(source_file):
-                with open(source_file, "r", encoding="utf-8") as f:
-                    if source_file.endswith(".md"):
+            safe_source = self._sanitize_path(source_file)
+            if not os.path.exists(safe_source):
+                alt_source = self._resolve_artifact_path(source_file)
+                if os.path.exists(alt_source):
+                    safe_source = alt_source
+            if os.path.exists(safe_source):
+                with open(safe_source, "r", encoding="utf-8") as f:
+                    if safe_source.endswith(".md"):
                         markdown_content = f.read()
                     else:
                         raw_html_content = f.read()
             else:
-                return {"error": f"source_file not found: '{source_file}' (resolved to '{os.path.abspath(source_file)}'). Check path is relative to the Nava project root."}
+                return {"error": f"source_file not found: '{source_file}'."}
 
         if not raw_html_content and not markdown_content.strip():
             return {"error": "Must provide either markdown_content, html_content, or a valid source_file."}
@@ -530,7 +723,7 @@ class LocalToolExecutor(Executor):
         if pisa_status.err:
             return {"success": False, "error": "PDF rendering failed."}
             
-        return {"success": True, "message": f"Beautiful PDF created at {filename}"}
+        return {"success": True, "saved_to": os.path.relpath(filename, os.getcwd()), "message": f"Beautiful PDF created at {filename}"}
 
     def _file_create_docx(self, args: dict) -> Any:
         filename = args.get("filename")
@@ -540,9 +733,21 @@ class LocalToolExecutor(Executor):
         if not filename:
             raise ValueError("filename is required")
             
-        if source_file and os.path.exists(source_file):
-            with open(source_file, "r", encoding="utf-8") as f:
-                content = f.read()
+        clean_name = filename.replace("\\", "/")
+        if not clean_name.startswith((".", "src", "tests", "memory", ".nava")):
+            filename = self._resolve_artifact_path(filename)
+        else:
+            filename = self._sanitize_path(filename)
+            
+        if source_file:
+            safe_source = self._sanitize_path(source_file)
+            if not os.path.exists(safe_source):
+                alt_source = self._resolve_artifact_path(source_file)
+                if os.path.exists(alt_source):
+                    safe_source = alt_source
+            if os.path.exists(safe_source):
+                with open(safe_source, "r", encoding="utf-8") as f:
+                    content = f.read()
                 
         try:
             import docx
@@ -556,17 +761,14 @@ class LocalToolExecutor(Executor):
             doc.add_paragraph(line)
             
         doc.save(filename)
-        return {"success": True, "message": f"DOCX successfully created at {filename}"}
+        return {"success": True, "saved_to": os.path.relpath(filename, os.getcwd()), "message": f"DOCX successfully created at {filename}"}
 
     def _file_create_pptx(self, args: dict) -> Any:
         filename = args.get("filename")
         slides_data = args.get("slides", [])
         theme_raw = args.get("theme", {})
         
-        # Guard against LLM passing a string instead of a dict for theme
-        theme_raw = args.get("theme", {})
         theme = theme_raw if isinstance(theme_raw, dict) else {}
-        
         bg_color = theme.get("bg_color", "#FFFFFF")
         title_color = theme.get("title_color", "#000000")
         text_color = theme.get("text_color", "#333333")
@@ -574,6 +776,12 @@ class LocalToolExecutor(Executor):
         
         if not filename:
             raise ValueError("filename is required")
+            
+        clean_name = filename.replace("\\", "/")
+        if not clean_name.startswith((".", "src", "tests", "memory", ".nava")):
+            filename = self._resolve_artifact_path(filename)
+        else:
+            filename = self._sanitize_path(filename)
             
         try:
             from pptx import Presentation
@@ -787,9 +995,14 @@ class LocalToolExecutor(Executor):
 
     def _desktop_screenshot(self, args: dict) -> Any:
         engine = self._ensure_desktop()
-        path = args.get("path", "scratch/desktop_screenshot.png")
+        raw_path = args.get("path") or "desktop_screenshot.png"
+        clean_name = raw_path.replace("\\", "/")
+        if not clean_name.startswith((".", "src", "tests", "memory", ".nava")):
+            target_path = self._resolve_artifact_path(raw_path)
+        else:
+            target_path = self._sanitize_path(raw_path)
         region = args.get("region")
-        return {"screenshot_path": engine.screenshot(path, region=region)}
+        return {"screenshot_path": engine.screenshot(target_path, region=region)}
 
     def _desktop_click(self, args: dict) -> Any:
         engine = self._ensure_desktop()

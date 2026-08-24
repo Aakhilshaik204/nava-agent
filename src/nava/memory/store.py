@@ -122,9 +122,19 @@ class EpisodicMemoryStore(PersistentJSONStore):
 
 class SemanticMemoryStore(PersistentJSONStore):
     """
-    Tier 3: Unstructured Knowledge & RAG memory store.
-    Supports document chunking, provenance metadata grounding, and ranked retrieval.
+    Tier 3: Unstructured Knowledge & Hybrid RAG memory store (Blueprint Sec 22).
+    Integrates Dense Vector Search + Okapi BM25 Sparse Search with Reciprocal Rank Fusion (RRF).
     """
+    def __init__(self, filepath: str = "memory/semantic.json", vector_path: str = "memory/semantic_vectors.json"):
+        super().__init__(filepath)
+        from nava.memory.hybrid_rag import HybridRAGStore
+        self.rag_engine = HybridRAGStore(json_path=filepath, vector_path=vector_path)
+
+    def store(self, record: MemoryRecord) -> None:
+        super().store(record)
+        if hasattr(self, "rag_engine"):
+            self.rag_engine.store_record(record)
+
     def ingest_document(
         self,
         doc_id: str,
@@ -136,45 +146,35 @@ class SemanticMemoryStore(PersistentJSONStore):
         metadata: Optional[Dict[str, Any]] = None
     ) -> List[MemoryRecord]:
         """
-        Chunks text into semantic blocks and stores them with grounding metadata.
+        Chunks text into semantic blocks and indexes them across dense vector and BM25 indexes.
         """
-        words = text.split()
-        chunks = []
-        start = 0
-        chunk_index = 0
-        
-        while start < len(words):
-            end = min(start + chunk_size, len(words))
-            chunk_text = " ".join(words[start:end])
-            chunk_hash = hashlib.sha256(chunk_text.encode("utf-8")).hexdigest()[:12]
-            
-            chunk_record = MemoryRecord(
-                memory_id=f"sem-{doc_id}-{chunk_index}-{chunk_hash}",
-                tier=MemoryTier.SEMANTIC,
-                content={
-                    "doc_id": doc_id,
-                    "title": title,
-                    "chunk_index": chunk_index,
-                    "text": chunk_text,
-                    "source": source,
-                    "metadata": metadata or {}
-                },
-                source=source,
-                confidence=1.0,
-                importance=0.7,
-                sensitivity="low",
-                trust_level=MemoryTrustLevel.VERIFIED if source in ["user", "admin"] else MemoryTrustLevel.UNVERIFIED,
-                provenance=[f"doc:{doc_id}", f"source:{source}"]
-            )
-            self.store(chunk_record)
-            chunks.append(chunk_record)
-            
-            chunk_index += 1
-            start += (chunk_size - overlap)
-            if start >= len(words) or end == len(words):
-                break
-                
+        chunks = self.rag_engine.ingest_document(
+            doc_id=doc_id,
+            title=title,
+            text=text,
+            source=source,
+            chunk_size=chunk_size,
+            overlap=overlap,
+            metadata=metadata
+        )
+        self._load()
         return chunks
+
+    def retrieve(self, query: str, limit: int = 10) -> List[MemoryRecord]:
+        """Performs hybrid dense + BM25 RRF retrieval and returns matching MemoryRecords."""
+        results = self.rag_engine.hybrid_search(query, limit=limit)
+        matched_records = []
+        for res in results:
+            mem_id = res.get("memory_id")
+            if mem_id and mem_id in self._records:
+                matched_records.append(self._records[mem_id])
+            elif mem_id and mem_id in self.rag_engine.records:
+                matched_records.append(self.rag_engine.records[mem_id])
+        return matched_records if matched_records else super().retrieve(query, limit)
+
+    def hybrid_search(self, query: str, limit: int = 5, dense_weight: float = 0.5, sparse_weight: float = 0.5) -> List[Dict[str, Any]]:
+        """Returns structured hybrid RRF results with scores, provenance, and rank stats."""
+        return self.rag_engine.hybrid_search(query, limit=limit, dense_weight=dense_weight, sparse_weight=sparse_weight)
 
 class ProfileMemoryStore(PersistentJSONStore):
     """Tier 4: AI Twin structured facts. Enforces strict Section 31.2 Trust Escalation rules."""

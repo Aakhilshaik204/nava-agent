@@ -13,7 +13,7 @@ class ResearchPlan(BaseModel):
     arguments: dict
 
 def build_research_agent(registry=None) -> StateGraph:
-    """Builds the Tier 2 cyclic ResearchAgent execution graph for multi-source research and synthesis."""
+    """Builds the Tier 2 cyclic ResearchAgent execution graph for deep research and synthesis."""
     workflow = StateGraph(dict)
 
     def plan_node(state: dict):
@@ -28,9 +28,12 @@ def build_research_agent(registry=None) -> StateGraph:
         tool_schemas = []
         if registry:
             for t_name in agent_state.tool_scope:
-                t_def = registry.get_tool(t_name)
-                if t_def:
-                    tool_schemas.append(f"- {t_name}: {t_def.description}\n  Schema: {json.dumps(t_def.input_schema)}")
+                try:
+                    t_def = registry.get_tool(t_name)
+                    if t_def:
+                        tool_schemas.append(f"- {t_name}: {t_def.description}\n  Schema: {json.dumps(t_def.input_schema)}")
+                except KeyError:
+                    pass
         tool_schemas_str = "\n".join(tool_schemas) if tool_schemas else "No tools available."
 
         llm = get_llm()
@@ -50,93 +53,67 @@ def build_research_agent(registry=None) -> StateGraph:
                         
         sys_msg = SystemMessage(content=system_prompt)
         
-        content = f"Research Payload / Prior Context: {json.dumps(payload)}\n"
+        content = f"Research Payload / Context: {json.dumps(payload)}\n"
         if history:
-            content += "\n[PREVIOUS RESEARCH ACTIONS & OBSERVATIONS]\n"
-            for item in history[-4:]:
-                content += f"- Action: {item.get('action')}\n  Result: {str(item.get('observation'))[:600]}\n"
+            content += "\n[YOUR PREVIOUS ACTIONS & OBSERVATIONS]\n" + "\n".join(history) + "\n"
                 
         if observation:
-            content += f"\n[LATEST OBSERVATION]\nResult: {str(observation)[:2000]}\n"
+            content += f"\n[LATEST OBSERVATION]\nResult: {json.dumps(observation)}\n"
             
-        content += "\nPlan your next research action (e.g. search.web, browser.navigate, browser.extract_text, memory.semantic_ingest, file.write) or emit tool_name: 'FINISH' if research is complete."
         human_msg = HumanMessage(content=content)
         
         try:
             decision = structured_llm.invoke([sys_msg, human_msg])
             print(f"\n[ResearchAgent Thinking]:\n{decision.thoughts}\n")
             print(f"[ResearchAgent Action]:\n  → {decision.tool_name}({decision.arguments})\n")
-            state["plan"] = decision.tool_name
-            state["arguments"] = decision.arguments
-            state["thoughts"] = decision.thoughts
         except Exception as e:
-            print(f"[ResearchAgent Error]: LLM generation failed: {e}")
-            state["plan"] = "FINISH"
-            state["error"] = str(e)
-            
-        return state
+            print(f"\n[ResearchAgent Error]: LLM generation failed: {e}")
+            decision = ResearchPlan(thoughts=f"Fatal error: {e}", tool_name="FINISH", arguments={})
 
-    def act_node(state: dict):
-        tool_name = state.get("plan")
-        arguments = state.get("arguments", {})
-        agent_state: AgentState = state["agent_state"]
-        gateway = state.get("gateway")
-        
-        if tool_name == "FINISH":
-            state["is_success"] = True
+        new_history = history.copy()
+        if observation:
+            obs_str = json.dumps(observation)
+            if len(obs_str) > 1500:
+                obs_str = obs_str[:1500] + "... [TRUNCATED]"
+            new_history.append(f"Observation: {obs_str}")
+
+        new_history.append(f"Action taken: {decision.tool_name}, args: {json.dumps(decision.arguments)}")
+        state["history"] = new_history
+
+        if decision.tool_name == "FINISH":
+            state["tool_request"] = None
+            state["plan"] = "FINISH"
             return state
 
-        # Resolve correct scope for this tool
+        # If writing a report or brief, ensure it targets artifacts/
+        if decision.tool_name in ["file.write", "file.create_pdf", "file.create_docx"]:
+            fname = decision.arguments.get("filename")
+            if fname and "/" not in fname.replace("\\", "/") and not fname.startswith((".", "artifacts", "scratch")):
+                decision.arguments["filename"] = os.path.join("artifacts", fname)
+
+        # Resolve correct scope for this specific tool
         resolved_scope = agent_state.permission_scope[0] if agent_state.permission_scope else ""
         if registry:
-            t_def = registry.get_tool(tool_name)
-            if t_def and t_def.permissions_required:
-                resolved_scope = t_def.permissions_required[0]
+            try:
+                t_def = registry.get_tool(decision.tool_name)
+                if t_def and t_def.permissions_required:
+                    resolved_scope = t_def.permissions_required[0]
+            except Exception:
+                pass
 
         req = ToolRequest(
             request_id=f"req-{uuid.uuid4().hex[:8]}",
             agent_id=agent_state.agent_id,
-            tool_name=tool_name,
-            arguments=arguments,
+            tool_name=decision.tool_name,
+            arguments=decision.arguments,
             requested_scope=resolved_scope
         )
-        
-        try:
-            print(f"Agent {agent_state.agent_id} requested tool: {tool_name}")
-            receipt = gateway.process_request(req, agent_state)
-            state["receipt"] = receipt
-            obs = receipt.data if receipt else {"status": "executed"}
-            state["observation"] = obs
-            
-            # If scratch extraction or file was created, save path in payload for downstream agents
-            if isinstance(obs, dict) and "saved_to" in obs:
-                state.setdefault("payload", {})["research_extraction_file"] = obs["saved_to"]
-            elif isinstance(obs, dict) and "results" in obs:
-                state.setdefault("payload", {})["search_results"] = obs["results"]
-                
-        except Exception as e:
-            state["error"] = str(e)
-            state["observation"] = f"Execution failed: {e}"
-            
-        history = state.get("history", [])
-        history.append({
-            "action": f"{tool_name}({arguments})",
-            "observation": str(state.get("observation", ""))[:400]
-        })
-        state["history"] = history
+        state["tool_request"] = req
+        state["plan"] = decision.tool_name
         return state
 
-    def should_continue(state: dict):
-        if state.get("is_success") or state.get("plan") == "FINISH":
-            return END
-        if state.get("error") and "LOOP_BUDGET_EXHAUSTED" in str(state.get("error", "")):
-            return END
-        return "plan"
-
     workflow.add_node("plan", plan_node)
-    workflow.add_node("act", act_node)
     workflow.set_entry_point("plan")
-    workflow.add_edge("plan", "act")
-    workflow.add_conditional_edges("act", should_continue, {"plan": "plan", END: END})
+    workflow.add_edge("plan", END)
 
     return workflow.compile()

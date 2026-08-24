@@ -48,6 +48,14 @@ client_secret*.json
 *.pfx
 *.p12
 
+# User Workspace Projects & Task Ledgers (Local Only)
+projects/
+tasks/
+memory/*.json
+memory/*.sqlite*
+.nava/skills/
+.nava/checkpoints/
+
 # Agent-Generated Ephemeral Outputs, Scratch & Documents
 scratch/
 **/scratch/
@@ -61,9 +69,6 @@ nava_audit.jsonl
 *.pdf
 !NAVA_Personal_Agent_OS_Blueprint.pdf
 !docs/*.pdf
-
-# NAVA Ephemeral Checkpoints
-.nava/checkpoints/
 
 # Testing, Lints & Coverage
 .pytest_cache/
