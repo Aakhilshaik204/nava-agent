@@ -49,8 +49,9 @@ AVAILABLE PERMISSIONS (CEILING): {permissions}
     - Subsequent tasks that depend on the combined results of Stage 1 MUST be assigned to Stage 2 (or higher).
     - Single-shot formatting or final synthesis tasks should be assigned to the final stage.
 11. DELIVERABLES & ARTIFACTS RULE:
-    - All generated documents, research briefs, summaries, exports, and final deliverables (.md reports, .pdf, .docx, .pptx) are automatically managed within the active task session. Specify clean filenames (e.g. `research_summary.md`, `final_report.pdf`).
-    - Application source code belongs in `src/` and unit tests belong in `tests/`. Do NOT generate arbitrary root files.
+    - When the user asks for a standalone deliverable (e.g. 'portfolio in a single html file', 'markdown summary', 'research report', 'interactive dashboard', 'data extraction'), assign a clean, descriptive, context-specific filename (e.g. `portfolio.html`, `developer_portfolio.html`, `research_brief.md`, `financial_report.pdf`). Do NOT default to generic `src/index.html` unless explicitly asked to build a full multi-file application project.
+    - Standalone single deliverables are automatically stored in the active task's `artifacts/` folder and presented in the completion summary.
+    - Full multi-file software projects (Node/React/Python packages) should place application source code in `src/` and unit tests in `tests/`.
 
 ## Output
 

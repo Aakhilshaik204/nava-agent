@@ -254,10 +254,13 @@ class LocalToolExecutor(Executor):
         # 2. Scratch notes or temporary files
         elif clean_name.startswith("scratch/"):
             safe_path = self._resolve_artifact_path(clean_name)
-        # 3. Standalone reports / documents (.pdf, .docx, .pptx)
-        elif clean_name.endswith((".pdf", ".docx", ".pptx")):
+        # 3. Explicit project codebase folders (src/, tests/, api/, app/, components/)
+        elif clean_name.startswith(("src/", "tests/", "api/", "app/", "components/", "backend/", "frontend/")):
+            safe_path = self._resolve_project_code_path(clean_name)
+        # 4. Standalone file deliverables (.pdf, .docx, .pptx, .html, .md, .csv) requested at root level
+        elif clean_name.endswith((".pdf", ".docx", ".pptx", ".html", ".md", ".csv", ".json", ".txt")) and "/" not in clean_name:
             safe_path = self._resolve_artifact_path(clean_name)
-        # 4. Codebase files -> placed directly inside projects/<active_project>/
+        # 5. Default project codebase files
         else:
             safe_path = self._resolve_project_code_path(clean_name)
             

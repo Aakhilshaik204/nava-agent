@@ -1,1 +1,27 @@
-[]
+[
+  {
+    "memory_id": "epi-tsk_20260824_083822_create_a_top_notch_portf",
+    "tier": "EPISODIC",
+    "content": {
+      "task_id": "tsk_20260824_083822_create_a_top_notch_portf",
+      "status": "COMPLETED",
+      "outcome": "Completed 2 sub-tasks successfully.",
+      "artifacts": [],
+      "timestamp": "2026-08-24T08:41:00Z"
+    },
+    "source": "task_manager",
+    "confidence": 1.0,
+    "importance": 0.8,
+    "expiration": null,
+    "sensitivity": "low",
+    "user_editable": true,
+    "created_at": "2026-08-24T08:41:00.858524",
+    "updated_at": "2026-08-24T08:41:00.858524",
+    "provenance": [
+      "task:tsk_20260824_083822_create_a_top_notch_portf"
+    ],
+    "trust_level": "VERIFIED",
+    "approval_state": null,
+    "conflict_state": "NONE"
+  }
+]

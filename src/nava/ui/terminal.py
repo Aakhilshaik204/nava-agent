@@ -1,72 +1,108 @@
-import sys
+import os
+import re
 import shutil
-from typing import List, Dict, Any, Optional
+import time
+from typing import List, Dict, Any, Optional, Tuple
 
 class TerminalTheme:
-    """ANSI 256 / true-color styling and role badge generator."""
+    """
+    State-of-the-Art ANSI 256 / True-Color Theme System for NAVA OS.
+    Styled with modern Claude Code & Cursor terminal aesthetics.
+    """
     RESET = "\033[0m"
     BOLD = "\033[1m"
     DIM = "\033[2m"
     ITALIC = "\033[3m"
     UNDERLINE = "\033[4m"
     
-    # Core Colors
-    CYAN = "\033[36m"
-    BRIGHT_CYAN = "\033[96m"
-    BLUE = "\033[34m"
-    BRIGHT_BLUE = "\033[94m"
-    GREEN = "\033[32m"
-    BRIGHT_GREEN = "\033[92m"
-    YELLOW = "\033[33m"
-    BRIGHT_YELLOW = "\033[93m"
-    RED = "\033[31m"
-    BRIGHT_RED = "\033[91m"
-    MAGENTA = "\033[35m"
-    BRIGHT_MAGENTA = "\033[95m"
-    GRAY = "\033[90m"
-    WHITE = "\033[97m"
+    # Premium 256-Color Palette
+    CORAL = "\033[38;5;209m"         # Claude Coral Accent
+    BRIGHT_CORAL = "\033[38;5;215m"
+    CYAN = "\033[38;5;45m"           # Primary Tech Cyan
+    BRIGHT_CYAN = "\033[38;5;51m"
+    EMERALD = "\033[38;5;48m"        # Success / Safe Green
+    BRIGHT_EMERALD = "\033[38;5;84m"
+    AMBER = "\033[38;5;214m"          # Warning / Running Yellow
+    BRIGHT_AMBER = "\033[38;5;220m"
+    CRIMSON = "\033[38;5;196m"        # Blocked / Risk Red
+    VIOLET = "\033[38;5;141m"         # AI / Reviewer Purple
+    SLATE = "\033[38;5;244m"          # Subtle Borders & Dim
+    LIGHT_GRAY = "\033[38;5;250m"
+    WHITE = "\033[38;5;255m"
+    BG_DARK = "\033[48;5;235m"
+
+    # Compatibility Color Aliases
+    GREEN = EMERALD
+    BRIGHT_GREEN = BRIGHT_EMERALD
+    RED = CRIMSON
+    BRIGHT_RED = CRIMSON
+    YELLOW = AMBER
+    BRIGHT_YELLOW = BRIGHT_AMBER
+    BLUE = CYAN
+    BRIGHT_BLUE = BRIGHT_CYAN
+    MAGENTA = VIOLET
+    BRIGHT_MAGENTA = VIOLET
 
     # Agent Role Badges
     ROLE_COLORS = {
-        "CodingAgent": BRIGHT_CYAN,
-        "ResearchAgent": BRIGHT_YELLOW,
-        "BrowserAgent": BRIGHT_BLUE,
-        "ComputerAgent": BRIGHT_MAGENTA,
-        "TerminalAgent": BRIGHT_GREEN,
-        "ReviewerAgent": MAGENTA,
-        "DocumentAgent": CYAN,
-        "DataAgent": YELLOW,
-        "VerifierAgent": GREEN,
-        "FileAgent": BLUE,
-        "Orchestrator": WHITE,
-        "ActionGateway": RED,
-        "TaskManager": BRIGHT_GREEN
+        "CodingAgent": CYAN,
+        "ResearchAgent": AMBER,
+        "BrowserAgent": BRIGHT_CYAN,
+        "ComputerAgent": VIOLET,
+        "TerminalAgent": EMERALD,
+        "ReviewerAgent": VIOLET,
+        "DocumentAgent": CORAL,
+        "DataAgent": BRIGHT_AMBER,
+        "VerifierAgent": BRIGHT_EMERALD,
+        "FileAgent": CYAN,
+        "Orchestrator": BRIGHT_CORAL,
+        "ActionGateway": CRIMSON,
+        "TaskManager": EMERALD,
+        "AITwin": VIOLET
+    }
+
+    ROLE_ICONS = {
+        "CodingAgent": "💻",
+        "ResearchAgent": "🔍",
+        "BrowserAgent": "🌐",
+        "ComputerAgent": "🖥️",
+        "TerminalAgent": "⚡",
+        "ReviewerAgent": "🛡️",
+        "DocumentAgent": "📄",
+        "DataAgent": "📊",
+        "VerifierAgent": "✅",
+        "FileAgent": "📁",
+        "Orchestrator": "🧠",
+        "ActionGateway": "🚪",
+        "TaskManager": "📋",
+        "AITwin": "👤"
     }
 
     @classmethod
     def badge(cls, role: str) -> str:
         color = cls.ROLE_COLORS.get(role, cls.CYAN)
-        return f"{color}{cls.BOLD}[{role}]{cls.RESET}"
+        icon = cls.ROLE_ICONS.get(role, "🤖")
+        return f"{color}{cls.BOLD}[{icon} {role}]{cls.RESET}"
 
     @classmethod
     def status_badge(cls, status: str) -> str:
-        status_upper = status.upper()
-        if status_upper in ["RUNNING", "SEARCHING", "COMPILING", "EXTRACTING", "OBSERVING"]:
-            return f"{cls.BRIGHT_YELLOW}{cls.BOLD}🔄 [{status_upper}]{cls.RESET}"
-        elif status_upper in ["COMPLETED", "SUCCESS", "APPROVED", "OK", "VERIFIED"]:
-            return f"{cls.BRIGHT_GREEN}{cls.BOLD}✅ [{status_upper}]{cls.RESET}"
-        elif status_upper in ["FAILED", "ERROR", "BLOCKED", "EXHAUSTED", "KILLED"]:
-            return f"{cls.BRIGHT_RED}{cls.BOLD}❌ [{status_upper}]{cls.RESET}"
-        elif status_upper in ["WAITING", "APPROVAL", "PAUSED", "WARNING"]:
-            return f"{cls.YELLOW}{cls.BOLD}⏳ [{status_upper}]{cls.RESET}"
-        return f"{cls.CYAN}[{status}]{cls.RESET}"
+        s = status.upper()
+        if s in ["RUNNING", "SEARCHING", "COMPILING", "EXTRACTING", "OBSERVING"]:
+            return f"{cls.AMBER}{cls.BOLD}● {s}{cls.RESET}"
+        elif s in ["COMPLETED", "SUCCESS", "APPROVED", "OK", "VERIFIED"]:
+            return f"{cls.EMERALD}{cls.BOLD}✔ {s}{cls.RESET}"
+        elif s in ["FAILED", "ERROR", "BLOCKED", "EXHAUSTED", "KILLED"]:
+            return f"{cls.CRIMSON}{cls.BOLD}✖ {s}{cls.RESET}"
+        elif s in ["WAITING", "APPROVAL", "PAUSED", "WARNING"]:
+            return f"{cls.AMBER}{cls.BOLD}⏳ {s}{cls.RESET}"
+        return f"{cls.SLATE}[{status}]{cls.RESET}"
 
 
 class BoxRenderer:
-    """Renders modern Unicode framed boxes, tables, and headers."""
+    """Renders modern Claude Code-style Unicode framed cards, banners, and diffs."""
     
     @staticmethod
-    def get_width(max_w: int = 86) -> int:
+    def get_width(max_w: int = 88) -> int:
         try:
             terminal_w = shutil.get_terminal_size().columns
             return min(max(terminal_w - 4, 60), max_w)
@@ -74,20 +110,26 @@ class BoxRenderer:
             return max_w
 
     @classmethod
-    def render_panel(cls, title: str, content_lines: List[str], color: str = TerminalTheme.CYAN, width: Optional[int] = None) -> str:
+    def render_panel(
+        cls,
+        title: str,
+        content_lines: List[str],
+        color: str = TerminalTheme.CYAN,
+        icon: str = "⚡",
+        width: Optional[int] = None
+    ) -> str:
         w = width or cls.get_width()
         inner_w = w - 4
         
-        # Clean title
-        styled_title = f" {title} "
-        title_len = len(title) + 2
+        # Styled title with icon
+        styled_title = f" {icon} {title} "
+        title_len = len(cls._strip_ansi(styled_title))
         top_bar_len = max(inner_w - title_len - 2, 2)
         
         lines = []
         lines.append(f"{color}╭─{TerminalTheme.BOLD}{styled_title}{TerminalTheme.RESET}{color}{'─' * top_bar_len}╮{TerminalTheme.RESET}")
         
         for line in content_lines:
-            # Simple line wrap or pad
             clean_len = len(cls._strip_ansi(line))
             pad = max(inner_w - clean_len, 0)
             lines.append(f"{color}│{TerminalTheme.RESET} {line}{' ' * pad} {color}│{TerminalTheme.RESET}")
@@ -96,9 +138,58 @@ class BoxRenderer:
         return "\n".join(lines)
 
     @classmethod
+    def render_thinking(cls, agent_label: str, thought_text: str) -> str:
+        """Renders an elegant collapsible-style reasoning card."""
+        lines = [
+            f"{TerminalTheme.DIM}{thought_text.strip()}{TerminalTheme.RESET}"
+        ]
+        return cls.render_panel(
+            title=f"Thinking Process: {agent_label}",
+            content_lines=lines,
+            color=TerminalTheme.SLATE,
+            icon="🧠"
+        )
+
+    @classmethod
+    def render_tool_execution(cls, role: str, tool_name: str, args_summary: str, result_summary: str, is_success: bool = True) -> str:
+        """Renders an action gateway execution receipt pill."""
+        badge = TerminalTheme.badge(role)
+        status_icon = f"{TerminalTheme.EMERALD}✔ SUCCESS{TerminalTheme.RESET}" if is_success else f"{TerminalTheme.CRIMSON}✖ FAILED{TerminalTheme.RESET}"
+        
+        lines = [
+            f"{TerminalTheme.BOLD}Action:{TerminalTheme.RESET} {TerminalTheme.BRIGHT_CYAN}{tool_name}{TerminalTheme.RESET}({TerminalTheme.LIGHT_GRAY}{args_summary}{TerminalTheme.RESET})",
+            f"{TerminalTheme.BOLD}Receipt:{TerminalTheme.RESET} {status_icon} • {TerminalTheme.DIM}{result_summary}{TerminalTheme.RESET}"
+        ]
+        return cls.render_panel(f"TOOL EXECUTION • {role}", lines, color=TerminalTheme.CYAN, icon="⚡")
+
+    @classmethod
+    def render_completion_card(
+        cls,
+        goal: str,
+        task_id: str,
+        duration_sec: float,
+        artifacts: List[str],
+        total_subtasks: int
+    ) -> str:
+        """Renders a polished Claude Code-style task completion card."""
+        dur_str = f"{duration_sec:.1f}s"
+        lines = [
+            f"{TerminalTheme.BOLD}Goal:{TerminalTheme.RESET} {goal}",
+            f"{TerminalTheme.BOLD}Status:{TerminalTheme.RESET} {TerminalTheme.EMERALD}{TerminalTheme.BOLD}● COMPLETED{TerminalTheme.RESET}  │  {TerminalTheme.BOLD}Time:{TerminalTheme.RESET} {dur_str}  │  {TerminalTheme.BOLD}Agents Dispatched:{TerminalTheme.RESET} {total_subtasks}",
+            f"{TerminalTheme.BOLD}Audit Ledger:{TerminalTheme.RESET} {TerminalTheme.DIM}tasks/{task_id}/task_memory.md{TerminalTheme.RESET}"
+        ]
+        if artifacts:
+            lines.append(f"")
+            lines.append(f"{TerminalTheme.BOLD}Generated Deliverables:{TerminalTheme.RESET}")
+            for art in artifacts:
+                lines.append(f"  {TerminalTheme.EMERALD}📄 {art}{TerminalTheme.RESET}")
+                
+        return cls.render_panel("TASK COMPLETED SUCCESSFULLY", lines, color=TerminalTheme.EMERALD, icon="🎉")
+
+    @classmethod
     def render_table(cls, headers: List[str], rows: List[List[str]], color: str = TerminalTheme.CYAN) -> str:
         if not rows:
-            return f"{TerminalTheme.GRAY}(No records){TerminalTheme.RESET}"
+            return f"{TerminalTheme.SLATE}(No records){TerminalTheme.RESET}"
             
         col_widths = [len(h) for h in headers]
         for row in rows:
@@ -107,27 +198,23 @@ class BoxRenderer:
                     clean_len = len(cls._strip_ansi(str(cell)))
                     col_widths[i] = max(col_widths[i], clean_len)
 
-        # Build table
         lines = []
-        # Header row
         header_cells = [f"{TerminalTheme.BOLD}{h.ljust(col_widths[i])}{TerminalTheme.RESET}" for i, h in enumerate(headers)]
-        lines.append(" │ ".join(header_cells))
-        lines.append("─┼─".join(['─' * w for w in col_widths]))
+        lines.append(f"{color} " + f" {TerminalTheme.SLATE}│{color} ".join(header_cells) + f"{TerminalTheme.RESET}")
+        lines.append(f"{color}─" + f"─{TerminalTheme.SLATE}┼{color}─".join(['─' * w for w in col_widths]) + f"─{TerminalTheme.RESET}")
         
-        # Data rows
         for row in rows:
             row_cells = []
             for i, cell in enumerate(row):
                 clean_len = len(cls._strip_ansi(str(cell)))
                 pad = max(col_widths[i] - clean_len, 0)
                 row_cells.append(f"{cell}{' ' * pad}")
-            lines.append(" │ ".join(row_cells))
+            lines.append("  " + f" {TerminalTheme.SLATE}│{TerminalTheme.RESET} ".join(row_cells))
             
         return "\n".join(lines)
 
     @staticmethod
     def _strip_ansi(text: str) -> str:
-        import re
         ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
         return ansi_escape.sub('', text)
 
@@ -137,10 +224,10 @@ class AgentTreeVisualizer:
     
     @classmethod
     def render_stage_header(cls, stage_num: int, total_stages: int, is_parallel: bool, worker_count: int) -> str:
-        mode_tag = f"{TerminalTheme.BRIGHT_CYAN}PARALLEL ({worker_count} Workers){TerminalTheme.RESET}" if is_parallel else f"{TerminalTheme.WHITE}SEQUENTIAL{TerminalTheme.RESET}"
+        mode_tag = f"{TerminalTheme.EMERALD}⚡ PARALLEL ({worker_count} Workers){TerminalTheme.RESET}" if is_parallel else f"{TerminalTheme.CYAN}SEQUENTIAL{TerminalTheme.RESET}"
         return (
-            f"\n{TerminalTheme.BOLD}╭─ Stage {stage_num}/{total_stages} Execution [{mode_tag}]{TerminalTheme.RESET}\n"
-            f"{TerminalTheme.DIM}│{TerminalTheme.RESET}"
+            f"\n{TerminalTheme.BOLD}{TerminalTheme.CYAN}╭─ Stage {stage_num}/{total_stages} Execution [{mode_tag}{TerminalTheme.CYAN}]{TerminalTheme.RESET}\n"
+            f"{TerminalTheme.SLATE}│{TerminalTheme.RESET}"
         )
 
     @classmethod
@@ -148,8 +235,11 @@ class AgentTreeVisualizer:
         branch = "└─" if is_last else "├─"
         badge = TerminalTheme.badge(role)
         status_str = TerminalTheme.status_badge(status)
-        return f"{TerminalTheme.DIM}│  {branch}{TerminalTheme.RESET} 🤖 {TerminalTheme.BOLD}Worker {worker_idx}:{TerminalTheme.RESET} {badge} ({label}) → {status_str}\n{TerminalTheme.DIM}│     Goal: {goal}{TerminalTheme.RESET}"
+        return (
+            f"{TerminalTheme.SLATE}│  {branch}{TerminalTheme.RESET} 🤖 {TerminalTheme.BOLD}Worker {worker_idx}:{TerminalTheme.RESET} {badge} {TerminalTheme.LIGHT_GRAY}({label}){TerminalTheme.RESET} → {status_str}\n"
+            f"{TerminalTheme.SLATE}│     {TerminalTheme.DIM}Goal: {goal}{TerminalTheme.RESET}"
+        )
 
     @classmethod
     def render_stage_footer(cls) -> str:
-        return f"{TerminalTheme.DIM}╰──────────────────────────────────────────────────────────────────────────{TerminalTheme.RESET}\n"
+        return f"{TerminalTheme.SLATE}╰──────────────────────────────────────────────────────────────────────────{TerminalTheme.RESET}\n"

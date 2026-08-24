@@ -1,3 +1,35 @@
 include README.md
 include nava.yaml
 recursive-include src/nava/prompts *.txt
+recursive-include src/nava *.py
+
+# Exclude local user workspaces, tasks, memory, and audit ledgers
+prune tasks
+prune projects
+prune memory
+prune scratch
+prune .nava/checkpoints
+
+# Exclude secret keys, credentials, and audit logs
+exclude .env*
+exclude .vault_key
+exclude vault.json
+exclude credentials.json
+exclude token*.json
+exclude nava_audit.jsonl
+exclude memory.md
+exclude fix.md
+exclude nava_arch.md
+exclude Modelfile
+
+# Exclude root test scripts and documents from the build
+exclude *.pdf
+exclude *.docx
+exclude *.pptx
+exclude *.xlsx
+exclude *.html
+exclude calculator.py
+exclude merge_sort.py
+exclude cleanup_old_agents.py
+exclude generate_invoice.py
+exclude get_top_story.py

@@ -36,17 +36,17 @@ class CoworkTUI:
         total_skills = len(all_skills)
         
         banner_lines = [
-            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CYAN}NAVA AGENTIC OS{TerminalTheme.RESET} {TerminalTheme.DIM}v0.2.0 • Personal Autonomous System{TerminalTheme.RESET}",
-            f"{TerminalTheme.CYAN}Project:{TerminalTheme.RESET} {TerminalTheme.BOLD}{proj_name}{TerminalTheme.RESET}  │  {TerminalTheme.CYAN}Tasks:{TerminalTheme.RESET} {task_count}  │  {TerminalTheme.CYAN}Skills:{TerminalTheme.RESET} {total_skills}  │  {TerminalTheme.CYAN}Gateway:{TerminalTheme.RESET} {TerminalTheme.BRIGHT_GREEN}17-Step Enforced{TerminalTheme.RESET}",
-            f"{TerminalTheme.DIM}Type your goal, or use slash commands like {TerminalTheme.CYAN}/twin{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/budget{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/skill promote{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/help{TerminalTheme.RESET}"
+            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}NAVA AGENTIC OS{TerminalTheme.RESET} {TerminalTheme.SLATE}v0.2.0 • Personal Autonomous System{TerminalTheme.RESET}",
+            f"{TerminalTheme.CYAN}Project:{TerminalTheme.RESET} {TerminalTheme.BOLD}{proj_name}{TerminalTheme.RESET}  │  {TerminalTheme.CYAN}Tasks:{TerminalTheme.RESET} {task_count}  │  {TerminalTheme.CYAN}Skills:{TerminalTheme.RESET} {total_skills}  │  {TerminalTheme.CYAN}Gateway:{TerminalTheme.RESET} {TerminalTheme.EMERALD}17-Step Enforced{TerminalTheme.RESET}",
+            f"{TerminalTheme.DIM}Type your objective, or slash commands like {TerminalTheme.CYAN}/twin{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/budget{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/skills{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/help{TerminalTheme.RESET}"
         ]
-        print("\n" + BoxRenderer.render_panel("⚡ NAVA COWORK STUDIO", banner_lines, color=TerminalTheme.CYAN))
+        print("\n" + BoxRenderer.render_panel("NAVA COWORK STUDIO", banner_lines, color=TerminalTheme.CORAL, icon="⚡"))
 
         # Welcome Back message if resuming workspace
         if hasattr(self.orchestrator, "workspace"):
             welcome = self.orchestrator.workspace.get_welcome_back_message()
             if welcome:
-                print(f"\n{TerminalTheme.BRIGHT_GREEN}{welcome}{TerminalTheme.RESET}")
+                print(f"\n{TerminalTheme.EMERALD}{welcome}{TerminalTheme.RESET}")
 
     def run(self):
         """Main interactive command loop."""
@@ -66,14 +66,15 @@ class CoworkTUI:
         while True:
             try:
                 proj = self.orchestrator.workspace.project_name if hasattr(self.orchestrator, "workspace") else "Nava"
-                prompt_str = f"\n{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CYAN}[Nava @ {proj}]{TerminalTheme.RESET} > "
+                header_line = f"\n{TerminalTheme.SLATE}╭─{TerminalTheme.RESET} {TerminalTheme.BRIGHT_CORAL}⚡ Nava{TerminalTheme.RESET} {TerminalTheme.SLATE}@{TerminalTheme.RESET} {TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CYAN}{proj}{TerminalTheme.RESET} {TerminalTheme.SLATE}[Active Workspace]{TerminalTheme.RESET}"
+                prompt_str = f"{header_line}\n{TerminalTheme.SLATE}╰─{TerminalTheme.RESET}{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}❯{TerminalTheme.RESET} "
                 user_input = input(prompt_str).strip()
 
                 if not user_input:
                     continue
 
                 if user_input.lower() in ["exit", "quit", "/exit", "/quit"]:
-                    print(f"\n{TerminalTheme.CYAN}Shutting down Nava OS Shell. Goodbye! 👋{TerminalTheme.RESET}\n")
+                    print(f"\n{TerminalTheme.CORAL}Shutting down Nava OS Shell. Goodbye! 👋{TerminalTheme.RESET}\n")
                     break
 
                 # Dispatch command
@@ -343,30 +344,32 @@ class CoworkTUI:
     def _handle_help_menu(self):
         """Displays categorized slash commands palette."""
         help_lines = [
-            f"{TerminalTheme.BOLD}⚡ Core Commands:{TerminalTheme.RESET}",
-            f"  {TerminalTheme.CYAN}new{TerminalTheme.RESET}, {TerminalTheme.CYAN}+ new{TerminalTheme.RESET}           : Start a fresh task session with clean working memory",
-            f"  {TerminalTheme.CYAN}/twin{TerminalTheme.RESET}                 : View and edit AI Twin persona and verified facts",
-            f"  {TerminalTheme.CYAN}/budget{TerminalTheme.RESET}               : Inspect remaining tokens, steps, and resource budgets",
-            f"  {TerminalTheme.CYAN}/kill{TerminalTheme.RESET}, {TerminalTheme.CYAN}/stop{TerminalTheme.RESET}           : Instant out-of-band emergency stop for all running agents",
+            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}⚡ Core Autonomous Commands:{TerminalTheme.RESET}",
+            f"  {TerminalTheme.BRIGHT_CYAN}new{TerminalTheme.RESET}, {TerminalTheme.BRIGHT_CYAN}+ new{TerminalTheme.RESET}           : Start a fresh task session with clean working memory",
+            f"  {TerminalTheme.BRIGHT_CYAN}/twin{TerminalTheme.RESET}                 : View and edit Tier 4 AI Twin persona and verified facts",
+            f"  {TerminalTheme.BRIGHT_CYAN}/budget{TerminalTheme.RESET}               : Inspect active token limits, step budgets, and loop safety",
+            f"  {TerminalTheme.BRIGHT_CYAN}/kill{TerminalTheme.RESET}, {TerminalTheme.BRIGHT_CYAN}/stop{TerminalTheme.RESET}           : Instant out-of-band emergency stop for all running agents",
             f"",
-            f"{TerminalTheme.BOLD}📁 Project & Codebase Management:{TerminalTheme.RESET}",
-            f"  {TerminalTheme.CYAN}projects{TerminalTheme.RESET}              : List all isolated project codebases",
-            f"  {TerminalTheme.CYAN}create project <name>{TerminalTheme.RESET} : Create a brand new project and switch to it",
-            f"  {TerminalTheme.CYAN}switch project <name>{TerminalTheme.RESET} : Switch active project context",
-            f"  {TerminalTheme.CYAN}project{TerminalTheme.RESET}               : View current project architecture and memory",
+            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}📁 Project & Codebase Management:{TerminalTheme.RESET}",
+            f"  {TerminalTheme.BRIGHT_CYAN}projects{TerminalTheme.RESET}              : List all isolated project codebases",
+            f"  {TerminalTheme.BRIGHT_CYAN}create project <name>{TerminalTheme.RESET} : Create a brand new project and switch to it",
+            f"  {TerminalTheme.BRIGHT_CYAN}switch project <name>{TerminalTheme.RESET} : Switch active project context",
+            f"  {TerminalTheme.BRIGHT_CYAN}project{TerminalTheme.RESET}               : View current project architecture and memory",
             f"",
-            f"{TerminalTheme.BOLD}⚡ Skills & MCP Plugins:{TerminalTheme.RESET}",
-            f"  {TerminalTheme.CYAN}skills{TerminalTheme.RESET}                : List all registered and approved skills",
-            f"  {TerminalTheme.CYAN}/skill promote <name>{TerminalTheme.RESET} : Promote completed task into a permanent skill",
-            f"  {TerminalTheme.CYAN}/<skill_name> <query>{TerminalTheme.RESET} : Execute an explicit registered skill directly",
-            f"  {TerminalTheme.CYAN}/mcp approve <s v>{TerminalTheme.RESET}     : Inspect and approve new MCP tool schemas",
+            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}⚡ Skills & MCP Plugins:{TerminalTheme.RESET}",
+            f"  {TerminalTheme.BRIGHT_CYAN}skills{TerminalTheme.RESET}                : List all registered and approved skills",
+            f"  {TerminalTheme.BRIGHT_CYAN}/skill promote <name>{TerminalTheme.RESET} : Promote completed task into a permanent skill",
+            f"  {TerminalTheme.BRIGHT_CYAN}/skill approve all{TerminalTheme.RESET}     : Hash-lock and approve all registered skills",
+            f"  {TerminalTheme.BRIGHT_CYAN}/<skill_name> <query>{TerminalTheme.RESET} : Execute an explicit registered skill directly",
+            f"  {TerminalTheme.BRIGHT_CYAN}/mcp{TerminalTheme.RESET}                  : Inspect connected MCP protocol tools",
+            f"  {TerminalTheme.BRIGHT_CYAN}/mcp approve <s v>{TerminalTheme.RESET}     : Hash-lock and approve new MCP tool schemas",
             f"",
-            f"{TerminalTheme.BOLD}📜 Task Auditing & Exit:{TerminalTheme.RESET}",
-            f"  {TerminalTheme.CYAN}tasks{TerminalTheme.RESET}                 : List past task runs and status",
-            f"  {TerminalTheme.CYAN}task <id>{TerminalTheme.RESET}              : View full task_memory.md for a specific task",
-            f"  {TerminalTheme.CYAN}exit{TerminalTheme.RESET}, {TerminalTheme.CYAN}quit{TerminalTheme.RESET}              : Gracefully quit Nava OS Shell"
+            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}📜 Task Auditing & Exit:{TerminalTheme.RESET}",
+            f"  {TerminalTheme.BRIGHT_CYAN}tasks{TerminalTheme.RESET}                 : List past task runs and status",
+            f"  {TerminalTheme.BRIGHT_CYAN}task <id>{TerminalTheme.RESET}              : View full task_memory.md for a specific task",
+            f"  {TerminalTheme.BRIGHT_CYAN}exit{TerminalTheme.RESET}, {TerminalTheme.BRIGHT_CYAN}quit{TerminalTheme.RESET}              : Gracefully quit Nava OS Shell"
         ]
-        print("\n" + BoxRenderer.render_panel("📖 NAVA OS COMMAND PALETTE", help_lines, color=TerminalTheme.CYAN))
+        print("\n" + BoxRenderer.render_panel("NAVA OS COMMAND PALETTE", help_lines, color=TerminalTheme.CORAL, icon="📖"))
 
     def _execute_goal_with_tree(self, goal: str):
         """Executes goal through the orchestrator."""

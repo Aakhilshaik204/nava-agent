@@ -563,7 +563,8 @@ class Orchestrator:
             if resume_ctx:
                 project_context = f"\n{resume_ctx}\n"
 
-        print("Planning...")
+        import time
+        start_time = time.time()
         
         # Inject skill context & project context into the objective for the planner
         enhanced_objective = f"{goal}\n{explicit_skill_context}\n{project_context}".strip()
@@ -588,7 +589,7 @@ class Orchestrator:
             mode = "PARALLEL" if getattr(s, 'is_parallel', True) else "SEQUENTIAL"
             badge = TerminalTheme.badge(s.requested_role)
             plan_rows.append(f"Stage {stg} [{mode}] → {badge} ({s.display_label or s.requested_role}): {s.goal}")
-        print("\n" + BoxRenderer.render_panel("📋 ORCHESTRATOR EXECUTION PLAN", plan_rows, color=TerminalTheme.CYAN))
+        print("\n" + BoxRenderer.render_panel("ORCHESTRATOR EXECUTION PLAN", plan_rows, color=TerminalTheme.CYAN, icon="📋"))
 
         # 2. Execute
         from nava.memory.store import EpisodicMemoryStore
@@ -643,26 +644,43 @@ class Orchestrator:
                             try:
                                 future.result()
                             except Exception as e:
-                                print(f"{TerminalTheme.BRIGHT_RED}[!] Error in parallel worker for Stage {stg} ({spec.requested_role}): {e}{TerminalTheme.RESET}")
+                                print(f"{TerminalTheme.CRIMSON}[!] Error in parallel worker for Stage {stg} ({spec.requested_role}): {e}{TerminalTheme.RESET}")
                 else:
                     for idx, spec in stage_items:
                         if self._emergency_stop_event.is_set():
                             break
                         self._execute_single_agent(spec, idx, len(agent_specs), global_payload, payload_lock, active_task_id)
 
+            duration_sec = time.time() - start_time
             if not self._emergency_stop_event.is_set():
                 # Complete task in TaskManager
                 self.task_manager.complete_task(active_task_id, outcome_summary=f"Completed {len(agent_specs)} sub-tasks successfully.", is_success=True)
-                print(f"\n{TerminalTheme.BRIGHT_GREEN}✅ Task completed! Memory saved to: tasks/{active_task_id}/task_memory.md{TerminalTheme.RESET}")
+                
+                # Collect deliverables
+                art_dir = self.task_manager.get_task_artifacts_dir(active_task_id)
+                artifacts = []
+                if os.path.exists(art_dir):
+                    for root, _, files in os.walk(art_dir):
+                        for f in files:
+                            rel_p = os.path.relpath(os.path.join(root, f), os.getcwd())
+                            artifacts.append(rel_p)
+                            
+                print("\n" + BoxRenderer.render_completion_card(
+                    goal=goal,
+                    task_id=active_task_id,
+                    duration_sec=duration_sec,
+                    artifacts=artifacts,
+                    total_subtasks=len(agent_specs)
+                ))
             else:
                 self.task_manager.complete_task(active_task_id, outcome_summary="Task halted by emergency stop.", is_success=False)
-                print(f"\n{TerminalTheme.BRIGHT_RED}🛑 Task halted by Emergency Stop.{TerminalTheme.RESET}")
+                print(f"\n{TerminalTheme.CRIMSON}🛑 Task halted by Emergency Stop.{TerminalTheme.RESET}")
 
         except KeyboardInterrupt:
-            print(f"\n\n{TerminalTheme.BRIGHT_RED}{TerminalTheme.BOLD}🚨 KEYBOARD INTERRUPT (Ctrl+C) DETECTED! TRIGGERING EMERGENCY STOP...{TerminalTheme.RESET}")
+            print(f"\n\n{TerminalTheme.CRIMSON}{TerminalTheme.BOLD}🚨 KEYBOARD INTERRUPT (Ctrl+C) DETECTED! TRIGGERING EMERGENCY STOP...{TerminalTheme.RESET}")
             self.emergency_stop()
             self.task_manager.complete_task(active_task_id, outcome_summary="Emergency stop triggered via Ctrl+C.", is_success=False)
-            print(f"{TerminalTheme.BRIGHT_RED}🛑 In-flight agents aborted. Scoped credentials revoked. Concurrency locks released.{TerminalTheme.RESET}")
+            print(f"{TerminalTheme.CRIMSON}🛑 In-flight agents aborted. Scoped credentials revoked. Concurrency locks released.{TerminalTheme.RESET}")
         finally:
             self._emergency_stop_event.clear()
 
@@ -670,7 +688,7 @@ class Orchestrator:
         for f in glob.glob("scratch/*_extraction.md"):
             try:
                 os.remove(f)
-                print(f"{TerminalTheme.DIM}[Teardown] Cleaned up ephemeral extraction file: {f}{TerminalTheme.RESET}")
+                print(f"{TerminalTheme.SLATE}[Teardown] Cleaned up ephemeral extraction file: {f}{TerminalTheme.RESET}")
             except Exception:
                 pass
         
