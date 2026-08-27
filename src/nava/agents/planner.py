@@ -92,24 +92,82 @@ class GoalPlanner:
         specs = []
         for sg in plan.sub_goals:
             req_tools = list(sg.required_tools or [])
+            def _is_tool_active(tool_name: str) -> bool:
+                if self.registry and not self.registry.has_tool(tool_name):
+                    return False
+                if self.ceiling_tools and tool_name not in self.ceiling_tools and "*" not in self.ceiling_tools:
+                    return False
+                return True
+
             # Ensure baseline tools for specialized roles (guards against small LLM tool omissions)
             if sg.role == "CodingAgent":
-                for bt in ["file.write", "file.read", "code.replace_content", "code.search", "test.run"]:
-                    if bt not in req_tools and (not self.ceiling_tools or bt in self.ceiling_tools or "*" in self.ceiling_tools):
+                for bt in [
+                    "file.write", "file.read", "code.replace_content", "code.search", "test.run",
+                    "context7.get_symbol_graph", "context7.slice_context",
+                    "superpowers.ast_search", "superpowers.ast_replace", "superpowers.compiler_autofix",
+                    "git.status", "git.diff"
+                ]:
+                    if bt not in req_tools and _is_tool_active(bt):
                         req_tools.append(bt)
             elif sg.role == "ResearchAgent":
-                for bt in ["search.web", "browser.navigate", "browser.extract_text", "file.write", "file.read"]:
-                    if bt not in req_tools and (not self.ceiling_tools or bt in self.ceiling_tools or "*" in self.ceiling_tools):
+                for bt in [
+                    "search.web", "brave.search_web", "brave.search_news",
+                    "fetch.get_markdown", "fetch.get_raw_html", "fetch.get_headers",
+                    "arxiv.search_papers", "arxiv.get_paper_summary",
+                    "browser.navigate", "browser.extract_text", "file.write", "file.read"
+                ]:
+                    if bt not in req_tools and _is_tool_active(bt):
+                        req_tools.append(bt)
+            elif sg.role == "BrowserAgent":
+                for bt in [
+                    "browser.navigate", "browser.extract_interactive_tree", "browser.screenshot",
+                    "browser.click", "browser.type", "browser.scroll", "browser.select_option",
+                    "browser.extract_text", "browser.extract_dom", "browser.go_back",
+                    "file.read", "file.write"
+                ]:
+                    if bt not in req_tools and _is_tool_active(bt):
                         req_tools.append(bt)
             elif sg.role == "ComputerAgent":
-                for bt in ["desktop.screenshot", "desktop.click", "desktop.type", "desktop.get_screen_size"]:
-                    if bt not in req_tools and (not self.ceiling_tools or bt in self.ceiling_tools or "*" in self.ceiling_tools):
+                for bt in [
+                    "desktop.screenshot", "desktop.click", "desktop.type",
+                    "desktop.hotkey", "desktop.get_screen_size", "file.read", "file.write"
+                ]:
+                    if bt not in req_tools and _is_tool_active(bt):
+                        req_tools.append(bt)
+            elif sg.role == "DataAgent":
+                for bt in [
+                    "sqlite.read_query", "sqlite.write_query", "sqlite.list_tables", "sqlite.describe_tables",
+                    "data.sql_query_csv", "data.profile_dataset", "data.aggregate",
+                    "data.correlation_matrix", "data.detect_anomalies", "data.pivot_table",
+                    "file.read", "file.write"
+                ]:
+                    if bt not in req_tools and _is_tool_active(bt):
+                        req_tools.append(bt)
+            elif sg.role in ["DocumentAgent", "UniversalFileAgent"]:
+                for bt in [
+                    "typst.compile_pdf", "typst.render_template", "doc.read_document",
+                    "file.write", "file.read", "file.create_pdf", "file.create_docx", "file.create_pptx"
+                ]:
+                    if bt not in req_tools and _is_tool_active(bt):
+                        req_tools.append(bt)
+            elif sg.role == "ReviewerAgent":
+                for bt in ["file.read", "sequential_thinking.step", "audit.security_scan", "code.search", "git.diff"]:
+                    if bt not in req_tools and _is_tool_active(bt):
+                        req_tools.append(bt)
+            elif sg.role == "VerifierAgent":
+                for bt in ["file.read", "audit.verify_invariants", "audit.verify_grounding", "sequential_thinking.step", "doc.read_document"]:
+                    if bt not in req_tools and _is_tool_active(bt):
                         req_tools.append(bt)
             elif sg.role == "TerminalAgent":
-                for bt in ["terminal.execute", "file.read"]:
-                    if bt not in req_tools and (not self.ceiling_tools or bt in self.ceiling_tools or "*" in self.ceiling_tools):
+                for bt in [
+                    "terminal.execute", "terminal.exec_command", "terminal.run_tests",
+                    "terminal.inspect_environment", "docker.create_sandbox", "docker.exec_in_sandbox",
+                    "docker.destroy_sandbox", "git.status", "git.diff", "file.read", "file.write"
+                ]:
+                    if bt not in req_tools and _is_tool_active(bt):
                         req_tools.append(bt)
 
+            sg.required_tools = [t for t in req_tools if _is_tool_active(t)]
             dedup = compute_dedup_hash(sg.role, sg.goal, req_tools)
             
             # Auto-synthesize requested_permission_scope from required_tools if registry is available

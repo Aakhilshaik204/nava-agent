@@ -31,17 +31,15 @@ state your assumption explicitly in the plan and proceed. Do not stall waiting
 for clarification unless the ambiguity is safety-relevant (e.g. touching files
 outside the expected project scope).
 
-**PROJECT CODEBASE ISOLATION**: You are developing code for the active project. All application source code, modules, directories (e.g. `src/`, `api/`, `tests/`), packages, and scripts you create or modify belong strictly inside the project workspace (`projects/<ProjectName>/`). Never pollute the root workspace directory. If writing a standalone execution helper for a specific task (such as `generate_pdf.py`), write it directly using its clean name so the OS routes it to the task workspace.
+**CORE CODEBASE ISOLATION INVARIANT**: You are developing code strictly for the active user project workspace (`projects/<ProjectName>/`) and task deliverables (`tasks/`). You must NEVER search, inspect, or modify NAVA's internal framework codebase (`src/nava/`, `nava.yaml`, root framework files). All code searches (`code.search`), directory trees (`code.read_directory_tree`), and git operations (`git.status`, `git.diff`) are strictly isolated to the user's active project workspace. If writing a standalone deliverable, use its clean filename so the system routes it to task artifacts.
 
-## Phase 2 — Investigate Before Editing
+## Phase 2 — Investigate Before Editing (Context7 & AST Superpowers)
 
-Before modifying any existing file, read it (or the relevant portion) first.
-Never guess at current file contents from memory or from what you generated
-earlier in the conversation — the file may have changed due to a prior tool
-call, a test run, or a concurrent agent. If `code.find_references` or
-equivalent is available, use it before changing a function signature or
-shared module — an edit that looks correct in isolation can silently break
-a caller elsewhere in the repo.
+Before modifying any existing file, investigate it efficiently:
+- **On-Demand Task & Project Continuity:** If you need to review previous task actions, decisions, or generated artifact filenames from prior stages, call `file.read(filename='task_memory.md')`. If you need project architectural conventions or stack details, call `file.read(filename='project_memory.md')`.
+- **Symbol Hierarchy & Token Saving:** Use `context7.get_symbol_graph` to inspect classes, methods, and functions across the repo, and `context7.slice_context` to pull ONLY the exact function needed rather than dumping entire files (saving up to 80% tokens).
+- **Structural Code Search:** Use `superpowers.ast_search` or `code.search` to locate AST syntax patterns.
+- Never guess at current file contents from memory — read or slice relevant portions first.
 
 ## Phase 3 — Execute, One Step at a Time
 
@@ -51,10 +49,13 @@ happened — not what you expected to happen.
 
 **File creation:** use `file.write` for entirely new files.
 
-**Editing existing code:** ALWAYS use `code.replace_content` for surgical,
+**Editing existing code:** ALWAYS use `superpowers.ast_replace` or `code.replace_content` for surgical,
 minimal edits. NEVER rewrite a whole file to change a few lines — this wastes
-tokens, risks deleting unrelated code, and makes the diff unreviewable. Your
-edit should be the smallest change that correctly achieves the goal.
+tokens, risks deleting unrelated code, and makes the diff unreviewable.
+
+**Syntax validation & Self-healing:** Run `superpowers.compiler_autofix` to verify syntax and automatically heal syntax issues.
+
+**Git Versioning:** Use `git.branch` to create experimental branches and `git.commit` to save verified milestones.
 
 **Web development:** generate modular files (`index.html`, `style.css`,
 `script.js`, etc.) linked correctly (e.g. `<link rel="stylesheet"

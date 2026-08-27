@@ -7,13 +7,13 @@ from pydantic import BaseModel
 from nava.core.schemas import AgentState, AgentStatus, ToolRequest
 from nava.core.llm import get_llm
 
-class ResearchPlan(BaseModel):
+class DataPlan(BaseModel):
     thoughts: str
     tool_name: str
     arguments: dict
 
-def build_research_agent(registry=None) -> StateGraph:
-    """Builds the Tier 2 cyclic ResearchAgent execution graph for deep research and synthesis."""
+def build_data_agent(registry=None) -> StateGraph:
+    """Builds the cyclic DataAgent execution graph for database querying and tabular analytics."""
     workflow = StateGraph(dict)
 
     def plan_node(state: dict):
@@ -37,14 +37,14 @@ def build_research_agent(registry=None) -> StateGraph:
         tool_schemas_str = "\n".join(tool_schemas) if tool_schemas else "No tools available."
 
         llm = get_llm()
-        structured_llm = llm.with_structured_output(ResearchPlan)
+        structured_llm = llm.with_structured_output(DataPlan)
         
-        prompt_path = os.path.join(os.path.dirname(__file__), "..", "..", "prompts", "research_agent_prompt.txt")
+        prompt_path = os.path.join(os.path.dirname(__file__), "..", "..", "prompts", "data_agent_prompt.txt")
         try:
             with open(prompt_path, "r", encoding="utf-8") as f:
                 prompt_template = f.read()
         except Exception:
-            prompt_template = "You are ResearchAgent. Goal: {goal}\nTools:\n{tool_schemas_str}"
+            prompt_template = "You are DataAgent. Goal: {goal}\nTools:\n{tool_schemas_str}"
 
         system_prompt = prompt_template.format(
             goal=agent_state.goal,
@@ -53,7 +53,7 @@ def build_research_agent(registry=None) -> StateGraph:
                         
         sys_msg = SystemMessage(content=system_prompt)
         
-        content = f"Research Payload / Context: {json.dumps(payload)}\n"
+        content = f"Task Context / Payload: {json.dumps(payload)}\n"
         if history:
             content += "\n[YOUR PREVIOUS ACTIONS & OBSERVATIONS]\n" + "\n".join(history) + "\n"
                 
@@ -64,11 +64,11 @@ def build_research_agent(registry=None) -> StateGraph:
         
         try:
             decision = structured_llm.invoke([sys_msg, human_msg])
-            print(f"\n[ResearchAgent Thinking]:\n{decision.thoughts}\n")
-            print(f"[ResearchAgent Action]:\n  → {decision.tool_name}({decision.arguments})\n")
+            print(f"\n[DataAgent Thinking]:\n{decision.thoughts}\n")
+            print(f"[DataAgent Action]:\n  → {decision.tool_name}({decision.arguments})\n")
         except Exception as e:
-            print(f"\n[ResearchAgent Error]: LLM generation failed: {e}")
-            decision = ResearchPlan(thoughts=f"Fatal error: {e}", tool_name="FINISH", arguments={})
+            print(f"\n[DataAgent Error]: LLM generation failed: {e}")
+            decision = DataPlan(thoughts=f"Fatal error: {e}", tool_name="FINISH", arguments={})
 
         new_history = history.copy()
         if observation:

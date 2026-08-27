@@ -13,11 +13,30 @@ root_agent:
     - test.run
     - terminal.execute
     - shell.execute
+    - docker.sandbox
+    - system.inspect
+    - git.read
+    - git.write
+    - ast.read
+    - ast.write
     
     # Model Context Protocol (MCP) & Integrations
     - gmail.read
     - gmail.search
     - gmail.draft
+    
+    # Research & Deep Intelligence MCP Suite
+    - research.read
+    - search.web
+    
+    # Data & Database MCP Suite (DataAgent)
+    - database.read
+    - database.write
+    - data.analyze
+    
+    # Document & Typst PDF Compilation Suite (DocumentAgent & UniversalFileAgent)
+    - document.compile
+    - document.read
     
     # Web & Browser Automation
     - browser.navigate
@@ -26,7 +45,6 @@ root_agent:
     - browser.type
     - browser.scroll
     - browser.save_to_scratch
-    - search.web
     
     # OS Desktop GUI Automation (ComputerAgent)
     - desktop.read
@@ -37,6 +55,9 @@ root_agent:
     - system.read_skill
     - system.flag_review
     - memory.semantic
+    - reasoning.sequential
+    - audit.verify
+    - audit.security
     - mock.send_wire_transfer
     - mock.notify_admin
 
@@ -49,20 +70,33 @@ root_agent:
     - file.create_docx
     - file.create_pptx
     
-    # 2. Code & AST Indexing Tools
+    # 2. Code, AST Indexing & Superpowers Tools
     - code.search
     - code.read_directory_tree
     - code.diff_review
     - code.replace_content
     - code.replace_content_batch
     - code.find_references
+    - context7.get_symbol_graph
+    - context7.slice_context
+    - superpowers.ast_search
+    - superpowers.ast_replace
+    - superpowers.compiler_autofix
     
-    # 3. Terminal & DevOps Tools (Restricted strictly to TerminalAgent)
+    # 3. Terminal & DevOps Tools (Restricted strictly to TerminalAgent & CodingAgent)
     - shell.execute
     - terminal.execute
+    - terminal.exec_command
+    - terminal.run_tests
+    - terminal.inspect_environment
+    - docker.create_sandbox
+    - docker.exec_in_sandbox
+    - docker.destroy_sandbox
     - test.run
     - git.status
     - git.diff
+    - git.branch
+    - git.commit
     
     # 4. Web & Research Tools (BrowserAgent & ResearchAgent)
     - browser.navigate
@@ -88,6 +122,27 @@ root_agent:
     # 6. MCP Protocol & Integrations
     - gmail.search
     - gmail.read
+    - fetch.get_markdown
+    - brave.search_web
+    - arxiv.search_papers
+    - arxiv.get_paper_summary
+    - sqlite.read_query
+    - sqlite.write_query
+    - sqlite.list_tables
+    - sqlite.describe_tables
+    - data.sql_query_csv
+    - data.profile_dataset
+    - data.aggregate
+    - data.correlation_matrix
+    - data.detect_anomalies
+    - data.pivot_table
+    - typst.compile_pdf
+    - typst.render_template
+    - doc.read_document
+    - sequential_thinking.step
+    - audit.verify_invariants
+    - audit.security_scan
+    - audit.verify_grounding
     
     # 7. System & Governance
     - system.read_skill
@@ -107,6 +162,119 @@ budget:
 
 # User-Configurable Security Feature Switches (Section 13 & 26)
 security_switches:
-  enable_terminal_execution: true    # Set to false to disable all shell/terminal execution
-  enable_desktop_gui_control: true   # Set to false to make ComputerAgent read-only (screenshots only)
-  enable_external_integrations: true # Set to false to block external MCP/Gmail integrations
+  enable_terminal_execution: true    # Set to false to disable all local shell/terminal command execution
+  enable_docker_sandboxing: true     # Set to false to disable ephemeral Docker container creation
+  enable_desktop_gui_control: true   # Set to false to make ComputerAgent read-only (screenshots only, mouse/keyboard blocked)
+  enable_browser_automation: true    # Set to false to disable Playwright web navigation & form automation
+  enable_code_mutation: true         # Set to false to make CodingAgent read-only (AST replace/file writes blocked)
+  enable_external_integrations: true # Set to false to block external web MCPs, Gmail, and GitHub integrations
+  enable_deep_audit_gates: true      # Set to false to bypass sequential thinking and AST security scanners
+  enforce_codebase_isolation: true   # Set to false to disable strict isolation of NAVA's internal framework files
+
+# Model Context Protocol (MCP) Ecosystem & Specialized Agent Servers
+# (Set enabled: false on any server to completely disable and unregister it)
+mcp_servers:
+  context7:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@context7/mcp-server@latest"]
+    assigned_roles: ["CodingAgent"]
+    trust_state: "TRUSTED"
+  
+  superpowers:
+    enabled: true
+    command: "uvx"
+    args: ["mcp-superpowers-code@latest"]
+    assigned_roles: ["CodingAgent"]
+    trust_state: "TRUSTED"
+
+  git:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-git@latest"]
+    assigned_roles: ["CodingAgent", "TerminalAgent"]
+    trust_state: "TRUSTED"
+
+  fetch:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-fetch@latest"]
+    assigned_roles: ["ResearchAgent"]
+    trust_state: "TRUSTED"
+
+  brave-search:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-brave-search@latest"]
+    assigned_roles: ["ResearchAgent"]
+    trust_state: "TRUSTED"
+
+  arxiv:
+    enabled: true
+    command: "uvx"
+    args: ["mcp-server-arxiv@latest"]
+    assigned_roles: ["ResearchAgent"]
+    trust_state: "TRUSTED"
+
+  sqlite:
+    enabled: true
+    command: "uvx"
+    args: ["mcp-server-sqlite@latest"]
+    assigned_roles: ["DataAgent"]
+    trust_state: "TRUSTED"
+
+  typst:
+    enabled: true
+    command: "uvx"
+    args: ["typst-mcp-server@latest"]
+    assigned_roles: ["DocumentAgent", "UniversalFileAgent"]
+    trust_state: "TRUSTED"
+
+  sequential-thinking:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"]
+    assigned_roles: ["ReviewerAgent", "VerifierAgent"]
+    trust_state: "TRUSTED"
+
+  audit-scanner:
+    enabled: true
+    command: "uvx"
+    args: ["nava-audit-mcp@latest"]
+    assigned_roles: ["ReviewerAgent", "VerifierAgent"]
+    trust_state: "TRUSTED"
+
+  docker-sandbox:
+    enabled: true
+    command: "uvx"
+    args: ["docker-sandbox-mcp@latest"]
+    assigned_roles: ["TerminalAgent"]
+    trust_state: "TRUSTED"
+
+  playwright-browser:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-puppeteer@latest"]
+    assigned_roles: ["BrowserAgent"]
+    trust_state: "TRUSTED"
+
+  desktop-automation:
+    enabled: true
+    command: "uvx"
+    args: ["desktop-automation-mcp@latest"]
+    assigned_roles: ["ComputerAgent"]
+    trust_state: "TRUSTED"
+
+  gmail:
+    enabled: true
+    command: "uvx"
+    args: ["gmail-mcp-server@latest"]
+    assigned_roles: ["EmailAgent"]
+    trust_state: "TRUSTED"
+
+  github:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-github@latest"]
+    assigned_roles: ["GitHubAgent"]
+    trust_state: "TRUSTED"

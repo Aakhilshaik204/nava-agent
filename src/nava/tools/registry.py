@@ -31,6 +31,9 @@ class ToolRegistry:
             raise ValueError(f"Tool {tool.name} is already registered.")
         self._tools[tool.name] = tool
 
+    def has_tool(self, name: str) -> bool:
+        return name in self._tools
+
     def get_tool(self, name: str) -> ToolDefinition:
         if name not in self._tools:
             raise KeyError(f"Tool {name} not found in registry.")

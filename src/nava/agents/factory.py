@@ -86,6 +86,24 @@ class AgentFactory:
                     
         # Intersect Tools and their inherent permissions
         for req_tool in spec.requested_tools:
+            # 1. Hard Role-Based Tool Restrictions
+            if req_tool.startswith(("context7.", "superpowers.")) and spec.requested_role != "CodingAgent":
+                continue # Hard-reject AST developer MCPs for any agent other than CodingAgent
+            if req_tool.startswith(("fetch.", "brave.", "arxiv.")) and spec.requested_role != "ResearchAgent":
+                continue # Hard-reject Research MCPs for any agent other than ResearchAgent
+            if req_tool.startswith(("sqlite.", "data.")) and spec.requested_role != "DataAgent":
+                continue # Hard-reject Database & Tabular Analytics MCPs for any agent other than DataAgent
+            if req_tool.startswith(("typst.", "doc.")) and spec.requested_role not in ["DocumentAgent", "UniversalFileAgent"]:
+                continue # Hard-reject Typst compilation & Doc tools for agents other than DocumentAgent / UniversalFileAgent
+            if req_tool.startswith(("audit.", "sequential_thinking.")) and spec.requested_role not in ["ReviewerAgent", "VerifierAgent"]:
+                continue # Hard-reject Audit & Sequential Thinking tools for agents other than ReviewerAgent and VerifierAgent
+            if req_tool.startswith("git.") and spec.requested_role not in ["CodingAgent", "TerminalAgent"]:
+                continue
+            if req_tool.startswith("desktop.") and spec.requested_role != "ComputerAgent":
+                continue
+            if req_tool.startswith(("terminal.", "docker.")) and spec.requested_role != "TerminalAgent":
+                continue
+                
             if (req_tool in parent_state.tool_scope or is_in_scope_list(parent_state.tool_scope, req_tool)) and req_tool in base_tool_scope:
                 t_def = self.registry.get_tool(req_tool)
                 if not t_def:

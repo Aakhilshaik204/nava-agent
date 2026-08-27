@@ -10,6 +10,10 @@ markdown
 xhtml2pdf
 python-docx
 python-pptx
+typst
 httpx
 langchain-openai
 langchain-groq
+duckduckgo-search
+reportlab
+playwright

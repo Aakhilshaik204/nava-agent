@@ -203,6 +203,26 @@ class TaskManager:
                 return f.read()
         return None
 
+    def resume_task(self, task_id: str) -> Optional[Dict[str, Any]]:
+        """Sets an existing task as the active task session, loading its context and artifacts."""
+        task_folder = os.path.join(self.tasks_dir, task_id)
+        mem_p = os.path.join(task_folder, "task_memory.md")
+        if not os.path.exists(mem_p):
+            # Check for partial prefix match
+            for item in os.listdir(self.tasks_dir):
+                if item.startswith(task_id):
+                    task_id = item
+                    task_folder = os.path.join(self.tasks_dir, item)
+                    mem_p = os.path.join(task_folder, "task_memory.md")
+                    break
+                    
+        if os.path.exists(mem_p):
+            self._active_task_id = task_id
+            with open(mem_p, "r", encoding="utf-8") as f:
+                content = f.read()
+            return {"task_id": task_id, "memory": content}
+        return None
+
 
 class ProjectWorkspace:
     """

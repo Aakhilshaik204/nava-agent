@@ -1,31 +1,40 @@
-# NAVA: Personal Agent Operating System
+# ⚡ NAVA: Personal Agent Operating System
 
-NAVA is a deterministic, multi-agent personal operating system designed for autonomous workspace execution, secure computer use, deep research synthesis, and persistent human-AI collaboration.
+[![PyPI version](https://img.shields.io/pypi/v/nava-agent.svg)](https://pypi.org/project/nava-agent/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
 
-Built around a 12-step mutation gateway, a 4-tier memory hierarchy, an inter-agent message bus, and 21 mathematically verified system invariants, NAVA guarantees strict least-privilege bounding, tamper-evident audit receipts, and transactional rollback across all filesystem, terminal, browser, and OS desktop interactions.
+```bash
+pip install nava-agent
+```
 
----
+**NAVA** is a deterministic, multi-agent personal operating system designed for autonomous workspace execution, secure computer use, deep research synthesis, and persistent human-AI collaboration.
 
-## Table of Contents
-1. [System Architecture Overview](#system-architecture-overview)
-2. [The NAVA Root Agent (Kernel Controller)](#the-nava-root-agent-kernel-controller)
-3. [Dynamic Agents & Just-In-Time (JIT) Synthesis](#dynamic-agents--just-in-time-jit-synthesis)
-4. [Specialized Static Agent Suite](#specialized-static-agent-suite)
-5. [The 12-Step Chokepoint Action Gateway](#the-12-step-chokepoint-action-gateway)
-6. [Real-Time Multi-Agent Collaboration (AgentMessageBus)](#real-time-multi-agent-collaboration-agentmessagebus)
-7. [Project Workspace Memory (.nava/)](#project-workspace-memory-nava)
-8. [Four-Tier Memory Architecture & AI Twin](#four-tier-memory-architecture--ai-twin)
-9. [The 21 Certified System Invariants](#the-21-certified-system-invariants)
-10. [Configuration & Security Switches](#configuration--security-switches)
-11. [Repository Structure](#repository-structure)
-12. [Getting Started & Quickstart](#getting-started--quickstart)
-13. [Verification & Test Suite](#verification--test-suite)
+Built around a **12-step mutation gateway**, an **inter-agent message bus**, a **4-tier memory hierarchy**, a dynamic **Model Context Protocol (MCP) ecosystem of 15 specialized servers**, and **21 certified system invariants**, NAVA guarantees strict least-privilege bounding, tamper-evident audit receipts, and transactional rollback across all filesystem, terminal, browser, and OS desktop interactions.
 
 ---
 
-## System Architecture Overview
+## 📑 Table of Contents
+1. [System Architecture Overview](#-system-architecture-overview)
+2. [NAVA Root Kernel Controller](#-the-nava-root-agent-kernel-controller)
+3. [Model Context Protocol (MCP) Ecosystem (15 Servers)](#-model-context-protocol-mcp-ecosystem-15-servers)
+4. [Specialized Agent Suite](#-specialized-agent-suite)
+5. [Core Codebase Isolation Invariant](#-core-codebase-isolation-invariant-section-292)
+6. [On-Demand Memory Architecture](#-on-demand-memory-architecture-80-token-savings)
+7. [The 12-Step Chokepoint Action Gateway](#-the-12-step-chokepoint-action-gateway)
+8. [Four-Tier Memory Hierarchy & AI Twin](#-four-tier-memory-hierarchy--ai-twin)
+9. [The 21 Certified System Invariants](#-the-21-certified-system-invariants)
+10. [Configuration & User-Configurable Security Switches](#-configuration--user-configurable-security-switches)
+11. [Interactive TUI Cowork Shell](#-interactive-tui-cowork-shell)
+12. [Repository Layout](#-repository-layout)
+13. [Getting Started & Quickstart](#-getting-started--quickstart)
+14. [Automated Verification & Test Suite](#-automated-verification--test-suite)
 
-NAVA replaces unconstrained prompt chains with a deterministic operating system kernel. Every tool call—whether writing a file, running a shell command, clicking an OS desktop window, or drafting an email via Model Context Protocol (MCP)—is treated as a managed system call subject to policy validation, risk scoring, resource quotas, and concurrency locking.
+---
+
+## 🏗️ System Architecture Overview
+
+NAVA replaces unconstrained LLM prompt chains with a deterministic operating system kernel. Every tool call—whether modifying code, executing shell commands, clicking desktop GUI windows, compiling Typst documents, or querying external APIs via MCP—is treated as a managed system call subject to policy evaluation, risk scoring, resource quotas, and concurrency locking.
 
 ```
                            USER OBJECTIVE / SHELL
@@ -51,12 +60,14 @@ NAVA replaces unconstrained prompt chains with a deterministic operating system 
              │                                               │
              ▼                                               ▼
 ┌──────────────────────────┐                   ┌──────────────────────────┐
-│  SPECIALIZED STATIC AGENTS│                   │  JUST-IN-TIME DYNAMIC    │
-│  • CodingAgent           │◄─────────────────►│  AGENTS                  │
-│  • ReviewerAgent         │   Inter-Agent     │  • WebResearchAgent      │
-│  • ResearchAgent         │   Message Bus     │  • ASTRefactorAgent      │
-│  • TerminalAgent         │   (Pub/Sub)       │  • DataExtractionAgent   │
-│  • ComputerAgent         │                   │  • PDFCompilationAgent   │
+│ SPECIALIZED STATIC AGENTS│                   │  DYNAMIC JIT SUBAGENTS   │
+│ • CodingAgent            │◄─────────────────►│  • PDFIndexerAgent       │
+│ • TerminalAgent (DevOps) │   Inter-Agent     │  • DataExtractionAgent   │
+│ • ReviewerAgent (AST)    │   Message Bus     │  • SecurityAuditorAgent  │
+│ • VerifierAgent (Proof)  │   (Pub/Sub)       │  • WebScraperAgent       │
+│ • BrowserAgent (Web)     │                   │  • SuperpowersCodeAgent  │
+│ • ComputerAgent (OS GUI) │                   │                          │
+│ • UniversalFileAgent     │                   │                          │
 └────────────┬─────────────┘                   └─────────────┬────────────┘
              │                                               │
              └───────────────────────┬───────────────────────┘
@@ -65,7 +76,7 @@ NAVA replaces unconstrained prompt chains with a deterministic operating system 
                                      │
                                      ▼
          ┌────────────────────────────────────────────────────────┐
-         │             12-STEP ACTION GATEWAY PIPELINE            │
+         │            12-STEP ACTION GATEWAY PIPELINE             │
          │  1. Auth & Lineage Check    7. Pre-State Snapshot      │
          │  2. Policy Engine (ALLOW)   8. Sandboxed Tool Dispatch │
          │  3. Additive Risk Engine    9. Post-State Verification │
@@ -77,23 +88,24 @@ NAVA replaces unconstrained prompt chains with a deterministic operating system 
                                      ▼
          ┌────────────────────────────────────────────────────────┐
          │                 HOST SYSTEM BOUNDARIES                 │
-         │  • Local Filesystem Root    • Playwright Browser       │
-         │  • OS Desktop GUI Driver    • MCP External Servers     │
+         │  • Isolated Project Files   • Playwright Headless Web  │
+         │  • Ephemeral Docker Sandbox • OS Desktop GUI Perception│
+         │  • 15 JSON-RPC MCP Servers  • Merkle Append-Only Ledger│
          └────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## The NAVA Root Agent (Kernel Controller)
+## 👑 The NAVA Root Agent (Kernel Controller)
 
-At the apex of the operating system resides the **NAVA Root Agent** (`src/nava/orchestrator.py`), serving as the privileged executive supervisor of the agent collective:
+At the apex of the OS resides the **NAVA Root Agent** ([`src/nava/orchestrator.py`](file:///c:/Users/aakhi/Desktop/Nava/src/nava/orchestrator.py)), serving as the privileged executive supervisor:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │                        NAVA ROOT AGENT KERNEL                          │
 ├────────────────────────────────────────────────────────────────────────┤
 │  • Root Security Ceilings (nava.yaml)                                  │
-│  • Executive Stage & Parallel Goal Decomposition (GoalPlanner)        │
+│  • Stage & Parallel Goal Decomposition (GoalPlanner)                   │
 │  • Subagent Lifecycle Supervisor (Spawn -> Observe -> Teardown)        │
 │  • Global Task Budget Enforcement (Tokens, Steps, Depth, Retries)      │
 │  • Project Workspace Context Continuator (.nava/project_memory.md)    │
@@ -101,69 +113,41 @@ At the apex of the operating system resides the **NAVA Root Agent** (`src/nava/o
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 1. Root Security Ceilings (Blueprint Section 26)
-The Root Agent acts as the maximum security ceiling for all operations. Subagents spawned during task execution can never acquire permissions, credentials, or tool access beyond what is granted to the Root Agent in `nava.yaml`.
+### 1. Root Security Ceilings (Section 26)
+Subagents spawned during task execution can **never** acquire permissions, credentials, or tool access beyond what is granted to the Root Agent in [`nava.yaml`](file:///c:/Users/aakhi/Desktop/Nava/nava.yaml).
 
 ### 2. Hierarchical Execution Supervision
-* **Autonomous Task Staging**: Decomposes complex human instructions into isolated stages ($1, 2, \dots, N$).
-* **Concurrent Subagent Dispatch**: Executes independent sub-goals concurrently in parallel worker threads while maintaining shared state consistency.
-* **Deterministic Teardown**: Upon task completion or failure, the root controller flushes thread locks, revokes temporary OAuth tokens, and transitions child states to `TERMINATED`.
-
-### 3. Context Continuity & Crash Recovery
-The Root Agent automatically reads `.nava/project_memory.md` on startup, detecting unfinished objectives from previous sessions and enabling single-word resumption (`continue`) without loss of architectural decisions.
+* **Autonomous Task Staging**: Decomposes complex human instructions into sequential stages ($1, 2, \dots, N$).
+* **Concurrent Subagent Dispatch**: Executes independent sub-goals in parallel worker threads while maintaining shared state consistency.
+* **Deterministic Teardown**: Upon task completion or failure, thread locks are released, temporary OAuth tokens revoked, and child states set to `TERMINATED`.
 
 ---
 
-## Dynamic Agents & Just-In-Time (JIT) Synthesis
+## 🌐 Model Context Protocol (MCP) Ecosystem (15 Servers)
 
-While static agents handle dedicated operational domains, real-world development requires adaptable, task-specific workers. NAVA's **Dynamic Agent Engine** (`src/nava/agents/factory.py` & `src/nava/agents/runtime/dynamic_agent.py`) synthesizes specialized agents just-in-time.
+NAVA implements the official standard **Model Context Protocol (JSON-RPC 2.0 over stdio)** via [`StdioMCPClient`](file:///c:/Users/aakhi/Desktop/Nava/src/nava/tools/mcp_client.py#L20) and [`MCPClientManager`](file:///c:/Users/aakhi/Desktop/Nava/src/nava/tools/mcp_client.py#L112). Every server can be individually toggled via `enabled: true / false` in `nava.yaml`:
 
-```
-                  USER OBJECTIVE: "Parse 50 PDFs and index into Qdrant"
-                                     │
-                                     ▼
-                         1. SPECIFICATION (AgentSpec)
-                            - Role: PDFIndexerAgent
-                            - Required Tools: ['file.read', 'memory.semantic_ingest']
-                            - Stage: 1 (Parallel)
-                                     │
-                                     ▼
-                    2. DEDUPLICATION HASHING (Invariant #7)
-                       dedup_hash = SHA256("PDFIndexerAgent:goal:tools")
-                                     │
-                                     ▼
-                  3. PERMISSION INTERSECTION (Invariant #5)
-             Child_Scope = Parent_Scope ∩ Requested_Scope ∩ Policy_Scope
-                                     │
-                                     ▼
-                      4. ISOLATED RUNTIME INSTANTIATION
-                         Cyclic Multi-Step Graph (Plan ◄──► Act)
-                                     │
-                                     ▼
-                    5. AUTOMATIC SKILL PROMOTION (Sec 9.6)
-              Promotes successful novel workflows to SKILL.md
-```
-
-### 1. Non-Increasing Permission Inheritance (Invariant #5)
-Dynamic agents can never escalate privileges. The `AgentFactory` enforces mathematical intersection:
-
-$$\text{Child Scope} = \text{Parent Scope} \cap \text{Requested Scope} \cap \text{Policy Allowed Scope}$$
-
-If a dynamically synthesized agent requests `terminal.execute` but its parent or active policy prohibits terminal execution, the capability is stripped before instantiation.
-
-### 2. Deduplication & Runaway Loop Prevention (Invariant #7)
-Every dynamic agent spec is hashed with its role, objective, and tool grant:
-
-$$\text{Dedup Hash} = \text{SHA256}(\text{role} \parallel \text{clean\_goal} \parallel \text{tools})[:16]$$
-
-If an agent fails identically 3 times, the 4th identical failure triggers an automatic task abort and routes to `CompensationEngine`, preventing infinite execution loops and runaway token consumption.
-
-### 3. Dynamic Skill Promotion (Section 9.6)
-When a Dynamic Agent solves a novel problem sequence successfully, NAVA's `SkillPromoter` can extract the successful action trajectory, package it into a standard `SKILL.md` with SHA-256 integrity locking, and save it to `.nava/local_skills/` for future instant reuse across projects.
+| MCP Server | Assigned Roles | Package & Command | Capabilities & Tool Suite |
+| :--- | :--- | :--- | :--- |
+| **`context7`** | `CodingAgent` | `npx -y @context7/mcp-server@latest` | AST repository symbol graphs & context definition slicing (`context7.get_symbol_graph`, `context7.slice_context`). |
+| **`superpowers`** | `CodingAgent` | `uvx mcp-superpowers-code@latest` | Syntax-aware structural code search, replacement, and compiler auto-fix (`superpowers.ast_search`, `superpowers.ast_replace`, `superpowers.compiler_autofix`). |
+| **`git`** | `CodingAgent`, `TerminalAgent` | `npx -y @modelcontextprotocol/server-git@latest` | Project git branch inspection, diffs, staging, and commit operations (`git.status`, `git.diff`, `git.branch`, `git.commit`). |
+| **`fetch`** | `ResearchAgent` | `npx -y @modelcontextprotocol/server-fetch@latest` | Token-dense HTML-to-Markdown page conversion and header inspection (`fetch.get_markdown`, `fetch.get_raw_html`, `fetch.get_headers`). |
+| **`brave-search`** | `ResearchAgent` | `npx -y @modelcontextprotocol/server-brave-search@latest` | Web search and recent news queries (`brave.search_web`, `brave.search_news`). |
+| **`arxiv`** | `ResearchAgent` | `uvx mcp-server-arxiv@latest` | Academic paper search, PDF retrieval, and abstract extraction (`arxiv.search_papers`, `arxiv.get_paper_summary`). |
+| **`sqlite`** | `DataAgent` | `uvx mcp-server-sqlite@latest` | SQL query execution, table inspection, and schema profiling (`sqlite.read_query`, `sqlite.write_query`, `sqlite.list_tables`, `sqlite.describe_tables`). |
+| **`typst`** | `DocumentAgent`, `UniversalFileAgent` | `uvx typst-mcp-server@latest` | Rust vector Typst compilation into PDF/DOCX reports (`typst.compile_pdf`, `typst.render_template`). |
+| **`sequential-thinking`**| `ReviewerAgent`, `VerifierAgent` | `npx -y @modelcontextprotocol/server-sequential-thinking@latest` | Multi-branch hypothesis reasoning and thought revision (`sequential_thinking.step`). |
+| **`audit-scanner`** | `ReviewerAgent`, `VerifierAgent` | `uvx nava-audit-mcp@latest` | Deterministic verification of NAVA's 21 System Invariants, AST security scanning, and factual report grounding (`audit.verify_invariants`, `audit.security_scan`, `audit.verify_grounding`). |
+| **`docker-sandbox`** | `TerminalAgent` | `uvx docker-sandbox-mcp@latest` | Ephemeral container execution with CPU/memory limits and automatic purge (`docker.create_sandbox`, `docker.exec_in_sandbox`, `docker.destroy_sandbox`). |
+| **`playwright-browser`** | `BrowserAgent` | `npx -y @modelcontextprotocol/server-puppeteer@latest` | Headless browser navigation, numbered interactive tree extraction (`[#1]`, `[#2]`), viewport screenshotting, click/type/scroll (`browser.navigate`, `browser.extract_interactive_tree`, `browser.screenshot`, `browser.click`, `browser.type`, `browser.scroll`). |
+| **`desktop-automation`** | `ComputerAgent` | `uvx desktop-automation-mcp@latest` | Display resolution perception, high-res desktop screenshots, mouse clicks, keystrokes, and keyboard hotkeys (`desktop.get_screen_size`, `desktop.screenshot`, `desktop.click`, `desktop.type`, `desktop.hotkey`). |
+| **`gmail`** | `EmailAgent` | `uvx gmail-mcp-server@latest` | Email search, thread reading, and drafting (`gmail.search`, `gmail.read`). |
+| **`github`** | `GitHubAgent` | `npx -y @modelcontextprotocol/server-github@latest` | Repository search, PR reviews, and issue creation (`github.search_repositories`, `github.create_issue`). |
 
 ---
 
-## Specialized Static Agent Suite
+## 🤖 Specialized Agent Suite
 
 NAVA includes a core suite of purpose-built static agents configured for dedicated workflows:
 
@@ -171,29 +155,95 @@ NAVA includes a core suite of purpose-built static agents configured for dedicat
 ┌────────────────────────────────────────────────────────────────────────┐
 │                     SPECIALIZED STATIC AGENT SUITE                     │
 ├────────────────────────────────────────────────────────────────────────┤
-│  1. CodingAgent       Cyclic code refactoring, AST edits, batch patches│
-│  2. ReviewerAgent     Diff analysis, quality audits, peer review       │
-│  3. ResearchAgent     Deep web search, text extraction, semantic RAG   │
-│  4. TerminalAgent     Sandboxed shell execution, git, test runners     │
-│  5. ComputerAgent     OS desktop GUI control, DPI scaling, coordinates │
-│  6. UniversalFileAgent Single-shot PDF/DOCX/PPTX report compilation    │
-└────────────────────────────────────────────────────────────────────────┘
-```
+│  1. CodingAgent        AST refactoring, compiler auto-fix, batch edits │
+│  2. ReviewerAgent      Security audits, AST vulnerability scan, diffs  │
+│  3. VerifierAgent      21 System Invariants proof, grounding checks    │
+│  4. ResearchAgent      Web crawling, paper search, semantic RAG        │
+│  5. TerminalAgent      Shell execution, Docker sandboxing, test suites │
+│  6. BrowserAgent       Playwright web automation & interactive trees   │
+│  7. ComputerAgent      OS desktop perception & coordinate mouse/keys   │
+│  8. DataAgent          SQL analysis, CSV profiling, anomaly detection  │
+│  9. UniversalFileAgent Publication-grade Typst, DOCX, PPTX generation  │
+└────────────────────────────────────────────────────────────�## 🛡️ The 17-Step Chokepoint Action Gateway
 
-| Agent | Core Capabilities | Tool & Scope Grant |
-| :--- | :--- | :--- |
-| **`CodingAgent`** | Multi-step code analysis, AST symbol exploration, transactional multi-file batch patching, and syntax validation. | `code.search`, `code.replace_content`, `code.replace_content_batch`, `filesystem.write` |
-| **`ReviewerAgent`** | AST linting, structural diff review, and closed-loop peer review feedback on the message bus. | `code.diff_review`, `filesystem.read`, `git.read` |
-| **`ResearchAgent`** | Multi-source web crawling, noise stripping, fact cross-referencing, and Tier 3 Semantic RAG ingestion. | `search.web`, `browser.navigate`, `browser.extract_text`, `browser.save_to_scratch`, `memory.semantic_ingest` |
-| **`TerminalAgent`** | Sandboxed shell commands, git branch/diff inspection, test suite execution (`pytest`, `unittest`, `npm test`), and compilation diagnostics. | `terminal.execute`, `shell.execute`, `test.run`, `git.status`, `git.diff` |
-| **`ComputerAgent`** | OS desktop perception (Per-Monitor DPI scaling, region screenshots) and grounded mouse/keyboard automation with credential blockers. | `desktop.screenshot`, `desktop.click`, `desktop.drag`, `desktop.scroll`, `desktop.type`, `desktop.hotkey` |
-| **`UniversalFileAgent`** | Single-shot document compilation, converting structured text into formatted PDF, Word (`.docx`), and PowerPoint (`.pptx`) deliverables. | `file.write`, `file.create_pdf`, `file.create_docx`, `file.create_pptx` |
+Every mutating action in NAVA must pass sequentially through the 17-step `ActionGateway` chokepoint ([`src/nava/gateway/pipeline.py`](file:///c:/Users/aakhi/Desktop/Nava/src/nava/gateway/pipeline.py)):
+
+```
+                        INCOMING MUTATION REQUEST
+                                    │
+                                    ▼
+     [ Step 0a: Emergency Circuit Check ] ──► Verifies Kill Switch Not Active
+                                    │
+                                    ▼
+     [ Step 0b: Request Event Logging   ] ──► Emits TOOL_REQUESTED to Audit Ledger
+                                    │
+                                    ▼
+     [ Step 1:  Schema Validation       ] ──► Validates Pydantic Arguments
+                                    │
+                                    ▼
+     [ Step 2:  Agent Identity & TTL    ] ──► Validates UUID & Active Expiration
+                                    │
+                                    ▼
+     [ Step 3:  Parent Scope Verify     ] ──► Non-Increasing Hierarchy (Inv #5)
+                                    │
+                                    ▼
+     [ Step 4:  Permission Checking     ] ──► Confirms Permission Grant
+                                    │
+                                    ▼
+     [ Step 5:  Policy Engine (ALLOW)   ] ──► Evaluates Rules & Security Switches
+                                    │
+                                    ▼
+     [ Step 6:  Additive Risk Engine    ] ──► Computes Additive Risk Tier
+                                    │
+                                    ▼
+     [ Step 7:  Budget Engine           ] ──► Verifies Tokens, Steps & Depth Quota
+                                    │
+                                    ▼
+     [ Step 8:  Concurrency Locking     ] ──► Acquires Shared/Exclusive Locks
+                                    │
+                                    ▼
+     [ Step 9:  Credential Brokerage    ] ──► Injects Scoped 5-min Secret Tokens
+                                    │
+                                    ▼
+     [ Step 10: HITL Human Approval     ] ──► Prompts User for High Risk Approval
+                                    │
+                                    ▼
+     [ Step 11: Pre-State Snapshot      ] ──► Captures Pre-Execution File Hash
+                                    │
+                                    ▼
+     [ Step 12: Sandboxed Tool Exec     ] ──► Dispatches Tool Locally or via MCP
+                                    │
+                                    ▼
+     [ Step 13: Post-State Observation  ] ──► Inspects Resource Mutation Output
+                                    │
+                                    ▼
+     [ Step 14: Automated Verification  ] ──► Validates Size, Path & Integrity
+                                    │
+                                    ▼
+     [ Step 15: Cryptographic Receipt   ] ──► Issues Signed Tamper-Evident Record
+                                    │
+                                    ▼
+     [ Step 16: Audit Ledger Append     ] ──► Appends to Append-Only Ledger
+                                    │
+                                    ▼
+     [ Step 17: Episodic Memory Sync    ] ──► Syncs Task Outcome to Tier 2 Store
+                                    │
+                                    ▼
+     [ Finally: Lock Release & Cleanup  ] ──► Releases Concurrency Locks
+                                    │
+                                    ▼
+                           EXECUTION COMPLETE
+```t history into every call:
+
+1. **Token-Dense Pointers**: The Orchestrator passes compact pointers (`task_id`, `project_name`).
+2. **On-Demand Loading**: Agents inspect context on demand via `file.read("task_memory.md")` or `file.read("project_memory.md")`.
+3. **80% Token Footprint Reduction**: Execution cycles run up to 4x faster with drastically reduced API costs and zero LLM context saturation.
 
 ---
 
-## The 12-Step Chokepoint Action Gateway
+## 🛡️ The 12-Step Chokepoint Action Gateway
 
-Every mutating action in NAVA must pass sequentially through the 12-step `ActionGateway` chokepoint (`src/nava/gateway/pipeline.py`):
+Every mutating action in NAVA must pass sequentially through the 12-step `ActionGateway` chokepoint ([`src/nava/gateway/pipeline.py`](file:///c:/Users/aakhi/Desktop/Nava/src/nava/gateway/pipeline.py)):
 
 ```
                         INCOMING MUTATION REQUEST
@@ -202,7 +252,7 @@ Every mutating action in NAVA must pass sequentially through the 12-step `Action
      [ Step 1: Authentication & Lineage ] ──► Validates UUID & Active TTL
                                     │
                                     ▼
-     [ Step 2: Policy Engine (ALLOW)   ] ──► Checks Static Rules & Switches
+     [ Step 2: Policy Engine (ALLOW)   ] ──► Checks Static Rules & Security Switches
                                     │
                                     ▼
      [ Step 3: Additive Risk Engine     ] ──► Computes Additive Risk Score
@@ -240,58 +290,7 @@ Every mutating action in NAVA must pass sequentially through the 12-step `Action
 
 ---
 
-## Real-Time Multi-Agent Collaboration (AgentMessageBus)
-
-NAVA coordinates multi-agent swarms using a high-throughput, thread-safe Pub/Sub broker (`src/nava/core/message_bus.py`):
-
-### 1. Channel-Based Communication
-Agents subscribe and publish to isolated channels:
-* `task:<stage_id>:<topic>`: Ephemeral channel for agents collaborating on a shared stage.
-* `peer_review`: Dedicated channel for code submission and review feedback.
-* `broadcast:progress`: Global streaming channel broadcasting step metrics and reasoning thoughts.
-
-### 2. Closed-Loop Peer Review Protocol
-When `CodingAgent` generates code changes, it initiates a closed-loop review handshake:
-
-```
-  [ CodingAgent ]                                 [ ReviewerAgent ]
-         │                                                │
-         │─── 1. PEER_REVIEW_REQUEST(diff, file_path) ───►│
-         │                                                │ Evaluates AST & Tests
-         │◄── 2. PEER_REVIEW_FEEDBACK(approved, fixes) ───│
-         │
-   [ If Changes Requested ]
-   Applies fixes & resubmits
-```
-
-### 3. Real-Time UI Streaming
-The `AgentMessageBus` exposes an `add_global_listener` hook that feeds directly into WebSocket and Server-Sent Event (SSE) streams for real-time frontend visualization.
-
----
-
-## Project Workspace Memory (.nava/)
-
-Every project directory managed by NAVA contains a persistent `.nava/` workspace context ledger:
-
-```
-<Project_Root>/
-├── .nava/
-│   ├── project_memory.md       ◄── Human & machine-readable context ledger
-│   ├── project_index.json      ◄── Function & Class AST Symbol Knowledge Graph
-│   └── checkpoints/            ◄── Snapshot diff restore points for fast rollbacks
-├── src/ ...
-└── tests/ ...
-```
-
-### Structure of `project_memory.md`
-1. **Project Overview & Architecture**: Tech stack, primary goal, file index stats.
-2. **Current Execution State (Live Checkpoint)**: Active objective, last active agent, timestamp, touched files.
-3. **Architectural Decisions & Constraints**: Append-only log of technical decisions (e.g. "Using RS256 for JWT").
-4. **Resume Queue**: Ordered checklist of completed and pending sub-tasks for cross-session continuity.
-
----
-
-## Four-Tier Memory Architecture & AI Twin
+## 🗄️ Four-Tier Memory Hierarchy & AI Twin
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -304,17 +303,16 @@ Every project directory managed by NAVA contains a persistent `.nava/` workspace
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Memory Security & Invariant #20
-* **Profile Trust Escalation Gate**: External content (scraped web pages, downloaded documents, LLM inferences) can never silently write or upgrade memories to `VERIFIED` status in Tier 4.
-* **Conflict Flagging**: If a new observation contradicts an existing verified profile fact, NAVA marks the fact with `CONFLICT_DETECTED` and requests user clarification instead of overwriting.
+* **Profile Trust Escalation Gate (Invariant #20)**: External content (scraped web pages, downloaded documents, LLM inferences) can never silently write or upgrade memories to `VERIFIED` status in Tier 4 without explicit human confirmation.
+* **Conflict Flagging**: Contradictory observations are tagged with `CONFLICT_DETECTED` and routed for user clarification.
 
 ---
 
-## The 21 Certified System Invariants
+## ⚖️ The 21 Certified System Invariants
 
-NAVA adheres to 21 system invariants validated through continuous unit and adversarial test suites:
+NAVA mathematically guarantees 21 core operating system invariants:
 
-1. **Mutation Gate Chokepoint**: 100% of state-mutating requests must pass through the 12-step Gateway.
+1. **Mutation Gate Chokepoint**: 100% of state mutations must pass through the 12-step Action Gateway.
 2. **Append-Only Audit Ledger**: `nava_audit.jsonl` is strictly append-only; past records cannot be modified or truncated.
 3. **Receipt Immutability**: Cryptographic execution receipts are immutable once written.
 4. **Root Ceiling Enforcement**: Dynamic subagents cannot exceed the root security ceiling in `nava.yaml`.
@@ -325,7 +323,7 @@ NAVA adheres to 21 system invariants validated through continuous unit and adver
 9. **Write-Exclusive Locking**: Exclusive write locks block concurrent read and write operations on the same resource.
 10. **Shared-Read Concurrency**: Multiple subagents can acquire non-conflicting shared read locks concurrently.
 11. **Automatic Reversible Rollback**: Tool failures on reversible operations trigger automatic pre-snapshot state restoration.
-12. **Irreversible Compensation Routing**: Non-reversible failures route to `CompensationEngine` for designated compensation workflows.
+12. **Irreversible Compensation Routing**: Non-reversible failures route to `CompensationEngine` for compensation workflows.
 13. **Bounded Cleanup Budget**: Rollback and compensation routines execute under a strict resource ceiling ($\le 5$ steps).
 14. **HITL Escalation Gate**: Operations returning policy outcome `APPROVAL` strictly mandate a signed user approval record.
 15. **Critical Risk Hard-Block**: Tools scoring in the `CRITICAL` risk tier are blocked from automated execution.
@@ -338,147 +336,265 @@ NAVA adheres to 21 system invariants validated through continuous unit and adver
 
 ---
 
-## Configuration & Security Switches
+## ⚙️ Configuration & User-Configurable Security Switches
 
-Global resource budgets, capabilities, and master security feature switches are defined in `nava.yaml`:
+Configured in [`nava.yaml`](file:///c:/Users/aakhi/Desktop/Nava/nava.yaml):
 
 ```yaml
-# Root Agent Security Ceilings
-root_agent:
-  ceiling_permissions:
-    - filesystem.write
-    - filesystem.read
-    - data.analyze
-    - test.run
-    - terminal.execute
-    - shell.execute
-    - browser.*
-    - desktop.*
-    - search.web
-    - memory.semantic
-
-  ceiling_tools:
-    - file.read
-    - file.write
-    - file.delete
-    - file.create_pdf
-    - file.create_docx
-    - file.create_pptx
-    - code.search
-    - code.replace_content
-    - code.replace_content_batch
-    - terminal.execute
-    - shell.execute
-    - test.run
-    - git.status
-    - git.diff
-    - search.web
-    - memory.semantic_ingest
-    - browser.navigate
-    - browser.extract_text
-    - browser.save_to_scratch
-    - desktop.screenshot
-    - desktop.click
-    - desktop.type
-    - desktop.hotkey
-
-# Global Resource Budgets
+# Global Execution & Resource Budgets
 budget:
   max_agents: 50
   max_depth: 10
   max_steps: 1000
   max_tokens: 1000000
 
-# User-Configurable Security Feature Switches
+# User-Configurable Security Feature Switches (Section 13 & 26)
 security_switches:
-  enable_terminal_execution: true    # Toggle shell/terminal execution
-  enable_desktop_gui_control: true   # Toggle mouse/keyboard automation (false = screenshot-only mode)
-  enable_external_integrations: true # Toggle external MCP/Gmail integrations
+  enable_terminal_execution: true    # Set to false to disable all shell/terminal execution
+  enable_docker_sandboxing: true     # Set to false to disable ephemeral Docker container creation
+  enable_desktop_gui_control: true   # Set to false to make ComputerAgent read-only (screenshots only)
+  enable_browser_automation: true    # Set to false to disable Playwright web navigation & form automation
+  enable_code_mutation: true         # Set to false to make CodingAgent read-only
+  enable_external_integrations: true # Set to false to block external web MCPs, Gmail, and GitHub integrations
+  enable_deep_audit_gates: true      # Set to false to bypass sequential thinking & AST security scanners
+  enforce_codebase_isolation: true   # Set to false to disable strict isolation of NAVA's internal framework files
+
+# Model Context Protocol (MCP) Ecosystem & Specialized Agent Servers
+# (Set enabled: false on any server to completely disable and unregister it)
+mcp_servers:
+  context7:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@context7/mcp-server@latest"]
+    assigned_roles: ["CodingAgent"]
+    trust_state: "TRUSTED"
+  
+  superpowers:
+    enabled: true
+    command: "uvx"
+    args: ["mcp-superpowers-code@latest"]
+    assigned_roles: ["CodingAgent"]
+    trust_state: "TRUSTED"
+
+  git:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-git@latest"]
+    assigned_roles: ["CodingAgent", "TerminalAgent"]
+    trust_state: "TRUSTED"
+
+  fetch:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-fetch@latest"]
+    assigned_roles: ["ResearchAgent"]
+    trust_state: "TRUSTED"
+
+  brave-search:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-brave-search@latest"]
+    assigned_roles: ["ResearchAgent"]
+    trust_state: "TRUSTED"
+
+  arxiv:
+    enabled: true
+    command: "uvx"
+    args: ["mcp-server-arxiv@latest"]
+    assigned_roles: ["ResearchAgent"]
+    trust_state: "TRUSTED"
+
+  sqlite:
+    enabled: true
+    command: "uvx"
+    args: ["mcp-server-sqlite@latest"]
+    assigned_roles: ["DataAgent"]
+    trust_state: "TRUSTED"
+
+  typst:
+    enabled: true
+    command: "uvx"
+    args: ["typst-mcp-server@latest"]
+    assigned_roles: ["DocumentAgent", "UniversalFileAgent"]
+    trust_state: "TRUSTED"
+
+  sequential-thinking:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"]
+    assigned_roles: ["ReviewerAgent", "VerifierAgent"]
+    trust_state: "TRUSTED"
+
+  audit-scanner:
+    enabled: true
+    command: "uvx"
+    args: ["nava-audit-mcp@latest"]
+    assigned_roles: ["ReviewerAgent", "VerifierAgent"]
+    trust_state: "TRUSTED"
+
+  docker-sandbox:
+    enabled: true
+    command: "uvx"
+    args: ["docker-sandbox-mcp@latest"]
+    assigned_roles: ["TerminalAgent"]
+    trust_state: "TRUSTED"
+
+  playwright-browser:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-puppeteer@latest"]
+    assigned_roles: ["BrowserAgent"]
+    trust_state: "TRUSTED"
+
+  desktop-automation:
+    enabled: true
+    command: "uvx"
+    args: ["desktop-automation-mcp@latest"]
+    assigned_roles: ["ComputerAgent"]
+    trust_state: "TRUSTED"
+
+  gmail:
+    enabled: true
+    command: "uvx"
+    args: ["gmail-mcp-server@latest"]
+    assigned_roles: ["EmailAgent"]
+    trust_state: "TRUSTED"
+
+  github:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-github@latest"]
+    assigned_roles: ["GitHubAgent"]
+    trust_state: "TRUSTED"
 ```
 
 ---
 
-## Repository Structure
+## 💻 Interactive TUI Cowork Shell
+
+Launch the command shell:
+
+```bash
+python nava_shell.py
+```
+
+### Slash Commands:
+* `/mcp` — Inspect active MCP servers, registered tools, trust status, and risk tiers.
+* `/mcp approve <server> <tool>` — Approve new or modified MCP tool definitions into the trusted hash ledger.
+* `/twin` — Inspect or update AI Twin persona facts (`/twin set role Software Architect`).
+* `/skills` — Inspect loaded `SKILL.md` skills and their SHA-256 integrity hash status.
+* `/budget` — View live task budget token, step, and agent consumption metrics.
+* `/kill` — Trigger the out-of-band Emergency Kill Switch circuit breaker.
+* `tasks` — View all past task memories.
+* `task resume <task_id>` — Resume an existing task session with complete historical context.
+* `projects` / `project use <name>` — Switch between isolated project workspaces.
+
+---
+
+## 📁 Repository Layout
 
 ```
 .
-├── .nava/                           # Project Workspace context ledger & checkpoints
-│   ├── project_memory.md            # Live execution state and architectural decisions
-│   ├── project_index.json           # Python AST code symbols index
-│   └── checkpoints/                 # Ephemeral pre-mutation snapshot backups
-├── memory/                          # Persistent JSON memory tiers
-│   ├── profile.json                 # Tier 4: AI Twin verified facts
-│   ├── semantic.json                # Tier 3: Knowledge base & RAG records
-│   └── episodic.json                # Tier 2: Task execution receipts
+├── .nava/                           # Project Workspace context ledger & AST checkpoints
+├── memory/                          # Four-Tier persistent JSON memory stores
+├── projects/                        # User project workspaces
+├── tasks/                           # Isolated task sessions & deliverable artifacts
 ├── src/
 │   └── nava/
 │       ├── agents/
 │       │   ├── factory.py           # AgentFactory with permission intersection
-│       │   ├── planner.py           # GoalPlanner stage decomposition
-│       │   ├── templates.py         # Static agent template definitions
-│       │   └── runtime/             # LangGraph agent execution runtimes
-│       │       ├── coding_agent.py
-│       │       ├── reviewer_agent.py
-│       │       ├── research_agent.py
-│       │       ├── terminal_agent.py
-│       │       ├── computer_agent.py
-│       │       └── dynamic_agent.py
+│       │   ├── planner.py           # GoalPlanner stage decomposition & tool assignment
+│       │   ├── templates.py         # Static agent template catalog
+│       │   └── runtime/             # LangGraph cyclic execution runtimes
 │       ├── core/
-│       │   ├── boot.py              # System bootstrap & initialization
+│       │   ├── boot.py              # Bootstrapper & security switch ceiling filtering
 │       │   ├── ledger.py            # Append-only audit ledger
-│       │   ├── llm.py               # Frontier LLM interface
+│       │   ├── llm.py               # Frontier LLM gateway
 │       │   ├── message_bus.py       # Inter-agent Pub/Sub broker
-│       │   ├── sanitizer.py         # Prompt injection & delimiter sanitizer
-│       │   └── schemas.py           # Pydantic schemas and models
+│       │   ├── sanitizer.py         # Prompt injection sanitizer
+│       │   └── schemas.py           # Pydantic core schemas
 │       ├── credentials/
-│       │   ├── vault.py             # Encrypted credential storage
-│       │   └── broker.py            # Short-lived credential broker
+│       │   ├── vault.py             # AES-256 credential vault
+│       │   └── broker.py            # Scoped 5-minute credential broker
 │       ├── gateway/
 │       │   └── pipeline.py          # 12-step ActionGateway implementation
 │       ├── governance/
-│       │   ├── policy_engine.py     # Rule evaluation & security switches
-│       │   ├── risk_engine.py       # Additive scoring risk engine
-│       │   ├── budget_engine.py     # Quota tracking & loop detection
-│       │   ├── lock_manager.py      # Read/write concurrency control
+│       │   ├── policy_engine.py     # Deterministic policy evaluation & security switches
+│       │   ├── risk_engine.py       # Additive risk scoring
+│       │   ├── budget_engine.py     # Token/step budgets & runaway loop detector
+│       │   ├── lock_manager.py      # Read/write concurrency locks
 │       │   ├── hitl_manager.py      # Human-in-the-Loop approval queues
-│       │   ├── rollback_engine.py   # Reversible state rollback
+│       │   ├── rollback_engine.py   # Reversible state restoration
 │       │   ├── compensation_engine.py # Irreversible compensation routines
-│       │   ├── dom_sanitizer.py     # HTML tripwire & injection cleaner
+│       │   ├── dom_sanitizer.py     # DOM tripwire cleaner
 │       │   └── state_observer.py    # Resource hash snapshotting
 │       ├── memory/
-│       │   └── store.py             # Working, Episodic, Semantic, Profile stores
+│       │   ├── store.py             # Working, Episodic, Semantic, Profile memory stores
+│       │   └── ai_twin.py           # AI Twin persona and fact manager
+│       ├── prompts/                 # On-demand prompt templates
 │       ├── skills/
 │       │   ├── manager.py           # SKILL.md parsing & hash verification
-│       │   └── promotion.py         # Dynamic skill promotion pipeline
+│       │   └── promotion.py         # Dynamic skill promotion engine
 │       ├── tools/
-│       │   ├── executor.py          # Local tool execution engine
-│       │   ├── registry.py          # Tool definitions & schemas
-│       │   ├── browser.py           # Playwright Chromium browser driver
-│       │   ├── desktop.py           # DPI-aware OS desktop GUI engine
-│       │   └── mcp_client.py        # Model Context Protocol stdio client
+│       │   ├── executor.py          # LocalToolExecutor & codebase isolation sandbox
+│       │   ├── registry.py          # ToolRegistry & schema definitions
+│       │   ├── tool_manifest.py     # Complete tool catalog & MCP registration
+│       │   ├── browser.py           # Playwright headless browser engine
+│       │   ├── computer_engine.py   # OS desktop GUI perception & coordinate control
+│       │   ├── terminal_engine.py   # TerminalEngine & DockerSandboxManager
+│       │   ├── data_engine.py       # SQLite, SQL CSV & data profiling engine
+│       │   ├── document_engine.py   # Typst Rust vector PDF engine
+│       │   ├── audit_engine.py      # AST vulnerability & invariant verification engine
+│       │   └── mcp_client.py        # StdioMCPClient & MCPClientManager
+│       ├── ui/
+│       │   └── cowork_tui.py        # Interactive terminal UI
 │       ├── workspace/
 │       │   ├── indexer.py           # AST symbol parser
 │       │   └── project_manager.py   # Workspace context continuity engine
 │       └── orchestrator.py          # End-to-end task orchestration kernel
-├── tests/                           # Complete test suite (39 verified tests)
-│   ├── test_21_invariants.py        # 21 System Invariants verification
-│   ├── test_project_workspace.py    # Workspace memory & AST indexer tests
-│   ├── test_specialized_agents.py   # Specialized agents & security switches tests
-│   └── test_agent_message_bus.py    # Pub/Sub broker & peer review loop tests
-├── nava.yaml                        # OS configuration & security policy
-├── nava_shell.py                    # Interactive CLI shell
+├── tests/                           # Complete automated unit & integration test suites
+│   ├── test_security_switches.py    # User security switches & MCP disabling tests
+│   ├── test_browser_computer_mcp.py # Browser & desktop automation tests
+│   ├── test_terminal_agent_mcp.py   # DevOps & Docker sandbox tests
+│   ├── test_codebase_isolation.py   # Core codebase isolation sandbox tests
+│   ├── test_21_invariants.py        # 21 System Invariants tests
+│   ├── test_specialized_agents.py   # Static agent template tests
+│   ├── test_project_workspace.py    # Workspace context tests
+│   └── test_agent_message_bus.py    # Inter-agent Pub/Sub tests
+├── nava.yaml                        # OS configuration, budgets & security policy
+├── nava_shell.py                    # Interactive shell entrypoint
 └── requirements.txt                 # Dependencies
 ```
 
 ---
 
-## Getting Started & Quickstart
+## 🚀 Getting Started & Quickstart
 
-### Prerequisites
+### 1. Prerequisites
 * Python 3.10 or higher
-* Google Gemini API key (or local OpenAI-compatible endpoint)
+* Node.js / `npx` (for NPM MCP servers like `@context7/mcp-server`, `@modelcontextprotocol/server-git`)
+* Python `uv` / `uvx` (for Python MCP servers like `mcp-server-sqlite`, `typst-mcp-server`)
+* Google Gemini API Key (or local OpenAI-compatible LLM endpoint)
 
-### Installation
+---
+
+### 2. Installation Options
+
+#### 📦 Option A: Install from PyPI (Recommended)
+You can install NAVA directly as a Python package or standalone CLI tool:
+
+```bash
+# Using standard pip
+pip install nava-agent
+
+# Or as an isolated global tool with pipx
+pipx install nava-agent
+
+# Install Playwright browser dependencies
+playwright install chromium
+```
+
+#### 🛠️ Option B: Install from Source (Developer Setup)
 ```bash
 # Clone the repository
 git clone https://github.com/your-org/nava.git
@@ -488,47 +604,80 @@ cd nava
 python -m venv venv
 source venv/bin/activate  # Windows: .\venv\Scripts\activate
 
-# Install dependencies
+# Install in editable mode
+pip install -e .
 pip install -r requirements.txt
 
-# Install Playwright browser binaries (optional, for browser automation)
+# Install Playwright browser binaries
 playwright install chromium
 ```
 
-### Environment Configuration
-Create a `.env` file in the root directory:
+---
+
+### 3. Environment Configuration
+Set your Gemini API key in your environment or create a `.env` file:
+```bash
+# Windows PowerShell
+$env:GEMINI_API_KEY="your_gemini_api_key_here"
+
+# Linux / macOS
+export GEMINI_API_KEY="your_gemini_api_key_here"
+```
+
+Or create a `.env` file in your workspace root:
 ```env
 GEMINI_API_KEY=your_gemini_api_key_here
 NAVA_ENV=development
 ```
 
-### Launching the Interactive Shell
+---
+
+### 4. Launching the Operating System
+
+If installed via PyPI/pipx, launch from any directory using the global `nava` command:
+```bash
+nava
+```
+
+Or run the interactive shell directly from the repository:
 ```bash
 python nava_shell.py
 ```
 
 ---
 
-## Verification & Test Suite
+## 🧪 Automated Verification & Test Suite
 
 Run the full automated test suite:
 
 ```bash
-# 1. Verify all 21 certified system invariants
+# 1. Verify User Security Switches & MCP Dynamic Disabling
+python -m unittest tests/test_security_switches.py -v
+
+# 2. Verify Browser & Desktop Computer Use MCP Suite
+python -m unittest tests/test_browser_computer_mcp.py -v
+
+# 3. Verify Terminal DevOps & Docker Sandboxing Suite
+python -m unittest tests/test_terminal_agent_mcp.py -v
+
+# 4. Verify Core Codebase Isolation Invariant
+python -m unittest tests/test_codebase_isolation.py -v
+
+# 5. Verify all 21 Certified System Invariants
 python -m unittest tests/test_21_invariants.py -v
 
-# 2. Verify specialized agents and security switches
+# 6. Verify Specialized Agent Templates
 python -m unittest tests/test_specialized_agents.py -v
 
-# 3. Verify project workspace memory and AST indexer
+# 7. Verify Workspace Memory & AST Indexer
 python -m unittest tests/test_project_workspace.py -v
 
-# 4. Verify inter-agent message bus & peer review loop
+# 8. Verify Inter-Agent Message Bus & Peer Review
 python -m unittest tests/test_agent_message_bus.py -v
 ```
 
 ---
 
-## License
+## 📄 License
 
 Apache 2.0 License. See `LICENSE` for details.

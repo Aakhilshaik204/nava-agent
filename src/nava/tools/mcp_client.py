@@ -170,19 +170,23 @@ class MCPClientManager:
         args: Optional[List[str]] = None, 
         env: Optional[Dict[str, str]] = None, 
         required_service: Optional[str] = None,
-        custom_tools: Optional[List[dict]] = None
+        custom_tools: Optional[List[dict]] = None,
+        enabled: bool = True
     ):
         """
         Easy registration API for any MCP Server.
-        Example:
-            mcp_manager.register_server("github", "npx", ["-y", "@modelcontextprotocol/server-github"], required_service="github")
+        If enabled is False, the server is ignored and excluded.
         """
+        if not enabled:
+            return
+
         self.servers[name] = {
             "type": "local",
             "command": command,
             "args": args or [],
             "env": env or {},
-            "required_service": required_service
+            "required_service": required_service,
+            "enabled": True
         }
 
         # If custom tool schemas were provided explicitly, process them directly

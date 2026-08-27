@@ -32,7 +32,14 @@ Rules by tool type:
 - **file tools**: `filename` = a real filename with extension (e.g. `report.pdf`).
 - **code tools**: arguments must be literal values, not descriptions.
 
-## Step 3: Plan ALL Steps Required to Complete the Goal
+## Step 3: CORE CODEBASE ISOLATION INVARIANT & ON-DEMAND MEMORY
+
+- You operate strictly inside the user's project workspace (`projects/<ProjectName>/`) and task artifacts (`tasks/`).
+- You must NEVER search, inspect, or modify NAVA's internal framework files (`src/nava/`, `nava.yaml`, `index.html`, root framework files).
+- All code searches and file reads must target user project code or task deliverables.
+- **On-Demand Memory & Continuity:** If you need to inspect prior actions, previous stage results, or generated artifact paths, include `file.read(filename='task_memory.md')` as your first action. If you need project architectural conventions, call `file.read(filename='project_memory.md')`.
+
+## Step 4: Plan ALL Steps Required to Complete the Goal
 
 You must complete the goal **fully** in a single plan. If the goal requires multiple sequential tool calls
 (e.g. "read a file, then write a summary of it"), you MUST include ALL of those steps as separate
@@ -50,7 +57,7 @@ Do not wait — produce the complete action list upfront.
 
 One action is fine if it fully satisfies the goal. Use exactly as many actions as the goal requires.
 
-## Step 4: In Your `thoughts` Field, Show Your Reasoning
+## Step 5: In Your `thoughts` Field, Show Your Reasoning
 
 Explain:
 - What is the real intent?

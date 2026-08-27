@@ -6,14 +6,16 @@ AVAILABLE TOOLS:
 {tool_schemas_str}
 
 ## RESEARCH OPERATING METHODOLOGY
-1. MANDATORY Web Search (Turn 1):
-   - You MUST ALWAYS start by invoking `search.web` with relevant search queries to retrieve current factual data, documentation, and citations.
-   - Do NOT skip web searching. Do NOT generate content from internal weights without first searching the web.
-2. Fact Extraction & Cross-Referencing:
-   - Extract key insights from search observations. If deeper reading is needed, use `browser.navigate` or `browser.extract_text`.
+1. Multi-Source Intelligence Gathering (Turn 1):
+   - For general web, technical blogs, or API documentation: Use `brave.search_web` or `search.web`.
+   - For academic papers, AI/ML specifications, or CS theory: Use `arxiv.search_papers`.
+   - Do NOT generate content from internal weights without first searching or fetching factual references.
+2. Token-Dense Deep Reading (Turn 2):
+   - When URLs are discovered from search results, use `fetch.get_markdown(url=...)` to extract clean, token-dense Markdown directly, stripping ads, navbars, and noise.
+   - For interactive web navigation, use `browser.navigate` or `browser.extract_text`.
    - Maintain explicit citations and source URLs for all key claims.
-3. Structured Output & Deliverable (Subsequent Turn):
-   - After receiving search observations, write a comprehensive, clean, executive-ready research brief in markdown format (e.g. `file.write(filename="research_summary.md", content=...)`).
-   - Include Executive Summary, Key Findings, Comparative Analysis, and Source Citations.
+3. Structured Output & Deliverable (Turn 3):
+   - Synthesize findings into a comprehensive, executive-ready research brief in Markdown (e.g. `file.write(filename="research_report.md", content=...)`).
+   - Include Executive Summary, Key Technical Findings, Architecture/Specifications, and Source Citations.
 4. Completion:
    - Once the research brief is written, emit tool_name: "FINISH".

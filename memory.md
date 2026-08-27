@@ -376,14 +376,80 @@ This file tracks all actions, changes, updates, and deletions made throughout th
    - `ComputerAgent`, `ResearchAgent`, and `TerminalAgent` runtimes and prompt graphs implemented.
    - `AgentMessageBus` (`src/nava/core/message_bus.py`): Thread-safe inter-agent pub/sub messaging, live progress broadcasting (`broadcast:progress`), and closed-loop peer review (`CodingAgent` $\leftrightarrow$ `ReviewerAgent`).
    - `nava.yaml` updated with all tools; `shell.execute` restricted strictly to `TerminalAgent`.
-   - Verified with `tests/test_specialized_agents.py` (8/8 passed), `tests/test_agent_message_bus.py` (4/4 passed), and `tests/test_21_invariants.py` (21/21 passed). **Total: 39/39 Tests Passing!**
+   - Verified with `tests/test_specialized_agents.py` (8/8 passed), `tests/test_agent_message_bus.py` (4/4 passed), and `tests/test_21_invariants.py` (21/21 passed).
+## 2026-08-24
+* **PyPI Release (`nava-agent v0.2.0`):**
+  - Successfully built clean wheel and tarball distribution with zero sensitive files/keys/tasks leakage (`dist/nava_agent-0.2.0-py3-none-any.whl`).
+  - Configured `.pypirc` and published `nava-agent` to PyPI: [https://pypi.org/project/nava-agent/0.2.0/](https://pypi.org/project/nava-agent/0.2.0/).
+* **Public Showcase & Distribution Portal (`index.html`):**
+  - Transformed `index.html` into modern Claude Code/Cursor aesthetic public landing page with interactive Terminal simulator, copyable `pip install nava-agent` bar, and PyPI badges.
+* **CodingAgent MCP & Superpowers Integration (`Context7`, `Superpowers`, `Git`):**
+  - **Context7 AST Intelligence:** Added `context7.get_symbol_graph` (parses AST class/function/import hierarchies across project files) and `context7.slice_context` (slices specific function definitions, reducing prompt tokens up to 80%).
+  - **Superpowers AST Refactoring & Self-Healing:** Added `superpowers.ast_search` (AST syntax node search), `superpowers.ast_replace` (surgical AST-verified code replacement), and `superpowers.compiler_autofix` (diagnoses syntax errors and auto-repairs missing colons/syntax bugs).
+  - **Git MCP Tools:** Added `git.branch` and `git.commit` for isolated project branch management and audit tracking.
+  - **Wiring & Governance:** Fully registered tools in `src/nava/tools/executor.py`, `src/nava/orchestrator.py`, `src/nava/agents/planner.py`, `src/nava/prompts/coding_agent_prompt.txt`, `nava.yaml`, and `src/nava/core/boot.py`.
+  - **Verification:** Created and verified unit test suite `tests/test_coding_agent_superpowers.py` (5/5 tests passing).
 3. **⏳ Phase 3: Frontend 1 — Agent Cowork & Control Studio (3-Panel Workspace) [QUEUED NEXT]**:
    - 3-panel workspace: Live Agent Tree & Budget Meter (Left), Streaming Conversation & Interactive HITL Modal (Center), Live Artifact & Media Studio (Right) for real-time PDF/DOCX/PPTX/Diff preview; `/twin` hub, `/skills` promotion gallery, and floating emergency stop.
-4. **⏳ Phase 4: Frontend 2 — Public Showcase & Distribution Portal [QUEUED]**:
-   - Deployable landing page with architecture visualizer, interactive safe playground demo, desktop/docker/pip download center, and GitHub ecosystem integration (star counter, release notes, docs).
-
-
-
+## 2026-08-25
+* **ResearchAgent MCP Suite (`Fetch`, `Brave Search`, `ArXiv`):**
+  - **Dedicated Modular Engine:** Built `src/nava/tools/research_engine.py` housing `fetch.get_markdown` (token-dense HTML-to-Markdown cleaning stripping ads/trackers), `brave.search_web` (high-precision structured search with rankings), and `arxiv.search_papers` / `arxiv.get_paper_summary` (official ArXiv API querying for academic papers, authors, abstracts, and PDF links).
+  - **Lean Tool Dispatcher:** Integrated `ResearchEngine` into `src/nava/tools/executor.py` via simple 1-line delegations.
+  - **Governance & Hard Role Isolation:** Enforced hard role-restrictions in `AgentFactory` (`src/nava/agents/factory.py`) ensuring `fetch.*`, `brave.*`, and `arxiv.*` tools are strictly rejected and stripped from any agent other than `ResearchAgent`.
+  - **Prompt & Planner Alignment:** Updated `ResearchAgent` prompt methodology and baseline tools in `src/nava/agents/planner.py` and `src/nava/prompts/research_agent_prompt.txt`.
+  - **Unit Testing:** Created `tests/test_research_agent_mcp.py` covering all 4 research MCP capabilities and role restriction enforcement.
+* **DataAgent Database & Tabular Analytics MCP Suite (`SQLite`, `Tabular Analytics`):**
+  - **Dedicated Modular Engine:** Built `src/nava/tools/data_engine.py` providing SQLite MCP tools (`sqlite.read_query`, `sqlite.write_query`, `sqlite.list_tables`, `sqlite.describe_tables`) and Tabular Analytics Engine (`data.sql_query_csv`, `data.profile_dataset`, `data.aggregate`).
+  - **Cyclic Agent Runtime:** Built `src/nava/agents/runtime/data_agent.py` and `src/nava/prompts/data_agent_prompt.txt` enabling multi-turn profile -> SQL query -> synthesize -> finish loops.
+  - **Strict Role Isolation:** Enforced hard role-restrictions in `AgentFactory` (`src/nava/agents/factory.py`) ensuring `sqlite.*` and `data.*` tools are strictly rejected and stripped from any agent other than `DataAgent`.
+  - **Statistical Analysis Extensions:** Added `data.correlation_matrix` (Pearson correlation matrix across numeric columns), `data.detect_anomalies` (Z-score outlier detection), and `data.pivot_table` (2D cross-tabulation).
+  - **Orchestrator Decluttering & Refactoring:**
+    - Extracted all 50+ tool schemas and MCP server configurations into `src/nava/tools/tool_manifest.py`.
+    - Extracted agent graph resolution into `src/nava/agents/runtime/graph_dispatcher.py`.
+    - Reduced `src/nava/orchestrator.py` by over 450 lines of boilerplate, keeping it lean, modular, and focused solely on execution lifecycle orchestration.
+* **DocumentAgent & UniversalFileAgent Typst PDF Compilation Suite (`Typst`, `DocumentEngine`):**
+  - **Dedicated Modular Engine:** Built `src/nava/tools/document_engine.py` providing publication-grade Typst PDF compilation (`typst.compile_pdf`), executive template rendering (`typst.render_template`), and universal document reading (`doc.read_document`).
+  - **Universal Agent Availability:** Extended `document.compile`, `typst.*`, and `doc.*` capabilities to both `DocumentAgent` and `UniversalFileAgent`.
+  - **Cyclic Agent Runtime:** Built `src/nava/agents/runtime/document_agent.py` and `src/nava/prompts/document_agent_prompt.txt` with multi-turn design $\rightarrow$ compile $\rightarrow$ verify $\rightarrow$ finish loops.
+  - **Hard Role-Based Isolation:** Updated `AgentFactory` (`src/nava/agents/factory.py`) to restrict `typst.*` and `doc.*` exclusively to `DocumentAgent` and `UniversalFileAgent`.
+  - **Unit Testing:** Created `tests/test_document_agent_mcp.py` testing Typst vector compilation, executive template rendering, cross-task artifact continuity, and role restrictions.
+  - **Cyclic Dispatcher Integration:** Added `DocumentAgent` and `DataAgent` into the cyclic multi-turn execution loop in `src/nava/orchestrator.py`, enabling full multi-step authoring $\rightarrow$ compilation $\rightarrow$ verification sequences.
+  - **Cross-Task Artifact Continuity:** Updated `LocalToolExecutor._file_read` in `src/nava/tools/executor.py` to seamlessly search and bridge artifacts from prior task sessions into the active task context, allowing effortless task continuation without re-generating intermediate source files.
+  - **Executive Typst Layout Engine:** Completely overhauled `DocumentEngine._convert_typst_to_styled_html` with an executive layout parser that extracts headers, metadata pills, callouts, tables, and narrative paragraphs with zero raw code leakage, producing McKinsey/HBR-grade PDF documents.
+  - **Explicit Task Resumption (`task resume <task_id>`):** Added `resume_task` to `TaskManager` and `cowork_tui.py`, allowing users to resume any previous task session by ID, loading all its artifacts, context, and ledger state directly into the active prompt loop.
+  - **Dependencies:** Added `typst` to `requirements.txt` for native Rust vector compilation.
+* **ReviewerAgent & VerifierAgent Deep Reasoning & Invariant Audit MCP Suite (`Sequential Thinking`, `AuditEngine`):**
+  - **Dedicated Modular Engine:** Built `src/nava/tools/audit_engine.py` implementing `SequentialThinkingEngine` (multi-branch hypothesis trees, revisions, confidence scoring), `InvariantAuditor` (deterministic validation of 21 System Invariants, tamper-evident Merkle hash ledger checking, scope alignment), `SecurityScanner` (AST vulnerability inspection for dangerous execution, injection vectors, and hardcoded secrets), and `GroundingVerifier` (mathematical & factual reconciliation between reports and raw datasets).
+  - **Multi-Turn Cyclic Runtime:** Built `src/nava/agents/runtime/verifier_agent.py` and updated `src/nava/agents/runtime/graph_dispatcher.py` to route multi-turn verification loops.
+  - **Hard Least-Privilege Scoping:** Updated `AgentFactory` (`src/nava/agents/factory.py`) to restrict `sequential_thinking.*` and `audit.*` exclusively to `ReviewerAgent` and `VerifierAgent`.
+  - **Unit Testing:** Created `tests/test_reviewer_verifier_mcp.py` testing hypothesis branching, invariant validation, AST vulnerability detection, grounding reconciliation, and role restrictions.
+* **Core Codebase Isolation Shield (Section 29.2 & Invariant #11):**
+  - **Protected System Boundaries:** Enforced strict isolation preventing autonomous agents from inspecting, modifying, or traversing NAVA's internal framework (`src/nava/`, `tests/`, `nava.yaml`, `index.html`, `requirements.txt`, `.git/`, `.vault_key`).
+  - **Project & Task Scoping:** Scoped `code.search`, `code.read_directory_tree`, `git.status`, `git.diff`, and `CodingSuperpowersEngine` strictly to user project workspaces (`projects/<active_project>/`) and task artifacts (`tasks/`).
+  - **Access Denials:** Hard-blocked attempts by agents to read, write, delete, or search internal system files via `_is_internal_system_path`.
+  - **Unit Testing:** Created `tests/test_codebase_isolation.py` validating that internal system reads/writes are blocked while user project files remain accessible.
+* **TerminalAgent DevOps & Ephemeral Container Sandbox MCP Suite (`TerminalEngine`, `DockerSandboxManager`):**
+  - **Dedicated Subsystem:** Built `src/nava/tools/terminal_engine.py` featuring `TerminalEngine` (governed shell command execution with strict timeouts, process tree cleanup, automated secret masking) and `DockerSandboxManager` (isolated ephemeral container execution with memory/CPU limits and graceful simulated fallback).
+  - **Structured Test Evaluation:** Implemented `terminal.run_tests` parsing pass/fail metrics across pytest, unittest, npm, cargo, and go test runners.
+  - **Environment Auditing:** Built `terminal.inspect_environment` discovering installed compilers and toolchains with token redaction.
+  - **Hard Role-Based Scoping:** Restricted `docker.sandbox` and `terminal.exec_command` strictly to `TerminalAgent` in `AgentFactory`.
+  - **Unit Testing:** Created `tests/test_terminal_agent_mcp.py` verifying process execution, timeout enforcement, secret masking, test runner parsing, Docker lifecycle, and role restrictions.
+* **BrowserAgent & ComputerAgent Autonomous Web & Desktop Computer Use MCP Suite (`BrowserEngine`, `ComputerEngine`):**
+  - **Playwright Headless Browser Subsystem:** Upgraded `src/nava/tools/browser.py` with `extract_interactive_tree()` returning numbered accessible elements (`[#1]`, `[#2]`) for 95% token savings, full-page/viewport screenshotting to task deliverables, form interaction (`click`, `type_text`, `select_option`, `scroll`), and anti-SSRF policy enforcement.
+  - **OS Desktop Computer Use Engine:** Built `src/nava/tools/computer_engine.py` supporting display resolution querying (`get_screen_size`), high-res screen captures to deliverables, coordinate mouse clicks (`desktop.click`), keyboard typing (`desktop.type`), and shortcut combinations (`desktop.hotkey`).
+  - **Role-Based Least-Privilege Isolation:** Restricted `desktop.*` strictly to `ComputerAgent` and `browser.*` to `BrowserAgent` in `AgentFactory`.
+  - **Unit Testing:** Created `tests/test_browser_computer_mcp.py` validating navigation, accessible interactive tree extraction, form typing, screenshots, desktop perception, and least-privilege scoping.
+* **User-Configurable Security Switches & Full Ecosystem MCP Servers ([`nava.yaml`](file:///c:/Users/aakhi/Desktop/Nava/nava.yaml), [`src/nava/core/boot.py`](file:///c:/Users/aakhi/Desktop/Nava/src/nava/core/boot.py)):**
+  - **Granular Security Toggles:** Added `security_switches` in `nava.yaml` allowing users to toggle `enable_terminal_execution`, `enable_docker_sandboxing`, `enable_desktop_gui_control` (read-only desktop mode), `enable_browser_automation`, `enable_code_mutation`, `enable_external_integrations`, `enable_deep_audit_gates`, and `enforce_codebase_isolation`.
+  - **Deterministic Boot Enforcement:** `Bootstrapper.bootstrap()` immediately filters out disabled tools, permissions, and scoped credentials when any switch is set to `false`.
+  - **Complete MCP Server Registry:** Populated `mcp_servers` in `nava.yaml` with all 15 specialized servers (`context7`, `superpowers`, `git`, `fetch`, `brave-search`, `arxiv`, `sqlite`, `typst`, `sequential-thinking`, `audit-scanner`, `docker-sandbox`, `playwright-browser`, `desktop-automation`, `gmail`, `github`).
+  - **Tool Registry Gate & Planner Filtering:** `LocalToolExecutor.execute()` and `GoalPlanner.plan()` strictly verify tool presence in `ToolRegistry`, immediately blocking any tool from a disabled MCP server (`DISABLED_TOOL`).
+  - **Auto Task-Artifact Path Sandboxing:** Fixed `_file_write` so any generic `tasks/filename.ext` writes are automatically routed into the specific active task directory `tasks/<active_task_id>/artifacts/filename.ext`.
+  - **Unit Testing:** Updated `tests/test_security_switches.py` validating disabled tool blocking and task artifact routing.
+* **PyPI Release (`nava-agent v0.2.5`):**
+  - Updated `pyproject.toml` to version `0.2.5` with full production dependencies (`langchain-google-genai`, `langchain-openai`, `langchain-groq`, `langgraph`, `pydantic`, `cryptography`, `python-dotenv`, `PyYAML`, `mcp`, `markdown`, `xhtml2pdf`, `reportlab`, `python-docx`, `python-pptx`, `typst`, `httpx`, `duckduckgo-search`, `playwright`).
+  - Created `src/nava/__init__.py` with `__version__ = "0.2.5"`.
+  - Updated CLI banner and landing page to `v0.2.5`.
 
 
 

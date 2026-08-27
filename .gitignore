@@ -2,7 +2,7 @@
 # NAVA Personal Agent OS — Git Ignore Configuration
 # ==============================================================================
 
-# Python Bytecode & Compilation
+# Python Bytecode & Build Artifacts
 __pycache__/
 *.py[cod]
 *$py.class
@@ -51,6 +51,7 @@ client_secret*.json
 # User Workspace Projects & Task Ledgers (Local Only)
 projects/
 tasks/
+receipts/
 memory/*.json
 memory/*.sqlite*
 .nava/skills/
@@ -70,6 +71,40 @@ nava_audit.jsonl
 !NAVA_Personal_Agent_OS_Blueprint.pdf
 !docs/*.pdf
 
+# Screenshots & Image Artifacts
+*.png
+*.jpg
+*.jpeg
+*.gif
+desktop_screen_test.png
+
+# Root Ephemeral Test Scripts & Agent Generation Dumps
+calculator.py
+test_calculator.py
+generate_invoice.py
+get_top_story.py
+merge_sort.py
+quick_sort.py
+wire_transfer.py
+cleanup_old_agents.py
+real_mcp_test.py
+test_server_boot.py
+test_run.bat
+portfolio.html
+script.js
+style.css
+Modelfile
+fix.md
+memory.md
+nava_arch.md
+nava_executive_summary.md
+nava_security.md
+README_NEW.md
+
+# Package Config (Ignored if keeping repo pure requirements.txt)
+*.toml
+pyproject.toml
+
 # Testing, Lints & Coverage
 .pytest_cache/
 .coverage
@@ -78,6 +113,7 @@ htmlcov/
 .mypy_cache/
 .ruff_cache/
 .hypothesis/
+pytest.ini
 
 # Playwright & Browser Binaries
 test-results/

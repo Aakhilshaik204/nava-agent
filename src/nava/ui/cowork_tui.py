@@ -29,14 +29,14 @@ class CoworkTUI:
         pass
 
     def print_banner(self):
-        """Renders modern Claude Code-style NAVA Agentic OS banner."""
+        """Renders modern Claude Code-style NAVA Agent banner."""
         proj_name = self.orchestrator.workspace.project_name if hasattr(self.orchestrator, "workspace") else "Nava"
         task_count = len(self.orchestrator.task_manager.list_tasks()) if hasattr(self.orchestrator, "task_manager") else 0
         all_skills = self.orchestrator.skill_manager.get_all_skills() if hasattr(self.orchestrator, "skill_manager") else {}
         total_skills = len(all_skills)
         
         banner_lines = [
-            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}NAVA AGENTIC OS{TerminalTheme.RESET} {TerminalTheme.SLATE}v0.2.0 • Personal Autonomous System{TerminalTheme.RESET}",
+            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}NAVA AGENT{TerminalTheme.RESET} {TerminalTheme.SLATE}v0.2.5 • Autonomous Coding & Task System{TerminalTheme.RESET}",
             f"{TerminalTheme.CYAN}Project:{TerminalTheme.RESET} {TerminalTheme.BOLD}{proj_name}{TerminalTheme.RESET}  │  {TerminalTheme.CYAN}Tasks:{TerminalTheme.RESET} {task_count}  │  {TerminalTheme.CYAN}Skills:{TerminalTheme.RESET} {total_skills}  │  {TerminalTheme.CYAN}Gateway:{TerminalTheme.RESET} {TerminalTheme.EMERALD}17-Step Enforced{TerminalTheme.RESET}",
             f"{TerminalTheme.DIM}Type your objective, or slash commands like {TerminalTheme.CYAN}/twin{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/budget{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/skills{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/help{TerminalTheme.RESET}"
         ]
@@ -74,13 +74,16 @@ class CoworkTUI:
                     continue
 
                 if user_input.lower() in ["exit", "quit", "/exit", "/quit"]:
-                    print(f"\n{TerminalTheme.CORAL}Shutting down Nava OS Shell. Goodbye! 👋{TerminalTheme.RESET}\n")
+                    print(f"\n{TerminalTheme.CORAL}Shutting down NAVA Shell. Goodbye! 👋{TerminalTheme.RESET}\n")
                     break
 
                 # Dispatch command
                 self.dispatch_command(user_input)
 
-            except (KeyboardInterrupt, EOFError):
+            except EOFError:
+                print(f"\n{TerminalTheme.CORAL}Shutting down NAVA Shell. Goodbye! 👋{TerminalTheme.RESET}\n")
+                break
+            except KeyboardInterrupt:
                 print(f"\n\n{TerminalTheme.YELLOW}Session paused. Type 'exit' to quit or enter a new goal.{TerminalTheme.RESET}")
             except Exception as e:
                 print(f"\n{TerminalTheme.BRIGHT_RED}[Fatal Error]{TerminalTheme.RESET} {e}")
@@ -139,9 +142,20 @@ class CoworkTUI:
             print("\n" + BoxRenderer.render_panel("📌 CURRENT PROJECT MEMORY", content.splitlines(), color=TerminalTheme.CYAN))
             return
 
-        # 7. Task History Commands (/tasks, /task <id>)
+        # 7. Task History & Continuity Commands (/tasks, /task resume <id>, /task <id>)
         if lower_q in ["tasks", "/tasks"]:
             self._handle_list_tasks()
+            return
+
+        if lower_q.startswith("task resume ") or lower_q.startswith("/task resume ") or lower_q.startswith("resume ") or lower_q.startswith("/resume "):
+            parts = query.split()
+            tid = parts[-1].strip()
+            res = self.orchestrator.task_manager.resume_task(tid)
+            if res:
+                print(f"\n{TerminalTheme.BRIGHT_GREEN}✅ Resumed task session: {res['task_id']}{TerminalTheme.RESET}")
+                print(f"{TerminalTheme.DIM}All subsequent queries and agent actions will execute inside this task session.{TerminalTheme.RESET}")
+            else:
+                print(f"\n{TerminalTheme.BRIGHT_RED}❌ Task '{tid}' not found in tasks/ directory.{TerminalTheme.RESET}")
             return
 
         if lower_q.startswith("task ") or lower_q.startswith("/task "):
@@ -149,9 +163,12 @@ class CoworkTUI:
             if len(parts) > 1:
                 tid = parts[1].strip()
                 mem = self.orchestrator.task_manager.get_task_memory(tid)
-                print("\n" + BoxRenderer.render_panel(f"📜 TASK AUDIT LEDGER: {tid}", mem.splitlines(), color=TerminalTheme.BLUE))
+                if mem:
+                    print("\n" + BoxRenderer.render_panel(f"📜 TASK AUDIT LEDGER: {tid}", mem.splitlines(), color=TerminalTheme.BLUE))
+                else:
+                    print(f"\n{TerminalTheme.BRIGHT_RED}❌ Task '{tid}' not found.{TerminalTheme.RESET}")
             else:
-                print(f"{TerminalTheme.YELLOW}Usage: /task <task_id>{TerminalTheme.RESET}")
+                print(f"{TerminalTheme.YELLOW}Usage: /task <task_id> or /task resume <task_id>{TerminalTheme.RESET}")
             return
 
         # 8. MCP Protocol Commands (/mcp, /mcp approve)
@@ -180,8 +197,14 @@ class CoworkTUI:
                 for t_name, t_meta in tools.items():
                     trust = t_meta.get("trust_state", "UNTRUSTED_NEW")
                     risk = t_meta.get("risk_level", "MEDIUM")
-                    status_badge = f"{TerminalTheme.BRIGHT_GREEN}✅ TRUSTED{TerminalTheme.RESET}" if trust == "TRUSTED" else f"{TerminalTheme.YELLOW}🆕 {trust}{TerminalTheme.RESET}"
-                    rows.append([s_name, t_name, status_badge, risk])
+                    trust_val = trust.value if hasattr(trust, "value") else str(trust)
+                    if "TRUSTED" in trust_val and "UNTRUSTED" not in trust_val:
+                        status_badge = f"{TerminalTheme.BRIGHT_GREEN}✅ TRUSTED{TerminalTheme.RESET}"
+                    elif "MODIFIED" in trust_val:
+                        status_badge = f"{TerminalTheme.BRIGHT_RED}⚠️ MODIFIED{TerminalTheme.RESET}"
+                    else:
+                        status_badge = f"{TerminalTheme.YELLOW}🆕 NEW{TerminalTheme.RESET}"
+                    rows.append([s_name, t_name, status_badge, str(risk)])
             table_str = BoxRenderer.render_table(headers, rows)
             print("\n" + BoxRenderer.render_panel("🔌 MCP PROTOCOL TOOLS", table_str.splitlines(), color=TerminalTheme.MAGENTA))
             print(f"{TerminalTheme.DIM}Tip: Approve tools with '/mcp approve <server_name> <tool_name>'{TerminalTheme.RESET}")

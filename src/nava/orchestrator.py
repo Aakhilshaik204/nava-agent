@@ -1,4 +1,5 @@
 import os
+import sys
 from typing import Any, Optional, Dict, List
 from dotenv import load_dotenv
 
@@ -36,38 +37,37 @@ class Orchestrator:
         self.ledger = JsonlAuditLedger("nava_audit.jsonl")
         self.registry = ToolRegistry()
         
-        # Load security feature switches from nava.yaml if present
+        # Load security feature switches and mcp_servers from nava.yaml if present
         sec_switches = None
+        self.mcp_configs = {}
         try:
             import yaml
             if os.path.exists("nava.yaml"):
                 with open("nava.yaml", "r", encoding="utf-8") as f:
                     cfg = yaml.safe_load(f)
-                    sec_switches = cfg.get("security_switches")
+                    if isinstance(cfg, dict):
+                        sec_switches = cfg.get("security_switches", {})
+                        self.mcp_configs = cfg.get("mcp_servers", {})
         except Exception:
             pass
             
         self.policy = DefaultPolicyEngine(security_switches=sec_switches)
         
-        # Load default wide-open policy for testing
-        self.policy.load_rules([
-            PolicyRule(rule_id="1", scope="filesystem.write", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="2", scope="filesystem.read", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="3", scope="data.analyze", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="4", scope="test.run", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="5", scope="gmail.read", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="6", scope="browser.navigate", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="7", scope="browser.read", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="8", scope="browser.click", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="9", scope="browser.save_to_scratch", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="10", scope="desktop.read", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="11", scope="desktop.click", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="12", scope="desktop.type", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="13", scope="terminal.execute", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="14", scope="search.web", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="15", scope="memory.semantic", condition="", outcome=Outcome.ALLOW, priority=1),
-            PolicyRule(rule_id="16", scope="git.read", condition="", outcome=Outcome.ALLOW, priority=1)
-        ])
+        # Load default policy rules matching all permissions in root agent ceiling
+        default_rules = [
+            PolicyRule(rule_id=f"rule-{i+1}", scope=perm, condition="", outcome=Outcome.ALLOW, priority=1)
+            for i, perm in enumerate(self.root_agent.permission_scope)
+        ]
+        for scope in [
+            "research.read", "fetch.*", "brave.*", "arxiv.*",
+            "database.read", "database.write", "data.analyze", "sqlite.*", "data.*",
+            "ast.read", "ast.write", "context7.*", "superpowers.*",
+            "git.read", "git.write", "filesystem.read", "filesystem.write",
+            "test.run", "terminal.execute", "browser.*", "desktop.*", "search.web", "gmail.read"
+        ]:
+            if not any(r.scope == scope for r in default_rules):
+                default_rules.append(PolicyRule(rule_id=f"rule-{len(default_rules)+1}", scope=scope, condition="", outcome=Outcome.ALLOW, priority=1))
+        self.policy.load_rules(default_rules)
         
         self.budget_engine = DefaultBudgetEngine()
         self.budget_engine.register_budget(self.budget)
@@ -96,14 +96,24 @@ class Orchestrator:
         self.message_bus = AgentMessageBus()
         
         from nava.tools.mcp_client import MCPClientManager
+        from nava.tools.tool_manifest import get_default_tools, register_default_mcp_servers
         self.mcp_manager = MCPClientManager(self.registry, credential_broker=self.credential_broker)
-        import sys
-        self.mcp_manager.register_server(
-            name="gmail",
-            command=sys.executable,
-            args=["src/nava/tools/mcp_gmail_server.py"],
-            required_service="gmail"
-        )
+        
+        # Check if gmail server is enabled
+        gmail_cfg = self.mcp_configs.get("gmail", {})
+        gmail_enabled = gmail_cfg.get("enabled", True) if isinstance(gmail_cfg, dict) else True
+        if sec_switches and not sec_switches.get("enable_external_integrations", True):
+            gmail_enabled = False
+
+        if gmail_enabled:
+            self.mcp_manager.register_server(
+                name="gmail",
+                command=sys.executable,
+                args=["src/nava/tools/mcp_gmail_server.py"],
+                required_service="gmail",
+                enabled=True
+            )
+        register_default_mcp_servers(self.mcp_manager, mcp_configs=self.mcp_configs)
         
         from nava.governance.state_observer import DefaultStateObserver
         self.state_observer = DefaultStateObserver()
@@ -117,253 +127,44 @@ class Orchestrator:
         )
         
     def register_tools(self):
-        self.registry.register_tool(ToolDefinition(
-            name="system.read_skill", description="Reads the full instructional content of a skill.",
-            input_schema={"skill_name": "string"}, output_schema={"success": "boolean", "content": "string"},
-            permissions_required=["system.read_skill"], risk_level=RiskTier.LOW, reversible=True
-        ))
+        from nava.tools.tool_manifest import get_default_tools
         
-        # Register the mock.send_wire_transfer for Phase 7 testing
-        self.registry.register_tool(ToolDefinition(
-            name="mock.send_wire_transfer", description="Sends a mock wire transfer (Irreversible)",
-            input_schema={"amount": "number", "account_id": "string"}, output_schema={"success": "boolean"},
-            permissions_required=["mock.send_wire_transfer"], risk_level=RiskTier.CRITICAL, reversible=False
-        ))
-        
-        self.registry.register_tool(ToolDefinition(
-            name="file.delete", description="Deletes a file",
-            input_schema={"filename": "string"}, output_schema={"success": "boolean", "message": "string"},
-            permissions_required=["filesystem.write"], risk_level=RiskTier.MEDIUM, reversible=False
-        ))
-        # Register the compensation allowlist tools
-        self.registry.register_tool(ToolDefinition(
-            name="mock.notify_admin", description="Notifies an admin of an error",
-            input_schema={"message": "string"},
-            output_schema={"success": "boolean"},
-            permissions_required=["*"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="system.flag_review", description="Flags a task for review",
-            input_schema={"task_id": "string", "reason": "string"},
-            output_schema={"success": "boolean"},
-            permissions_required=["*"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="file.write", description="Writes a text file to disk",
-            input_schema={"filename": "string", "content": "string"},
-            output_schema={"success": "boolean"},
-            permissions_required=["filesystem.write"], risk_level=RiskTier.LOW, reversible=True
-        ))
+        # Determine disabled prefixes from mcp_configs
+        disabled_prefixes = set()
+        for srv_name, srv_cfg in getattr(self, "mcp_configs", {}).items():
+            if isinstance(srv_cfg, dict) and not srv_cfg.get("enabled", True):
+                if srv_name == "sqlite":
+                    disabled_prefixes.add("sqlite.")
+                elif srv_name == "arxiv":
+                    disabled_prefixes.add("arxiv.")
+                elif srv_name == "brave-search":
+                    disabled_prefixes.add("brave.")
+                elif srv_name == "fetch":
+                    disabled_prefixes.add("fetch.")
+                elif srv_name == "typst":
+                    disabled_prefixes.add("typst.")
+                elif srv_name == "docker-sandbox":
+                    disabled_prefixes.add("docker.")
+                elif srv_name == "desktop-automation":
+                    disabled_prefixes.add("desktop.")
+                elif srv_name == "github":
+                    disabled_prefixes.add("github.")
+                elif srv_name == "gmail":
+                    disabled_prefixes.add("gmail.")
+                elif srv_name == "context7":
+                    disabled_prefixes.add("context7.")
+                elif srv_name == "superpowers":
+                    disabled_prefixes.add("superpowers.")
+                elif srv_name == "sequential-thinking":
+                    disabled_prefixes.add("sequential_thinking.")
+                elif srv_name == "audit-scanner":
+                    disabled_prefixes.add("audit.")
 
-        self.registry.register_tool(ToolDefinition(
-            name="file.create_pdf", description="Creates a beautiful PDF file. For simple reports, use 'markdown_content'. For advanced, highly-styled reports with metric boxes and grids (like an Executive Report), use 'html_content' and 'custom_css' (Note: xhtml2pdf uses HTML tables for grids, not flexbox).",
-            input_schema={
-                "filename": "string", 
-                "source_file": "string (optional, path to file to read from)",
-                "markdown_content": "string (optional)",
-                "html_content": "string (optional, overrides markdown)",
-                "custom_css": "string (optional, CSS to inject)",
-                "primary_color": "string (hex code)",
-                "font_family": "string"
-            },
-            output_schema={"success": "boolean"},
-            permissions_required=["filesystem.write"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="file.create_docx", description="Creates a DOCX file on disk. You can either provide 'content' directly, OR provide a 'source_file' path to read the content from disk automatically (strongly preferred for large files to avoid context limits).",
-            input_schema={"filename": "string", "content": "string (optional)", "source_file": "string (optional, path to file to read from)"},
-            output_schema={"success": "boolean"},
-            permissions_required=["filesystem.write"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="file.create_pptx", description="Creates a visually stunning, Gamma-style PPTX presentation.",
-            input_schema={
-                "filename": "string", 
-                "theme": "object with keys: bg_color (hex), title_color (hex), text_color (hex), accent_color (hex)",
-                "slides": "array of objects. Each slide must have 'layout' (choices: 'title_slide', 'standard', 'two_column', 'metrics_3'), 'title' (string), and optionally 'content' (string for standard), 'left_content' & 'right_content' (strings for two_column), or 'metrics' (array of objects with 'label' and 'value' for metrics_3)."
-            },
-            output_schema={"success": "boolean"},
-            permissions_required=["filesystem.write"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="file.read", description="Reads a file from disk",
-            input_schema={"filename": "string"},
-            output_schema={"content": "string"},
-            permissions_required=["filesystem.read"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="data.analyze", description="Analyzes data",
-            input_schema={"filename": "string"},
-            output_schema={"row_count": "integer", "columns": "integer"},
-            permissions_required=["filesystem.read", "data.analyze"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="test.run", description="Runs a test command",
-            input_schema={"command": "string"},
-            output_schema={"stdout": "string", "stderr": "string"},
-            permissions_required=["test.run"], risk_level=RiskTier.MEDIUM, reversible=False
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="code.replace_content", description="Replaces a specific string of code in a file.",
-            input_schema={"filename": "string", "target_content": "string", "replacement_content": "string"},
-            output_schema={"success": "boolean"},
-            permissions_required=["filesystem.write"], 
-            risk_level=RiskTier.LOW, 
-            reversible=True,
-            rollback_strategy="restore_from_pre_write_snapshot"
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="code.search", description="Search for a string across all files in a directory.",
-            input_schema={"query": "string", "directory": "string"},
-            output_schema={"results": "string"},
-            permissions_required=["filesystem.read"], 
-            risk_level=RiskTier.LOW, 
-            reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="code.read_directory_tree", description="Get a structural overview of a directory tree.",
-            input_schema={"directory": "string"},
-            output_schema={"tree": "string"},
-            permissions_required=["filesystem.read"], 
-            risk_level=RiskTier.LOW, 
-            reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="code.diff_review", description="Gets the git diff of a file or the whole repo.",
-            input_schema={"filename": "string"},
-            output_schema={"diff": "string"},
-            permissions_required=["filesystem.read"], 
-            risk_level=RiskTier.LOW, 
-            reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="code.replace_content_batch", description="Transactional replacement across multiple files.",
-            input_schema={"edits": "array"},
-            output_schema={"success": "boolean"},
-            permissions_required=["filesystem.write"], 
-            risk_level=RiskTier.MEDIUM, 
-            reversible=True,
-            rollback_strategy="transactional_restore_from_pre_write_snapshot"
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="code.find_references", description="Find external references/callers of a function.",
-            input_schema={"function_name": "string"},
-            output_schema={"results": "string"},
-            permissions_required=["filesystem.read"], 
-            risk_level=RiskTier.LOW, 
-            reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="shell.execute", description="Execute arbitrary shell commands in a sandbox.",
-            input_schema={"command": "string"},
-            output_schema={"returncode": "integer"},
-            permissions_required=["shell.execute"], 
-            risk_level=RiskTier.CRITICAL, 
-            reversible=False
-        ))
-        
-        self.registry.register_tool(ToolDefinition(
-            name="browser.navigate", description="Navigate to a URL. Blocked for file://, localhost, and private IPs.",
-            input_schema={"url": "string"}, output_schema={"result": "string"},
-            permissions_required=["browser.navigate"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="browser.extract_dom", description="Extract the raw HTML DOM of the current page. WARNING: Returns massive noisy HTML. Prefer browser.extract_text for readable content.",
-            input_schema={}, output_schema={"html": "string"},
-            permissions_required=["browser.read"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="browser.extract_text", description="Extract only the readable text content from the current page, with ads/navs/scripts/trackers removed. Returns clean text ideal for summarization and saving. PREFERRED over extract_dom.",
-            input_schema={}, output_schema={"text": "string"},
-            permissions_required=["browser.read"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="browser.click", description="Click an element on the current page using a CSS selector. The element will be visually highlighted before clicking.",
-            input_schema={"selector": "string"}, output_schema={"result": "string"},
-            permissions_required=["browser.click"], risk_level=RiskTier.MEDIUM, reversible=False
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="browser.type", description="Type text into an input field using a CSS selector. Refuses to type sensitive data (API keys, passwords).",
-            input_schema={"selector": "string", "text": "string"}, output_schema={"result": "string"},
-            permissions_required=["browser.type"], risk_level=RiskTier.MEDIUM, reversible=False
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="browser.scroll", description="Scroll down the page by the specified number of pixels to load more content or read below the fold.",
-            input_schema={"pixels": "integer (default 800)"}, output_schema={"result": "string"},
-            permissions_required=["browser.scroll"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="browser.go_back", description="Navigate back to the previous page (like pressing the browser back button). Useful for returning to search results after reading an article.",
-            input_schema={}, output_schema={"result": "string"},
-            permissions_required=["browser.navigate"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="browser.get_url", description="Get the current page URL.",
-            input_schema={}, output_schema={"url": "string"},
-            permissions_required=["browser.read"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="browser.save_to_scratch", description="Safely append sanitized extracted text to an ephemeral scratch file. Returns the system-generated filepath (e.g. scratch/agt-xxxx_extraction.md). You MUST pass this filepath to downstream agents.",
-            input_schema={"text": "string"}, output_schema={"success": "boolean", "bytes_written": "integer", "file": "string"},
-            permissions_required=["browser.save_to_scratch"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="desktop.screenshot", description="Takes a full OS display screenshot and returns the file path.",
-            input_schema={"path": "string (optional)"}, output_schema={"screenshot_path": "string"},
-            permissions_required=["desktop.read"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="desktop.click", description="Moves the mouse cursor to (x, y) coordinates and performs a click or double-click.",
-            input_schema={"x": "integer", "y": "integer", "button": "string (optional: left/right)", "double": "boolean (optional)"}, output_schema={"result": "string"},
-            permissions_required=["desktop.click"], risk_level=RiskTier.HIGH, reversible=False
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="desktop.type", description="Types text into the currently active desktop window. Refuses sensitive credential patterns.",
-            input_schema={"text": "string"}, output_schema={"result": "string"},
-            permissions_required=["desktop.type"], risk_level=RiskTier.HIGH, reversible=False
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="desktop.hotkey", description="Presses a keyboard key combination (e.g. ['ctrl', 's'] or 'enter').",
-            input_schema={"keys": "array of strings or string combination"}, output_schema={"result": "string"},
-            permissions_required=["desktop.type"], risk_level=RiskTier.MEDIUM, reversible=False
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="desktop.get_screen_size", description="Returns the primary screen display resolution (width and height).",
-            input_schema={}, output_schema={"width": "integer", "height": "integer"},
-            permissions_required=["desktop.read"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="search.web", description="Searches the web via DuckDuckGo and returns structured snippets and URLs.",
-            input_schema={"query": "string"}, output_schema={"query": "string", "results": "array"},
-            permissions_required=["search.web"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="memory.semantic_ingest", description="Ingests documents, research facts, or code into Tier 3 Hybrid RAG Memory.",
-            input_schema={"content": "string (optional)", "filename": "string (optional)", "title": "string (optional)", "doc_id": "string (optional)", "source": "string (optional)"},
-            output_schema={"success": "boolean", "doc_id": "string", "chunks_created": "integer"},
-            permissions_required=["memory.semantic"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="memory.semantic_search", description="Performs a hybrid dense vector and BM25 sparse search with Reciprocal Rank Fusion over Tier 3 Knowledge.",
-            input_schema={"query": "string", "limit": "integer (optional, default 5)", "dense_weight": "number (optional, default 0.5)", "sparse_weight": "number (optional, default 0.5)"},
-            output_schema={"query": "string", "total_results": "integer", "results": "array"},
-            permissions_required=["memory.semantic"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="terminal.execute", description="Executes a command inside the terminal sandbox, capturing exit code and outputs.",
-            input_schema={"command": "string"}, output_schema={"returncode": "integer", "stdout": "string", "stderr": "string"},
-            permissions_required=["terminal.execute"], risk_level=RiskTier.HIGH, reversible=False
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="git.status", description="Returns git branch, staged, modified, and untracked files.",
-            input_schema={}, output_schema={"branch": "string", "status_output": "string"},
-            permissions_required=["git.read"], risk_level=RiskTier.LOW, reversible=True
-        ))
-        self.registry.register_tool(ToolDefinition(
-            name="git.diff", description="Returns unified git diff of working directory or staged changes.",
-            input_schema={"staged": "boolean (optional)"}, output_schema={"diff": "string", "lines_count": "integer"},
-            permissions_required=["git.read"], risk_level=RiskTier.LOW, reversible=True
-        ))
+        for tool in get_default_tools():
+            if any(tool.name.startswith(dp) for dp in disabled_prefixes):
+                continue
+            self.registry.register_tool(tool)
+            
     def execute(self, goal: str):
         print(f"--- Nava Orchestrator ---")
         print(f"Objective: {goal}")
@@ -551,26 +352,29 @@ class Orchestrator:
             else:
                 print(f"[Orchestrator] Warning: Skill '{skill_cmd}' not found.")
                 
-        # 2. Add Skill Catalog to prompt if no explicit skill was forced
+        # 2. Check if user explicitly mentioned a slash skill in the prompt (e.g. "/typst-pdf-maker ...")
         if not explicit_skill_context:
-            catalog = self.skill_manager.get_catalog_string()
-            explicit_skill_context = f"\n[SKILL CATALOG]\n{catalog}\nYou may use the 'system.read_skill' tool to read the full content of any skill listed above. (Only TRUSTED skills are shown).\n"
-
-        # 3. Inject Project Continuity Context if available
-        project_context = ""
-        if hasattr(self, 'workspace'):
-            resume_ctx = self.workspace.get_resume_context()
-            if resume_ctx:
-                project_context = f"\n{resume_ctx}\n"
+            import re
+            slash_match = re.search(r'/([a-zA-Z0-9_\-]+)', goal)
+            if slash_match:
+                candidate_skill = slash_match.group(1)
+                skill = self.skill_manager.get_skill(candidate_skill)
+                if skill and skill.trust_state == "TRUSTED":
+                    print(f"[Orchestrator] Activating explicitly requested skill: {skill.name}")
+                    explicit_skill_context = f"\n[EXPLICIT SKILL INSTRUCTIONS: {skill.name}]\n{skill.content}\n"
 
         import time
         start_time = time.time()
         
-        # Inject skill context & project context into the objective for the planner
-        enhanced_objective = f"{goal}\n{explicit_skill_context}\n{project_context}".strip()
+        # Clean, token-dense objective for the planner
+        enhanced_objective = f"{goal}\n{explicit_skill_context}".strip()
         
-        # Initialize isolated task session
-        active_task_id = self.task_manager.create_task(goal, project_id=self.workspace.project_name)
+        # Initialize or resume task session
+        if getattr(self.task_manager, '_active_task_id', None):
+            active_task_id = self.task_manager._active_task_id
+            print(f"[Orchestrator] Continuing in active task session: `{active_task_id}`")
+        else:
+            active_task_id = self.task_manager.create_task(goal, project_id=self.workspace.project_name)
         if not hasattr(self, '_shared_executor'):
             self._shared_executor = LocalToolExecutor(mcp_manager=self.mcp_manager, skill_manager=self.skill_manager)
         self._shared_executor.set_active_task(active_task_id)
@@ -591,15 +395,12 @@ class Orchestrator:
             plan_rows.append(f"Stage {stg} [{mode}] → {badge} ({s.display_label or s.requested_role}): {s.goal}")
         print("\n" + BoxRenderer.render_panel("ORCHESTRATOR EXECUTION PLAN", plan_rows, color=TerminalTheme.CYAN, icon="📋"))
 
-        # 2. Execute
-        from nava.memory.store import EpisodicMemoryStore
-        epi_store = EpisodicMemoryStore("memory/episodic.json")
-        recent_memories = [str(r.content) for r in epi_store.get_recent(limit=3)]
-        
+        # 2. Execute with lightweight context (agents read task_memory.md / project_memory.md on-demand)
         global_payload = {
-            "context": f"Overall Objective: {goal}\n{explicit_skill_context}",
-            "recent_episodic_memory": recent_memories,
-            "task_id": active_task_id
+            "context": f"Overall Objective: {goal}\n{explicit_skill_context}".strip(),
+            "task_id": active_task_id,
+            "project_name": self.workspace.project_name if hasattr(self, 'workspace') and self.workspace else "Nava",
+            "available_memory_files": ["task_memory.md", "project_memory.md"]
         }
         
         import threading
@@ -726,41 +527,8 @@ class Orchestrator:
             self._shared_executor.set_active_task(task_id)
         gateway.executor = self._shared_executor
         
-        from nava.agents.runtime.coding_agent import build_coding_agent
-        from nava.agents.runtime.reviewer_agent import build_reviewer_agent
-        from nava.agents.runtime.file_agent_variants import build_document_agent, build_data_agent, build_verifier_agent
-        from nava.agents.runtime.file_agent import build_file_agent
-        from nava.agents.runtime.nava_agent import build_nava_agent
-        
-        if child_agent.role == "DocumentAgent":
-            graph = build_document_agent()
-        elif child_agent.role == "DataAgent":
-            graph = build_data_agent()
-        elif child_agent.role == "VerifierAgent":
-            graph = build_verifier_agent()
-        elif child_agent.role == "UniversalFileAgent":
-            graph = build_file_agent()
-        elif child_agent.role == "CodingAgent":
-            graph = build_coding_agent(self.registry)
-        elif child_agent.role == "ReviewerAgent":
-            graph = build_reviewer_agent(self.registry)
-        elif child_agent.role == "BrowserAgent":
-            from nava.agents.runtime.browser_agent import build_browser_agent
-            graph = build_browser_agent(self.registry)
-        elif child_agent.role == "ResearchAgent":
-            from nava.agents.runtime.research_agent import build_research_agent
-            graph = build_research_agent(self.registry)
-        elif child_agent.role == "ComputerAgent":
-            from nava.agents.runtime.computer_agent import build_computer_agent
-            graph = build_computer_agent(self.registry)
-        elif child_agent.role == "TerminalAgent":
-            from nava.agents.runtime.terminal_agent import build_terminal_agent
-            graph = build_terminal_agent(self.registry)
-        elif child_agent.role == "DynamicAgent":
-            from nava.agents.runtime.dynamic_agent import build_dynamic_agent
-            graph = build_dynamic_agent(self.registry)
-        else:
-            graph = build_nava_agent()
+        from nava.agents.runtime.graph_dispatcher import get_agent_graph
+        graph = get_agent_graph(child_agent.role, self.registry)
             
         with payload_lock:
             payload_copy = dict(global_payload)
@@ -794,7 +562,7 @@ class Orchestrator:
         print(f"Invoking graph for {child_agent.role}...")
         
         try:
-            if child_agent.role in ["CodingAgent", "ReviewerAgent", "BrowserAgent", "DynamicAgent", "ResearchAgent", "ComputerAgent", "TerminalAgent"]:
+            if child_agent.role in ["VerifierAgent", "DocumentAgent", "DataAgent", "UniversalFileAgent", "CodingAgent", "ReviewerAgent", "BrowserAgent", "DynamicAgent", "ResearchAgent", "ComputerAgent", "TerminalAgent"]:
                 current_state = initial_state
                 while True:
                     current_state = graph.invoke(current_state, config={"recursion_limit": 50})

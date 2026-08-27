@@ -19,7 +19,7 @@ class Templates:
     CodingAgent = StaticAgentTemplate(
         template_id="coding_agent",
         role="Code modification and analysis",
-        permission_scope=["filesystem.read", "filesystem.write", "test.run", "github.*"],
+        permission_scope=["filesystem.read", "filesystem.write", "test.run", "ast.read", "ast.write", "git.read", "git.write", "github.*"],
         default_system_prompt="You are a coding agent..."
     )
     
@@ -39,30 +39,30 @@ class Templates:
     
     ReviewerAgent = StaticAgentTemplate(
         template_id="reviewer_agent",
-        role="Code and output review",
-        permission_scope=["filesystem.read", "github.read"],
-        default_system_prompt="You review work..."
+        role="Deep code review, security AST vulnerability inspection, and sequential reasoning audit",
+        permission_scope=["filesystem.read", "github.read", "reasoning.sequential", "audit.security", "sequential_thinking.*", "audit.*"],
+        default_system_prompt="You review code, inspect AST security risks, and execute sequential thinking reasoning."
     )
     
     ResearchAgent = StaticAgentTemplate(
         template_id="research_agent",
         role="Deep web and document research, cross-referencing, and synthesis",
-        permission_scope=["browser.*", "search.web", "memory.semantic", "filesystem.read", "filesystem.write"],
+        permission_scope=["research.read", "fetch.*", "brave.*", "arxiv.*", "browser.*", "search.web", "memory.semantic", "filesystem.read", "filesystem.write"],
         default_system_prompt="You are a researcher..."
     )
     
     DocumentAgent = StaticAgentTemplate(
         template_id="document_agent",
-        role="Document reading and summarization",
-        permission_scope=["filesystem.read"],
-        default_system_prompt="You process documents..."
+        role="Publication-grade Typst document design, PDF compilation, DOCX/PPTX generation, and executive document synthesis",
+        permission_scope=["document.compile", "document.read", "typst.*", "doc.*", "filesystem.read", "filesystem.write"],
+        default_system_prompt="You are an expert document designer specializing in publication-grade Typst compilation and executive document rendering."
     )
     
     VerifierAgent = StaticAgentTemplate(
         template_id="verifier_agent",
-        role="Task success verification",
-        permission_scope=["filesystem.read", "test.run"],
-        default_system_prompt="You verify completion..."
+        role="Deterministic task verification, 21-system-invariant auditing, and semantic grounding reconciliation",
+        permission_scope=["filesystem.read", "test.run", "audit.verify", "reasoning.sequential", "sequential_thinking.*", "audit.*"],
+        default_system_prompt="You verify task completion, audit system invariants, and validate semantic grounding."
     )
     
     BrowserAgent = StaticAgentTemplate(
@@ -74,9 +74,9 @@ class Templates:
     
     DataAgent = StaticAgentTemplate(
         template_id="data_agent",
-        role="Data analysis and transformation",
-        permission_scope=["filesystem.read", "filesystem.write", "python.execute"],
-        default_system_prompt="You analyze data..."
+        role="Data analysis, SQL database operations, and tabular transformation",
+        permission_scope=["data.analyze", "database.read", "database.write", "sqlite.*", "data.*", "filesystem.read", "filesystem.write", "python.execute"],
+        default_system_prompt="You analyze data and execute SQL database operations..."
     )
     
     FileAgent = StaticAgentTemplate(
@@ -88,9 +88,9 @@ class Templates:
     
     UniversalFileAgent = StaticAgentTemplate(
         template_id="universal_file_agent",
-        role="Document/data file generation across formats",
-        permission_scope=["filesystem.write", "filesystem.read"],  # Needs read to process source files
-        default_system_prompt="You generate files in requested formats..."
+        role="Document/data file generation across formats (PDF, Typst, DOCX, PPTX, TXT, MD)",
+        permission_scope=["filesystem.write", "filesystem.read", "document.compile", "typst.*", "doc.*"],
+        default_system_prompt="You generate files in requested formats including Typst, PDF, DOCX, and PPTX..."
     )
     
     EmailAgent = StaticAgentTemplate(
@@ -107,6 +107,13 @@ class Templates:
         default_system_prompt="You manage calendar events..."
     )
     
+    TerminalAgent = StaticAgentTemplate(
+        template_id="terminal_agent",
+        role="DevOps, test runner, environment diagnostics, and ephemeral Docker sandbox management",
+        permission_scope=["terminal.execute", "test.run", "docker.sandbox", "system.inspect", "filesystem.read", "filesystem.write", "git.read"],
+        default_system_prompt="You are an expert DevOps engineer and terminal specialist managing test suites, process execution, and ephemeral Docker sandboxes."
+    )
+    
     GitHubAgent = StaticAgentTemplate(
         template_id="github_agent",
         role="GitHub operations",
@@ -119,8 +126,8 @@ class Templates:
         return [
             cls.CodingAgent, cls.ComputerAgent, cls.ReviewerAgent, cls.ResearchAgent,
             cls.DocumentAgent, cls.VerifierAgent, cls.BrowserAgent, cls.DataAgent,
-            cls.FileAgent, cls.UniversalFileAgent, cls.EmailAgent, cls.CalendarAgent,
-            cls.GitHubAgent
+            cls.TerminalAgent, cls.FileAgent, cls.UniversalFileAgent, cls.EmailAgent,
+            cls.CalendarAgent, cls.GitHubAgent
         ]
 
     @classmethod
@@ -135,3 +142,5 @@ class Templates:
             return getattr(cls, role_name)
             
         return None
+
+StaticAgentTemplates = Templates

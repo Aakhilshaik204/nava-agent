@@ -9,12 +9,46 @@ class LocalToolExecutor(Executor):
     Executes actual operations on the local system for Tier 1 tools, and routes
     external tools to the MCPClientManager.
     """
-    def __init__(self, mcp_manager=None, skill_manager=None):
+    def __init__(self, mcp_manager=None, skill_manager=None, registry=None):
         self.mcp_manager = mcp_manager
         self.skill_manager = skill_manager
+        self.registry = registry
         self.browser_engine = None
         self.active_task_id: Optional[str] = None
         self.active_project: str = "Nava"
+        
+        from nava.tools.coding_superpowers import CodingSuperpowersEngine
+        self.superpowers = CodingSuperpowersEngine(
+            path_resolver=self._resolve_project_code_path,
+            sanitizer=self._sanitize_path,
+            artifact_resolver=self._resolve_artifact_path
+        )
+        
+        from nava.tools.research_engine import ResearchEngine
+        self.research_engine = ResearchEngine()
+        
+        from nava.tools.data_engine import DataEngine
+        self.data_engine = DataEngine(
+            path_resolver=self._resolve_project_code_path,
+            sanitizer=self._sanitize_path,
+            artifact_resolver=self._resolve_artifact_path
+        )
+        
+        from nava.tools.document_engine import DocumentEngine
+        self.document_engine = DocumentEngine(
+            path_resolver=self._resolve_project_code_path,
+            sanitizer=self._sanitize_path,
+            artifact_resolver=self._resolve_artifact_path
+        )
+        
+        from nava.tools.audit_engine import AuditEngine
+        self.audit_engine = AuditEngine(root_dir=os.getcwd())
+        
+        from nava.tools.terminal_engine import TerminalEngine
+        self.terminal_engine = TerminalEngine(workspace_root=os.getcwd())
+        
+        from nava.tools.computer_engine import ComputerEngine
+        self.computer_engine = ComputerEngine(artifact_resolver=self._resolve_artifact_path)
 
     def set_active_task(self, task_id: str) -> None:
         """Sets the active task context for task-scoped artifact routing."""
@@ -57,16 +91,23 @@ class LocalToolExecutor(Executor):
         return os.path.join(art_dir, base_name)
 
     def __del__(self):
-        if self.browser_engine:
-            try:
-                self.browser_engine.close()
-            except:
-                pass
+        try:
+            if hasattr(self, '_browser_engine') and self._browser_engine is not None:
+                self._browser_engine.close()
+        except Exception:
+            pass
 
     def execute(self, request: ToolRequest) -> Any:
         tool = request.tool_name
         args = request.arguments
         
+        # Enforce Tool Registry presence (blocks disabled/unregistered MCP tools)
+        if self.registry and not self.registry.has_tool(tool):
+            return {
+                "success": False,
+                "error": f"DISABLED_TOOL: Tool '{tool}' is disabled by security configuration in nava.yaml or not registered in ToolRegistry."
+            }
+
         try:
             if tool.startswith("gmail."):
                 if not self.mcp_manager:
@@ -99,10 +140,49 @@ class LocalToolExecutor(Executor):
                 return self._code_find_references(args)
             elif tool == "shell.execute" or tool == "terminal.execute":
                 return self._shell_execute(args)
+            elif tool == "terminal.exec_command":
+                cwd_arg = args.get("cwd")
+                target_cwd = self._resolve_project_code_path(cwd_arg) if cwd_arg else None
+                return self.terminal_engine.exec_command(args.get("command", ""), args.get("timeout", 30), cwd=target_cwd)
+            elif tool == "terminal.run_tests":
+                cwd_arg = args.get("cwd")
+                target_cwd = self._resolve_project_code_path(cwd_arg) if cwd_arg else None
+                return self.terminal_engine.run_tests(args.get("test_command"), args.get("framework", "auto"), cwd=target_cwd)
+            elif tool == "terminal.inspect_environment":
+                return self.terminal_engine.inspect_environment()
+            elif tool == "docker.create_sandbox":
+                return self.terminal_engine.docker_manager.create_sandbox(
+                    image=args.get("image", "python:3.11-slim"),
+                    memory_limit=args.get("memory_limit", "512m"),
+                    cpu_limit=args.get("cpu_limit", "1.0"),
+                    network_enabled=args.get("network_enabled", True)
+                )
+            elif tool == "docker.exec_in_sandbox":
+                return self.terminal_engine.docker_manager.exec_in_sandbox(
+                    sandbox_id=args.get("sandbox_id", ""),
+                    command=args.get("command", ""),
+                    timeout=args.get("timeout", 30)
+                )
+            elif tool == "docker.destroy_sandbox":
+                return self.terminal_engine.docker_manager.destroy_sandbox(sandbox_id=args.get("sandbox_id", ""))
             elif tool == "git.status":
                 return self._git_status(args)
             elif tool == "git.diff":
                 return self._git_diff(args)
+            elif tool == "git.branch":
+                return self.superpowers.git_branch(args.get("branch_name") or args.get("name"), bool(args.get("create", True)))
+            elif tool == "git.commit":
+                return self.superpowers.git_commit(args.get("message", "Auto-commit by NAVA CodingAgent"))
+            elif tool == "context7.get_symbol_graph":
+                return self.superpowers.get_symbol_graph(args.get("filename") or args.get("file"), args.get("directory"))
+            elif tool == "context7.slice_context":
+                return self.superpowers.slice_context(args.get("filename") or args.get("file"), args.get("symbol_name") or args.get("symbol"))
+            elif tool == "superpowers.ast_search":
+                return self.superpowers.ast_search(args.get("pattern", ""), args.get("filename") or args.get("file"))
+            elif tool == "superpowers.ast_replace":
+                return self.superpowers.ast_replace(args.get("filename") or args.get("file"), args.get("target_symbol") or args.get("pattern"), args.get("replacement_code") or args.get("replacement"))
+            elif tool == "superpowers.compiler_autofix":
+                return self.superpowers.compiler_autofix(args.get("filename") or args.get("file"), args.get("language", "python"))
             elif tool == "search.web":
                 return self._search_web(args)
             elif tool == "memory.semantic_ingest":
@@ -117,6 +197,10 @@ class LocalToolExecutor(Executor):
                 return self._system_read_skill(args)
             elif tool == "browser.navigate":
                 return self._browser_navigate(args)
+            elif tool == "browser.extract_interactive_tree":
+                return self._browser_extract_interactive_tree(args)
+            elif tool == "browser.screenshot":
+                return self._browser_screenshot(args)
             elif tool == "browser.extract_dom":
                 return self._browser_extract_dom(args)
             elif tool == "browser.extract_text":
@@ -127,6 +211,8 @@ class LocalToolExecutor(Executor):
                 return self._browser_type(args)
             elif tool == "browser.scroll":
                 return self._browser_scroll(args)
+            elif tool == "browser.select_option":
+                return self._browser_select_option(args)
             elif tool == "browser.go_back":
                 return self._browser_go_back(args)
             elif tool == "browser.get_url":
@@ -134,30 +220,88 @@ class LocalToolExecutor(Executor):
             elif tool == "browser.save_to_scratch":
                 return self._browser_save_to_scratch(args, request.agent_id)
             elif tool == "desktop.screenshot":
-                return self._desktop_screenshot(args)
+                return self.computer_engine.screenshot(args.get("path"))
             elif tool == "desktop.click":
-                return self._desktop_click(args)
+                return self.computer_engine.click(
+                    x=int(args.get("x", 0)),
+                    y=int(args.get("y", 0)),
+                    button=args.get("button", "left"),
+                    clicks=int(args.get("clicks", 1))
+                )
             elif tool == "desktop.drag":
                 return self._desktop_drag(args)
             elif tool == "desktop.scroll":
                 return self._desktop_scroll(args)
             elif tool == "desktop.type":
-                return self._desktop_type(args)
+                return self.computer_engine.type_text(args.get("text", ""), interval=float(args.get("interval", 0.02)))
             elif tool == "desktop.press":
                 return self._desktop_press(args)
             elif tool == "desktop.hotkey":
-                return self._desktop_hotkey(args)
+                return self.computer_engine.hotkey(args.get("keys", []))
             elif tool == "desktop.get_screen_size":
-                return self._desktop_get_screen_size(args)
+                return self.computer_engine.get_screen_size()
             elif tool == "mock.send_wire_transfer":
                 print(f"[MOCK TOOL] Sending wire transfer: {args}")
                 return {"success": True, "transaction_id": "MOCK-TX-999"}
             elif tool == "mock.notify_admin":
                 print(f"[MOCK TOOL] Notifying admin: {args}")
                 return {"success": True}
-            elif tool == "system.flag_review":
-                print(f"[MOCK TOOL] Flagging for review: {args}")
-                return {"success": True}
+            # Research MCP Suite (Fetch, Brave Search, ArXiv)
+            elif tool == "fetch.get_markdown":
+                return self.research_engine.fetch_markdown(args.get("url", ""), args.get("max_chars", 25000))
+            elif tool == "fetch.get_raw_html":
+                return self.research_engine.fetch_raw_html(args.get("url", ""), args.get("max_chars", 50000))
+            elif tool == "fetch.get_headers":
+                return self.research_engine.fetch_headers(args.get("url", ""))
+            elif tool == "brave.search_web":
+                return self.research_engine.search_web(args.get("query", ""), args.get("count", 5))
+            elif tool == "brave.search_news":
+                return self.research_engine.search_news(args.get("query", ""), args.get("count", 5))
+            elif tool == "arxiv.search_papers":
+                return self.research_engine.search_arxiv(args.get("query", ""), args.get("max_results", 5))
+            elif tool == "arxiv.get_paper_summary":
+                return self.research_engine.get_paper_summary(args.get("arxiv_id", ""))
+            # DataAgent Database & Tabular Analytics MCP Suite
+            elif tool == "sqlite.read_query":
+                return self.data_engine.read_query(args.get("db_path", ""), args.get("query", ""), args.get("max_rows", 100))
+            elif tool == "sqlite.write_query":
+                return self.data_engine.write_query(args.get("db_path", ""), args.get("query", ""))
+            elif tool == "sqlite.list_tables":
+                return self.data_engine.list_tables(args.get("db_path", ""))
+            elif tool == "sqlite.describe_tables":
+                return self.data_engine.describe_tables(args.get("db_path", ""), args.get("table_name"))
+            elif tool == "data.sql_query_csv":
+                return self.data_engine.sql_query_csv(args.get("csv_path", ""), args.get("query", ""), args.get("table_name", "dataset"), args.get("max_rows", 100))
+            elif tool == "data.profile_dataset":
+                return self.data_engine.profile_dataset(args.get("csv_path", ""))
+            elif tool == "data.aggregate":
+                return self.data_engine.aggregate_data(args.get("csv_path", ""), args.get("group_by", ""), args.get("agg_column", ""), args.get("agg_func", "SUM"))
+            elif tool == "data.correlation_matrix":
+                return self.data_engine.correlation_matrix(args.get("csv_path", ""))
+            elif tool == "data.detect_anomalies":
+                return self.data_engine.detect_anomalies(args.get("csv_path", ""), args.get("column", ""), args.get("threshold", 2.5))
+            elif tool == "data.pivot_table":
+                return self.data_engine.pivot_table(args.get("csv_path", ""), args.get("index_col", ""), args.get("pivot_col", ""), args.get("value_col", ""), args.get("agg_func", "SUM"))
+            # DocumentAgent & UniversalFileAgent Typst & Document Suite
+            elif tool in ["typst.compile_pdf", "doc.compile_typst"]:
+                return self.document_engine.compile_typst(args.get("source", "") or args.get("code", "") or args.get("typst_code", ""), args.get("output_pdf", "") or args.get("filename", ""), args.get("template_vars"))
+            elif tool == "typst.render_template":
+                return self.document_engine.render_template(args.get("template_name", "executive_report"), args.get("title", ""), args.get("author", "NAVA Agent"), args.get("content_blocks", []), args.get("output_pdf", ""), args.get("theme"))
+            elif tool == "doc.read_document":
+                return self.document_engine.read_document(args.get("file_path", "") or args.get("filename", ""))
+            # ReviewerAgent & VerifierAgent Deep Reasoning & Invariant Audit Suite
+            elif tool in ["sequential_thinking.step", "reasoning.sequential_thinking"]:
+                return self.audit_engine.sequential_thinking_step(**args)
+            elif tool in ["audit.verify_invariants", "audit.invariants"]:
+                return self.audit_engine.verify_invariants(
+                    task_id=args.get("task_id") or self.active_task_id,
+                    check_scopes=args.get("check_scopes"),
+                    check_ledger=args.get("check_ledger", True)
+                )
+            elif tool in ["audit.security_scan", "audit.scan_security"]:
+                return self.audit_engine.security_scan(args.get("filename", "") or args.get("path", "") or args.get("target", ""))
+            elif tool in ["audit.verify_grounding", "audit.grounding"]:
+                return self.audit_engine.verify_grounding(args.get("report_path", "") or args.get("report", ""), args.get("data_source_path", "") or args.get("data_source", ""))
             else:
                 raise ValueError(f"Unknown tool: {tool}")
         except Exception as e:
@@ -165,6 +309,32 @@ class LocalToolExecutor(Executor):
 
     def execute_tool(self, request: ToolRequest) -> Any:
         return self.execute(request)
+
+    def _is_internal_system_path(self, path: str) -> bool:
+        """
+        Core Codebase Isolation Invariant.
+        Blocks autonomous agents from inspecting, modifying, or traversing NAVA's internal framework files.
+        Allowed: projects/*, tasks/*, memory/*, scratch/*, artifacts/*
+        """
+        if not path:
+            return False
+        clean = path.replace("\\", "/").strip("/.")
+        
+        # If path is explicitly inside user project or task directories, it is permitted
+        if clean.startswith(("projects/", "tasks/", "memory/", "scratch/", "artifacts/")):
+            return False
+            
+        # Block access to internal source directories, test suites, and framework config
+        forbidden_prefixes = ("src/", "tests/", ".git/", ".gemini/", ".vscode/", ".nava/")
+        forbidden_exact = {
+            "src", "tests", ".git", ".gemini", ".vscode", ".nava",
+            "nava.yaml", "nava_shell.py", "requirements.txt", ".vault_key", "index.html",
+            ".env", ".env.example", "calculator.py", "generate_invoice.py", "get_top_story.py", "cleanup_old_agents.py"
+        }
+        
+        if clean in forbidden_exact or clean.startswith(forbidden_prefixes) or any(clean.endswith("/" + f) for f in forbidden_exact):
+            return True
+        return False
 
     def _sanitize_path(self, path: str, allowed_root: Optional[str] = None) -> str:
         """
@@ -190,8 +360,10 @@ class LocalToolExecutor(Executor):
         filename = args.get("filename")
         if not filename:
             return {"error": "filename is required"}
+        clean_name = filename.replace("\\", "/").lstrip("/")
+        if self._is_internal_system_path(clean_name):
+            return {"error": f"Access denied: '{filename}' is a protected NAVA system file and cannot be modified by agents."}
         try:
-            clean_name = filename.replace("\\", "/").lstrip("/")
             candidate_paths = [
                 self._resolve_project_code_path(clean_name),
                 self._sanitize_path(clean_name)
@@ -216,12 +388,34 @@ class LocalToolExecutor(Executor):
             
         clean_name = filename.replace("\\", "/").lstrip("/")
         
-        # Check project path, task artifacts path, and root workspace
+        # Direct On-Demand Memory Resolution (Task Memory & Project Memory)
+        if clean_name in ["task_memory.md", "task_memory"]:
+            if self.active_task_id:
+                task_mem_path = os.path.join("tasks", self.active_task_id, "task_memory.md")
+                if os.path.exists(task_mem_path):
+                    with open(task_mem_path, "r", encoding="utf-8") as f:
+                        return {"content": f.read(), "filepath": task_mem_path}
+        elif clean_name in ["project_memory.md", "project_memory"]:
+            if self.active_project:
+                proj_mem_path = os.path.join("projects", self.active_project, "project_memory.md")
+                if os.path.exists(proj_mem_path):
+                    with open(proj_mem_path, "r", encoding="utf-8") as f:
+                        return {"content": f.read(), "filepath": proj_mem_path}
+                        
+        if self._is_internal_system_path(clean_name):
+            return {"error": f"Access denied: '{filename}' is a protected NAVA system file and cannot be inspected by agents."}
+        
+        # Candidate paths to inspect in priority order (task artifacts first, then project codebase, then root workspace)
         candidate_paths = [
-            self._resolve_project_code_path(clean_name),
             self._resolve_artifact_path(clean_name),
+            self._resolve_project_code_path(clean_name),
             self._sanitize_path(clean_name)
         ]
+        
+        # If path explicitly starts with artifacts/, also check stripped version for task artifact directory
+        if clean_name.startswith("artifacts/"):
+            rel = clean_name[len("artifacts/"):].lstrip("/")
+            candidate_paths.insert(0, self._resolve_artifact_path(rel))
         
         safe_path = None
         for p in candidate_paths:
@@ -229,6 +423,27 @@ class LocalToolExecutor(Executor):
                 safe_path = p
                 break
                 
+        # Cross-Task Continuity: Check past task artifacts if not found in current task
+        if not safe_path and os.path.exists("tasks"):
+            import glob, shutil
+            past_artifacts = sorted(
+                glob.glob(os.path.join("tasks", "*", "artifacts", os.path.basename(clean_name))),
+                key=os.path.getmtime,
+                reverse=True
+            )
+            if past_artifacts:
+                past_match = past_artifacts[0]
+                # Seamlessly bridge into active task artifacts directory
+                current_art_target = self._resolve_artifact_path(os.path.basename(clean_name))
+                try:
+                    if not os.path.exists(current_art_target) and past_match != current_art_target:
+                        shutil.copy2(past_match, current_art_target)
+                        safe_path = current_art_target
+                    else:
+                        safe_path = past_match
+                except Exception:
+                    safe_path = past_match
+
         if not safe_path:
             safe_path = candidate_paths[0]
             if not os.path.exists(safe_path):
@@ -247,22 +462,29 @@ class LocalToolExecutor(Executor):
             raise ValueError("filename is required")
         
         clean_name = filename.replace("\\", "/").lstrip("/")
+        if self._is_internal_system_path(clean_name):
+            return {"error": f"Access denied: '{filename}' is a protected NAVA system file and cannot be modified by agents."}
         
-        # 1. Explicit top-level paths (projects/, tasks/, memory/, .nava/)
-        if clean_name.startswith(("projects/", "tasks/", "memory/", ".nava/")):
+        # 1. Explicit top-level namespaces
+        if clean_name.startswith("tasks/"):
+            parts = clean_name.split("/")
+            # If agent writes e.g. "tasks/summary.md" (generic) or without specific task ID, route to active task artifacts
+            if len(parts) <= 2 or (self.active_task_id and self.active_task_id not in clean_name):
+                safe_path = self._resolve_artifact_path(os.path.basename(clean_name))
+            else:
+                safe_path = self._sanitize_path(clean_name)
+        elif clean_name.startswith(("projects/", "memory/", ".nava/")):
             safe_path = self._sanitize_path(clean_name)
-        # 2. Scratch notes or temporary files
-        elif clean_name.startswith("scratch/"):
-            safe_path = self._resolve_artifact_path(clean_name)
-        # 3. Explicit project codebase folders (src/, tests/, api/, app/, components/)
-        elif clean_name.startswith(("src/", "tests/", "api/", "app/", "components/", "backend/", "frontend/")):
+        # 2. Task artifacts (artifacts/...) or temporary scratch files (scratch/...)
+        elif clean_name.startswith(("artifacts/", "scratch/")):
+            rel_name = clean_name[len("artifacts/"):].lstrip("/") if clean_name.startswith("artifacts/") else clean_name
+            safe_path = self._resolve_artifact_path(rel_name)
+        # 3. Structured project codebase (has subdirectories: src/, tests/, api/, lib/, etc.)
+        elif "/" in clean_name:
             safe_path = self._resolve_project_code_path(clean_name)
-        # 4. Standalone file deliverables (.pdf, .docx, .pptx, .html, .md, .csv) requested at root level
-        elif clean_name.endswith((".pdf", ".docx", ".pptx", ".html", ".md", ".csv", ".json", ".txt")) and "/" not in clean_name:
-            safe_path = self._resolve_artifact_path(clean_name)
-        # 5. Default project codebase files
+        # 4. Standalone root deliverables (ANY file format with zero directory prefix) -> Task Artifacts
         else:
-            safe_path = self._resolve_project_code_path(clean_name)
+            safe_path = self._resolve_artifact_path(clean_name)
             
         os.makedirs(os.path.dirname(safe_path), exist_ok=True)
         with open(safe_path, "w", encoding="utf-8") as f:
@@ -384,28 +606,37 @@ class LocalToolExecutor(Executor):
             return {"error": "Command timed out after 15 seconds (Sandbox limits enforced)."}
 
     def _git_status(self, args: dict) -> Any:
-        """Returns concise git status showing branch, staged, modified, and untracked files."""
+        """Returns concise git status scoped strictly to the active user project and task directories."""
         try:
-            res = subprocess.run("git status --short", shell=True, capture_output=True, text=True, timeout=5)
+            proj_dir = os.path.join("projects", self.active_project) if self.active_project else "projects"
+            os.makedirs(proj_dir, exist_ok=True)
+            res = subprocess.run(f"git status --short -- {proj_dir} tasks", shell=True, capture_output=True, text=True, timeout=5)
+            # Filter any internal framework changes
+            lines = [l for l in res.stdout.splitlines() if not self._is_internal_system_path(l[3:].strip())]
+            clean_status = "\n".join(lines).strip() if lines else "Clean project workspace (no uncommitted changes in active project)."
+            
             branch_res = subprocess.run("git rev-parse --abbrev-ref HEAD", shell=True, capture_output=True, text=True, timeout=5)
-            branch = branch_res.stdout.strip() if branch_res.returncode == 0 else "unknown"
+            branch = branch_res.stdout.strip() if branch_res.returncode == 0 else "main"
             return {
                 "branch": branch,
-                "status_output": res.stdout.strip() or "Clean working directory (no changes)",
+                "project": self.active_project,
+                "status_output": clean_status,
                 "raw_code": res.returncode
             }
         except Exception as e:
             return {"error": f"Failed to execute git status: {e}"}
 
     def _git_diff(self, args: dict) -> Any:
-        """Returns unified git diff of working directory or staged changes."""
+        """Returns unified git diff scoped strictly to the active user project and task directories."""
         staged = args.get("staged", False)
-        cmd = "git diff --staged" if staged else "git diff"
+        proj_dir = os.path.join("projects", self.active_project) if self.active_project else "projects"
+        os.makedirs(proj_dir, exist_ok=True)
+        cmd = f"git diff --staged -- {proj_dir} tasks" if staged else f"git diff -- {proj_dir} tasks"
         try:
             res = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=10)
             diff_text = res.stdout.strip()
             return {
-                "diff": diff_text if diff_text else "No diff found.",
+                "diff": diff_text if diff_text else "No diff found in active project workspace.",
                 "lines_count": len(diff_text.splitlines()) if diff_text else 0
             }
         except Exception as e:
@@ -558,61 +789,54 @@ class LocalToolExecutor(Executor):
         if not query:
             raise ValueError("query is required")
             
-        # Target active project directory if default '.' is requested
-        if directory in [".", "./"]:
-            target_dir = os.path.join("projects", self.active_project) if self.active_project else "."
-        else:
-            clean_dir = directory.replace("\\", "/").lstrip("/")
-            if not clean_dir.startswith(("projects/", "tasks/", "memory/", ".nava/")) and self.active_project:
-                target_dir = os.path.join("projects", self.active_project, clean_dir)
-            else:
-                target_dir = directory
-                
-        if not os.path.exists(target_dir):
-            target_dir = "."
+        # Target active project directory and task artifacts strictly
+        proj_dir = os.path.join("projects", self.active_project) if self.active_project else "projects"
+        os.makedirs(proj_dir, exist_ok=True)
+        
+        search_roots = [proj_dir]
+        if self.active_task_id:
+            art_dir = os.path.join("tasks", self.active_task_id, "artifacts")
+            if os.path.exists(art_dir):
+                search_roots.append(art_dir)
+        elif os.path.exists("tasks"):
+            search_roots.append("tasks")
             
         results = []
-        for root, dirs, files in os.walk(target_dir):
-            if '.git' in root or '__pycache__' in root or 'node_modules' in root:
-                continue
-            for file in files:
-                if file.endswith(('.py', '.js', '.ts', '.tsx', '.jsx', '.html', '.css', '.md', '.txt', '.json', '.go', '.rs', '.java', '.cpp', '.c', '.sh', '.yaml', '.yml')):
-                    filepath = os.path.join(root, file)
-                    try:
-                        with open(filepath, 'r', encoding='utf-8') as f:
-                            for i, line in enumerate(f):
-                                if query in line:
-                                    results.append(f"{os.path.relpath(filepath, os.getcwd())}:{i+1}: {line.strip()}")
-                    except (UnicodeDecodeError, FileNotFoundError):
-                        pass
-        return {"results": "\n".join(results) if results else "No matches found."}
+        for s_root in search_roots:
+            for root, dirs, files in os.walk(s_root):
+                # Filter protected or hidden directories
+                dirs[:] = [d for d in dirs if not self._is_internal_system_path(d) and d not in ['.git', '__pycache__', 'node_modules']]
+                for file in files:
+                    if self._is_internal_system_path(file):
+                        continue
+                    if file.endswith(('.py', '.js', '.ts', '.tsx', '.jsx', '.html', '.css', '.md', '.txt', '.json', '.go', '.rs', '.java', '.cpp', '.c', '.sh', '.yaml', '.yml')):
+                        filepath = os.path.join(root, file)
+                        try:
+                            with open(filepath, 'r', encoding='utf-8') as f:
+                                for i, line in enumerate(f):
+                                    if query in line:
+                                        results.append(f"{os.path.relpath(filepath, os.getcwd())}:{i+1}: {line.strip()}")
+                        except (UnicodeDecodeError, FileNotFoundError):
+                            pass
+        return {"results": "\n".join(results) if results else "No matches found in active project workspace."}
 
     def _code_read_directory_tree(self, args: dict) -> Any:
-        directory = args.get("directory", ".")
-        if directory in [".", "./"]:
-            target_dir = os.path.join("projects", self.active_project) if self.active_project else "."
-        else:
-            clean_dir = directory.replace("\\", "/").lstrip("/")
-            if not clean_dir.startswith(("projects/", "tasks/", "memory/", ".nava/")) and self.active_project:
-                target_dir = os.path.join("projects", self.active_project, clean_dir)
-            else:
-                target_dir = directory
-                
-        if not os.path.exists(target_dir):
-            target_dir = "."
+        # Strictly target active project directory
+        proj_dir = os.path.join("projects", self.active_project) if self.active_project else "projects"
+        os.makedirs(proj_dir, exist_ok=True)
+        target_dir = proj_dir
             
         tree = []
         for root, dirs, files in os.walk(target_dir):
-            if '.git' in root or '__pycache__' in root or 'node_modules' in root:
-                dirs[:] = []
-                continue
+            dirs[:] = [d for d in dirs if not self._is_internal_system_path(d) and d not in ['.git', '__pycache__', 'node_modules']]
             level = root.replace(target_dir, '').count(os.sep)
             indent = ' ' * 4 * (level)
             tree.append(f"{indent}{os.path.basename(root)}/")
             subindent = ' ' * 4 * (level + 1)
             for f in files:
-                tree.append(f"{subindent}{f}")
-        return {"tree": "\n".join(tree)}
+                if not self._is_internal_system_path(f):
+                    tree.append(f"{subindent}{f}")
+        return {"tree": "\n".join(tree) if tree else f"Project '{self.active_project}' is clean and ready for new files."}
 
     def _system_flag_review(self, args: dict) -> Any:
         # Mock HITL flag
@@ -906,7 +1130,7 @@ class LocalToolExecutor(Executor):
             
         if not getattr(self._thread_local, 'browser_engine', None):
             from nava.tools.browser import BrowserEngine
-            self._thread_local.browser_engine = BrowserEngine(headless=False)
+            self._thread_local.browser_engine = BrowserEngine(headless=True, artifact_resolver=self._resolve_artifact_path)
             
         return self._thread_local.browser_engine
 
@@ -926,7 +1150,17 @@ class LocalToolExecutor(Executor):
         url = args.get("url")
         if not url:
             return {"error": "url is required"}
-        return {"result": engine.navigate(url)}
+        return engine.navigate(url, wait_until=args.get("wait_until", "domcontentloaded"))
+
+    def _browser_extract_interactive_tree(self, args: dict) -> Any:
+        engine = self._ensure_browser()
+        return engine.extract_interactive_tree()
+
+    def _browser_screenshot(self, args: dict) -> Any:
+        engine = self._ensure_browser()
+        path = args.get("path")
+        full_page = bool(args.get("full_page", False))
+        return engine.screenshot(path=path, full_page=full_page)
 
     def _browser_extract_dom(self, args: dict) -> Any:
         engine = self._ensure_browser()
@@ -938,26 +1172,29 @@ class LocalToolExecutor(Executor):
 
     def _browser_click(self, args: dict) -> Any:
         engine = self._ensure_browser()
-        selector = args.get("selector")
-        if not selector:
-            return {"error": "selector is required"}
-        return {"result": engine.click(selector)}
+        return engine.click(selector=args.get("selector"), element_id=args.get("element_id"))
 
     def _browser_type(self, args: dict) -> Any:
         engine = self._ensure_browser()
-        selector = args.get("selector")
-        text = args.get("text")
-        if not selector or not text:
-            return {"error": "selector and text are required"}
-        return {"result": engine.type_text(selector, text)}
+        text = args.get("text", "")
+        return engine.type_text(
+            text=text,
+            selector=args.get("selector"),
+            element_id=args.get("element_id"),
+            clear=bool(args.get("clear", True))
+        )
 
     def _browser_scroll(self, args: dict) -> Any:
         engine = self._ensure_browser()
-        return {"result": engine.scroll(args.get("pixels", 800))}
+        return engine.scroll(direction=args.get("direction", "down"), amount=int(args.get("amount", 500)))
+
+    def _browser_select_option(self, args: dict) -> Any:
+        engine = self._ensure_browser()
+        return engine.select_option(selector=args.get("selector"), element_id=args.get("element_id"), value=args.get("value"))
 
     def _browser_go_back(self, args: dict) -> Any:
         engine = self._ensure_browser()
-        return {"result": engine.go_back()}
+        return engine.go_back()
 
     def _browser_get_url(self, args: dict) -> Any:
         engine = self._ensure_browser()
@@ -1048,3 +1285,4 @@ class LocalToolExecutor(Executor):
     def _desktop_get_screen_size(self, args: dict) -> Any:
         engine = self._ensure_desktop()
         return engine.get_screen_size()
+

@@ -23,5 +23,230 @@
     "trust_level": "VERIFIED",
     "approval_state": null,
     "conflict_state": "NONE"
+  },
+  {
+    "memory_id": "epi-tsk_20260824_172209_create_a_standalone_pyth",
+    "tier": "EPISODIC",
+    "content": {
+      "task_id": "tsk_20260824_172209_create_a_standalone_pyth",
+      "status": "COMPLETED",
+      "outcome": "Completed 2 sub-tasks successfully.",
+      "artifacts": [],
+      "timestamp": "2026-08-24T17:23:24Z"
+    },
+    "source": "task_manager",
+    "confidence": 1.0,
+    "importance": 0.8,
+    "expiration": null,
+    "sensitivity": "low",
+    "user_editable": true,
+    "created_at": "2026-08-24T17:23:24.262476",
+    "updated_at": "2026-08-24T17:23:24.262476",
+    "provenance": [
+      "task:tsk_20260824_172209_create_a_standalone_pyth"
+    ],
+    "trust_level": "VERIFIED",
+    "approval_state": null,
+    "conflict_state": "NONE"
+  },
+  {
+    "memory_id": "epi-tsk_20260824_172734_create_a_standalone_pyth",
+    "tier": "EPISODIC",
+    "content": {
+      "task_id": "tsk_20260824_172734_create_a_standalone_pyth",
+      "status": "COMPLETED",
+      "outcome": "Completed 2 sub-tasks successfully.",
+      "artifacts": [],
+      "timestamp": "2026-08-24T17:37:22Z"
+    },
+    "source": "task_manager",
+    "confidence": 1.0,
+    "importance": 0.8,
+    "expiration": null,
+    "sensitivity": "low",
+    "user_editable": true,
+    "created_at": "2026-08-24T17:37:22.914172",
+    "updated_at": "2026-08-24T17:37:22.914172",
+    "provenance": [
+      "task:tsk_20260824_172734_create_a_standalone_pyth"
+    ],
+    "trust_level": "VERIFIED",
+    "approval_state": null,
+    "conflict_state": "NONE"
+  },
+  {
+    "memory_id": "epi-tsk_20260825_060309_research_the_latest_mode",
+    "tier": "EPISODIC",
+    "content": {
+      "task_id": "tsk_20260825_060309_research_the_latest_mode",
+      "status": "COMPLETED",
+      "outcome": "Completed 3 sub-tasks successfully.",
+      "artifacts": [],
+      "timestamp": "2026-08-25T06:05:36Z"
+    },
+    "source": "task_manager",
+    "confidence": 1.0,
+    "importance": 0.8,
+    "expiration": null,
+    "sensitivity": "low",
+    "user_editable": true,
+    "created_at": "2026-08-25T06:05:36.253361",
+    "updated_at": "2026-08-25T06:05:36.253361",
+    "provenance": [
+      "task:tsk_20260825_060309_research_the_latest_mode"
+    ],
+    "trust_level": "VERIFIED",
+    "approval_state": null,
+    "conflict_state": "NONE"
+  },
+  {
+    "memory_id": "epi-tsk_20260825_064753_generate_a_sample_sales",
+    "tier": "EPISODIC",
+    "content": {
+      "task_id": "tsk_20260825_064753_generate_a_sample_sales",
+      "status": "COMPLETED",
+      "outcome": "Completed 5 sub-tasks successfully.",
+      "artifacts": [],
+      "timestamp": "2026-08-25T06:49:07Z"
+    },
+    "source": "task_manager",
+    "confidence": 1.0,
+    "importance": 0.8,
+    "expiration": null,
+    "sensitivity": "low",
+    "user_editable": true,
+    "created_at": "2026-08-25T06:49:07.559940",
+    "updated_at": "2026-08-25T06:49:07.559940",
+    "provenance": [
+      "task:tsk_20260825_064753_generate_a_sample_sales"
+    ],
+    "trust_level": "VERIFIED",
+    "approval_state": null,
+    "conflict_state": "NONE"
+  },
+  {
+    "memory_id": "epi-tsk_20260825_070300_generate_a_publication_g",
+    "tier": "EPISODIC",
+    "content": {
+      "task_id": "tsk_20260825_070300_generate_a_publication_g",
+      "status": "FAILED",
+      "outcome": "Emergency stop triggered via Ctrl+C.",
+      "artifacts": [],
+      "timestamp": "2026-08-25T07:03:42Z"
+    },
+    "source": "task_manager",
+    "confidence": 1.0,
+    "importance": 0.8,
+    "expiration": null,
+    "sensitivity": "low",
+    "user_editable": true,
+    "created_at": "2026-08-25T07:03:42.573784",
+    "updated_at": "2026-08-25T07:03:42.573784",
+    "provenance": [
+      "task:tsk_20260825_070300_generate_a_publication_g"
+    ],
+    "trust_level": "UNVERIFIED",
+    "approval_state": null,
+    "conflict_state": "NONE"
+  },
+  {
+    "memory_id": "epi-tsk_20260825_070637_generate_a_publication_g",
+    "tier": "EPISODIC",
+    "content": {
+      "task_id": "tsk_20260825_070637_generate_a_publication_g",
+      "status": "COMPLETED",
+      "outcome": "Completed 2 sub-tasks successfully.",
+      "artifacts": [],
+      "timestamp": "2026-08-25T07:08:00Z"
+    },
+    "source": "task_manager",
+    "confidence": 1.0,
+    "importance": 0.8,
+    "expiration": null,
+    "sensitivity": "low",
+    "user_editable": true,
+    "created_at": "2026-08-25T07:08:00.864046",
+    "updated_at": "2026-08-25T07:08:00.864046",
+    "provenance": [
+      "task:tsk_20260825_070637_generate_a_publication_g"
+    ],
+    "trust_level": "VERIFIED",
+    "approval_state": null,
+    "conflict_state": "NONE"
+  },
+  {
+    "memory_id": "epi-tsk_20260825_071259_compile_governance_brief",
+    "tier": "EPISODIC",
+    "content": {
+      "task_id": "tsk_20260825_071259_compile_governance_brief",
+      "status": "COMPLETED",
+      "outcome": "Completed 2 sub-tasks successfully.",
+      "artifacts": [],
+      "timestamp": "2026-08-25T07:15:01Z"
+    },
+    "source": "task_manager",
+    "confidence": 1.0,
+    "importance": 0.8,
+    "expiration": null,
+    "sensitivity": "low",
+    "user_editable": true,
+    "created_at": "2026-08-25T07:15:01.446063",
+    "updated_at": "2026-08-25T07:15:01.446063",
+    "provenance": [
+      "task:tsk_20260825_071259_compile_governance_brief"
+    ],
+    "trust_level": "VERIFIED",
+    "approval_state": null,
+    "conflict_state": "NONE"
+  },
+  {
+    "memory_id": "epi-tsk_20260827_182728_search_arxiv_for_recent",
+    "tier": "EPISODIC",
+    "content": {
+      "task_id": "tsk_20260827_182728_search_arxiv_for_recent",
+      "status": "COMPLETED",
+      "outcome": "Completed 1 sub-tasks successfully.",
+      "artifacts": [],
+      "timestamp": "2026-08-27T18:28:58Z"
+    },
+    "source": "task_manager",
+    "confidence": 1.0,
+    "importance": 0.8,
+    "expiration": null,
+    "sensitivity": "low",
+    "user_editable": true,
+    "created_at": "2026-08-27T18:28:58.555243",
+    "updated_at": "2026-08-27T18:28:58.555243",
+    "provenance": [
+      "task:tsk_20260827_182728_search_arxiv_for_recent"
+    ],
+    "trust_level": "VERIFIED",
+    "approval_state": null,
+    "conflict_state": "NONE"
+  },
+  {
+    "memory_id": "epi-tsk_20260827_183556_search_arxiv_for_latest",
+    "tier": "EPISODIC",
+    "content": {
+      "task_id": "tsk_20260827_183556_search_arxiv_for_latest",
+      "status": "FAILED",
+      "outcome": "Emergency stop triggered via Ctrl+C.",
+      "artifacts": [],
+      "timestamp": "2026-08-27T18:36:47Z"
+    },
+    "source": "task_manager",
+    "confidence": 1.0,
+    "importance": 0.8,
+    "expiration": null,
+    "sensitivity": "low",
+    "user_editable": true,
+    "created_at": "2026-08-27T18:36:47.641309",
+    "updated_at": "2026-08-27T18:36:47.641309",
+    "provenance": [
+      "task:tsk_20260827_183556_search_arxiv_for_latest"
+    ],
+    "trust_level": "UNVERIFIED",
+    "approval_state": null,
+    "conflict_state": "NONE"
   }
 ]
