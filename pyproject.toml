@@ -4,11 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nava-agent"
-version = "0.2.5"
-description = "Nava: Autonomous Personal Agent with Governed Execution & Rich Cowork Studio"
+version = "0.2.6"
+description = "NAVA: Autonomous Personal Agent OS with Governed Execution & Rich Cowork Studio"
 readme = "README.md"
-authors = [{ name = "Nava Team" }]
+authors = [{ name = "NAVA Team" }]
 requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
 dependencies = [
     "pydantic>=2.0",
     "langchain-core>=0.2.0",

@@ -36,7 +36,7 @@ class CoworkTUI:
         total_skills = len(all_skills)
         
         banner_lines = [
-            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}NAVA AGENT{TerminalTheme.RESET} {TerminalTheme.SLATE}v0.2.5 • Autonomous Coding & Task System{TerminalTheme.RESET}",
+            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}NAVA AGENT{TerminalTheme.RESET} {TerminalTheme.SLATE}v0.2.6 • Autonomous Coding & Task System{TerminalTheme.RESET}",
             f"{TerminalTheme.CYAN}Project:{TerminalTheme.RESET} {TerminalTheme.BOLD}{proj_name}{TerminalTheme.RESET}  │  {TerminalTheme.CYAN}Tasks:{TerminalTheme.RESET} {task_count}  │  {TerminalTheme.CYAN}Skills:{TerminalTheme.RESET} {total_skills}  │  {TerminalTheme.CYAN}Gateway:{TerminalTheme.RESET} {TerminalTheme.EMERALD}17-Step Enforced{TerminalTheme.RESET}",
             f"{TerminalTheme.DIM}Type your objective, or slash commands like {TerminalTheme.CYAN}/twin{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/budget{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/skills{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/help{TerminalTheme.RESET}"
         ]
