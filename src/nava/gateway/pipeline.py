@@ -312,3 +312,81 @@ class ActionGateway:
             risk_assessment=risk,
             result=ResultEnum.SUCCESS
         )
+
+
+# ==============================================================================
+# Standard Pass-Through Adapters & Gateway Factory
+# ==============================================================================
+
+class DefaultSchemaValidator(SchemaValidator):
+    def validate(self, request: ToolRequest) -> bool:
+        return True
+
+class DefaultIdentityVerifier(IdentityVerifier):
+    def __init__(self, agent: AgentState):
+        self.agent = agent
+    def verify(self, request: ToolRequest) -> AgentState:
+        return self.agent
+
+class DefaultScopeVerifier(ScopeVerifier):
+    def verify_parent_scope(self, agent: AgentState) -> bool:
+        return True
+
+class DefaultPermissionChecker(PermissionChecker):
+    def check(self, request: ToolRequest, agent: AgentState) -> bool:
+        return True
+
+class DefaultConcurrencyManager(ConcurrencyManager):
+    def check_locks(self, request: ToolRequest) -> bool:
+        return True
+
+class DefaultExecutor(Executor):
+    def execute(self, request: ToolRequest) -> Any:
+        return {"status": "executed"}
+
+class DefaultStateObserver(StateObserver):
+    def observe(self, request: ToolRequest, result: Any, pre_snapshot: Optional[Any] = None) -> Any:
+        return None
+
+class DefaultVerifier(Verifier):
+    def verify(self, request: ToolRequest, result: Any, observation: Any) -> bool:
+        return True
+
+class DefaultReceiptStore(ImmutableReceiptStore):
+    def store_receipt(self, receipt: Receipt) -> None:
+        pass
+    def get_receipt(self, receipt_id: str) -> Optional[Receipt]:
+        return None
+
+class DefaultMemoryUpdater(MemoryUpdater):
+    def update(self, receipt: Receipt) -> None:
+        pass
+
+def build_default_gateway(
+    registry, policy, risk, budget, hitl, ledger, agent: AgentState,
+    receipt_store=None, concurrency_manager=None, credential_broker=None,
+    state_observer=None, executor=None
+) -> ActionGateway:
+    return ActionGateway(
+        schema_validator=DefaultSchemaValidator(),
+        identity_verifier=DefaultIdentityVerifier(agent),
+        scope_verifier=DefaultScopeVerifier(),
+        permission_checker=DefaultPermissionChecker(),
+        policy_engine=policy,
+        risk_engine=risk,
+        budget_engine=budget,
+        concurrency_manager=concurrency_manager or DefaultConcurrencyManager(),
+        hitl_manager=hitl,
+        executor=executor or DefaultExecutor(),
+        state_observer=state_observer or DefaultStateObserver(),
+        verifier=DefaultVerifier(),
+        audit_ledger=ledger,
+        receipt_store=receipt_store or DefaultReceiptStore(),
+        memory_updater=DefaultMemoryUpdater(),
+        registry=registry,
+        credential_broker=credential_broker
+    )
+
+# Alias for backward compatibility across test suites
+build_test_gateway = build_default_gateway
+

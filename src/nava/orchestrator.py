@@ -17,7 +17,7 @@ from nava.governance.hitl_manager import SingleApprovalManager
 from nava.core.ledger import JsonlAuditLedger
 from nava.core.schemas import PolicyRule, Outcome, RiskTier, AgentStatus
 from nava.tools.executor import LocalToolExecutor
-from tests.utils import build_test_gateway
+from nava.gateway.pipeline import build_default_gateway, build_test_gateway
 from nava.agents.runtime.file_agent_variants import build_document_agent, build_data_agent, build_verifier_agent
 from nava.agents.runtime.nava_agent import build_nava_agent
 from nava.agents.runtime.file_agent import build_file_agent
@@ -507,7 +507,7 @@ class Orchestrator:
             return {"success": False, "error": str(e)}
             
         from nava.core.ledger import LocalFileReceiptStore
-        receipt_store = LocalFileReceiptStore("receipts")
+        receipt_store = LocalFileReceiptStore("tasks/receipts")
         
         gateway = build_test_gateway(
             self.registry, self.policy, self.risk, self.budget_engine, 

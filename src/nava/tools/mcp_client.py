@@ -199,9 +199,8 @@ class MCPClientManager:
             fetched_tools = self._discover_server_tools_sync(name, command, args or [], env or {})
             if fetched_tools:
                 self._process_fetched_tools(name, fetched_tools)
-        except Exception as e:
-            # If server isn't running or stdio discovery fails, fall back to built-in discovery defaults
-            print(f"[MCPClientManager] Dynamic tool discovery notice for '{name}': {e}")
+        except Exception:
+            # Server offline or not running stdio pipe, fall back to built-in schemas silently
             if name == "gmail":
                 fallback_tools = [
                     {

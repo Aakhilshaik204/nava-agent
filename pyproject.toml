@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nava-agent"
-version = "0.2.6"
+version = "0.3.1"
 description = "NAVA: Autonomous Personal Agent OS with Governed Execution & Rich Cowork Studio"
 readme = "README.md"
 authors = [{ name = "NAVA Team" }]

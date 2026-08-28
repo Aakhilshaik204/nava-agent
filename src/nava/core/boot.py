@@ -14,12 +14,18 @@ class NavaBootstrapper:
         self.config_path = config_path
 
     def _create_default_config(self) -> None:
-        default_yaml = """# NAVA Personal Agent OS Configuration & Security Ceilings
+        default_yaml = """# ==============================================================================
+# NAVA Personal Agent OS Configuration & Root Security Ceilings (Blueprint Sec 26)
+# ==============================================================================
+
 root_agent:
   ceiling_permissions:
+    # Filesystem & Storage
     - filesystem.write
     - filesystem.read
     - data.analyze
+    
+    # DevOps & Execution (shell.execute restricted EXCLUSIVELY to TerminalAgent)
     - test.run
     - terminal.execute
     - shell.execute
@@ -29,6 +35,12 @@ root_agent:
     - git.write
     - ast.read
     - ast.write
+    
+    # Model Context Protocol (MCP) & Integrations
+    - gmail.read
+    - gmail.search
+    - gmail.draft
+    
     # Research & Deep Intelligence MCP Suite
     - research.read
     - search.web
@@ -38,7 +50,7 @@ root_agent:
     - database.write
     - data.analyze
     
-    # Document & Typst PDF Compilation Suite
+    # Document & Typst PDF Compilation Suite (DocumentAgent & UniversalFileAgent)
     - document.compile
     - document.read
     
@@ -49,6 +61,13 @@ root_agent:
     - browser.type
     - browser.scroll
     - browser.save_to_scratch
+    
+    # OS Desktop GUI Automation (ComputerAgent)
+    - desktop.read
+    - desktop.click
+    - desktop.type
+    
+    # Skills, Knowledge & System
     - system.read_skill
     - system.flag_review
     - memory.semantic
@@ -59,12 +78,15 @@ root_agent:
     - mock.notify_admin
 
   ceiling_tools:
+    # 1. File & Executive Document Tools
     - file.read
     - file.write
     - file.delete
     - file.create_pdf
     - file.create_docx
     - file.create_pptx
+    
+    # 2. Code, AST Indexing & Superpowers Tools
     - code.search
     - code.read_directory_tree
     - code.diff_review
@@ -76,7 +98,9 @@ root_agent:
     - superpowers.ast_search
     - superpowers.ast_replace
     - superpowers.compiler_autofix
-    - test.run
+    
+    # 3. Terminal & DevOps Tools (Restricted strictly to TerminalAgent & CodingAgent)
+    - shell.execute
     - terminal.execute
     - terminal.exec_command
     - terminal.run_tests
@@ -84,22 +108,13 @@ root_agent:
     - docker.create_sandbox
     - docker.exec_in_sandbox
     - docker.destroy_sandbox
-    - shell.execute
-    - data.analyze
-    - sqlite.read_query
-    - sqlite.write_query
-    - sqlite.list_tables
-    - sqlite.describe_tables
-    - data.sql_query_csv
-    - data.profile_dataset
-    - data.aggregate
-    - typst.compile_pdf
-    - typst.render_template
-    - doc.read_document
-    - sequential_thinking.step
-    - audit.verify_invariants
-    - audit.security_scan
-    - audit.verify_grounding
+    - test.run
+    - git.status
+    - git.diff
+    - git.branch
+    - git.commit
+    
+    # 4. Web & Research Tools (BrowserAgent & ResearchAgent)
     - browser.navigate
     - browser.extract_dom
     - browser.extract_text
@@ -110,23 +125,42 @@ root_agent:
     - browser.get_url
     - browser.save_to_scratch
     - search.web
-    - fetch.get_markdown
-    - brave.search_web
-    - arxiv.search_papers
-    - arxiv.get_paper_summary
-    - git.status
-    - git.diff
-    - git.branch
-    - git.commit
     - memory.semantic_ingest
     - memory.semantic_search
+    
+    # 5. OS Desktop GUI Tools (ComputerAgent)
     - desktop.screenshot
     - desktop.click
     - desktop.type
     - desktop.hotkey
     - desktop.get_screen_size
+    
+    # 6. MCP Protocol & Integrations
     - gmail.search
     - gmail.read
+    - fetch.get_markdown
+    - brave.search_web
+    - arxiv.search_papers
+    - arxiv.get_paper_summary
+    - sqlite.read_query
+    - sqlite.write_query
+    - sqlite.list_tables
+    - sqlite.describe_tables
+    - data.sql_query_csv
+    - data.profile_dataset
+    - data.aggregate
+    - data.correlation_matrix
+    - data.detect_anomalies
+    - data.pivot_table
+    - typst.compile_pdf
+    - typst.render_template
+    - doc.read_document
+    - sequential_thinking.step
+    - audit.verify_invariants
+    - audit.security_scan
+    - audit.verify_grounding
+    
+    # 7. System & Governance
     - system.read_skill
     - system.flag_review
     - mock.send_wire_transfer
@@ -135,16 +169,131 @@ root_agent:
   ceiling_credentials:
     - gmail.read
 
+# Global Execution & Resource Budgets (Blueprint Sec 14)
 budget:
   max_agents: 50
   max_depth: 10
   max_steps: 1000
   max_tokens: 1000000
 
+# User-Configurable Security Feature Switches (Section 13 & 26)
 security_switches:
-  enable_terminal_execution: true
-  enable_desktop_gui_control: true
-  enable_external_integrations: true
+  enable_terminal_execution: true    # Set to false to disable all local shell/terminal command execution
+  enable_docker_sandboxing: true     # Set to false to disable ephemeral Docker container creation
+  enable_desktop_gui_control: true   # Set to false to make ComputerAgent read-only (screenshots only, mouse/keyboard blocked)
+  enable_browser_automation: true    # Set to false to disable Playwright web navigation & form automation
+  enable_code_mutation: true         # Set to false to make CodingAgent read-only (AST replace/file writes blocked)
+  enable_external_integrations: true # Set to false to block external web MCPs, Gmail, and GitHub integrations
+  enable_deep_audit_gates: true      # Set to false to bypass sequential thinking and AST security scanners
+  enforce_codebase_isolation: true   # Set to false to disable strict isolation of NAVA's internal framework files
+
+# Model Context Protocol (MCP) Ecosystem & Specialized Agent Servers
+# (Set enabled: false on any server to completely disable and unregister it)
+mcp_servers:
+  context7:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@context7/mcp-server@latest"]
+    assigned_roles: ["CodingAgent"]
+    trust_state: "TRUSTED"
+  
+  superpowers:
+    enabled: true
+    command: "uvx"
+    args: ["mcp-superpowers-code@latest"]
+    assigned_roles: ["CodingAgent"]
+    trust_state: "TRUSTED"
+
+  git:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-git@latest"]
+    assigned_roles: ["CodingAgent", "TerminalAgent"]
+    trust_state: "TRUSTED"
+
+  fetch:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-fetch@latest"]
+    assigned_roles: ["ResearchAgent"]
+    trust_state: "TRUSTED"
+
+  brave-search:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-brave-search@latest"]
+    assigned_roles: ["ResearchAgent"]
+    trust_state: "TRUSTED"
+
+  arxiv:
+    enabled: true
+    command: "uvx"
+    args: ["mcp-server-arxiv@latest"]
+    assigned_roles: ["ResearchAgent"]
+    trust_state: "TRUSTED"
+
+  sqlite:
+    enabled: true
+    command: "uvx"
+    args: ["mcp-server-sqlite@latest"]
+    assigned_roles: ["DataAgent"]
+    trust_state: "TRUSTED"
+
+  typst:
+    enabled: true
+    command: "uvx"
+    args: ["typst-mcp-server@latest"]
+    assigned_roles: ["DocumentAgent", "UniversalFileAgent"]
+    trust_state: "TRUSTED"
+
+  sequential-thinking:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"]
+    assigned_roles: ["ReviewerAgent", "VerifierAgent"]
+    trust_state: "TRUSTED"
+
+  audit-scanner:
+    enabled: true
+    command: "uvx"
+    args: ["nava-audit-mcp@latest"]
+    assigned_roles: ["ReviewerAgent", "VerifierAgent"]
+    trust_state: "TRUSTED"
+
+  docker-sandbox:
+    enabled: true
+    command: "uvx"
+    args: ["docker-sandbox-mcp@latest"]
+    assigned_roles: ["TerminalAgent"]
+    trust_state: "TRUSTED"
+
+  playwright-browser:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-puppeteer@latest"]
+    assigned_roles: ["BrowserAgent"]
+    trust_state: "TRUSTED"
+
+  desktop-automation:
+    enabled: true
+    command: "uvx"
+    args: ["desktop-automation-mcp@latest"]
+    assigned_roles: ["ComputerAgent"]
+    trust_state: "TRUSTED"
+
+  gmail:
+    enabled: true
+    command: "uvx"
+    args: ["gmail-mcp-server@latest"]
+    assigned_roles: ["EmailAgent"]
+    trust_state: "TRUSTED"
+
+  github:
+    enabled: true
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-github@latest"]
+    assigned_roles: ["GitHubAgent"]
+    trust_state: "TRUSTED"
 """
         with open(self.config_path, "w", encoding="utf-8") as f:
             f.write(default_yaml)
