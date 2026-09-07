@@ -36,7 +36,7 @@ class CoworkTUI:
         total_skills = len(all_skills)
         
         banner_lines = [
-            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}NAVA AGENT{TerminalTheme.RESET} {TerminalTheme.SLATE}v0.3.1 • Autonomous Coding & Task System{TerminalTheme.RESET}",
+            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}NAVA AGENT{TerminalTheme.RESET} {TerminalTheme.SLATE}v0.3.3 • Autonomous Coding & Task System{TerminalTheme.RESET}",
             f"{TerminalTheme.CYAN}Project:{TerminalTheme.RESET} {TerminalTheme.BOLD}{proj_name}{TerminalTheme.RESET}  │  {TerminalTheme.CYAN}Tasks:{TerminalTheme.RESET} {task_count}  │  {TerminalTheme.CYAN}Skills:{TerminalTheme.RESET} {total_skills}  │  {TerminalTheme.CYAN}Gateway:{TerminalTheme.RESET} {TerminalTheme.EMERALD}17-Step Enforced{TerminalTheme.RESET}",
             f"{TerminalTheme.DIM}Type your objective, or slash commands like {TerminalTheme.CYAN}/twin{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/budget{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/skills{TerminalTheme.RESET}{TerminalTheme.DIM}, {TerminalTheme.CYAN}/help{TerminalTheme.RESET}"
         ]
@@ -79,7 +79,21 @@ class CoworkTUI:
 
     def dispatch_command(self, query: str):
         """Dispatches built-in slash commands or executes natural language goals."""
-        lower_q = query.lower()
+        clean_query = query.strip()
+        # Automatically strip pasted prompt prefixes (e.g. ╰─❯, ❯, >, $, >>>)
+        while True:
+            stripped = False
+            for prefix in ["╰─❯", "❯", ">>>", ">", "$"]:
+                if clean_query.startswith(prefix):
+                    clean_query = clean_query[len(prefix):].strip()
+                    stripped = True
+            if not stripped:
+                break
+
+        if not clean_query:
+            return
+
+        lower_q = clean_query.lower()
 
         # 1. Clean Task Session
         if lower_q in ["+ new", "new", "fresh", "/new"]:
@@ -93,7 +107,7 @@ class CoworkTUI:
 
         # 3. AI Twin Commands (/twin)
         if lower_q.startswith("/twin") or lower_q.startswith("twin"):
-            self._handle_twin_command(query)
+            self._handle_twin_command(clean_query)
             return
 
         # 4. Budget & Governance Dashboard (/budget)
@@ -103,12 +117,12 @@ class CoworkTUI:
 
         # 5. Skill Commands (/skills, /skill promote, /skill approve)
         if lower_q.startswith("/skill") or lower_q.startswith("skill"):
-            self._handle_skill_command(query)
+            self._handle_skill_command(clean_query)
             return
 
         # 6. Project Management Commands (/projects, create project, switch project)
         if lower_q.startswith("create project ") or lower_q.startswith("project new ") or lower_q.startswith("/project create "):
-            parts = query.split()
+            parts = clean_query.split()
             pname = parts[2].strip() if len(parts) > 2 else "NewProject"
             self.orchestrator.workspace.create_project(pname)
             print(f"\n{TerminalTheme.BRIGHT_GREEN}✅ Created and switched to project: '{self.orchestrator.workspace.project_name}'{TerminalTheme.RESET}")
@@ -116,7 +130,7 @@ class CoworkTUI:
             return
 
         if lower_q.startswith("switch project ") or lower_q.startswith("project use ") or lower_q.startswith("/project switch "):
-            parts = query.split()
+            parts = clean_query.split()
             pname = parts[2].strip() if len(parts) > 2 else "Nava"
             self.orchestrator.workspace.switch_project(pname)
             print(f"\n{TerminalTheme.BRIGHT_CYAN}⇄ Switched active project to: '{self.orchestrator.workspace.project_name}'{TerminalTheme.RESET}")
@@ -137,12 +151,17 @@ class CoworkTUI:
             return
 
         if lower_q.startswith("task resume ") or lower_q.startswith("/task resume ") or lower_q.startswith("resume ") or lower_q.startswith("/resume "):
-            parts = query.split()
+            parts = clean_query.split()
             tid = parts[-1].strip()
             res = self.orchestrator.task_manager.resume_task(tid)
             if res:
                 print(f"\n{TerminalTheme.BRIGHT_GREEN}✅ Resumed task session: {res['task_id']}{TerminalTheme.RESET}")
-                print(f"{TerminalTheme.DIM}All subsequent queries and agent actions will execute inside this task session.{TerminalTheme.RESET}")
+                orig_goal = res.get("goal")
+                if orig_goal:
+                    print(f"{TerminalTheme.CYAN}🎯 Resuming goal: '{orig_goal}'...{TerminalTheme.RESET}\n")
+                    self.orchestrator.execute(orig_goal)
+                else:
+                    print(f"{TerminalTheme.DIM}All subsequent queries and agent actions will execute inside this task session.{TerminalTheme.RESET}")
             else:
                 print(f"\n{TerminalTheme.BRIGHT_RED}❌ Task '{tid}' not found in tasks/ directory.{TerminalTheme.RESET}")
             return
@@ -363,22 +382,23 @@ class CoworkTUI:
             f"  {TerminalTheme.BRIGHT_CYAN}/kill{TerminalTheme.RESET}, {TerminalTheme.BRIGHT_CYAN}/stop{TerminalTheme.RESET}           : Instant out-of-band emergency stop for all running agents",
             f"",
             f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}📁 Project & Codebase Management:{TerminalTheme.RESET}",
-            f"  {TerminalTheme.BRIGHT_CYAN}projects{TerminalTheme.RESET}              : List all isolated project codebases",
+            f"  {TerminalTheme.BRIGHT_CYAN}projects{TerminalTheme.RESET}              : List all isolated project codebases in table view",
             f"  {TerminalTheme.BRIGHT_CYAN}create project <name>{TerminalTheme.RESET} : Create a brand new project and switch to it",
-            f"  {TerminalTheme.BRIGHT_CYAN}switch project <name>{TerminalTheme.RESET} : Switch active project context",
-            f"  {TerminalTheme.BRIGHT_CYAN}project{TerminalTheme.RESET}               : View current project architecture and memory",
+            f"  {TerminalTheme.BRIGHT_CYAN}switch project <name>{TerminalTheme.RESET} : Switch active project context (or 'project use <name>')",
+            f"  {TerminalTheme.BRIGHT_CYAN}project{TerminalTheme.RESET}               : View active project architecture, context & memory",
             f"",
             f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}⚡ Skills & MCP Plugins:{TerminalTheme.RESET}",
             f"  {TerminalTheme.BRIGHT_CYAN}skills{TerminalTheme.RESET}                : List all registered and approved skills",
-            f"  {TerminalTheme.BRIGHT_CYAN}/skill promote <name>{TerminalTheme.RESET} : Promote completed task into a permanent skill",
+            f"  {TerminalTheme.BRIGHT_CYAN}/skill promote <name>{TerminalTheme.RESET} : Promote completed task workflow into a permanent skill",
             f"  {TerminalTheme.BRIGHT_CYAN}/skill approve all{TerminalTheme.RESET}     : Hash-lock and approve all registered skills",
             f"  {TerminalTheme.BRIGHT_CYAN}/<skill_name> <query>{TerminalTheme.RESET} : Execute an explicit registered skill directly",
-            f"  {TerminalTheme.BRIGHT_CYAN}/mcp{TerminalTheme.RESET}                  : Inspect connected MCP protocol tools",
+            f"  {TerminalTheme.BRIGHT_CYAN}/mcp{TerminalTheme.RESET}                  : Inspect connected MCP protocol tools and servers",
             f"  {TerminalTheme.BRIGHT_CYAN}/mcp approve <s v>{TerminalTheme.RESET}     : Hash-lock and approve new MCP tool schemas",
             f"",
-            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}📜 Task Auditing & Exit:{TerminalTheme.RESET}",
-            f"  {TerminalTheme.BRIGHT_CYAN}tasks{TerminalTheme.RESET}                 : List past task runs and status",
-            f"  {TerminalTheme.BRIGHT_CYAN}task <id>{TerminalTheme.RESET}              : View full task_memory.md for a specific task",
+            f"{TerminalTheme.BOLD}{TerminalTheme.BRIGHT_CORAL}📜 Task Session & History:{TerminalTheme.RESET}",
+            f"  {TerminalTheme.BRIGHT_CYAN}tasks{TerminalTheme.RESET}                 : List all past task runs, status badges, and goals",
+            f"  {TerminalTheme.BRIGHT_CYAN}resume <id>{TerminalTheme.RESET}            : Resume and continue an existing task session",
+            f"  {TerminalTheme.BRIGHT_CYAN}task <id>{TerminalTheme.RESET}              : View full task_memory.md & receipt for a specific task",
             f"  {TerminalTheme.BRIGHT_CYAN}exit{TerminalTheme.RESET}, {TerminalTheme.BRIGHT_CYAN}quit{TerminalTheme.RESET}              : Gracefully quit Nava OS Shell"
         ]
         print("\n" + BoxRenderer.render_panel("NAVA OS COMMAND PALETTE", help_lines, color=TerminalTheme.CORAL, icon="📖"))

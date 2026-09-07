@@ -4,14 +4,33 @@ import uuid
 from typing import TypedDict, Optional
 from langgraph.graph import StateGraph, END
 from langchain_core.messages import SystemMessage, HumanMessage
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, model_validator
 from nava.core.schemas import AgentState, AgentStatus, ToolRequest
-from nava.core.llm import get_llm
+from nava.core.llm import get_llm, safe_structured_invoke
 
 class CodingPlan(BaseModel):
-    thoughts: str
-    tool_name: str
-    arguments: dict
+    thoughts: str = Field(default="Executing coding task...")
+    tool_name: str = Field(default="file.write")
+    arguments: dict = Field(default_factory=dict)
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_action(cls, data: dict) -> dict:
+        if not isinstance(data, dict):
+            return data
+        if "thoughts" not in data:
+            data["thoughts"] = data.get("reasoning") or data.get("thought") or data.get("rationale") or "Executing coding task..."
+        if "tool_name" not in data:
+            data["tool_name"] = data.get("tool") or data.get("action") or data.get("function") or "file.write"
+        if "arguments" not in data:
+            extracted_args = data.get("args") or data.get("params") or data.get("parameters") or data.get("input") or data.get("data")
+            if isinstance(extracted_args, dict):
+                data["arguments"] = extracted_args
+            else:
+                reserved = {"thoughts", "reasoning", "thought", "rationale", "tool_name", "tool", "action", "function"}
+                extra_args = {k: v for k, v in data.items() if k not in reserved}
+                data["arguments"] = extra_args if extra_args else {}
+        return data
 
 def build_coding_agent(registry=None) -> StateGraph:
     """Builds the Tier 2 cyclic coding agent execution graph."""
@@ -37,7 +56,6 @@ def build_coding_agent(registry=None) -> StateGraph:
                 tool_schemas_str = "\n".join(tool_schemas)
 
         llm = get_llm()
-        structured_llm = llm.with_structured_output(CodingPlan)
         
         prompt_path = os.path.join(os.path.dirname(__file__), "..", "..", "prompts", "coding_agent_prompt.txt")
         with open(prompt_path, "r", encoding="utf-8") as f:
@@ -46,11 +64,17 @@ def build_coding_agent(registry=None) -> StateGraph:
         # Extract skill catalog from orchestrator payload (injected by SkillManager)
         skill_catalog = payload.get("context", "")
 
-        system_prompt = prompt_template.format(
-            goal=agent_state.goal,
-            tool_schemas_str=tool_schemas_str,
-            skill_catalog=skill_catalog
-        )
+        try:
+            with open(prompt_path, "r", encoding="utf-8") as f:
+                prompt_template = f.read()
+            system_prompt = (
+                prompt_template
+                .replace("{goal}", str(agent_state.goal))
+                .replace("{tool_schemas_str}", str(tool_schemas_str))
+                .replace("{skill_catalog}", str(skill_catalog))
+            )
+        except Exception:
+            system_prompt = f"You are CodingAgent. Objective: {agent_state.goal}\nTools:\n{tool_schemas_str}"
                         
         sys_msg = SystemMessage(content=system_prompt)
         
@@ -66,7 +90,7 @@ def build_coding_agent(registry=None) -> StateGraph:
         human_msg = HumanMessage(content=content)
         
         try:
-            decision = structured_llm.invoke([sys_msg, human_msg])
+            decision = safe_structured_invoke(llm, CodingPlan, [sys_msg, human_msg])
             print(f"\n[CodingAgent Thinking]:\n{decision.thoughts}\n")
         except Exception as e:
             print(f"\n[CodingAgent Error]: LLM generation or parsing failed: {e}")

@@ -5,7 +5,7 @@ from langgraph.graph import StateGraph, END
 from langchain_core.messages import SystemMessage, HumanMessage
 from pydantic import BaseModel
 from nava.core.schemas import AgentState, AgentStatus, ToolRequest
-from nava.core.llm import get_llm
+from nava.core.llm import get_llm, safe_structured_invoke
 
 class TerminalPlan(BaseModel):
     thoughts: str
@@ -37,7 +37,6 @@ def build_terminal_agent(registry=None) -> StateGraph:
         tool_schemas_str = "\n".join(tool_schemas) if tool_schemas else "No tools available."
 
         llm = get_llm()
-        structured_llm = llm.with_structured_output(TerminalPlan)
         
         prompt_path = os.path.join(os.path.dirname(__file__), "..", "..", "prompts", "terminal_agent_prompt.txt")
         try:
@@ -63,7 +62,7 @@ def build_terminal_agent(registry=None) -> StateGraph:
         human_msg = HumanMessage(content=content)
         
         try:
-            decision = structured_llm.invoke([sys_msg, human_msg])
+            decision = safe_structured_invoke(llm, TerminalPlan, [sys_msg, human_msg])
             print(f"\n[TerminalAgent Thinking]:\n{decision.thoughts}\n")
             print(f"[TerminalAgent Action]:\n  → {decision.tool_name}({decision.arguments})\n")
         except Exception as e:

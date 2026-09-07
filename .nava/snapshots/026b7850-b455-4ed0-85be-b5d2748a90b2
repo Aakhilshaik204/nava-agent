@@ -1,0 +1,30 @@
+# 📋 Task Memory: build a modern react developer workspace in projects/DevPulse with vite, an interactive analytics dashboard with live sparkline charts, a kanban task board with drag-and-drop columns, an ai agent activity monitor, dark and light theme toggle, and local storage state persistence
+
+- **Task ID**: `tsk_20260901_073823_build_a_modern_react_dev`
+- **Created At**: 2026-09-01T07:38:23Z
+- **Status**: RUNNING
+- **Project Context**: `devpulse`
+
+---
+
+## 🎯 1. Objective & Requirements
+build a modern react developer workspace in projects/DevPulse with vite, an interactive analytics dashboard with live sparkline charts, a kanban task board with drag-and-drop columns, an ai agent activity monitor, dark and light theme toggle, and local storage state persistence
+
+## 🤖 2. Agent Swarm & Execution Plan
+- [Stage 1] CodingAgent → Author the initial project documentation and architecture spec in `projects/DevPulse/task.md` and `projects/DevPulse/implementation_plan.md`. Outline the technical architecture for the Vite React workspace, state persistence schema, component layout (Analytics Dashboard, Kanban Board, AI Agent Monitor, Theme Context), and drag-and-drop event handlers.
+- [Stage 2] CodingAgent → Initialize the React application structure inside `projects/DevPulse/`. Write `package.json`, `vite.config.js`, `index.html`, `src/main.jsx`, `src/index.css`, and configure Lucide icons/Tailwind CSS styling engine alongside local storage state helper hooks (`useLocalStorage.js`).
+- [Stage 2] CodingAgent → Build and integrate the main UI components in `projects/DevPulse/src/components/` and `src/App.jsx`:
+1. `AnalyticsDashboard.jsx`: Live updating SVG/canvas sparkline charts displaying system throughput, API latency, and memory metrics.
+2. `KanbanBoard.jsx`: Interactive drag-and-drop task board with column states (Backlog, In Progress, In Review, Done) and task creation/editing capabilities.
+3. `AIAgentMonitor.jsx`: Real-time active agent timeline, log output viewer, status badges, and execution controls.
+4. `ThemeToggle.jsx`: Smooth Dark/Light mode switcher integrated into a React Context provider with LocalStorage persistence.
+- [Stage 3] VerifierAgent → Audit `projects/DevPulse` to verify that all required features (Vite React app, live sparkline charts, drag-and-drop Kanban, AI agent monitor, theme toggle, local storage persistence) are implemented correctly. Run invariant verification checks and generate `projects/DevPulse/walkthrough.md` documenting architecture, features, and setup instructions (`npm install && npm run dev`).
+
+## ⚡ 3. Actions & Tool Invocations
+- [07:38:23] Task initialized.
+
+## 📦 4. Generated Artifacts
+*(No artifacts generated yet)*
+
+## 📝 5. Outcome & Verification
+*Task in progress...*

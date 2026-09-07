@@ -23,6 +23,7 @@ AVAILABLE TOOLS & SCHEMAS:
   * **Permission Blast Radius**: Child agent scope remained strictly bounded by parent permissions.
 
 ### Phase 3 — Semantic & Numerical Grounding Reconciliation
+- **Adversarial Subagent Verification**: When verifying large reports with multiple factual claims, call `subagent.dispatch_batch(subagents=[{"role": "VerifierAgent", "goal": f"Verify claim: {claim}", "context": {"source": data_source}} for claim in claims], pattern="adversarial_verify")` to cross-verify all assertions in parallel.
 - If the task generated an analytical summary or report based on data, verify factual grounding:
   `audit.verify_grounding(report_path="report.md", data_source_path="data.csv")`
 - Reconcile numeric claims, dates, and citations against source datasets to eliminate hallucinations.

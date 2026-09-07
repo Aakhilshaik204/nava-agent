@@ -6,6 +6,29 @@ import httpx
 log_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'mcp_error.log')
 
 
+# Provider Brand: Google (Gmail API)
+# Verified Destination Origin: https://gmail.googleapis.com
+PROVIDER_BRAND = "google"
+VERIFIED_API_ORIGIN = "https://gmail.googleapis.com"
+ALLOWED_API_HOSTS = frozenset(["gmail.googleapis.com"])
+
+def _verify_destination_brand(target_url: str) -> None:
+    """
+    Security Invariant: Proves that outgoing credential flows strictly target
+    the verified brand endpoint (https://gmail.googleapis.com).
+    Blocks token exfiltration and SSRF attacks.
+    """
+    from urllib.parse import urlparse
+    parsed = urlparse(target_url)
+    if parsed.scheme != "https":
+        raise ValueError(f"Insecure protocol rejected: {parsed.scheme}")
+    if parsed.hostname not in ALLOWED_API_HOSTS:
+        raise ValueError(
+            f"Security policy violation: Egress host '{parsed.hostname}' "
+            f"does not match verified provider brand '{PROVIDER_BRAND}' ({ALLOWED_API_HOSTS})."
+        )
+
+
 async def run_server():
     from mcp.server import Server
     import mcp.types as types
@@ -70,9 +93,12 @@ async def run_server():
         if name == "search":
             query = arguments.get("query", "")
             max_results = arguments.get("max_results", 5)
-            async with httpx.AsyncClient() as client:
+            endpoint = "/gmail/v1/users/me/messages"
+            _verify_destination_brand(f"{VERIFIED_API_ORIGIN}{endpoint}")
+            
+            async with httpx.AsyncClient(base_url=VERIFIED_API_ORIGIN) as client:
                 resp = await client.get(
-                    "https://gmail.googleapis.com/gmail/v1/users/me/messages",
+                    endpoint,
                     headers=headers,
                     params={"q": query, "maxResults": max_results}
                 )
@@ -91,9 +117,12 @@ async def run_server():
 
         elif name == "read":
             message_id = arguments.get("message_id", "")
-            async with httpx.AsyncClient() as client:
+            endpoint = f"/gmail/v1/users/me/messages/{message_id}"
+            _verify_destination_brand(f"{VERIFIED_API_ORIGIN}{endpoint}")
+            
+            async with httpx.AsyncClient(base_url=VERIFIED_API_ORIGIN) as client:
                 resp = await client.get(
-                    f"https://gmail.googleapis.com/gmail/v1/users/me/messages/{message_id}",
+                    endpoint,
                     headers=headers
                 )
             if resp.status_code != 200:

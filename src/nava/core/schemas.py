@@ -142,14 +142,14 @@ class AgentSpec(BaseModel):
     display_label: Optional[str] = None
     goal: str
     parent_agent_id: str
-    requested_tools: List[str]
-    requested_permission_scope: List[str]
-    ttl: timedelta
-    max_steps: int
-    max_tokens: int
-    max_children: int
+    requested_tools: List[str] = Field(default_factory=list)
+    requested_permission_scope: List[str] = Field(default_factory=list)
+    ttl: timedelta = Field(default_factory=lambda: timedelta(minutes=10))
+    max_steps: int = 10
+    max_tokens: int = 5000
+    max_children: int = 2
     priority: Priority = Priority.NORMAL
-    dedup_hash: str
+    dedup_hash: Optional[str] = None
     stage: int = 1
     is_parallel: bool = True
 

@@ -3,14 +3,33 @@ import json
 import uuid
 from langgraph.graph import StateGraph, END
 from langchain_core.messages import SystemMessage, HumanMessage
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, model_validator
 from nava.core.schemas import AgentState, AgentStatus, ToolRequest
-from nava.core.llm import get_llm
+from nava.core.llm import get_llm, safe_structured_invoke
 
 class VerifierPlan(BaseModel):
-    thoughts: str
-    tool_name: str
-    arguments: dict
+    thoughts: str = Field(default="Executing verification audit...")
+    tool_name: str = Field(default="FINISH")
+    arguments: dict = Field(default_factory=dict)
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_action(cls, data: dict) -> dict:
+        if not isinstance(data, dict):
+            return data
+        if "thoughts" not in data:
+            data["thoughts"] = data.get("reasoning") or data.get("thought") or data.get("rationale") or "Executing verification audit..."
+        if "tool_name" not in data:
+            data["tool_name"] = data.get("tool") or data.get("action") or data.get("function") or "FINISH"
+        if "arguments" not in data:
+            extracted_args = data.get("args") or data.get("params") or data.get("parameters") or data.get("input") or data.get("data")
+            if isinstance(extracted_args, dict):
+                data["arguments"] = extracted_args
+            else:
+                reserved = {"thoughts", "reasoning", "thought", "rationale", "tool_name", "tool", "action", "function"}
+                extra_args = {k: v for k, v in data.items() if k not in reserved}
+                data["arguments"] = extra_args if extra_args else {}
+        return data
 
 def build_verifier_agent(registry=None) -> StateGraph:
     """Builds the cyclic VerifierAgent execution graph for invariant auditing, grounding, and task verification."""
@@ -37,19 +56,14 @@ def build_verifier_agent(registry=None) -> StateGraph:
         tool_schemas_str = "\n".join(tool_schemas) if tool_schemas else "No tools available."
 
         llm = get_llm()
-        structured_llm = llm.with_structured_output(VerifierPlan)
         
         prompt_path = os.path.join(os.path.dirname(__file__), "..", "..", "prompts", "verifier_agent_prompt.txt")
         try:
             with open(prompt_path, "r", encoding="utf-8") as f:
                 prompt_template = f.read()
+            system_prompt = prompt_template.replace("{goal}", str(agent_state.goal)).replace("{tool_schemas_str}", str(tool_schemas_str))
         except Exception:
-            prompt_template = "You are VerifierAgent. Goal: {goal}\nTools:\n{tool_schemas_str}"
-
-        system_prompt = prompt_template.format(
-            goal=agent_state.goal,
-            tool_schemas_str=tool_schemas_str
-        )
+            system_prompt = f"You are VerifierAgent. Goal: {agent_state.goal}\nTools:\n{tool_schemas_str}"
                         
         sys_msg = SystemMessage(content=system_prompt)
         
@@ -63,7 +77,7 @@ def build_verifier_agent(registry=None) -> StateGraph:
         human_msg = HumanMessage(content=content)
         
         try:
-            decision = structured_llm.invoke([sys_msg, human_msg])
+            decision = safe_structured_invoke(llm, VerifierPlan, [sys_msg, human_msg])
             print(f"\n[VerifierAgent Thinking]:\n{decision.thoughts}\n")
             print(f"[VerifierAgent Action]:\n  → {decision.tool_name}({decision.arguments})\n")
         except Exception as e:

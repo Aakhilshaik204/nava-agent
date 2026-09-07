@@ -20,6 +20,11 @@ def get_default_tools() -> List[ToolDefinition]:
             input_schema={"task_id": "string", "reason": "string"}, output_schema={"success": "boolean"},
             permissions_required=["system.flag_review"], risk_level=RiskTier.LOW, reversible=True
         ),
+        ToolDefinition(
+            name="subagent.dispatch_batch", description="Programmatically dispatches a batch of micro-subagents concurrently across items (files, URLs, hypotheses) with isolated sandboxes and typed schema returns.",
+            input_schema={"subagents": "array", "pattern": "string (optional: fanout_synthesize, adversarial_verify, generate_filter, tournament, loop_until_done, classify_act)", "concurrency_limit": "integer (optional)"}, output_schema={"pattern": "string", "total_tasks": "integer", "successful_tasks": "integer", "failed_tasks": "integer", "results": "array", "merkle_root": "string"},
+            permissions_required=["subagent.spawn"], risk_level=RiskTier.MEDIUM, reversible=True
+        ),
         
         # 2. Filesystem & Documents
         ToolDefinition(
@@ -51,6 +56,16 @@ def get_default_tools() -> List[ToolDefinition]:
             name="file.create_pptx", description="Generates a presentation slide deck PPTX with slide layouts, titles, and body bullet cards.",
             input_schema={"filename": "string", "title": "string", "slides": "array"}, output_schema={"success": "boolean", "saved_to": "string"},
             permissions_required=["filesystem.write"], risk_level=RiskTier.LOW, reversible=True
+        ),
+        ToolDefinition(
+            name="presentation.create_slidev", description="Compiles raw Slidev markdown markup or a .md file into a Gamma-style presentation (HTML, PDF, or PPTX).",
+            input_schema={"source": "string", "output_path": "string", "format": "string (optional: html, pdf, pptx)", "theme": "string (optional)"}, output_schema={"success": "boolean", "saved_to": "string", "source_markdown": "string"},
+            permissions_required=["document.compile", "filesystem.write"], risk_level=RiskTier.LOW, reversible=True
+        ),
+        ToolDefinition(
+            name="presentation.render_template", description="Renders a Gamma-style presentation slide deck ('dark_executive', 'modern_light', 'pitch_deck', 'technical_deep_dive') to interactive HTML and PPTX.",
+            input_schema={"template_name": "string", "title": "string", "slides": "array", "output_path": "string", "author": "string (optional)", "theme": "object (optional)"}, output_schema={"success": "boolean", "saved_to": "string", "total_slides": "integer"},
+            permissions_required=["document.compile", "filesystem.write"], risk_level=RiskTier.LOW, reversible=True
         ),
         ToolDefinition(
             name="typst.compile_pdf", description="Compiles raw Typst markup code or a .typ source file into a publication-quality vector PDF.",

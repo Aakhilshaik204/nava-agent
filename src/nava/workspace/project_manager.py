@@ -19,8 +19,22 @@ class TaskManager:
         os.makedirs(self.tasks_dir, exist_ok=True)
         self._active_task_id: Optional[str] = None
 
+    def _resolve_project_dir(self, objective: str, project_id: Optional[str] = None) -> Optional[str]:
+        """Resolves target project workspace directory if specified in objective or project context."""
+        m = re.search(r'projects/([a-zA-Z0-9_\-]+)', objective or "", re.IGNORECASE)
+        if m:
+            p_name = m.group(1)
+            p_dir = os.path.join(self.root_dir, "projects", p_name)
+            os.makedirs(p_dir, exist_ok=True)
+            return p_dir
+        if project_id and project_id != "default":
+            p_dir = os.path.join(self.root_dir, "projects", project_id)
+            os.makedirs(p_dir, exist_ok=True)
+            return p_dir
+        return None
+
     def create_task(self, objective: str, project_id: Optional[str] = "default") -> str:
-        """Creates a brand new task with clean task_memory.md and task-scoped artifacts directory."""
+        """Creates a brand new task session with clean task_memory.md audit receipt."""
         now = datetime.utcnow()
         clean_name = re.sub(r'[^a-zA-Z0-9]', '_', objective[:24]).strip('_').lower()
         task_id = f"tsk_{now.strftime('%Y%m%d_%H%M%S')}_{clean_name or 'goal'}"
@@ -68,76 +82,70 @@ class TaskManager:
         os.makedirs(d, exist_ok=True)
         return d
 
-    def record_plan(self, task_id: str, stages_desc: List[str]) -> None:
+    def record_plan(self, task_id: str, stages_desc: List[str], objective: Optional[str] = None, project_id: Optional[str] = None) -> None:
         """Updates Section 2 of task_memory.md with the decomposed plan."""
-        memory_path = os.path.join(self.tasks_dir, task_id, "task_memory.md")
-        if not os.path.exists(memory_path):
-            return
-            
+        task_folder = os.path.join(self.tasks_dir, task_id)
+        memory_path = os.path.join(task_folder, "task_memory.md")
+        
         plan_text = "## 🤖 2. Agent Swarm & Execution Plan\n" + "\n".join([f"- {s}" for s in stages_desc]) + "\n"
-        with open(memory_path, "r", encoding="utf-8") as f:
-            content = f.read()
-            
-        updated = re.sub(r"## 🤖 2\. Agent Swarm & Execution Plan.*?(?=## ⚡ 3\.|\Z)", plan_text + "\n", content, flags=re.DOTALL)
-        with open(memory_path, "w", encoding="utf-8") as f:
-            f.write(updated)
-
-    def record_action(self, task_id: str, agent_role: str, tool_name: str, args: dict, result_summary: str) -> None:
-        """Appends an executed tool action to Section 3 of task_memory.md."""
-        memory_path = os.path.join(self.tasks_dir, task_id, "task_memory.md")
-        if not os.path.exists(memory_path):
-            return
-            
-        now_ts = datetime.utcnow().strftime("%H:%M:%S")
-        action_line = f"- [{now_ts}] **{agent_role}** → `{tool_name}({json.dumps(args)})` → {result_summary}\n"
-        
-        with open(memory_path, "r", encoding="utf-8") as f:
-            content = f.read()
-            
-        sec3_match = re.search(r"(## ⚡ 3\. Actions & Tool Invocations\n)(.*?)(?=## 📦 4\.|\Z)", content, re.DOTALL)
-        if sec3_match:
-            existing = sec3_match.group(2)
-            updated_sec = existing + action_line
-            updated = content[:sec3_match.start(2)] + updated_sec + content[sec3_match.end(2):]
-            with open(memory_path, "w", encoding="utf-8") as f:
-                f.write(updated)
-
-    def record_artifact(self, task_id: str, artifact_path: str) -> None:
-        """Appends a generated deliverable file to Section 4 of task_memory.md."""
-        memory_path = os.path.join(self.tasks_dir, task_id, "task_memory.md")
-        if not os.path.exists(memory_path):
-            return
-            
-        rel_p = os.path.relpath(artifact_path, self.root_dir) if os.path.isabs(artifact_path) else artifact_path
-        artifact_line = f"- [`{os.path.basename(rel_p)}`]({rel_p})\n"
-        
-        with open(memory_path, "r", encoding="utf-8") as f:
-            content = f.read()
-            
-        sec4_match = re.search(r"(## 📦 4\. Generated Artifacts\n)(.*?)(?=## 📝 5\.|\Z)", content, re.DOTALL)
-        if sec4_match:
-            existing = sec4_match.group(2).replace("*(No artifacts generated yet)*\n", "").replace("*(No artifacts generated yet)*", "")
-            updated_sec = existing + artifact_line
-            updated = content[:sec4_match.start(2)] + updated_sec + content[sec4_match.end(2):]
-            with open(memory_path, "w", encoding="utf-8") as f:
-                f.write(updated)
-
-    def complete_task(self, task_id: str, outcome_summary: str, is_success: bool = True, artifacts: Optional[List[str]] = None) -> None:
-        """
-        Marks task as COMPLETED in task_memory.md and syncs a receipt to Tier 2 Episodic Memory.
-        """
-        memory_path = os.path.join(self.tasks_dir, task_id, "task_memory.md")
         if os.path.exists(memory_path):
             with open(memory_path, "r", encoding="utf-8") as f:
                 content = f.read()
-                
-            status_str = "COMPLETED" if is_success else "FAILED"
-            content = re.sub(r"- \*\*Status\*\*:\s*[A-Z_]+", f"- **Status**: {status_str}", content)
-            
-            outcome_block = f"## 📝 5. Outcome & Verification\n**Status**: {status_str}\n\n{outcome_summary}\n"
-            content = re.sub(r"## 📝 5\. Outcome & Verification.*?\Z", outcome_block, content, flags=re.DOTALL)
-            
+            updated = re.sub(r"## 🤖 2\. Agent Swarm & Execution Plan.*?(?=## ⚡ 3\.|\Z)", plan_text + "\n", content, flags=re.DOTALL)
             with open(memory_path, "w", encoding="utf-8") as f:
+                f.write(updated)
+
+    def record_action(self, task_id: str, agent_role: str, tool_name: str, args: dict, result_summary: str) -> None:
+        """Appends an executed tool action to Section 3 of task_memory.md."""
+        task_folder = os.path.join(self.tasks_dir, task_id)
+        now_ts = datetime.utcnow().strftime("%H:%M:%S")
+        action_line = f"- [{now_ts}] **{agent_role}** → `{tool_name}({json.dumps(args)})` → {result_summary}\n"
+        
+        p = os.path.join(task_folder, "task_memory.md")
+        if os.path.exists(p):
+            with open(p, "r", encoding="utf-8") as f:
+                content = f.read()
+            sec3_match = re.search(r"(## ⚡ 3\. Actions & Tool Invocations\n)(.*?)(?=## 📦 4\.|\Z)", content, re.DOTALL)
+            if sec3_match:
+                existing = sec3_match.group(2)
+                updated_sec = existing + action_line
+                updated = content[:sec3_match.start(2)] + updated_sec + content[sec3_match.end(2):]
+                with open(p, "w", encoding="utf-8") as f:
+                    f.write(updated)
+
+    def record_artifact(self, task_id: str, artifact_path: str) -> None:
+        """Appends a generated deliverable file to Section 4 of task_memory.md."""
+        task_folder = os.path.join(self.tasks_dir, task_id)
+        rel_p = os.path.relpath(artifact_path, self.root_dir) if os.path.isabs(artifact_path) else artifact_path
+        artifact_line = f"- [`{os.path.basename(rel_p)}`]({rel_p})\n"
+        
+        p = os.path.join(task_folder, "task_memory.md")
+        if os.path.exists(p):
+            with open(p, "r", encoding="utf-8") as f:
+                content = f.read()
+            sec4_match = re.search(r"(## 📦 4\. Generated Artifacts\n)(.*?)(?=## 📝 5\.|\Z)", content, re.DOTALL)
+            if sec4_match:
+                existing = sec4_match.group(2).replace("*(No artifacts generated yet)*\n", "").replace("*(No artifacts generated yet)*", "")
+                updated_sec = existing + artifact_line
+                updated = content[:sec4_match.start(2)] + updated_sec + content[sec4_match.end(2):]
+                with open(p, "w", encoding="utf-8") as f:
+                    f.write(updated)
+
+    def complete_task(self, task_id: str, outcome_summary: str, is_success: bool = True, artifacts: Optional[List[str]] = None, project_id: Optional[str] = None) -> None:
+        """
+        Marks task as COMPLETED in task_memory.md and syncs a receipt to Tier 2 Episodic Memory.
+        """
+        task_folder = os.path.join(self.tasks_dir, task_id)
+        status_str = "COMPLETED" if is_success else "FAILED"
+        outcome_block = f"## 📝 5. Outcome & Verification\n**Status**: {status_str}\n\n{outcome_summary}\n"
+        
+        p = os.path.join(task_folder, "task_memory.md")
+        if os.path.exists(p):
+            with open(p, "r", encoding="utf-8") as f:
+                content = f.read()
+            content = re.sub(r"- \*\*Status\*\*:\s*[A-Z_]+", f"- **Status**: {status_str}", content)
+            content = re.sub(r"## 📝 5\. Outcome & Verification.*?\Z", outcome_block, content, flags=re.DOTALL)
+            with open(p, "w", encoding="utf-8") as f:
                 f.write(content)
 
         # Sync to Tier 2 Episodic Memory (memory/episodic.json)
@@ -285,6 +293,23 @@ class ProjectWorkspace:
             updated = content[:sec_match.start(2)] + updated_sec
         else:
             updated = content + f"\n## 📝 2. Architectural Decisions & Constraints\n- *Decision*: {decision_text}\n"
+            
+        with open(self.memory_path, "w", encoding="utf-8") as f:
+            f.write(updated)
+
+    def sync_task_completion(self, task_id: str, objective: str, artifacts: Optional[List[str]] = None) -> None:
+        """Syncs completed task deliverables, milestones, and indexed files into project_memory.md."""
+        content = self.read_memory()
+        
+        now_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+        deliverable_str = "\n".join([f"  - `{a}`" for a in (artifacts or [])]) if artifacts else "  - (Project files saved in workspace)"
+        
+        entry = f"\n### ✅ Milestone: {objective}\n- **Task ID**: `{task_id}`\n- **Timestamp**: {now_str}\n- **Deliverables**:\n{deliverable_str}\n"
+        
+        if "## 📦 3. Project Milestones & Deliverables" in content:
+            updated = content + entry
+        else:
+            updated = content + f"\n## 📦 3. Project Milestones & Deliverables\n{entry}"
             
         with open(self.memory_path, "w", encoding="utf-8") as f:
             f.write(updated)

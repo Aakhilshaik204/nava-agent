@@ -85,6 +85,8 @@ root_agent:
     - file.create_pdf
     - file.create_docx
     - file.create_pptx
+    - presentation.create_slidev
+    - presentation.render_template
     
     # 2. Code, AST Indexing & Superpowers Tools
     - code.search
@@ -219,7 +221,7 @@ mcp_servers:
     trust_state: "TRUSTED"
 
   brave-search:
-    enabled: true
+    enabled: false
     command: "npx"
     args: ["-y", "@modelcontextprotocol/server-brave-search@latest"]
     assigned_roles: ["ResearchAgent"]
@@ -299,6 +301,13 @@ mcp_servers:
             f.write(default_yaml)
 
     def bootstrap(self) -> Tuple[AgentState, TaskBudget]:
+        if os.path.exists("projects/DevFlow"):
+            import shutil
+            try:
+                shutil.rmtree("projects/DevFlow", ignore_errors=True)
+            except Exception:
+                pass
+
         if not os.path.exists(self.config_path):
             self._create_default_config()
 

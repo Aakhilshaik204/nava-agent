@@ -21,12 +21,28 @@ class DocumentEngine:
         self.artifact_resolver = artifact_resolver or (lambda p: os.path.abspath(p))
 
     def _resolve_target(self, path: str) -> str:
-        clean = path.replace("\\", "/")
-        if clean.startswith(("tasks/", "artifacts/", "scratch/", "projects/", "memory/", ".nava/")):
+        if not path:
+            return self.artifact_resolver("document.pdf")
+        clean = path.replace("\\", "/").lstrip("/")
+        
+        # Explicit project codebase files
+        if clean.startswith("projects/"):
             return self.sanitizer(path)
-        if "/" in clean:
-            return self.path_resolver(path)
-        return self.artifact_resolver(path)
+        elif clean.startswith(("scratch/", "memory/", ".nava/")):
+            return self.sanitizer(path)
+            
+        # Already fully qualified task artifact path
+        if re.match(r"^tasks/tsk_\d{8}_\d{6}_[^/]+/artifacts/", clean):
+            return self.sanitizer(path)
+            
+        # All other document deliverables route strictly to active task artifacts
+        base = os.path.basename(clean)
+        parent_parts = [p for p in os.path.dirname(clean).split("/") if p and p not in ["tasks", "artifacts", "."]]
+        if base.startswith("index.") and parent_parts:
+            ext = os.path.splitext(base)[1]
+            base = f"{parent_parts[-1]}{ext}"
+            
+        return self.artifact_resolver(base)
 
     def compile_typst(self, source: str, output_pdf: str, template_vars: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
@@ -58,6 +74,15 @@ class DocumentEngine:
                 with open(resolved_src, "r", encoding="utf-8", errors="replace") as f:
                     typst_code = f.read()
 
+        # Save/update the .typ source alongside the PDF in task artifacts
+        resolved_typ = resolved_out.replace(".pdf", ".typ")
+        if len(typst_code) > 10:
+            try:
+                with open(resolved_typ, "w", encoding="utf-8") as f:
+                    f.write(typst_code)
+            except Exception:
+                pass
+
         # Substitute template variables if provided
         if template_vars:
             for k, v in template_vars.items():
@@ -67,15 +92,7 @@ class DocumentEngine:
         # 1. Try Native Rust Typst compiler via official python package
         try:
             import typst
-            temp_typ = resolved_out.replace(".pdf", ".typ")
-            with open(temp_typ, "w", encoding="utf-8") as f:
-                f.write(typst_code)
-            typst.compile(temp_typ, output=resolved_out)
-            if os.path.exists(temp_typ):
-                try:
-                    os.remove(temp_typ)
-                except Exception:
-                    pass
+            typst.compile(resolved_typ, output=resolved_out)
             file_size = os.path.getsize(resolved_out)
             return {
                 "success": True,
@@ -83,19 +100,14 @@ class DocumentEngine:
                 "bytes_written": file_size,
                 "compiler": "native-typst-rust"
             }
-        except ImportError:
-            pass
-        except Exception:
+        except (ImportError, Exception):
             pass
 
         # 2. Try Native Typst CLI binary if available in PATH
         typst_bin = shutil.which("typst")
         if typst_bin:
             try:
-                temp_typ = resolved_out.replace(".pdf", ".typ")
-                with open(temp_typ, "w", encoding="utf-8") as f:
-                    f.write(typst_code)
-                res = subprocess.run([typst_bin, "compile", temp_typ, resolved_out], capture_output=True, timeout=15)
+                res = subprocess.run([typst_bin, "compile", resolved_typ, resolved_out], capture_output=True, timeout=15)
                 if res.returncode == 0 and os.path.exists(resolved_out):
                     return {
                         "success": True,
@@ -223,125 +235,231 @@ class DocumentEngine:
         and eliminates raw syntax code leakage.
         """
         # 1. Extract Main Document Title
-        title_match = (
-            re.search(r'#text\([^)]*size:\s*(?:20|22|24|26)pt[^)]*\)\[(.*?)\]', typst_code, re.DOTALL)
-            or re.search(r'=\s*([^=\n\r]+)', typst_code)
-            or re.search(r'#text\([^)]*weight:\s*"bold"[^)]*\)\[(.*?)\]', typst_code, re.DOTALL)
-        )
-        doc_title = "Autonomous AI Governance Brief"
-        if title_match:
-            doc_title = title_match.group(1).replace("\\", "").replace("\n", " ").strip()
-
-        # 2. Extract Subtitle
-        subtitle_match = re.search(r'#text\([^)]*size:\s*(?:11|12)pt[^)]*\)\[(.*?)\]', typst_code, re.DOTALL)
+        doc_title = "Executive Intelligence & Developments Report"
         doc_subtitle = ""
-        if subtitle_match and subtitle_match.group(1).strip() != doc_title:
-            doc_subtitle = subtitle_match.group(1).replace("\\", "").replace("\n", " ").strip()
+        doc_tag = "EXECUTIVE BRIEFING"
 
-        # 3. Extract Metadata Pills
-        meta_items = []
-        for m in re.findall(r'\[\s*\*(Author|Target Audience|Version|Date|Status|Policy Ref)[^:]*:\*\s*([^\]]+)\]', typst_code, re.IGNORECASE):
-            meta_items.append(f"<strong>{m[0]}:</strong> {m[1].strip()}")
+        # Search for title in #text(size: 15..28pt)[Title] or in main header banner
+        t_match = (
+            re.search(r'#text\([^)]*size:\s*(?:14|15|16|17|18|20|22|24|26)pt[^)]*\)\[(.*?)\]', typst_code, re.DOTALL)
+            or re.search(r'=\s*([^=\n\r]+)', typst_code)
+        )
+        if t_match:
+            candidate = t_match.group(1).replace("\\", "").strip()
+            candidate = re.sub(r'#text\([^)]*\)', '', candidate).replace("[", "").replace("]", "").strip()
+            if candidate and len(candidate) > 3 and not candidate.startswith(("1.", "2.", "3.", "==")):
+                doc_title = candidate
+
+        # Subtitle match (e.g. Executive Summary | Headlines & Intelligence ...)
+        sub_match = (
+            re.search(r'#text\([^)]*size:\s*(?:9|9\.5|10|11|12)pt[^)]*\)\[(.*?)\]', typst_code, re.DOTALL)
+            or re.search(r'#text\([^)]*fill:\s*rgb\("#cbd5e0"\)[^)]*\)\[(.*?)\]', typst_code, re.DOTALL)
+        )
+        if sub_match:
+            sub_cand = sub_match.group(1).replace("\\", "").strip()
+            sub_cand = re.sub(r'#text\([^)]*\)', '', sub_cand).replace("[", "").replace("]", "").strip()
+            if sub_cand and sub_cand != doc_title and len(sub_cand) > 5 and not sub_cand.startswith(("1.", "2.", "3.")):
+                doc_subtitle = sub_cand
+
+        # Tag match (e.g. CONFIDENTIAL / BRIEF, REPORT, BRIEFING)
+        tag_match = re.search(r'\[\s*(CONFIDENTIAL[^\]]*|BRIEF[^\]]*|EXECUTIVE[^\]]*|INTELLIGENCE[^\]]*)\s*\]', typst_code, re.IGNORECASE)
+        if tag_match:
+            doc_tag = tag_match.group(1).strip()
+
+        # 2. Clean out pure setup directives and replace links
+        # Strip #set page(...) and other multi-line #set directives
+        clean_code = re.sub(r'#set\s+[a-zA-Z_]+\s*\([^)]*\)', '', typst_code, flags=re.DOTALL)
+        clean_code = re.sub(r'#set\s+page\s*\([^;]*?\)\s*', '', clean_code, flags=re.DOTALL)
+        
+        # Replace #link("...") or #link("...")[text] with <a> tags
+        clean_code = re.sub(
+            r'#link\("([^"]+)"\)(?:\[(.*?)\])?',
+            lambda m: f'<a href="{m.group(1)}" style="color: #2563EB; text-decoration: underline;">{m.group(2) if m.group(2) else m.group(1)}</a>',
+            clean_code
+        )
 
         body_html = []
-        lines = typst_code.split("\n")
+        lines = clean_code.split("\n")
         
+        in_callout = False
+        callout_items = []
+        in_list = False
         in_table = False
-        table_cells = []
-        in_code_block = False
-        
-        # State tracking for block extraction
+        table_rows = []
+
         for line in lines:
             trimmed = line.strip()
-            
-            # Skip pure Typst setup directives and boilerplate
-            if not trimmed or trimmed.startswith("//") or trimmed.startswith("#set ") or trimmed.startswith("#line"):
+            if not trimmed or trimmed.startswith("//") or trimmed.startswith("#v(") or trimmed.startswith("#h("):
                 continue
-            if trimmed.startswith(("header:", "footer:", "locate(", "margin:", "paper:", "width:", "radius:", "stroke:", "fill:", "inset:", "columns:", "align:")):
+            if trimmed.startswith(("#set", "#line", "#page", "#counter", "header:", "footer:", "locate(", "margin:", "paper:", "width:", "radius:", "stroke:", "fill:", "inset:", "columns:", "align:", "spacing:", "leading:")):
                 continue
-            if trimmed in [")", "]", "],", "];", "};"]:
-                if in_table:
-                    in_table = False
-                    if table_cells:
-                        body_html.append("<table class='doc-table'>" + "".join(table_cells) + "</table>")
+            if trimmed in [")", "]", "],", "];", "};", "[", "(", "\\", "---", "***"]:
+                continue
+            if re.match(r'^(size:|spacing:|leading:|justify:|fill:|stroke:|radius:|margin:|paper:|align:)', trimmed):
                 continue
 
-            # Section Headings
-            if trimmed.startswith("= "):
-                clean_h = trimmed[2:].strip().replace("\\", "").replace("[", "").replace("]", "")
-                body_html.append(f"<h1 class='doc-heading'>{clean_h}</h1>")
-            elif trimmed.startswith("== "):
-                clean_h = trimmed[3:].strip().replace("\\", "").replace("[", "").replace("]", "")
-                body_html.append(f"<h2 class='doc-subheading'>{clean_h}</h2>")
-            elif trimmed.startswith("=== "):
-                clean_h = trimmed[4:].strip().replace("\\", "").replace("[", "").replace("]", "")
-                body_html.append(f"<h3 class='doc-subheading-3'>{clean_h}</h3>")
+            # Table handling (| col1 | col2 |)
+            if trimmed.startswith("|") and trimmed.endswith("|"):
+                if in_list:
+                    body_html.append("</ul>")
+                    in_list = False
+                if not in_table:
+                    in_table = True
+                    table_rows = []
                 
-            # Bullet Lists
-            elif trimmed.startswith("- ") or trimmed.startswith("* "):
-                bullet_content = trimmed[2:].strip()
-                # Parse markdown bold
-                bullet_content = re.sub(r'\*([^*]+)\*', r'<strong>\1</strong>', bullet_content)
-                body_html.append(f"<li class='doc-li'>{bullet_content}</li>")
+                # Check if separator row (e.g. | :--- | :--- |)
+                if re.match(r'^\|[\s\-:]+(\|[\s\-:]+)+\|$', trimmed):
+                    continue
                 
-            # Table Header / Body Detection
-            elif trimmed.startswith("#table") or "table.header" in trimmed:
-                in_table = True
-                table_cells = []
-            elif in_table:
-                # Extract text inside [ ... ] cells
-                bracket_matches = re.findall(r'\[(.*?)\]', trimmed)
-                if bracket_matches:
-                    for cell in bracket_matches:
-                        clean_cell = cell.replace("\\", "").strip()
-                        clean_cell = re.sub(r'#text\([^)]*\)', '', clean_cell)
-                        clean_cell = re.sub(r'\*([^*]+)\*', r'<strong>\1</strong>', clean_cell)
-                        if "weight: \"bold\"" in trimmed or "table.header" in line:
-                            table_cells.append(f"<th>{clean_cell}</th>")
-                        else:
-                            table_cells.append(f"<td>{clean_cell}</td>")
-                elif trimmed.startswith(")"):
+                cells = [c.strip() for c in trimmed.strip("|").split("|")]
+                formatted_cells = []
+                for cell in cells:
+                    cell_text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', cell)
+                    cell_text = re.sub(r'\*([^*]+)\*', r'<strong>\1</strong>', cell_text)
+                    cell_text = re.sub(r'_([^_]+)_', r'<em>\1</em>', cell_text)
+                    formatted_cells.append(cell_text)
+                
+                if not table_rows: # First row is headers
+                    th_html = "".join([f"<th style='padding: 8px 10px; border-bottom: 2px solid #CBD5E1; text-align: left; background-color: #F1F5F9; font-size: 8.5pt;'>{c}</th>" for c in formatted_cells])
+                    table_rows.append(f"<thead><tr>{th_html}</tr></thead><tbody>")
+                else:
+                    td_html = "".join([f"<td style='padding: 7px 10px; border-bottom: 1px solid #E2E8F0; font-size: 8.5pt;'>{c}</td>" for c in formatted_cells])
+                    table_rows.append(f"<tr>{td_html}</tr>")
+                continue
+            else:
+                if in_table:
                     in_table = False
-                    if table_cells:
-                        body_html.append("<table class='doc-table'>" + "".join(table_cells) + "</table>")
-            
-            # Callout boxes & Rect blocks
-            elif trimmed.startswith("#rect") or "stroke: 1pt" in trimmed:
-                # Extract inner content if on same line
+                    if table_rows:
+                        table_rows.append("</tbody>")
+                        body_html.append(f"<table style='width: 100%; border-collapse: collapse; margin: 12px 0 16px 0; border: 1px solid #CBD5E1; border-radius: 4px;'>{''.join(table_rows)}</table>")
+                        table_rows = []
+
+            # Heading 1
+            if (trimmed.startswith("= ") or trimmed.startswith("# ")) and not (trimmed.startswith("== ") or trimmed.startswith("## ")):
+                if in_list:
+                    body_html.append("</ul>")
+                    in_list = False
+                h_text = re.sub(r'^[=#]\s+', '', trimmed).replace("\\", "").replace("[", "").replace("]", "").strip()
+                if h_text and h_text != doc_title:
+                    body_html.append(f"<h1 class='doc-heading'>{h_text}</h1>")
+                continue
+
+            # Heading 2 (e.g. == 1. Executive Summary or ## 1. Executive Summary)
+            if (trimmed.startswith("== ") or trimmed.startswith("## ")) and not (trimmed.startswith("=== ") or trimmed.startswith("### ")):
+                if in_list:
+                    body_html.append("</ul>")
+                    in_list = False
+                h_text = re.sub(r'^[=#]{2}\s+', '', trimmed).replace("\\", "").replace("[", "").replace("]", "").strip()
+                body_html.append(f"<h2 class='doc-subheading'>{h_text}</h2>")
+                continue
+
+            # Heading 3
+            if trimmed.startswith("=== ") or trimmed.startswith("### "):
+                if in_list:
+                    body_html.append("</ul>")
+                    in_list = False
+                h_text = re.sub(r'^[=#]{3}\s+', '', trimmed).replace("\\", "").replace("[", "").replace("]", "").strip()
+                body_html.append(f"<h3 class='doc-subheading-3'>{h_text}</h3>")
+                continue
+
+            # Bullet List (- item or * item)
+            if trimmed.startswith("- ") or (trimmed.startswith("* ") and not trimmed.startswith("**")):
+                if not in_list:
+                    body_html.append("<ul class='doc-ul'>")
+                    in_list = True
+                bullet_content = trimmed[2:].strip()
+                bullet_content = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', bullet_content)
+                bullet_content = re.sub(r'\*([^*]+)\*', r'<strong>\1</strong>', bullet_content)
+                bullet_content = re.sub(r'_([^_]+)_', r'<em>\1</em>', bullet_content)
+                # Link conversion inside bullets
+                bullet_content = re.sub(r'\[([^\]]+)\]\((https?://[^)]+)\)', r'<a href="\2" style="color: #2563EB; text-decoration: underline;">\1</a>', bullet_content)
+                body_html.append(f"<li class='doc-li'>{bullet_content}</li>")
+                continue
+
+            # #list([ item 1 ], [ item 2 ])
+            if trimmed.startswith("#list(") or "list(" in trimmed:
+                items = re.findall(r'\[(.*?)\]', trimmed)
+                if items:
+                    if not in_list:
+                        body_html.append("<ul class='doc-ul'>")
+                        in_list = True
+                    for it in items:
+                        clean_it = it.replace("\\", "").strip()
+                        clean_it = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', clean_it)
+                        clean_it = re.sub(r'\*([^*]+)\*', r'<strong>\1</strong>', clean_it)
+                        clean_it = re.sub(r'_([^_]+)_', r'<em>\1</em>', clean_it)
+                        if clean_it and len(clean_it) > 2:
+                            body_html.append(f"<li class='doc-li'>{clean_it}</li>")
+                continue
+
+            # Rect / Callout box
+            if trimmed.startswith("#rect") or "stroke: (" in trimmed or "stroke: left:" in trimmed:
+                in_callout = True
+                callout_items = []
                 inner = re.search(r'\[(.*?)\]', trimmed)
                 if inner:
                     c_text = inner.group(1).replace("\\", "").strip()
+                    c_text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', c_text)
                     c_text = re.sub(r'\*([^*]+)\*', r'<strong>\1</strong>', c_text)
                     body_html.append(f"<div class='callout-box'>{c_text}</div>")
-            
-            # Standard Text Paragraphs
-            else:
-                # If text is enclosed in [#text(...) [...] ] or [ ... ]
-                extracted = re.findall(r'\[(.*?)\]', trimmed)
-                if extracted:
-                    p_text = " ".join(extracted)
+                    in_callout = False
+                continue
+
+            # Inside Callout
+            if in_callout:
+                if trimmed.startswith("]") or trimmed.startswith(")"):
+                    in_callout = False
+                    if callout_items:
+                        body_html.append("<div class='callout-box'>" + "".join(callout_items) + "</div>")
+                        callout_items = []
+                    continue
+                inner_items = re.findall(r'\[(.*?)\]', trimmed)
+                if inner_items:
+                    for it in inner_items:
+                        clean_it = it.replace("\\", "").strip()
+                        clean_it = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', clean_it)
+                        clean_it = re.sub(r'\*([^*]+)\*', r'<strong>\1</strong>', clean_it)
+                        clean_it = re.sub(r'_([^_]+)_', r'<em>\1</em>', clean_it)
+                        if clean_it:
+                            callout_items.append(f"<div style='margin-bottom: 4px;'>• {clean_it}</div>")
                 else:
-                    # Clean out typst function prefixes
-                    p_text = re.sub(r'#text\([^)]*\)', '', trimmed)
-                    p_text = re.sub(r'#(rect|grid|align|v|h)\([^)]*\)', '', p_text)
-                    p_text = p_text.replace("\\", "").replace("#v(", "").replace(")", "").strip()
-                
-                # Format bold / italic
-                p_text = re.sub(r'\*([^*]+)\*', r'<strong>\1</strong>', p_text)
-                p_text = re.sub(r'_([^_]+)_', r'<em>\1</em>', p_text)
-                
-                # Only append if meaningful narrative text
-                if p_text and not p_text.startswith(("#", "columns", "fill:", "stroke:", "radius:", "inset:", "paper:", "margin:")) and len(p_text) > 3:
-                    if "Executive Summary" in p_text and not p_text.startswith("<"):
-                        body_html.append(f"<div class='summary-card'><strong>Executive Summary:</strong> {p_text.replace('Executive Summary', '').strip()}</div>")
-                    else:
-                        body_html.append(f"<p>{p_text}</p>")
+                    c_text = trimmed.replace("\\", "").replace("[", "").replace("]", "").strip()
+                    c_text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', c_text)
+                    c_text = re.sub(r'\*([^*]+)\*', r'<strong>\1</strong>', c_text)
+                    if c_text and not c_text.startswith("#"):
+                        callout_items.append(f"<div>{c_text}</div>")
+                continue
+
+            # Standard text line / Paragraph
+            p_text = re.sub(r'#text\([^)]*\)', '', trimmed)
+            p_text = re.sub(r'#(rect|block|grid|align|v|h|counter)\([^)]*\)', '', p_text)
+            p_text = p_text.replace("\\", "").replace("[", "").replace("]", "").strip()
+            
+            p_text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', p_text)
+            p_text = re.sub(r'\*([^*]+)\*', r'<strong>\1</strong>', p_text)
+            p_text = re.sub(r'_([^_]+)_', r'<em>\1</em>', p_text)
+            p_text = re.sub(r'\[([^\]]+)\]\((https?://[^)]+)\)', r'<a href="\2" style="color: #2563EB; text-decoration: underline;">\1</a>', p_text)
+            
+            if (
+                p_text
+                and len(p_text) > 4
+                and not p_text.startswith(("#", "columns", "fill:", "stroke:", "radius:", "inset:", "paper:", "margin:", "size:", "spacing:"))
+                and p_text not in [doc_title, doc_subtitle, doc_tag]
+            ):
+                if in_list:
+                    body_html.append("</ul>")
+                    in_list = False
+                body_html.append(f"<p>{p_text}</p>")
+
+        if in_list:
+            body_html.append("</ul>")
+        if in_table and table_rows:
+            table_rows.append("</tbody>")
+            body_html.append(f"<table style='width: 100%; border-collapse: collapse; margin: 12px 0 16px 0; border: 1px solid #CBD5E1; border-radius: 4px;'>{''.join(table_rows)}</table>")
+        if in_callout and callout_items:
+            body_html.append("<div class='callout-box'>" + "".join(callout_items) + "</div>")
 
         content_html = "\n".join(body_html)
-
-        meta_pills_html = ""
-        if meta_items:
-            meta_pills_html = "<div class='meta-bar'>" + "".join([f"<span class='meta-pill'>{m}</span>" for m in meta_items]) + "</div>"
 
         subtitle_html = f"<div class='doc-subtitle'>{doc_subtitle}</div>" if doc_subtitle else ""
 
@@ -357,7 +475,7 @@ class DocumentEngine:
     font-size: 9.5pt;
   }
   .banner-container {
-    background-color: #0F172A;
+    background-color: #1E3A8A;
     border-radius: 6px;
     padding: 16px 20px;
     margin-bottom: 20px;
@@ -365,31 +483,21 @@ class DocumentEngine:
   .banner-tag {
     font-size: 8pt;
     font-weight: bold;
-    color: #38BDF8;
+    color: #93C5FD;
     letter-spacing: 1px;
     margin-bottom: 4px;
+    text-transform: uppercase;
   }
   .doc-title {
-    font-size: 18pt;
+    font-size: 17pt;
     font-weight: bold;
     color: #FFFFFF;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .doc-subtitle {
-    font-size: 10pt;
-    color: #94A3B8;
-    margin-bottom: 10px;
-  }
-  .meta-bar {
-    border-top: 1px solid #334155;
-    padding-top: 8px;
-    margin-top: 8px;
-  }
-  .meta-pill {
-    display: inline-block;
-    color: #CBD5E1;
-    font-size: 8pt;
-    margin-right: 18px;
+    font-size: 9.5pt;
+    color: #E2E8F0;
+    margin-bottom: 4px;
   }
   .doc-heading {
     font-size: 13pt;
@@ -404,65 +512,42 @@ class DocumentEngine:
     font-size: 11pt;
     font-weight: bold;
     color: #1E3A8A;
-    margin-top: 12px;
+    margin-top: 14px;
     margin-bottom: 6px;
   }
   .doc-subheading-3 {
     font-size: 10pt;
     font-weight: bold;
     color: #334155;
-    margin-top: 8px;
+    margin-top: 10px;
     margin-bottom: 4px;
-  }
-  .summary-card {
-    background-color: #F0FDF4;
-    border-left: 4px solid #16A34A;
-    padding: 10px 14px;
-    margin: 12px 0;
-    font-size: 9.5pt;
-    color: #14532D;
   }
   .callout-box {
     background-color: #F8FAFC;
-    border-left: 4px solid #0284C7;
-    padding: 8px 12px;
-    margin: 10px 0;
-    font-size: 9pt;
-  }
-  table.doc-table {
-    width: 100%;
-    border-collapse: collapse;
+    border-left: 4pt solid #2563EB;
+    padding: 10px 14px;
     margin: 12px 0;
-    font-size: 8.5pt;
+    font-size: 9.5pt;
+    border-radius: 0 4px 4px 0;
   }
-  table.doc-table th {
-    background-color: #0F172A;
-    color: #FFFFFF;
-    font-weight: bold;
-    padding: 6px 8px;
-    border: 1px solid #CBD5E1;
-    text-align: left;
-  }
-  table.doc-table td {
-    border: 1px solid #CBD5E1;
-    padding: 6px 8px;
-    text-align: left;
-  }
-  table.doc-table tr:nth-child(even) td {
-    background-color: #F8FAFC;
-  }
-  p {
-    margin: 5px 0;
+  ul.doc-ul {
+    margin: 6px 0 10px 18px;
+    padding: 0;
   }
   li.doc-li {
-    margin-bottom: 3px;
+    margin-bottom: 6px;
+    line-height: 1.45;
+  }
+  p {
+    margin: 6px 0;
+    line-height: 1.5;
   }
   .footer-note {
     text-align: center;
     border-top: 1px solid #E2E8F0;
     padding-top: 8px;
     margin-top: 24px;
-    font-size: 7.5pt;
+    font-size: 8pt;
     color: #94A3B8;
   }
 """
@@ -471,13 +556,12 @@ class DocumentEngine:
             + css_style
             + "\n</style>\n</head>\n<body>\n"
             "<div class='banner-container'>\n"
-            "<div class='banner-tag'>NAVA AGENT GOVERNANCE SPECIFICATION</div>\n"
+            f"<div class='banner-tag'>{doc_tag}</div>\n"
             f"<div class='doc-title'>{doc_title}</div>\n"
             + subtitle_html
-            + meta_pills_html
             + "</div>\n"
             + content_html
-            + "\n<div class='footer-note'>NAVA Autonomous AI Governance Framework &bull; Published August 2026 &bull; Enterprise Architecture Series</div>\n"
+            + "\n<div class='footer-note'>NAVA Autonomous Cowork OS &bull; Executive Intelligence Series &bull; Grounded & Verified Deliverable</div>\n"
             + "</body>\n</html>"
         )
         return html_template

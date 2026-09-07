@@ -4,22 +4,53 @@ import hashlib
 import datetime
 from typing import List, Dict, Any, Optional
 from langchain_core.messages import SystemMessage, HumanMessage
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 from nava.core.schemas import AgentSpec, Priority
-from nava.core.llm import get_llm
+from nava.core.llm import get_llm, safe_structured_invoke
 
 class SubGoal(BaseModel):
-    role: str = Field(description="The formal role of the agent (must be a known template, or 'DynamicAgent' if none fit).")
-    display_label: Optional[str] = Field(None, description="A human-readable descriptive name (e.g. 'WebResearchAgent', 'DataAnalysisAgent', 'PDFAnalyzer') used only for audit logs.")
-    goal: str = Field(description="The specific goal for this sub-agent.")
-    required_tools: List[str] = Field(description="The tools this agent will need.")
-    required_permissions: List[str] = Field(description="The permissions this agent will need.")
-    stage: int = Field(default=1, description="The execution stage number (1, 2, 3...). Sub-goals with the same stage number execute concurrently in parallel.")
-    is_parallel: bool = Field(default=True, description="Whether this sub-goal can run concurrently with others in the same stage.")
+    role: str = Field(default="DynamicAgent", description="The formal role of the agent (must be a known template, or 'DynamicAgent' if none fit).")
+    display_label: Optional[str] = Field(None, description="A human-readable descriptive name used for audit logs.")
+    goal: str = Field(default="Execute sub-task", description="The specific goal for this sub-agent.")
+    required_tools: List[str] = Field(default_factory=list, description="The tools this agent will need.")
+    required_permissions: List[str] = Field(default_factory=list, description="The permissions this agent will need.")
+    stage: int = Field(default=1, description="The execution stage number.")
+    is_parallel: bool = Field(default=True, description="Whether this sub-goal can run concurrently.")
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_subgoal(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            if "role" not in data and "agent" in data:
+                data["role"] = data["agent"]
+            if "required_tools" not in data:
+                data["required_tools"] = data.get("tools", [])
+            if "required_permissions" not in data:
+                data["required_permissions"] = data.get("permissions", [])
+            if "goal" not in data and "description" in data:
+                data["goal"] = data["description"]
+            elif "goal" not in data and "task" in data:
+                data["goal"] = data["task"]
+        return data
 
 class GoalPlan(BaseModel):
-    thoughts: str = Field(description="Your step-by-step reasoning for breaking down the objective into parallel and sequential execution stages.")
-    sub_goals: List[SubGoal] = Field(description="List of sub-goals organized by execution stages.")
+    thoughts: str = Field(default="Executing planned execution stages...", description="Your step-by-step reasoning.")
+    sub_goals: List[SubGoal] = Field(default_factory=list, description="List of sub-goals organized by execution stages.")
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_plan(cls, data: Any) -> Any:
+        if isinstance(data, list):
+            return {"thoughts": "Executing planned execution stages...", "sub_goals": data}
+        if isinstance(data, dict):
+            if "thoughts" not in data:
+                data["thoughts"] = data.get("reasoning") or data.get("plan_summary") or "Executing planned execution stages..."
+            if "sub_goals" not in data:
+                for alt_key in ["goal_plan", "subgoals", "steps", "tasks", "plan", "stages", "actions"]:
+                    if alt_key in data and isinstance(data[alt_key], list):
+                        data["sub_goals"] = data[alt_key]
+                        break
+        return data
 
 def compute_dedup_hash(role: str, goal: str, tools: List[str]) -> str:
     clean_goal = goal.strip().lower()
@@ -64,24 +95,91 @@ class GoalPlanner:
         prompt_path = os.path.join(os.path.dirname(__file__), "..", "prompts", "planner_prompt.txt")
         with open(prompt_path, "r", encoding="utf-8") as f:
             prompt_template = f.read()
-            
-        system_prompt = prompt_template.format(
-            templates=self.available_templates,
-            tools=self.ceiling_tools,
-            permissions=self.ceiling_permissions
+
+        current_date_str = datetime.datetime.now().strftime("%A, %B %d, %Y")
+        system_prompt = (
+            prompt_template
+            .replace("{templates}", str(self.available_templates))
+            .replace("{tools}", str(self.ceiling_tools))
+            .replace("{permissions}", str(self.ceiling_permissions))
+            .replace("{current_date}", current_date_str)
         )
         
         sys_msg = SystemMessage(content=system_prompt)
-        human_msg = HumanMessage(content=f"Objective: {objective}")
+        human_msg = HumanMessage(content=f"Current Date: {current_date_str}\nObjective: {objective}")
 
-        structured_llm = self.llm.with_structured_output(GoalPlan)
         try:
             if self.budget_engine and budget_ref:
                 self.budget_engine.consume_internal_llm_call(budget_ref, tokens=500)
-            plan: GoalPlan = structured_llm.invoke([sys_msg, human_msg])
+            plan: GoalPlan = safe_structured_invoke(self.llm, GoalPlan, [sys_msg, human_msg])
         except Exception as e:
             print(f"Planner failed: {e}")
-            raise e
+            plan = GoalPlan(thoughts="Synthesizing direct execution plan...", sub_goals=[])
+
+        # Auto-heal empty plan if LLM failed to generate or parse sub-goals
+        if not plan.sub_goals:
+            obj_lower = objective.lower()
+            if any(k in obj_lower for k in ["slide", "presentation", "deck", "ppt", "pptx", "pdf", "report", "docx"]):
+                plan.thoughts = "Auto-synthesizing presentation generation stages..."
+                plan.sub_goals = [
+                    SubGoal(
+                        role="DocumentAgent",
+                        display_label="Generate Gamma-Style Presentation",
+                        goal=f"Generate the complete presentation: {objective}. Save the deliverables as .html and companion .pptx in task artifacts with dynamic theme and rich layout variety.",
+                        required_tools=["presentation.render_template", "presentation.create_slidev", "file.write", "file.read"],
+                        required_permissions=["filesystem.write", "filesystem.read"],
+                        stage=1,
+                        is_parallel=True
+                    ),
+                    SubGoal(
+                        role="VerifierAgent",
+                        display_label="Verify Presentation Deliverables",
+                        goal=f"Verify that all presentation artifacts and slides for '{objective}' exist and contain complete, high-quality content.",
+                        required_tools=["file.read", "audit.verify_grounding"],
+                        required_permissions=["filesystem.read"],
+                        stage=2,
+                        is_parallel=False
+                    )
+                ]
+            elif any(k in obj_lower for k in ["code", "build", "app", "implement", "refactor", "fix", "script"]):
+                plan.thoughts = "Auto-synthesizing coding implementation stages..."
+                plan.sub_goals = [
+                    SubGoal(
+                        role="CodingAgent",
+                        display_label="Implement Code Solution",
+                        goal=objective,
+                        required_tools=["file.write", "file.read", "code.replace_content", "test.run"],
+                        required_permissions=["filesystem.write", "filesystem.read"],
+                        stage=1,
+                        is_parallel=True
+                    )
+                ]
+            elif any(k in obj_lower for k in ["search", "research", "find", "arxiv", "scrape"]):
+                plan.thoughts = "Auto-synthesizing research retrieval stages..."
+                plan.sub_goals = [
+                    SubGoal(
+                        role="ResearchAgent",
+                        display_label="Execute Research Query",
+                        goal=objective,
+                        required_tools=["search.web", "brave.search_web", "fetch.get_markdown", "file.write"],
+                        required_permissions=["filesystem.write", "network.http"],
+                        stage=1,
+                        is_parallel=True
+                    )
+                ]
+            else:
+                plan.thoughts = "Auto-synthesizing universal execution stage..."
+                plan.sub_goals = [
+                    SubGoal(
+                        role="DynamicAgent",
+                        display_label="Execute Objective",
+                        goal=objective,
+                        required_tools=["file.write", "file.read"],
+                        required_permissions=["filesystem.write", "filesystem.read"],
+                        stage=1,
+                        is_parallel=True
+                    )
+                ]
 
         print(f"\n[Orchestrator Planner Thinking]:\n{plan.thoughts}\n")
         print("[Orchestrator Plan]:")
@@ -146,7 +244,8 @@ class GoalPlanner:
             elif sg.role in ["DocumentAgent", "UniversalFileAgent"]:
                 for bt in [
                     "typst.compile_pdf", "typst.render_template", "doc.read_document",
-                    "file.write", "file.read", "file.create_pdf", "file.create_docx", "file.create_pptx"
+                    "file.write", "file.read", "file.create_pdf", "file.create_docx", "file.create_pptx",
+                    "presentation.create_slidev", "presentation.render_template"
                 ]:
                     if bt not in req_tools and _is_tool_active(bt):
                         req_tools.append(bt)

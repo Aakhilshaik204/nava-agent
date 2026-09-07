@@ -1,0 +1,14 @@
+{
+  "name": "nava-agent-os",
+  "version": "1.0.0",
+  "description": "NAVA Autonomous Agentic Cowork OS",
+  "scripts": {
+    "slidev": "slidev",
+    "slidev:export": "slidev export --format pptx"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^0.50.0",
+    "@slidev/theme-default": "^0.25.0",
+    "playwright-chromium": "^1.62.1"
+  }
+}

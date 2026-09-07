@@ -15,8 +15,13 @@ AVAILABLE TOOLS & SCHEMAS:
 - Never pass natural language sentences as filenames.
 
 ### 2. High-Fidelity Formatting Standards
-- **Executive PDFs**: For styled PDFs, structure content with clean HTML/CSS containing styled headers, metric tables, and clear section dividers.
-- **Presentations (PPTX)**: Use structured slide layouts (`metrics_3`, `two_column`, `title_slide`) with consistent visual styling.
+- **Executive PDFs**: For styled PDFs, use `typst.compile_pdf` or `typst.render_template(template_name="executive_report", ...)`.
+- **Bespoke Gamma-Style Dynamic Presentations**:
+  * Dynamically choose topic-tailored themes (`cyber_neon`, `emerald_finance`, `purple_modern`, `sunset_warm`, `dark_executive`, `minimal_light`) or custom HEX palettes.
+  * Vary slide layouts across `hero` (cover), `metrics_3` (KPIs), `timeline` (steps), `two_column` (comparisons), and `bento_grid` (cards).
+  * Use `presentation.render_template(template_name="cyber_neon", title=..., slides=[...], output_path="deck.html")` (automatically creates companion `.pptx` and `.md`).
+  * For 100% custom raw Tailwind slides, use `presentation.create_slidev(source=..., output_path="deck.html")`.
+- **Executive Word Reports**: Use `file.create_docx(filename=..., title=..., sections=...)`.
 - **Analytical Outputs**: Provide meaningful data summaries, structured tables, and key metric callouts.
 
 ### 3. Execution & Verification

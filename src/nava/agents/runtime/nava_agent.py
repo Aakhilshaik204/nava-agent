@@ -15,11 +15,11 @@ from typing import TypedDict, Optional, Dict, Any, List
 
 from langgraph.graph import StateGraph, START, END
 from langchain_core.messages import SystemMessage, HumanMessage
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 from nava.core.schemas import AgentState, ToolRequest, ResultEnum, AgentStatus, Event
 from nava.gateway.pipeline import ActionGateway
-from nava.core.llm import get_llm
+from nava.core.llm import get_llm, safe_structured_invoke
 
 
 # ── State ─────────────────────────────────────────────────────────────────────
@@ -37,13 +37,44 @@ class NavaAgentState(TypedDict):
 # ── Output schema ─────────────────────────────────────────────────────────────
 
 class NavAction(BaseModel):
-    tool_name: str = Field(description="The tool to execute")
-    arguments: Dict[str, Any] = Field(description="Arguments for the tool — exact values, not natural language sentences")
-    requested_scope: str = Field(description="The permission scope required for this tool")
+    tool_name: str = Field(default="file.write")
+    arguments: Dict[str, Any] = Field(default_factory=dict)
+    requested_scope: str = Field(default="")
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_action(cls, data: dict) -> dict:
+        if not isinstance(data, dict):
+            return data
+        if "tool_name" not in data:
+            data["tool_name"] = data.get("tool") or data.get("action") or data.get("function") or "file.write"
+        if "arguments" not in data:
+            extracted_args = data.get("args") or data.get("params") or data.get("parameters") or data.get("input") or data.get("data")
+            if isinstance(extracted_args, dict):
+                data["arguments"] = extracted_args
+            else:
+                reserved = {"tool_name", "tool", "action", "function", "requested_scope"}
+                extra_args = {k: v for k, v in data.items() if k not in reserved}
+                data["arguments"] = extra_args if extra_args else {}
+        return data
 
 class NavPlan(BaseModel):
-    thoughts: str = Field(description="Step-by-step reasoning: intent → derived keywords/values → chosen tool(s).")
-    actions: List[NavAction] = Field(description="Ordered list of tool actions to execute")
+    thoughts: str = Field(default="Analyzing task and preparing tool actions...")
+    actions: List[NavAction] = Field(default_factory=list)
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_plan(cls, data: dict) -> dict:
+        if not isinstance(data, dict):
+            return data
+        if "thoughts" not in data:
+            data["thoughts"] = data.get("reasoning") or data.get("thought") or data.get("rationale") or "Analyzing task..."
+        if "actions" not in data:
+            if "action" in data:
+                data["actions"] = [data["action"]] if isinstance(data["action"], dict) else []
+            else:
+                data["actions"] = []
+        return data
 
 
 # ── Nodes ─────────────────────────────────────────────────────────────────────
@@ -62,34 +93,30 @@ def analyze_node(state: NavaAgentState) -> NavaAgentState:
             )
             for tool_name in agent_state.tool_scope
         ]
-        state["plan"] = NavPlan(thoughts="test mode", actions=actions)
+        state["plan"] = NavPlan(thoughts="Test mode — executing ceiling tools.", actions=actions)
         return state
 
     # Load prompt from prompts folder
     prompt_path = os.path.join(
         os.path.dirname(__file__), "..", "..", "prompts", "nava_agent_prompt.txt"
     )
-    with open(prompt_path, "r", encoding="utf-8") as f:
-        prompt_template = f.read()
+    try:
+        with open(prompt_path, "r", encoding="utf-8") as f:
+            prompt_template = f.read()
+    except Exception:
+        prompt_template = "You are NavaAgent. Role: {role}. Goal: {goal}\nTools: {tools}"
 
     tool_schemas_str = json.dumps(payload.get("available_tool_schemas", {}), indent=2)
 
-    system_prompt = prompt_template.format(
-        role=agent_state.role,
-        goal=agent_state.goal,
-        tools=agent_state.tool_scope,
-        scopes=agent_state.permission_scope,
-        tool_schemas_str=tool_schemas_str,
-    )
+    system_prompt = prompt_template.replace("{role}", agent_state.role).replace("{goal}", agent_state.goal).replace("{tools}", str(agent_state.tool_scope)).replace("{scopes}", str(agent_state.permission_scope)).replace("{tool_schemas_str}", tool_schemas_str)
 
     llm = get_llm()
-    structured_llm = llm.with_structured_output(NavPlan)
 
     sys_msg = SystemMessage(content=system_prompt)
     human_msg = HumanMessage(content=f"Context payload: {json.dumps(payload)}\n\nReason and produce your action plan.")
 
     try:
-        plan: NavPlan = structured_llm.invoke([sys_msg, human_msg])
+        plan: NavPlan = safe_structured_invoke(llm, NavPlan, [sys_msg, human_msg])
         print(f"\n[{agent_state.role} Thinking]:\n{plan.thoughts}\n")
         print(f"[{agent_state.role} Actions]:")
         for act in plan.actions:

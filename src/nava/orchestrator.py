@@ -63,7 +63,8 @@ class Orchestrator:
             "database.read", "database.write", "data.analyze", "sqlite.*", "data.*",
             "ast.read", "ast.write", "context7.*", "superpowers.*",
             "git.read", "git.write", "filesystem.read", "filesystem.write",
-            "test.run", "terminal.execute", "browser.*", "desktop.*", "search.web", "gmail.read"
+            "test.run", "terminal.execute", "browser.*", "desktop.*", "search.web", "gmail.read",
+            "subagent.spawn", "subagent.*"
         ]:
             if not any(r.scope == scope for r in default_rules):
                 default_rules.append(PolicyRule(rule_id=f"rule-{len(default_rules)+1}", scope=scope, condition="", outcome=Outcome.ALLOW, priority=1))
@@ -381,9 +382,10 @@ class Orchestrator:
 
         agent_specs = self.planner.plan(enhanced_objective, self.root_agent.agent_id, budget_ref=self.root_agent.budget_ref)
         
-        # Record plan into task_memory.md
+        # Record plan into task_memory.md, task.md, and implementation_plan.md
         stages_desc = [f"[Stage {getattr(s, 'stage', 1)}] {s.requested_role} → {s.goal}" for s in agent_specs]
-        self.task_manager.record_plan(active_task_id, stages_desc)
+        proj_name = self.workspace.project_name if hasattr(self, 'workspace') and self.workspace else "default"
+        self.task_manager.record_plan(active_task_id, stages_desc, objective=goal, project_id=proj_name)
 
         # Render Rich Orchestrator Plan
         from nava.ui.terminal import BoxRenderer, TerminalTheme, AgentTreeVisualizer
@@ -466,6 +468,18 @@ class Orchestrator:
                             rel_p = os.path.relpath(os.path.join(root, f), os.getcwd())
                             artifacts.append(rel_p)
                             
+                self.task_manager.complete_task(
+                    active_task_id, 
+                    outcome_summary=f"Task completed successfully in {duration_sec}s across {len(agent_specs)} execution stages with {len(artifacts)} deliverables produced.",
+                    is_success=True, 
+                    artifacts=artifacts,
+                    project_id=proj_name
+                )
+                if hasattr(self, 'workspace') and self.workspace:
+                    try:
+                        self.workspace.sync_task_completion(active_task_id, goal, artifacts)
+                    except Exception:
+                        pass
                 print("\n" + BoxRenderer.render_completion_card(
                     goal=goal,
                     task_id=active_task_id,
@@ -474,13 +488,13 @@ class Orchestrator:
                     total_subtasks=len(agent_specs)
                 ))
             else:
-                self.task_manager.complete_task(active_task_id, outcome_summary="Task halted by emergency stop.", is_success=False)
+                self.task_manager.complete_task(active_task_id, outcome_summary="Task halted by emergency stop.", is_success=False, project_id=proj_name)
                 print(f"\n{TerminalTheme.CRIMSON}🛑 Task halted by Emergency Stop.{TerminalTheme.RESET}")
 
         except KeyboardInterrupt:
             print(f"\n\n{TerminalTheme.CRIMSON}{TerminalTheme.BOLD}🚨 KEYBOARD INTERRUPT (Ctrl+C) DETECTED! TRIGGERING EMERGENCY STOP...{TerminalTheme.RESET}")
             self.emergency_stop()
-            self.task_manager.complete_task(active_task_id, outcome_summary="Emergency stop triggered via Ctrl+C.", is_success=False)
+            self.task_manager.complete_task(active_task_id, outcome_summary="Emergency stop triggered via Ctrl+C.", is_success=False, project_id=proj_name)
             print(f"{TerminalTheme.CRIMSON}🛑 In-flight agents aborted. Scoped credentials revoked. Concurrency locks released.{TerminalTheme.RESET}")
         finally:
             self._emergency_stop_event.clear()
@@ -620,11 +634,15 @@ class Orchestrator:
                                 rev_spec = AgentSpec(
                                     request_id=f"req-{uuid.uuid4().hex[:8]}",
                                     requested_role="ReviewerAgent",
-                                    goal=f"Analyze why the CodingAgent is stuck in an infinite loop failing with: {error_str}",
+                                    goal=f"Analyze why {child_agent.role} failed: {error_str}",
                                     parent_agent_id=self.root_agent.agent_id,
                                     requested_tools=["code.diff_review", "file.read"],
                                     requested_permission_scope=["filesystem.read"],
-                                    ttl=datetime.timedelta(minutes=10)
+                                    ttl=datetime.timedelta(minutes=10),
+                                    max_steps=5,
+                                    max_tokens=2000,
+                                    max_children=0,
+                                    dedup_hash=f"rev-{uuid.uuid4().hex[:8]}"
                                 )
                                 try:
                                     rev_agent = self.factory.spawn_agent(rev_spec, self.root_agent)

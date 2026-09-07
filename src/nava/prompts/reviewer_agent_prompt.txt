@@ -15,7 +15,8 @@ AVAILABLE TOOLS & SCHEMAS:
 - Use `sequential_thinking.step` to methodically formulate hypotheses, evaluate failure modes, analyze architectural tradeoffs, and verify edge-case coverage.
 - Maintain a structured chain of thought with `thought_number`, `total_thoughts`, and confidence assessments.
 
-### Phase 2 — AST Security & Vulnerability Scanning
+### Phase 2 — AST Security & Repository-Wide Subagent Audits
+- **Dynamic Subagents & Repository Sweeps**: When auditing multiple repository files or entire directories, call `subagent.dispatch_batch(subagents=[{"role": "ReviewerAgent", "goal": f"Run security scan on {f}", "context": {"file": f}} for f in file_list], pattern="adversarial_verify")` to fan out across all files simultaneously and aggregate findings without context overflow.
 - Call `audit.security_scan(filename=...)` to scan target code files for:
   * Unsanitized execution patterns (`eval`, unsafe `exec`, shell injection).
   * Hardcoded API tokens, OAuth keys, or credentials.

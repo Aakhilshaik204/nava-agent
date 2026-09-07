@@ -3,9 +3,9 @@ import re
 from typing import Dict, Any, List
 from langgraph.graph import StateGraph, END
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, model_validator
 from nava.core.schemas import AgentState, ToolRequest
-from nava.core.llm import get_llm
+from nava.core.llm import get_llm, safe_structured_invoke
 from nava.governance.dom_sanitizer import sanitize_dom
 
 # Max history entries to keep (sliding window = last N message pairs)
@@ -27,9 +27,28 @@ def _sanitize_error(error_str: str) -> str:
 
 
 class BrowserPlan(BaseModel):
-    thoughts: str
-    tool_name: str
-    arguments: dict
+    thoughts: str = Field(default="Navigating browser and observing web elements...")
+    tool_name: str = Field(default="browser.navigate")
+    arguments: dict = Field(default_factory=dict)
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_action(cls, data: dict) -> dict:
+        if not isinstance(data, dict):
+            return data
+        if "thoughts" not in data:
+            data["thoughts"] = data.get("reasoning") or data.get("thought") or data.get("rationale") or "Navigating browser..."
+        if "tool_name" not in data:
+            data["tool_name"] = data.get("tool") or data.get("action") or data.get("function") or "browser.navigate"
+        if "arguments" not in data:
+            extracted_args = data.get("args") or data.get("params") or data.get("parameters") or data.get("input") or data.get("data")
+            if isinstance(extracted_args, dict):
+                data["arguments"] = extracted_args
+            else:
+                reserved = {"thoughts", "reasoning", "thought", "rationale", "tool_name", "tool", "action", "function"}
+                extra_args = {k: v for k, v in data.items() if k not in reserved}
+                data["arguments"] = extra_args if extra_args else {}
+        return data
 
 def build_browser_agent(registry=None) -> StateGraph:
     """Builds the Tier 2 cyclic BrowserAgent execution graph."""
@@ -58,31 +77,32 @@ def build_browser_agent(registry=None) -> StateGraph:
         # If observation is extracted text, just truncate it
         if isinstance(observation, dict) and "text" in observation:
             text = observation["text"]
-            observation = f"Extracted Page Text:\n{text[:8000]}"
-            if len(text) > 8000:
-                observation += "\n... [TRUNCATED — use browser.save_to_scratch to save the full text]"
+            if len(text) > 4000:
+                observation = text[:4000] + "... [TRUNCATED]"
+            else:
+                observation = text
         
-        # Inject tool schemas
-        tool_schemas = []
+        llm = get_llm()
+        
+        tool_schemas_str = "No tools available."
         if registry:
+            tool_schemas = []
             for t_name in agent_state.tool_scope:
                 t_def = registry.get_tool(t_name)
                 if t_def:
                     tool_schemas.append(f"- {t_name}: {t_def.description}\n  Schema: {json.dumps(t_def.input_schema)}")
-        tool_schemas_str = "\n".join(tool_schemas)
+            if tool_schemas:
+                tool_schemas_str = "\n".join(tool_schemas)
 
-        llm = get_llm()
-        structured_llm = llm.with_structured_output(BrowserPlan)
-        
         import os
-        prompt_path = os.path.join(os.path.dirname(__file__), "..", "..", "prompts", "browser_prompt.txt")
-        with open(prompt_path, "r", encoding="utf-8") as f:
-            prompt_template = f.read()
+        prompt_path = os.path.join(os.path.dirname(__file__), "..", "..", "prompts", "browser_agent_prompt.txt")
+        try:
+            with open(prompt_path, "r", encoding="utf-8") as f:
+                prompt_template = f.read()
+        except Exception:
+            prompt_template = "You are BrowserAgent. Goal: {goal}\nTools: {tool_schemas}"
             
-        system_prompt = prompt_template.format(
-            goal=agent_state.goal,
-            tool_schemas=tool_schemas_str
-        )
+        system_prompt = prompt_template.replace("{goal}", agent_state.goal).replace("{tool_schemas}", tool_schemas_str)
         messages = [SystemMessage(content=system_prompt)]
         
         # Sliding window history — keep only the last N pairs
@@ -105,7 +125,7 @@ def build_browser_agent(registry=None) -> StateGraph:
         messages.append(HumanMessage(content=f"Current Observation:\n{observation}\n\nWhat is your next action?"))
         
         try:
-            plan = structured_llm.invoke(messages)
+            plan = safe_structured_invoke(llm, BrowserPlan, messages)
             
             # Record our own thought/action to history for the next iteration
             # Truncate observation in history to save context
@@ -114,7 +134,7 @@ def build_browser_agent(registry=None) -> StateGraph:
             history.append(AIMessage(content=f"Thought: {plan.thoughts}\nAction: {plan.tool_name}({json.dumps(plan.arguments)})"))
             state["history"] = history
             
-            if plan.tool_name == "finish" or plan.tool_name.lower() == "none" or plan.tool_name.lower() == "stop":
+            if plan.tool_name.lower() in ["finish", "none", "stop"]:
                 state["plan"] = "FINISH"
                 state["final_answer"] = plan.thoughts
                 state["tool_request"] = None

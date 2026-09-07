@@ -19,10 +19,19 @@ AVAILABLE TOOLS:
     - Headings: `= Main Title`, `== Section Header`, `=== Subheading`.
     - Content Blocks: Wrap blocks in `[...]` (e.g. `#rect(...)[ #text(size: 14pt)[Block Title] ]`).
     - Tables: Use `table.header([...], [...])` and wrap all cells in brackets `[...]`.
-    - Line Breaks: Use `\` at line ends; never place `#` inside `{ ... }` code mode.
+    - Line Breaks: Use `\` at line ends; never place `#` inside raw code blocks.
   * Compile using `typst.compile_pdf(source="document.typ", output_pdf="document.pdf")` or use styled templates via `typst.render_template(template_name="executive_report", ...)`.
 - **Executive Word Reports**: Use `file.create_docx(filename=..., title=..., sections=...)`.
-- **Gamma-Style Presentations**: Use `file.create_pptx(filename=..., title=..., slides=...)`.
+- **Bespoke Gamma-Style Dynamic Presentations**:
+  * **Dynamic Design & Palette Selection**: Never make presentations look identical. Choose a topic-tailored theme name (`cyber_neon` for dev tools/AI, `emerald_finance` for business/growth, `purple_modern` for products/creative, `sunset_warm` for strategy/media, `dark_executive` for governance, `minimal_light` for clean docs) or pass custom HEX `theme={"primaryColor": "#...", "accentColor": "#...", "backgroundColor": "#..."}`.
+  * **Diverse Slide Layouts**: Intelligently vary layouts across the deck:
+    - **Slide 1 (Hero/Cover)**: `layout="hero"`, `title=...`, `subtitle=...`, `badge="PRODUCT LAUNCH"`, `content=["Takeaway 1", "Takeaway 2"]`.
+    - **Slide 2 (Metrics/KPIs)**: `layout="metrics_3"`, `metrics=[{"value": "99.4%", "label": "Accuracy", "subtext": "..."}]`.
+    - **Slide 3 (Pillars / Steps / Bento)**: `layout="timeline"` with `steps=[...]` OR `layout="card_grid"` with `cards=[...]`.
+    - **Slide 4 (Comparison / Split)**: `layout="two_column"` with `column_left={"title": "...", "subtitle": "...", "items": [...]}` and `column_right={"title": "...", "subtitle": "...", "items": [...]}`.
+  * **Tool Invocations**:
+    - Use `presentation.render_template(template_name="cyber_neon", title=..., slides=[...], output_path="deck.html")`. (Automatically creates companion `.pptx` and `.md`!).
+    - Or for 100% custom raw Tailwind code, use `presentation.create_slidev(source="slides.md" or raw markdown, output_path="deck.html")`.
 
 ### Phase 3 — Verification & Completion
 - Confirm that target document files were created in task artifacts with valid content.
